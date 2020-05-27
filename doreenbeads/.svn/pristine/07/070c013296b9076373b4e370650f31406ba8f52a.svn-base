@@ -1,0 +1,93 @@
+    .clearfix{ clear:both; height:0; font-size: 1px; line-height:0px; overflow:hidden;}
+    .no_picture{width: 1000px;margin: 0 auto;font-family: arial;font-size:14px;}
+    .no_picture img{display: block;border: 0;}
+    .no_picture h2,.no_picture p,.no_picture h3{margin: 0;padding: 0;}
+    .no_picture .np_banner{padding-left: 492px;background:url(../images/banner.jpg) #f4f4f4 no-repeat 0 0;height:292px;}
+    .no_picture .np_banner h2{padding-top: 20px;width:460px;font-weight: bold;font-size:36px;}
+    .no_picture .np_banner p{line-height: 22px;width: 460px;padding-top:15px;}
+    .no_picture .service_detail{margin-top:30px;margin-left: 20px;}
+    .no_picture .service_detail .detail{border: 1px solid #92b1eb;width: 429px;height:190px;padding:22px 15px;font-size: 16px;color: #56596c;}
+    .no_picture .service_detail .d_left{float: left;}
+    .no_picture .service_detail img{display: block;border: 0;margin: 0 auto;margin-bottom:25px;}
+    .no_picture .service_detail p{line-height: 24px;}
+    .no_picture .service_detail p b{font-weight: bold;color:#f39700;}
+    .no_picture .service_detail p span{color:red;}
+    .no_picture .service_detail p.note{font-size: 14px;color: #353535;margin-top: 10px;}
+    .no_picture .service_detail .d_right{float: left;margin-left: 36px;}
+    .no_picture .np_title{margin:50px 0 30px 20px;}
+    .no_picture .np_title h3{padding-left: 26px;background: url(../images/arrow.jpg) no-repeat 0 0;color: #464647;font-size: 20px;line-height: 21px;height: 21px;margin-bottom:20px;}
+    
+    .no_picture .np_btn{background:#b260cd;background-image:-moz-linear-gradient(top, #d476f3, #b260cd);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #d476f3), color-stop(1, #b260cd));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d476f3', endColorstr='#b260cd', GradientType='0');border-radius:2px;display:block;width:240px;height:28px;border:#974baf 1px solid;font-size:15px;font-weight:bold;color:#fff;text-align:center;line-height:28px;font-family:Arial,Helvetica,sans-serif;text-decoration: none;}
+    
+    .no_picture .np_left{float: left;margin-left: 136px;margin-top: 20px;}
+    .no_picture .np_right{float: left;margin-left: 38px;margin-top: 20px;}
+    .wrap {
+        width: 1000px;
+        margin: 0 auto;
+        font-size: 1.2em;
+    }
+    .sourcing #header {
+        margin-top: 20px;
+        height: 62px;
+        margin-bottom: 22px;
+    }
+    .no_picture p.np_require{line-height: 20px; padding-left: 27px;}
+    .no_picture p.np_require a{color: #008FED;}
+    .no_picture p.np_require a:hover{color: #f60;text-decoration: underline;}
+    #upload_file_windows{
+        width: 710px;
+        left: 50%;
+        margin: 0 auto auto -336px;
+        height: auto;
+        border: 1px solid #a1a1a1;
+        position: fixed;
+        background: #fff;
+        z-index: 100001;
+        box-shadow: #666 2px 2px 1px;
+        top:30%
+    }
+    .windowbody{
+        z-index: 9999;
+        height: 1874px;
+        top: 0px;
+        background: none repeat scroll 0px 0px rgb(102,102,102);
+        position: absolute;
+        left: 0px;
+    }
+    #upload_file_title{
+        background: url(/includes/templates/cherry_zen/css/en/images/btnbg_detail.gif) 0 -263px;
+        line-height: 34px;
+        height: 34px;
+        padding: 0 10px;
+    }
+    #upload_file_title strong{
+        float: left;
+        font-family: Tahoma;
+        font-size: 16px;
+        text-shadow: #fff 1px 1px 0px;
+    }
+    
+    #upload_file_title span{
+        display: block;
+        cursor: pointer;
+        float: right;
+        background: url(/includes/templates/cherry_zen/css/en/images/btnbg_detail.gif) 0 -297px;
+        width: 22px;
+        height: 22px;
+        margin-top: 6px;
+    }
+    #upload_file_content{padding: 20px;}
+    #upload_file_input{
+        height: 45px;
+        padding-top: 20px;
+        margin-left: 15px;
+    }
+    #error_info{color:red;}
+    #upload_file_button{
+        display: inline-block;
+        margin: 5px auto;
+        width: 120px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: #b260cd;
+    }

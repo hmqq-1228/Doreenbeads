@@ -1,0 +1,79 @@
+.wrap-page{width: 100%;height: 100%;flex-grow: 1;overflow: auto;max-width: 640px;margin: 0 auto;-webkit-overflow-scrolling: touch;}
+p,ol,li,h3{margin:0;padding:0;}
+img{border:0;display:inline-block;}
+
+.promotion1111_wrap{margin: 0 auto;background:  repeat-y 0 0;padding-bottom: 26px;font-family: arial;}
+.promotion1111_wrap img{border: 0;display: block;width: 100%;}
+.promotion1111_wrap h3{margin: 0;padding: 0;font-weight: normal;}
+.promotion1111_wrap ol,.promotion1111_wrap li{list-style: none;list-style-type: none;margin: 0;padding: 0;}
+.promotion1111{background: #fff;margin: 0 4%;padding: 40px 4%;}
+.promotion1111_small{display: none;}
+.promotion1111_small{width: 100%;}
+.promotion1111 td{padding:0 2% 20px 0;width: 46%}
+.notice_1111{background:url("../images/linebg_1111.jpg") repeat-x 0 0;padding-top:29px;margin-top: 10px;}
+.promotion1111_wrap .notice_1111 h3{font-weight: bold;font-size: 20px;margin: 10px 0 10px 15px;}
+.promotion1111_wrap .notice_1111 ol{margin-left: 20px;}
+.promotion1111_wrap .notice_1111 li{list-style: decimal;line-height: 24px;font-size: 16px;}
+.promotion1111_wrap .notice_1111 span{color: red;}
+.promotion1111_wrap .notice_1111 b{font-weight: bold;}
+@media screen and (max-width: 450px){
+    .promotion1111_normal{display: none;}
+    .promotion1111_small{display: block;}
+
+
+}
+.en_btnBox{
+    height: 95px;
+    padding: 10px 0;
+    box-sizing: border-box;
+    background-color: #2b0262;
+    text-align: center;
+   }
+   .en_btnBox div{
+    background-color: #fe28bc;
+    display: inline-block;
+    width: auto;
+    margin: 0 auto;
+    font-size: 22px;
+    font-family: Arial;
+    text-align: center;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 12px 35px;
+    font-weight: bold;
+   }
+   .en_btnBox .unreceive_button{
+     background-color: #c2bdbd;
+     cursor: not-allowed;
+   }
+   .HowToUse h2{
+    font-size: 20px;
+    font-family: Arial;
+    color: #000;
+    padding: 0 5px;
+    margin: 25px 0 10px 15px;
+    font-weight: bold;
+   }
+ .Anniversary-2018_error{
+    width: 90%;
+    border: 1px solid #666;
+   position: fixed;
+    top:280px;
+    left:5% ;
+    border-radius: 5px;
+   background-color: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 20px;
+}
+ .Anniversary-2018_error .Close{
+    background-image: url("../images/Close.png");
+     display: inline-block;
+     width: 18px;
+     height: 17px;
+     position: absolute;
+     right:8px;
+     top:8px;
+     cursor: pointer;
+ }

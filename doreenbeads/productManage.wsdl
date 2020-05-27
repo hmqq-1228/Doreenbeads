@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/productManage/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="productManage" targetNamespace="http://www.example.org/productManage/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/productManage/">
+      <xsd:element name="helloWorld">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="in" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="helloWorldResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="apiUpdateProductStatus">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="in" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="apiUpdateProductStatusResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="helloWorldRequest">
+  </wsdl:message>
+  <wsdl:message name="helloWorldResponse">
+    <wsdl:part name="parameters" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="apiUpdateProductStatusRequest">
+  	<wsdl:part name="xmlFile" type="xsd:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="apiUpdateProductStatusResponse">
+  	<wsdl:part name="result" type="xsd:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="apiProductStockRequest">
+  	<wsdl:part name="xmlData" type="xsd:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="apiProductStockResponse">
+  	<wsdl:part name="res" type="xsd:string"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="productManage">
+    <wsdl:operation name="helloWorld">
+      <wsdl:input message="tns:helloWorldRequest"/>
+      <wsdl:output message="tns:helloWorldResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="apiUpdateProductStatus">
+    	<wsdl:input message="tns:apiUpdateProductStatusRequest"></wsdl:input>
+    	<wsdl:output message="tns:apiUpdateProductStatusResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="apiProductStock">
+    	<wsdl:input message="tns:apiProductStockRequest"></wsdl:input>
+    	<wsdl:output message="tns:apiProductStockResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="productManageSOAP" type="tns:productManage">
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+  	<wsdl:operation name="helloWorld">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/productManage/helloWorld" />
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="apiUpdateProductStatus">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/productManage/apiUpdateProductStatus" />
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="apiProductStock">
+  		<soap:operation
+  			soapAction="http://www.example.org/productManage/apiProductStock" />
+  		<wsdl:input>
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="productManage">
+    <wsdl:port binding="tns:productManageSOAP" name="productManageSOAP">
+      <soap:address location="http://192.168.3.220/dorabeadsorg/productManage.php"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

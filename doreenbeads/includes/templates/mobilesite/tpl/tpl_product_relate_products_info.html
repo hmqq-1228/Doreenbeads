@@ -1,0 +1,48 @@
+{if $related_products && is_array($related_products) && count($related_products) >0 }
+<div class="relate_product relate_product_{$related_type}">
+	<h3 class="pagetille">
+		<span>
+		{if $related_type eq 'match'}
+			{$smarty.const.TEXT_MATCHED_ITEMS}
+		{elseif $related_type eq 'also_like'} 
+			{$smarty.const.TEXT_ALSO_LIKE}
+		{elseif $related_type eq 'also_purchased'} 
+			{$smarty.const.TEXT_ALSO_PURCHASED_PRODUCTS}
+		{elseif $related_type eq 'recently_viewed'} 
+			{$smarty.const.TEXT_RECENTLY_VIEWED}
+		{else} 
+			{$related_type}
+		{/if}
+		</span>
+	</h3>
+    <div class=" products_list">
+      <ul>
+        {counter start=0 assign=index} 
+        {foreach from=$related_products item=product_info}
+        {counter assign=index}
+        {if $index > 6}
+        {assign var="hide_cass" value="style = 'display:none;'"} 
+        {/if}
+        <li {$hide_cass} >
+        	<a href="{$product_info['link']}" title="{$product_info['products_name']}">
+	       		<img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/310.gif" data-size="310" data-lazyload="{$product_info['main_image_src']}" alt = "{$product_info['products_name']}" title="{$product_info['products_name']}" >
+	       			<p class="pro_name">{$product_info['show_name']}</p>
+	       	</a>
+	        <div class="pro_price">
+	        	<p class="lf">{$smarty.const.TEXT_PRICE_LOWEST} :</p>
+	        	<p class="rt">
+	        		{$product_info['price_html']}
+	        	</p>
+	        </div>
+            <div class="clearfix"></div>
+         </li>
+        {/foreach}     
+        <div class="clearfix"></div>
+      </ul>
+      {if count($related_products) > 6}
+      <a href="javascript:void(0);" class="btn_more btn_more_related_product">{$smarty.const.TEXT_MORE_PRO}<ins></ins></a>
+      <div class="clearfix"></div>
+      {/if}
+    </div>
+</div>  
+{/if}

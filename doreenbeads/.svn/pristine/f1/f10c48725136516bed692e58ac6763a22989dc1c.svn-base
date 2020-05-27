@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$firstName}様 </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">いつもお世話になっております。</td></tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			ここでは出荷情報を更新させていただきます。以前のご注文の売り切れた商品が今日から発送したいます。下記は詳細な商品情報です：<br/>
+			{foreach $orderForShort as $productForShort}
+				{$productForShort.quantity}ロット -{$productForShort.model}--{$productForShort.name}--注文番号{$productForShort.orderId}
+				<p style="padding:0;margin:0;">{$productForShort.image}</p>
+			{/foreach}
+		</td>
+	</tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">お買い求めいただきましたアイテム{if $boxCount > 0}( {$boxCount} {if $boxCount>1}箱{else}箱{/if}){/if}は{$deliveryTime}に{$expressMethods}によって出荷されます。通常、{$days}日間の配送時間がかかります。ご注文された商品を無事にお届けできるよう細心の注意を払ってまいります。
+		{if $isDhls}
+			<span style="color:#96F;"> 
+				お宅にどなたもいない場合は、ご注文された商品が私達に戻されるということになります。予めご了承ください。それで、休暇やビジネス旅行を計画している場合は、配送アドレスを変更するか、または宅配便を滑らかにさせるために携帯電話の番号をお願いします。
+			</span>
+		{/if}
+		</td>
+	</tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">お届け先: <br/>{$address}</td></tr>
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">我々の経験に従ってご注文に{$reportAmount}の価値を申告します。通常関税の費用を節約するのに役に立ちます。</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">追跡番号：<br />{$traceNumbers}</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0 && $webSiteCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">1日か2日後に、下記のウェブサイトで追跡することができます：<br/>{$webSite}</td></tr>
+	{/if}
+
+	{if $isHmey}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			ご注文された商品は中国に出荷された後に追跡情報が更新されますから、予めご了承下さいますようお願い申し上げます。それにつきましては、ご心配する必要がありません。長い時間にわたり、我々はこの配送方法を利用していますから、お買い求めいただきました商品は無事にお届けできます。
+		</td>
+	</tr>
+	{/if}
+	{if $shortProductCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			また、大変ご迷惑をおかけいたしますが、いくつかのご注文された商品が予期せずに売り切れました。ここは詳細な情報です：<br />
+			{foreach $shortProduct as $product}
+				{$product.quantity}ロット -{$product.model}--{$product.name}--注文番号{$product.orderId}
+				<p style="padding:0;margin:0;">{$product.image}</p>
+			{/foreach}
+			<p style="padding:0;margin:0;"><br />ご注文された商品が遅滞なくお手元に到着できるには、我々は事前にご注文を出荷されます。<br /><br />
+			売り切れたアイテムにつきまして、ここはお客様への提案です：<br />
+			1. 再び弊社のウェブサイトにご注文いただく時、ご注文された新しい商品と一緒に出荷されます。<br />
+			2. 数日後に売り切れの商品が在庫あり次第、再び発送いたします。（通常お届けまでに約25〜30日間の航空便を通してそれらを発送いたします。別途の配送料金を支払う必要がありません。しかし、緊急にそれを必要とする場合は、お気軽にお問い合わせ下さい。我々はできる限りより高速な配送方法を提供したいます。）<br />
+			3.  売り切れ商品の代わりにほかのアイテムお選びください。<br /><br />
+			どの提案がお気に入りますか。お気軽に教えてください。お客様のご指示に従っていつでも御用を承ります。</p>
+		</td>
+	</tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">なお、ご不明の点がございましたら、ご遠慮なくご一報ください。ご説明申し上げます。 </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">今後とも何卒よろしくお願い申し上げます。</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">敬具</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+</table>
+</body>
+</html>

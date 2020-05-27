@@ -1,0 +1,5 @@
+<?php
+define ( 'MODULE_SHIPPING_SFHKY_TEXT_TITLE', 'SFHの航空輸送' );
+define ( 'MODULE_SHIPPING_SFHKY_TEXT_DESCRIPTION', 'SFHの航空輸送' );
+define ( 'MODULE_SHIPPING_SFHKY_NOTE', sprintf ( TEXT_SHIPPING_NOTE, 'SFHKY' ) );
+?>

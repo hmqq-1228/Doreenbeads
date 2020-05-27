@@ -1,0 +1,4 @@
+<?php
+  define('MODULE_ORDER_TOTAL_GROUP_PRICING_TITLE', 'Descuento VIP');
+define('MODULE_ORDER_TOTAL_GROUP_PRICING_DESCRIPTION', 'Descuento VIP');
+?>

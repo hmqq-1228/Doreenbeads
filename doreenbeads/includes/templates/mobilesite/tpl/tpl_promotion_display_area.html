@@ -1,0 +1,61 @@
+<div class="order_main" style="margin-top:50px;">
+<h3 class="trends">{$smarty.const.PROMOTION_DISPLAY_AREA|upper}</h3>
+<div class="trends_intro"> {$smarty.const.SALES_DESCRIPTION} </div>
+{if count($display_area_data) neq 0}
+	<div class="trends_wrapper">
+		{foreach from=$display_area_data key=k item=value }
+			<div class="trends_banner"><a href="{$value['picture_href']}"><img src="{$value['picture_url']}" /></a></div>
+			<div class="trends_cont">
+			<p>{$value['area_name']}</p>
+			</div>
+		
+			<div class="trends_num" style="display:none;" value="{$k+1}"></div>
+	    {/foreach}
+		<div style="display:none;" class="show_explore" value="5"><p>{$smarty.const.TEXT_VIEW_MORE} </p></div>
+		
+		<div class="max_trends_num" style="display:none;" value="{$max_trends}"></div>
+
+    </div>
+{else}
+    <div style="margin:20px;">{$smarty.const.SALES_EMPTY}</div>
+{/if}
+</div>
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+	var trends_num = parseInt($(".trends_num:last").attr("value"));
+	var max_trends_num = parseInt($(".max_trends_num").attr("value"));
+	$(".cartcont").each(function(){
+		$(this).find("input").first().val("10");
+		});
+	$(".floatprice").remove();
+	if(trends_num < max_trends_num){
+		$(".show_explore").show();
+	}
+	
+	
+	$(".dlgallery-list li").each(function(i , eledom){
+		var top = '<ins class="top' + (i+1) + '"></ins>'
+		$(eledom).children("a").prepend(top);
+	});
+	
+	$(".show_explore").click(function(){
+		var offset = $(this).attr("value");
+		$.post(window.location.href , {
+		"action":"view_more",
+		"offset":offset,
+			},
+		function(data){
+	 		$(".trends_num:last").after(data);
+	 		$(".show_explore").attr("value",parseInt(offset)+5);
+	 		var show_trends_num = parseInt($(".trends_num:last").attr("value"));
+			var new_offset = parseInt($(".show_explore").attr("value"));
+	 		if(new_offset >= max_trends_num){
+	 			$(".show_explore").remove();
+		 	}
+		}
+		);
+	});
+});
+</script>
+{/literal}

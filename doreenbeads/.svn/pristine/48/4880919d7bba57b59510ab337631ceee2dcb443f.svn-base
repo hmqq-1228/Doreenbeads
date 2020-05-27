@@ -1,0 +1,1 @@
+<div id="minlog" style="float: left; margin-top: 0px;"><a target="_blank" href="http://www.8seasons.com/"> <img width="350" height="85" title=" 8seasons" alt="8seasons" src="http://www.8seasons.com/includes/templates/cherry_zen/images/english/8seasons_logo2.jpg" /></a></div>

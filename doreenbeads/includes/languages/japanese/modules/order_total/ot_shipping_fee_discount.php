@@ -1,0 +1,3 @@
+<?php
+define ( 'MODULE_ORDER_TOTAL_SHIPPING_FEE_DISCOUNT_TITLE', '配送料金割引' );
+?>

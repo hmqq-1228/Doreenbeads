@@ -1,0 +1,27 @@
+<?php
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_SENDER', 'Remitente');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_MCTN', 'MTCN :');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_AMOUNT', 'Monto:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_CURRENCY', 'Moneda:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_FIRST_NAME', 'Nombre:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_LAST_NAME', 'Apellido:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_ADDRESS', 'Dirección:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_ZIP', 'Código Postal:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_CITY', 'Ciudad :');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_COUNTRY', 'País:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_PHONE', 'Teléfono:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_QUESTION', 'Pregunta:');
+define('MODULE_PAYMENT_WESTERNUNION_ENTRY_ANSWER', 'Respuesta:');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_FIRST_NAME', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_LAST_NAME', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_ADDRESS', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_ZIP', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_CITY', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_COUNTRY', '');
+define('MODULE_PAYMENT_WESTERNUNION_RECEIVER_PHONE', '');
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_HEAD', '<strong> Western Union Money Transfer </strong>');
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_DISCOUNT', '&nbsp;(2% de descuento será ofrecido si la cantidad total llega a 2000$ dólares, Comisión <br />debe ser pagado por el pagador. <a href="' .HTTP_SERVER. '/page.html?id=146" target="_blank">Haga clic aquí para más detalles >></a>)');
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_END', '<br /><div style="clear:both; padding-bottom:10px;"><span style="color:#F47504"><strong>Asegúrese de leer esta importante nota para conseguir a realizar el pago.</strong></span> <a href="http://www.dreams-crafts.net/page.html?chapter=0&id=95" target="_blank">Haga clic aquí>></a></div>');
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_DESCRIPTION', '<table cellpadding="0" cellspacing="0">                      <tr>                          <th width="105"><strong>' . MODULE_PAYMENT_WESTERNUNION_ENTRY_FIRST_NAME . '</strong></th><td>' . MODULE_PAYMENT_WESTERNUNION_RECEIVER_FIRST_NAME . '</td>                         </tr>                         <tr>                          <th><strong>' .MODULE_PAYMENT_WESTERNUNION_ENTRY_LAST_NAME . '</strong></th> <td>' .   MODULE_PAYMENT_WESTERNUNION_RECEIVER_LAST_NAME . '</td>                         </tr>                         <tr>                          <th><strong>' . MODULE_PAYMENT_WESTERNUNION_ENTRY_ADDRESS . '</strong></th><td>' . MODULE_PAYMENT_WESTERNUNION_RECEIVER_ADDRESS . '</td>                         </tr>                         <tr>                          <th><strong>' . MODULE_PAYMENT_WESTERNUNION_ENTRY_ZIP . '</strong></th><td>' .   MODULE_PAYMENT_WESTERNUNION_RECEIVER_ZIP . '</td>                         </tr>                         <tr>                          <th><strong>' . MODULE_PAYMENT_WESTERNUNION_ENTRY_CITY .   '</strong></th><td>' .  MODULE_PAYMENT_WESTERNUNION_RECEIVER_CITY . '</td>                         </tr>                         <tr>                          <th><strong>' .  MODULE_PAYMENT_WESTERNUNION_ENTRY_COUNTRY . '</strong></th> <td>' .   MODULE_PAYMENT_WESTERNUNION_RECEIVER_COUNTRY . '</td>                         </tr>                         <tr>                          <th><strong>' .  MODULE_PAYMENT_WESTERNUNION_ENTRY_PHONE . '</strong></th> <td>' .   MODULE_PAYMENT_WESTERNUNION_RECEIVER_PHONE . '</td>                         </tr>                     </table> ');
+define('MODULE_PAYMENT_WESTERNUNION_TEXT_EMAIL_FOOTER', "Hacer Pagadero a:<br />" . MODULE_PAYMENT_WESTERNUNION_ENTRY_FIRST_NAME . MODULE_PAYMENT_WESTERNUNION_RECEIVER_FIRST_NAME . '<br />' . MODULE_PAYMENT_WESTERNUNION_ENTRY_LAST_NAME . MODULE_PAYMENT_WESTERNUNION_RECEIVER_LAST_NAME . '<br />'  . MODULE_PAYMENT_WESTERNUNION_ENTRY_ADDRESS . MODULE_PAYMENT_WESTERNUNION_RECEIVER_ADDRESS . '<br />'  . MODULE_PAYMENT_WESTERNUNION_ENTRY_ZIP . MODULE_PAYMENT_WESTERNUNION_RECEIVER_ZIP . '<br />'  . MODULE_PAYMENT_WESTERNUNION_ENTRY_CITY . MODULE_PAYMENT_WESTERNUNION_RECEIVER_CITY . '<br />'  . MODULE_PAYMENT_WESTERNUNION_ENTRY_COUNTRY . MODULE_PAYMENT_WESTERNUNION_RECEIVER_COUNTRY . '<br />'  . MODULE_PAYMENT_WESTERNUNION_ENTRY_PHONE . MODULE_PAYMENT_WESTERNUNION_RECEIVER_PHONE . "<br /><br />" . "<b>Después de enviar el dinero, por favor envíenos un correo electrónicoa (<a href='mailto:service_es@8seasons.com'><font style='color:#0000FF;'>service_es@8seasons.com</font></a>) con la información siguiente:</b><br /><br /><span style=" . "color:#FF0000;font-weight:bold;" . ">1.Su dirección de correo electrónico registrada, el número del pedido en nuestro sitio web y el dinero total de su orden.<br /><br />2.Los 10 digitos de control <br /><br />3.La cantidad total que nos ha enviado(incluyendo moneda)<br /><br />4.Su información: <ul><li>Nombre y Apellido(El mismo que su pasaporte).</li><li>La ciudad desde donde hace la transferencia.</li><li>Dirección Completa.</li><li>Número Telefónico.</li></ul></span>  <span style='font-size:12px;font-weight:normal;padding-left:20px;'>(Esta información debe ser lo mismo que lo que haya llenado en el formulario de transferencia de dinero de Western Union.)</span><br /><br />&nbsp;Una vez que recibamos su pago, comenzaremos a procesar su pedido y se lo enviaremos inmediatamente");
+?>

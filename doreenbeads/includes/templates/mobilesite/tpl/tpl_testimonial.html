@@ -1,0 +1,55 @@
+
+{if $messageStack->size('success')>0}  
+	{$messageStack->output('success')}
+{/if}
+{if $messageStack->size('check_form')>0}  
+	{$messageStack->output('check_form')}
+{/if}
+
+<div class="detailproduct-btn"><a href="javascript:history.back()" class="back-btn">{$smarty.const.TEXT_BACK}</a></div>
+<div class="txt-wap">
+  	<h4>{$smarty.const.TEXT_HEAD_TESTIMONIAL}</h4>
+	<p>{$smarty.const.TEXT_NOTE_TESTIMONIAL} </p>
+	<form class="questionform" name="testimonial_form"  method="post" action="" onsubmit="return check(testimonial_form)">
+	  <input type="hidden" name="action" value="write_new">	
+	  <table>	
+	  	 <tr><td><label>*</label>{$smarty.const.TEXT_NAME}</td></tr><tr><td><input type="text" id="first-name" class="required" value="{$customer_name}" readonly="readonly"/><p></p></td></tr>		 
+		 <tr><td><label>*</label>{$smarty.const.TEXT_EMAIL_ADDRESS}</td></tr>
+		 <tr><td><input type="text" id="question-email" class="required" value="{$customer_email}" readonly="readonly"/><p></p></td></tr>	
+		 <tr><td><label>*</label>{$smarty.const.TEXT_TESTIMONIAL}</td></tr>
+		 <tr><td><textarea class="required" name="content" id="testimonial_content"></textarea><p id="p_error"></p><br><span id="testimonial_content_span">{$smarty.const.REMAINING_CHARATERS}</span><p></p></td></tr>			
+		 
+		 {if $auto_auth_code_display }
+                 <tr><td><label>*</label>{$smarty.const.TEXT_VERIFY_NUMBER}:</td></tr>
+                <tr><td class="textinput"><input type="text" id="check_code_input" style="width:80px;margin-right:20px;" /><img id="check_code" src="./check_code.php"  onClick="this.src='./check_code.php?'+Math.random();" style="top: 12px;position: relative;height: 29px;" /><p id="login_checkcode_error"></p></td></tr>
+         {/if}      
+		 
+		 <tr><td><input type="Submit" value="Submit" id="question-submit"/><p></p></td></tr>
+	  </table>
+	</form>
+	
+	<!-- <div class="comments-list">
+		 <div class="comments-list-l">
+			<p><strong>ying.</strong>Russia<br/>10/31/2013 </p>
+		 </div>
+		 <div class="comments-text">Dear friend, please tell us what you think about this product and share your opinions with others. Thanks a lot!</div>
+	</div>
+	<div class="comments-list bordernone">
+		 <div class="comments-list-l">
+			<p><strong>ying.</strong>Russia<br/>10/31/2013 </p>
+		 </div>
+		 <div class="comments-text">Dear friend, please tell us what you think about this product and share your opinions with others. Thanks a lot!</div>
+	</div> -->
+	{foreach from=$testimonial_array key=key item=value}
+		<div class="comments-list "  id="testimonial_{$key}">
+			 <div class="comments-list-l " >
+				<p><strong>{$value.customer_name}</strong>{$value.customer_country}<br/>{$value.date_added}</p>
+			 </div>
+			 <div class="comments-text">{$value.content}</div>
+			 <div class="comments-text">{$value.reply}</div>
+		</div>	
+	{/foreach}
+	
+</div>
+<div class="share-page2">{$fenye}</div>
+<div class="clearfix"></div>

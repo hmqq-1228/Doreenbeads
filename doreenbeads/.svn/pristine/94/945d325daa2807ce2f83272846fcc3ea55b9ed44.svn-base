@@ -1,0 +1,9 @@
+
+<div class="detailproduct-btn"><a href="javascript:history.back();" class="back-btn">{$smarty.const.TEXT_BACK}</a></div>
+<div class="txt-wap">
+	<h4>Q: {$question}</h4>	
+	<p><strong>A:</strong><br>
+			{$answer}
+	</p>
+</div>
+<a href="{$link}">>> {$smarty.const.TEXT_BACK_TO_HELP_CENTER}</a>

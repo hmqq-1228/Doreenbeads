@@ -1,0 +1,19 @@
+<!-- Products for your considersation -->
+{if $products_for_your}
+<div class="caption_recent">
+	<h3>{$smarty.const.TEXT_PRODUCTS_FOR_CONSIDERATION}</h3>
+</div>	 
+<div class="pic_list product_list gallery">
+	<ul>
+	{foreach from=$products_for_your key=key item=product}
+		<li>
+			{$product.img}
+			{$product.name}
+			{$product.price}
+			{$product.button}
+		</li>
+	{/foreach}
+		<div class="clear"></div>
+	</ul>
+</div>
+{/if}

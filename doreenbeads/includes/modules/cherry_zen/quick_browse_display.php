@@ -1,0 +1,441 @@
+<?php
+/**�����ļ�jessa 
+ * quick_browse_display.php
+ * 2010-03-02
+ */
+ 
+ if (!defined('IS_ADMIN_FLAG')) {
+  die('Illegal Access');
+ }
+ 
+ require(DIR_WS_MODULES . zen_get_module_directory('require_languages.php'));
+ 
+ //��������ļ�����products_all��products_newҳ��Ҫ���в�Ʒ������ѡ��
+ $solr_str_array = get_listing_display_order($disp_order_default);
+ $solr_order_str = $solr_str_array['solr_order_str'];
+ $order_by = $solr_str_array['order_by'];
+ 
+// //����ÿҳ��ʾͼƬ������
+// $page_size = 100;
+// //��õ�ǰ��ҳ��
+// if (isset($_GET['page']) && $_GET['page'] != ''){
+//		$current_page = (int)(trim($_GET['page']));
+// }else{
+//		$current_page = 1;
+// }
+ 
+ $quick_disp_order = "";
+ 
+ if (isset($_GET['disp_order']) && $_GET['disp_order'] != ''){
+	switch ($_GET['disp_order']){
+		case 3:
+			$quick_disp_order = " Order By p.products_price_sorter, pd.products_name";
+		break;
+		case 4:
+			$quick_disp_order = " Order By p.products_price_sorter DESC, pd.products_name";
+		break;
+		case 5:
+			$quick_disp_order = " Order By p.products_model";
+		break;
+		case 6:
+			$quick_disp_order = " Order By p.products_date_added DESC, pd.products_name";
+		break;
+		case 7:
+			$quick_disp_order = " Order By p.products_date_added, pd.products_name";
+		break;
+		case 9:
+			$quick_disp_order = " order by p.products_ordered DESC, pd.products_name";
+			if($_GET['main_page'] == FILENAME_PRODUCTS_COMMON_LIST && $_GET['pn'] == 'best_seller'){
+				//$quick_disp_order = " order by pon.products_order_num DESC, p.products_quantity desc,p.products_date_added desc";
+				//库存分离后取消products_quantity排序
+				$quick_disp_order = " order by pon.products_order_num DESC, p.products_date_added desc";
+			}
+		break;
+		case 40:
+			//$quick_disp_order = " order by p.products_limit_stock DESC, p.products_quantity desc,p.products_date_added desc";
+			//库存分离后取消products_quantity排序
+			$quick_disp_order = " order by p.products_limit_stock DESC, p.products_date_added desc";
+		break;
+		default:
+			$quick_disp_order = " Order By p.products_date_added Desc";
+		break;
+	}
+ }else{
+	$quick_disp_order = " Order By pcg_create_date Desc, p.products_date_added Desc";
+ }
+ 
+ if (isset($_GET['main_page']) && $_GET['main_page'] != ''){
+	if ($_GET['main_page'] == 'index'){
+		$current_categories_id = trim($_GET['cPath']);
+		if($category_depth == 'nested'){
+		switch (count($cPath_array)){
+			case 1:
+				$categories_str = 'first_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' first_categories_id ';
+				break;
+			case 2:
+				$categories_str = 'second_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' second_categories_id ';
+				break;
+			case 3:
+				$categories_str = 'three_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' three_categories_id ';
+				break;
+			case 4:
+				$categories_str = 'four_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' four_categories_id ';
+				break;
+			case 5:
+				$categories_str = 'five_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' five_categories_id ';
+				break;
+			case 6:
+				$categories_str = 'six_categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = ' six_categories_id ';
+				break;
+			default:
+				$categories_str = 'p2c.categories_id = ' . (int)$current_category_id . '';
+				$categories_filter = 'p2c.categories_id ';
+				break;
+		}
+		$products_query = "select p.products_id, ps.products_quantity, p.products_model, p.products_image, p.products_weight,
+								  p.products_price, pd.products_name, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight, p.products_limit_stock
+			 from ".TABLE_PRODUCTS." p left join ".TABLE_PRODUCTS_STOCK. " ps on p.products_id = ps.products_id  left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id  left join  " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p2c.products_id = p.products_id left join ".TABLE_CATEGORIES." c on ".$categories_filter." = c.categories_id
+			 where pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
+				and  p.products_status = 1
+				and ".$categories_str." And c.categories_status = 1 group by p.products_id " . $quick_disp_order;
+		}else{
+         zen_get_subcategories ( $subcategories_array, (int)$current_category_id);
+         $subcategory_id = @implode ( ',', $subcategories_array );
+         if (zen_not_null ( $subcategory_id )) {
+            $subcategory_id .= ',' . (int)$current_category_id;
+            $filter_str = " AND p2c.categories_id in (" . $subcategory_id . ") ";
+         } else {
+            $filter_str = " AND p2c.categories_id = '" . (int)$current_category_id . "' ";
+         }
+         $filter_str.=" AND p.products_id!='".$_SESSION['gift_id']."'";
+   $products_query = "select p.products_id, ps.products_quantity, p.products_model, p.products_image, p.products_weight,
+			p.products_price, pd.products_name, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight, p.products_limit_stock
+          from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_STOCK . " ps, " . 
+          TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p2c.products_id = p.products_id left join ".TABLE_CATEGORIES." c on p2c.categories_id = c.categories_id
+          where p.products_status = 1
+            and pd.products_id = p2c.products_id
+            and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
+            ".$filter_str." and categories_status = 1
+             group by p.products_id " . $quick_disp_order;
+
+		}
+							
+	} elseif ($_GET['main_page'] == 'products_all'){
+		$products_query = "Select distinct p.products_id, ps.products_quantity, p.products_model, p.products_image, p.products_weight,
+								  p.products_price, pd.products_name, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight, p.products_limit_stock From " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_STOCK . " ps, " . TABLE_PRODUCTS_DESCRIPTION . " pd, t_prod_catg
+							 Where p.products_status = 1
+								And p.products_id = pd.products_id
+								And pcg_name = pd.products_name_without_catg " . $quick_disp_order;
+
+//							
+//		$products_count = "Select count( distinct p.products_id) prod_cnt
+//							  From " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, zen_prod_catg
+//							 Where p.products_status = 1 
+//								And p.products_id = pd.products_id
+//								And pcg_name = pd.products_name_without_catg";
+							
+	} elseif ($_GET['main_page'] == 'products_new'){
+		//jessa 2010-05-07 newproducts��ʾһ�������ڵĲ�Ʒ
+		$today_year = date('Y');
+		$today_month = date('m');
+		$today_day = date('d');
+		$today_month_ago = date('Y-m-d', (mktime(0, 0, 0, ($today_month - 1), $today_day, $today_year)));
+		//eof jessa 2010-05-07
+		$products_query = "Select distinct p.products_id, ps.products_quantity, p.products_model, p.products_image, 
+								  p.products_weight, p.products_price, pd.products_name, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock From " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_STOCK . " ps, ". TABLE_PRODUCTS_DESCRIPTION . " pd
+							 Where p.products_status = 1 
+								And p.products_id = pd.products_id 
+								And p.products_date_added >= '" . $today_month_ago . "'
+								 " . $quick_disp_order ;
+
+//		$products_count = "Select count(distinct p.products_id) prod_cnt From " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, zen_prod_catg
+//							 Where p.products_status = 1 
+//								And p.products_id = pd.products_id 
+//								And p.products_date_added >= '" . $today_month_ago . "'
+//								And pcg_name = pd.products_name_without_catg";
+	} elseif ($_GET['main_page'] == 'featured_products'){
+		$products_query = "Select p.products_id, p.products_type, pd.products_name, p.products_image, 
+								  p.products_price, p.products_tax_class_id, p.products_date_added, m.manufacturers_name,				
+								  p.products_model, ps.products_quantity, p.products_weight, p.product_is_call,
+								  p.master_categories_id, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock From (" . TABLE_PRODUCTS . " p 
+								  Left Join " . TABLE_MANUFACTURERS . " m 
+									on (p.manufacturers_id = m.manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd 
+								Left Join " . TABLE_FEATURED . " f on pd.products_id = f.products_id ) ".TABLE_PRODUCTS_STOCK." ps, 
+									 Where p.products_status = 1 and p.products_id = f.products_id and f.status = 1
+										And p.products_id = pd.products_id 
+							  And pd.language_id = " . (int)$_SESSION['languages_id'] . $quick_disp_order;
+	} elseif ($_GET['main_page'] == 'products_mixed'){
+		$products_query = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price, 
+				p.products_date_added,	p.products_model, 
+				p.products_quantity, p.products_weight, p.products_discount_type, 
+				p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock 
+				WHERE p.products_status = 1 
+				AND p.products_id = pd.products_id 
+				AND is_mixed=1 
+				AND pd.language_id = " . (int)$_SESSION['languages_id'] . "  group by p.products_id " . $quick_disp_order ;
+	} elseif ($_GET['main_page'] == 'promotion'){
+			$products_query = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
+												p.products_date_added,	p.products_model,
+												ps.products_quantity, p.products_weight, p.products_discount_type,
+												p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight, p.products_limit_stock
+									  FROM " . TABLE_PRODUCTS . " p , " . TABLE_PRODUCTS_STOCK . " ps , ".TABLE_PRODUCTS_DESCRIPTION . " pd, ".TABLE_PROMOTION." pm , ".TABLE_PROMOTION_PRODUCTS." pp , ".TABLE_PRODUCTS_TO_CATEGORIES." ptc
+									  WHERE p.products_status = 1
+									  AND ptc.products_id=p.products_id
+									  AND p.products_id = pd.products_id
+									  AND pp.pp_products_id=p.products_id
+									  AND pp.pp_promotion_id=pm.promotion_id
+									  AND pp.pp_is_forbid = 10
+									  AND p.master_categories_id=ptc.categories_id
+									  AND pm.promotion_status=1
+									  AND ptc.first_categories_id <> 718
+									  AND pp.pp_promotion_start_time<='".date('Y-m-d H:i:s')."'
+									  AND pp.pp_promotion_end_time>'".date('Y-m-d H:i:s')."'
+									  ".$refine_by_off.$filter_str."
+									  AND pd.language_id = ".$_SESSION['languages_id']." group by p.products_id " . $quick_disp_order;
+	} elseif ($_GET['main_page'] == FILENAME_PRODUCTS_COMMON_LIST){
+		$pagename = $_GET['pn'];
+		if (isset ( $_GET ['cId'] ) && $_GET ['cId'] != '') {
+			$top_cate = $_GET ['cId'];
+			$subcategory = zen_get_subcategories ( $subcategories_array, $top_cate );
+			$subcategory_id = @implode ( ',', $subcategories_array );
+			if (zen_not_null ( $subcategory_id )) {
+				$subcategory_id .= ',' . $top_cate;
+				$filter_str = " AND ptc.categories_id in (" . $subcategory_id . ") ";
+			} else {
+				$filter_str = " AND ptc.categories_id = '" . $top_cate . "' ";
+			}
+		} else {
+			$filter_str = '';
+		}
+		$filter_str.=" AND p.products_id!='".$_SESSION['gift_id']."'";
+		$table_ptc = "(select * from " . TABLE_PRODUCTS_TO_CATEGORIES . "	group by products_id) ";
+		switch ($pagename){
+			/*以下所有sql语句去除TABLE_PRODUCTS_STOCK ps 因为最下面有function查询  WSL*/
+			case 'new':
+				$breadcrumb->add ( TEXT_NEW_ARRIVALS );
+				$today_last_month = date('Y-m-d', (mktime(0, 0, 0, (date('m') - 1), date('d'), date('Y'))));
+			  	$products_query = "SELECT distinct p.products_id, p.products_type, p.products_level, pd.products_name, p.products_image, p.products_price,
+			                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+			                                    p.products_weight, p.product_is_call, p.product_is_free,
+			                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type, 
+			  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+			                             FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . $table_ptc . " ptc
+			                             WHERE p.products_status = 1
+	                             		 AND ptc.products_id=p.products_id
+										 AND p.products_level <= " . (int)$_SESSION['customers_level'] . "
+			                             AND p.products_id = pd.products_id
+			                             AND p.products_date_added >= '" . $today_last_month . "'
+			                             AND pd.language_id = " . $_SESSION ['languages_id'] . $filter_str . $order_by;
+				break;
+			case 'feature':
+				$breadcrumb->add ( TEXT_FEATURED_PRODUCTS );
+				$products_query = "SELECT distinct p.products_id, p.products_type, pd.products_name, p.products_image, p.products_price, p.products_tax_class_id,
+									  p.products_date_added, p.products_model,  p.products_weight, p.product_is_call,
+	                                  p.product_is_always_free_shipping, p.products_qty_box_status,
+	                                  p.master_categories_id, p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+	                                  FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . $table_ptc . " ptc, " . TABLE_FEATURED . " f 
+	                                  WHERE p.products_status = 1 and p.products_id = f.products_id and f.status = 1
+                             		  AND ptc.products_id=p.products_id
+	                                  AND pd.products_id = f.products_id
+	                                  AND p.products_id = pd.products_id and pd.language_id = " . $_SESSION ['languages_id'] . $filter_str . $order_by;
+				break;
+			case 'matching':
+				$breadcrumb->add ( TEXT_MATCHED_ITEMS );
+				$main_products_id = trim ( $_GET ['pid'] );
+				//$match_model = $db->Execute ( "select match_prod_list, products_model from " . TABLE_PRODUCTS . " where products_id = " . ( int ) $main_products_id );
+				$match_products_query = $db->Execute ( "select zpm.match_products_id from ".TABLE_PRODUCTS_MATCH_PROD_LIST . " zpm inner join " . TABLE_PRODUCTS . " zp on zpm.match_products_id = zp.products_id where zpm.products_id = ".(int)$main_products_id . " and zp.products_status != 10" );
+				//$main_products_model = $match_model->fields ['products_model'];
+				while (!$match_products_query->EOF){
+					$match_products_id_arr[] = array(
+							'match_products_id' => $match_products_query->fields['match_products_id'],
+					);
+					$match_products_query->MoveNext();
+				}
+				$sql_match_query = '';
+				foreach ($match_products_id_arr as $key => $value){
+					$sql_match_query .= $value['match_products_id'].',';
+				}
+				$sql_match_query = substr ( $sql_match_query, 0, - 1 );
+				/* $match_model_str = $match_products_query->fields ['match_prod_list'];
+				$match_model_array = explode ( ',', $match_model_str );			
+				$sql_match_query = '';
+				for($i = 0; $i < sizeof ( $match_model_array ); $i ++) {
+					$sql_match_query .= '\'' . $match_model_array [$i] . '\',';
+				} */
+				
+				$products_query = "select distinct p.products_id, p.products_type, p.products_level, pd.products_name, p.products_image, p.products_price,
+		                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+		                                     p.products_weight, p.product_is_call, p.product_is_free, 
+		                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type, 
+		  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight, products_limit_stock,is_sold_out
+											 from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
+											 where p.products_id in (" . $sql_match_query . ")
+												and p.products_id = pd.products_id
+                             		 			AND ptc.products_id=p.products_id
+												and p.products_id <> '" . $main_products_id . "'
+												and products_type = 1
+												and pd.language_id = " . $_SESSION ['languages_id'] . "
+												And p.products_status = 1" . $filter_str . $order_by . ' group by p.products_id';
+				break;
+			case 'like': 
+				$breadcrumb->add ( TEXT_ALSO_LIKE );
+				//header("Location: http://www.dorabeads.com/404.html");exit;
+				//$products_title = $db->Execute ( "select products_name_without_catg from " . TABLE_PRODUCTS_DESCRIPTION . " Where products_id = " . ( int ) $_GET ['pid'] );
+				$products_title = $db->Execute("select distinct tag_id from " . TABLE_PRODUCTS_NAME_WITHOUT_CATG_RELATION . " where products_id = " .(int)$_GET ['pid'] . " limit 1");			
+
+				$products_query = "Select distinct p.products_id, p.products_type, p.products_level, pd.products_name, p.products_image, p.products_price,
+			                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+			                                    p.products_weight, p.product_is_call, p.product_is_free,
+			                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type, 
+			  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+											    From " . TABLE_PRODUCTS_NAME_WITHOUT_CATG_RELATION . " pr, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . $table_ptc . " ptc 
+											    Where pr.tag_id = '" . zen_db_input ( $products_title->fields ['tag_id'] ) . "'
+										        And p.products_id = pd.products_id
+											    and p.products_id = pr.products_id		
+	                             		 		AND ptc.products_id=p.products_id
+										        And p.products_id != " . ( int ) $_GET ['pid'] . "
+										        and pd.language_id = " . $_SESSION['languages_id'] . "		
+										        And p.products_status = 1" . $filter_str . $order_by;
+				break;
+			case 'purchased':
+				$breadcrumb->add ( TEXT_PURCHASED_PRODUCTS );
+				$procucts_orders_query = "select orders_id from " . TABLE_ORDERS_PRODUCTS . " where products_id=" . $_GET ['pid'] . " order by orders_id desc limit 15";
+				$procucts_orders = $db->Execute ( $procucts_orders_query );
+				$order_len = 0;		
+				if ($procucts_orders->RecordCount () > 0) {
+					$order_str = '(';
+					while ( ! $procucts_orders->EOF ) {
+						$order_len ++;
+						if ($order_len == $procucts_orders->RecordCount ()) {
+							$order_str .= $procucts_orders->fields ['orders_id'] . ")";
+						} else {
+							$order_str .= $procucts_orders->fields ['orders_id'] . ",";
+						}
+						$procucts_orders->MoveNext ();
+					}
+				} else {
+					$order_str = "(' ')";
+				}
+				$products_query = "select distinct p.products_id, p.products_type, p.products_level, pd.products_name, p.products_image, p.products_price,
+			                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+			                                    p.products_weight, p.product_is_call, p.product_is_free,
+			                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type, 
+			  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+		                     from " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . $table_ptc . " ptc
+		                     where op.products_id != '" . ( int ) $_GET ['pid'] . "'
+		                     and orders_id in " . $order_str . "
+	                         AND ptc.products_id=p.products_id
+		                     and op.products_id = p.products_id
+		                     and op.products_id = pd.products_id
+		                     and p.products_status = 1" . $filter_str . "
+		                     group by p.products_id" . $order_by;
+				break;
+			case 'best_seller':
+				$breadcrumb->add ( TEXT_BEST_SELLER );				
+				$products_query = "SELECT p.products_id, pd.products_name, p.products_image, p.products_type, p.products_level, p.products_price,
+		                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+		                                    p.products_weight, p.product_is_call, p.product_is_free,
+		                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type, 
+		  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+							 FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_ORDER_NUM . " pon, " . $table_ptc . " ptc
+							 WHERE p.products_id = pon.products_id
+                             and p.products_id = pd.products_id
+                         	 AND ptc.products_id=p.products_id							 		
+							 AND p.products_status =1 " . $filter_str . " group by p.products_id " . $order_by;
+				break;
+			default :
+				$breadcrumb->add ( TEXT_NEW_ARRIVALS );
+				$today_last_month = date('Y-m-d', (mktime(0, 0, 0, (date('m') - 1), date('d'), date('Y'))));
+				$products_query = "SELECT distinct p.products_id, p.products_type, p.products_level, pd.products_name, p.products_image, p.products_price,
+				                                    p.products_tax_class_id, p.products_date_added, p.products_model,
+				                                    p.products_weight, p.product_is_call, p.product_is_free,
+				                                    p.product_is_always_free_shipping, p.products_qty_box_status, p.products_discount_type,
+				  									p.products_quantity_order_min, p.products_quantity_order_max, p.products_volume_weight,p.products_limit_stock,is_sold_out
+				                             FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . $table_ptc . " ptc
+				                             WHERE p.products_status = 1
+											 AND p.products_level <= " . (int)$_SESSION['customers_level'] . "
+				                             AND p.products_id = pd.products_id										 		
+	                             		 	 AND ptc.products_id=p.products_id
+				                             AND p.products_date_added >= '" . $today_last_month . "'
+				                             AND pd.language_id = " . $_SESSION ['languages_id'] . $filter_str . $order_by;
+		}
+	}
+  $number_of_products_per_page = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 48;	
+  $products_new_split = new splitPageResults($products_query, $number_of_products_per_page ,'p.products_id');
+//   print_r($check_products_all);exit;
+//check to see if we are in normal mode ... not showcase, not maintenance, etc
+  $show_submit = zen_run_normal();
+
+// check whether to use multiple-add-to-cart, and whether top or bottom buttons are displayed
+	if (PRODUCT_NEW_LISTING_MULTIPLE_ADD_TO_CART > 0 and $show_submit == true and $products_new_split->number_of_rows > 0) {
+
+	// check how many rows
+	$check_products_all = $db->Execute($products_new_split->sql_query);
+//	print_r($check_products_all);exit;
+//	echo $check_products_all->sql_query;exit;
+	$show_products_content = array();
+	while (!$check_products_all->EOF) {
+		// add by zale 
+		$page_name = "quick_view";
+		$page_type = 8;	  
+//		if($_SESSION['cart']->in_cart($check_products_all->fields['products_id'])){		//if item already in cart
+//			$procuct_qty = $_SESSION['cart']->get_quantity($check_products_all->fields['products_id']);
+//			$bool_in_cart = 1;
+//		}else {
+			$procuct_qty = 0;
+			$bool_in_cart = 0;
+//		}
+		//	eof
+
+		$link = zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_products_all->fields['products_id']);
+		$discount_amount = zen_show_discount_amount($check_products_all->fields['products_id']);
+		$pro_array['image'] = $discount_amount!='' && $discount_amount>0 ? draw_discount_img($discount_amount,'span') : '';
+		$pro_array['image'] .= '<a href="' . $link . '"><img alt="' . htmlspecialchars(zen_clean_html($check_products_all->fields['products_name'])) . '" title="' . htmlspecialchars(zen_clean_html($check_products_all->fields['products_name']).' ['.$check_products_all->fields['products_model'].']') . '" src="includes/templates/cherry_zen/images/loading2.gif" data-original="' . HTTP_IMG_SERVER . 'bmz_cache/' . get_img_size($check_products_all->fields['products_image'], 310, 310) . '" class="lazy"></a>';
+		$pro_array['name'] = '<h4><a href="' . $link . '">' . getstrbylength(htmlspecialchars(zen_clean_html($check_products_all->fields['products_name'])), 54) . '&nbsp;[' .$check_products_all->fields['products_model'] . ']</a></h4>';
+		
+		$unit_price = zen_get_unit_price($check_products_all->fields['products_id']);
+		if($_SESSION['languages_id']==3 && $_SESSION['currency']=='RUB' && $unit_price!=''){
+			$pro_array['price'] = '<p class="price">'.$unit_price.'</p>';
+		}else{
+			$pro_array['price'] = '<p class="price">'.zen_get_products_display_price_new($check_products_all->fields['products_id'], 'quick_browse_display').'</p>';
+		}
+
+		$pro_array['cart'] = '<div class="protips"><p>';
+        $check_products_all->fields['products_quantity'] = zen_get_products_stock($check_products_all->fields['products_id']);
+		$products_quantity = $check_products_all->fields['products_quantity'];
+		if($products_quantity > 0){
+			$pro_array['cart'] .= '<input class="qty addcart_qty_input 4" maxlength="5" type="text" id="'.$page_name.'_'.$check_products_all->fields['products_id'].'" name="products_id[' . $check_products_all->fields['products_id'] . ']" value="'.($bool_in_cart ? $procuct_qty : $check_products_all->fields['products_quantity_order_min']).'" orig_value="'.($bool_in_cart ? $procuct_qty : $check_products_all->fields['products_quantity_order_min']).'" /><input type="hidden" id="MDO_' . $check_products_all->fields['products_id'] . '" value="'.$bool_in_cart.'" /><input type="hidden" id="incart_' . $check_products_all->fields['products_id'] . '" value="'.$procuct_qty.'" />';
+			$pro_array['cart'] .= '<a class="'. ($bool_in_cart ? 'icon_updates' : 'icon_addcart') .'" title="'.($bool_in_cart ? IMAGE_BUTTON_UPDATE_CART : TEXT_CART_ADD_TO_CART).'" id="submitp_' . $check_products_all->fields['products_id'] . '" name="submitp_' .  $check_products_all->fields['products_id'] . '" onclick="Addtocart_list('.$check_products_all->fields['products_id'].','.$page_type.',this); return false;" href="javascript:void(0);"></a>';
+		}else{
+
+			if($check_products_all->fields['is_sold_out'] == 1){
+					$pro_array['cart'] .= '<span class="soldout_text"><a  id="restock_'.$check_products_all->fields['products_id'].'" onclick="beforeRestockNotification(' . $check_products_all->fields['products_id'] . '); return false;">' . TEXT_RESTOCK . ' ' . TEXT_NOTIFICATION . '</a></span>';
+					$pro_array['cart'] .= '<a class="icon_soldout" href="javascript:void(0);">'.TEXT_SOLD_OUT.'</a>';
+			}else{
+				$pro_array['cart'] .= '<input type="hidden" id="MDO_' . $check_products_all->fields['products_id'] . '" value="'.$bool_in_cart.'" />
+							   <input type="hidden" id="incart_' . $check_products_all->fields['products_id'] . '" value="'.$procuct_qty.'" /><br />';
+				$pro_array['cart'] .= '<div class="tipsbox"><div class="successtips_add successtips_add2"><span class="bot"></span><span class="top"></span><ins class="sh"></ins></div>';
+				$pro_array['cart'] .= '<span class="soldout_text"><a id="restock_'.$check_products_all->fields['products_id'].'" onclick="beforeRestockNotification(' . $check_products_all->fields['products_id'] . '); return false;">' . TEXT_RESTOCK . ' ' . TEXT_NOTIFICATION . '</a></span>';
+				$pro_array['cart'] .='<a rel="nofollow" class="icon_backorder" id="submitp_' . $check_products_all->fields['products_id'] . '" onclick="makeSureCart('.$check_products_all->fields['products_id'].','.$page_type.',\''.$page_name.'\',\''.get_backorder_info($check_products_all->fields['products_id']).'\')"  href="javascript:void(0);">' . TEXT_BACKORDER . '</a></div>';
+			}
+		}
+		$pro_array['cart'] .= '<a class="text addcollect" title="' . HEADER_TITLE_WISHLIST . '" id="wishlist_'.$check_products_all->fields['products_id'].'" class="addwishlistbutton" onclick="beforeAddtowishlist(' . $check_products_all->fields['products_id'] . ','.$page_type.'); return false;" href="javascript:void(0);"></a>';
+		$pro_array['cart'] .= '</p>';
+		$pro_array['cart'] .= '<div class="successtips_add successtips_add1"><span class="bot"></span><span class="top"></span><ins class="sh">' . TEXT_ENTER_RIGHT_QUANTITY . '</ins></div>';
+		$pro_array['cart'] .= '<div class="successtips_add successtips_add2"><span class="bot"></span><span class="top"></span><ins class="sh"></ins></div>';
+		$pro_array['cart'] .= '<div class="successtips_add successtips_add3"><span class="bot"></span><span class="top"></span><ins class="sh"></ins></div></div>';
+
+		$pro_array['cart'] .= '<p class="stock_remain">'.zen_get_products_quantity_min_units_display($check_products_all->fields['products_id']). ($check_products_all->fields['products_limit_stock'] == 1 ? ( '<span>'.sprintf(TEXT_STOCK_HAVE_LIMIT,$products_quantity).'</span>') : '') . '</p>';
+
+		$show_products_content[] = $pro_array;
+		$check_products_all->MoveNext();
+	}
+}	
+}
+?>

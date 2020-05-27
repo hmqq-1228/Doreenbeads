@@ -1,0 +1,59 @@
+<form action="index.php?main_page=shopping_cart&pn=sc{if $page > 1}&page={$page}{/if}" method="post">
+<nav><a href="index.php?main_page=shopping_cart{if $page > 1}&page={$page}{/if}">{$smarty.const.HEADING_TITLE} </a>&gt; {$smarty.const.TEXT_SHIPPING_CALCULATOR}</nav>
+<div class="ship-calculate">
+	<a class="backbtn" href="index.php?main_page=shopping_cart{if $page > 1}&page={$page}{/if}" style="margin-left:0;">{$smarty.const.TEXT_BACK}</a>
+	<div class="clear"></div>
+	<h3>{$smarty.const.TEXT_CART_SHIPPING_INFO}</h3>
+	<table class="calculatetab">
+    <tr><td width="10%">{$smarty.const.TEXT_WORD_SHIPPING_WEIGHT}: </td><td width="90%"><input type="text" name="shpping_weight" value="{$total_weight}g" class="weightinput" disabled/></td></tr>
+    <tr><td>{$smarty.const.TEXT_CART_SHIPPING_COUNTRY}:</td><td>{$text_countries_list}</td>
+    
+	  	</tr>
+    <tr><td>{$smarty.const.TEXT_CART_SHIPPING_POSTCODE}:</td><td><input type="text" name="postcode" class="postalinput" value="{$customer_default_postcode}"/></td></tr>
+    <tr><td></td><td><button class="button-now">{$smarty.const.TEXT_CART_SHIPPING_CAL}</button></td></tr>
+  </table>
+</div>
+</form>
+<div class="shipcont">
+	<div class="ship-type">
+	    <span>{$smarty.const.TEXT_INFO_SORT_BY}</span>
+	    <div>
+	        <select class="sc_sort">
+	            <option value="drise">{$smarty.const.TEXT_DAYS_ALT_S_Q}</option>
+	            <option value="ddown">{$smarty.const.TEXT_DAYS_ALT_Q_S}</option>
+	            <option value="prise" selected>{$smarty.const.TEXT_PRICE_ALT_L_H}</option>
+	            <option value="pdown">{$smarty.const.TEXT_PRICE_ALT_H_L}</option>
+	        </select>
+	    </div>
+	</div>	
+	<table class="shipmethod-list" id="e">
+    {assign var = n value = 1}
+    {foreach from = $shipping_methods_show key = k item = v}
+    <tr class="bordert {if $k == $default_shipping_method} selected{/if}">
+        <td width="1%">
+        	<input type="radio" name="shipway" id="shipway{$n}"{if $k == $default_shipping_method} checked{/if} value="{$v.code}" />
+        </td>
+        <td>
+            <label for="shipway{$n}">{$v.title}</label>    
+	        {if $v.show_note != ''}
+            <ins class="opentips"></ins>
+            <div class="shiptips">
+                <span class="bot"></span>
+                <span class="top"></span>
+<!--                    <b class="closetips">X</b> -->
+                <p>{$v.show_note}</p>
+            </div>
+            {/if}         
+  
+        </td>
+        <td align="right">{$v.cost_show}<input type="hidden" value="{$v.final_cost}" class="cost"><br/>{$v.days_show}<input type="hidden" value="{$v.day*100+$v.day_high}" class="day"></td>
+     </tr>
+    {assign var = n value = $n + 1}
+    {/foreach}
+	</table>
+	<p class="shipmore">
+	<a href="index.php?main_page=shopping_cart{if $page > 1}&page={$page}{/if}" class="backbtn">{$smarty.const.TEXT_BACK}</a>
+<!-- 	<a href="javascript:void(0);" class="morecont">{$smarty.const.TEXT_MORE} &gt;&gt;</a>
+	<a href="javascript:void(0);" class="lesscont">{$smarty.const.TEXT_LESS} &gt;&gt;</a> -->
+	</p>
+</div>

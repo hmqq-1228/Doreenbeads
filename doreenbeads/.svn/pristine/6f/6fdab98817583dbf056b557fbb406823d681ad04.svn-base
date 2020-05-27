@@ -1,0 +1,225 @@
+<dl class="detailinfo detailcont">
+    <!-- bof img -->
+    <?php require($template->get_template_dir('/tpl_modules_main_product_image_new.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_main_product_image_new.php'); ?>
+    <!-- eof -->
+    <dt>
+        <p class="detailtit"><strong><?php echo $products_name . ' (' . $products_model . ')'; ?></strong><input
+                    type="hidden" value="<?php echo $products_id_current; ?>" class="product_id"></p>
+        <p class="productview">
+            <?php
+            if ($reviews->fields['count'] > 0) {
+                echo '<span>';
+                for ($i = 0; $i < $review_rate; $i++) {
+                    echo '<ins class="gold"></ins>';
+                }
+                for ($i = 0; $i < (5 - $review_rate); $i++) {
+                    echo '<ins class="grey"></ins>';
+                }
+                echo '</span>';
+                echo '<a rel="nofollow" href="' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '#reviewcontent' . '">(' . $reviews->fields['count'] . ')</a>';
+            }
+            ?>
+            <a rel="nofollow"
+               href="<?php echo (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != '') ? 'javascript:void(0);" class="junptowritereview"' : zen_href_link(FILENAME_LOGIN, 'click=write_reviews', 'SSL') . '"'; ?>><?php echo TEXT_WRITE_REVIEWS_TITLE; ?></a>
+			<a rel=" nofollow" href="javascript:void(0);" class="ask_quest_btn"><?php echo TEXT_ASK_A_QUESTION; ?></a>
+        </p>
+        <?php echo $ls_price; ?>
+        <?php echo zen_display_products_quantity_discounts($_GET['products_id']); ?>
+
+        <?php
+        $other_size_product_id_result = get_products_package_id_by_products_id($_GET['products_id']);
+        $products_num = sizeof($other_size_product_id_result);
+        if ($products_num > 0) {
+            echo '<a href="' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '#other_package_size_products' . '">' . TEXT_OTHER_PACKAGE_SIZE . '</a><br/><br/>';
+        }
+        ?>
+
+        <?php
+        $show_products_group_of_products = "";
+        $products_group_of_products = get_products_group_of_products($_SESSION['languages_id'], $product_info->fields['products_model']);
+        if (!empty($products_group_of_products)) {
+            $show_products_group_of_products .= '<div class="products_multi_design"><div style="width:420px;"><ul class="jq_products_multi_design_ul" style="width:100%;">';
+            foreach ($products_group_of_products['data'] as $products_group_value) {
+                $current = "";
+                if ($product_info->fields['products_model'] == $products_group_value['products_model']) {
+                    $current .= " current";
+                }
+                $show_products_group_of_products .= '<li id="jq_products_multi_design_li" class="multi' . $current . '"><a title="' . htmlspecialchars($products_group_value['products_name'], ENT_QUOTES) . ' (' . $products_group_value['products_model'] . ')" href="' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_group_value['products_id']) . '"><img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/80.gif" data-size="80" data-lazyload="' . HTTP_IMG_SERVER . 'bmz_cache/' . get_img_size($products_group_value['products_image'], 80, 80) . '" /></a></li>';
+            }
+
+            $show_products_group_of_products .= '</ul></div></div><div class="clearfix"></div>';
+            echo $show_products_group_of_products;
+        }
+        ?>
+
+        <?php echo $display_button; ?>
+        <?php if ((int)zen_show_discount_amount($_GET['products_id']) > 0 || get_daily_deal_price_by_products_id((int)$_GET['products_id'])) { ?>
+            <p style="position: relative;top: 9px;"><span
+                        style="margin-right: 5px;color: #D16369;">*</span><?php echo TEXT_DISCOUNT_PRODUCTS_TIPS; ?>
+            </p>
+        <?php } ?>
+        <?php if ($promotion_has_max_num > 0) { ?>
+            <p style="position: relative;top: 9px;"><span
+                        style="margin-right: 5px;color: #D16369;">*</span><?php echo sprintf(TEXT_DISCOUNT_PRODUCTS_MAX_NUMBER_TIPS, $promotion_has_max_num); ?>
+            </p>
+        <?php } ?>
+        <div class="clearfix"></div>
+        <div class="detailwei">
+            <div class="buyer_pro_desc">
+                <h4><?php echo TEXT_BUYER_PROTECTION; ?></h4>
+                <?php echo TEXT_BUYER_PROTECTION_TIPS; ?>
+            </div>
+            <p><?php echo TEXT_PRODUCT_WEIGHT; ?>: <?php echo $products_weight . ' ' . TEXT_PRODUCT_WEIGHT_UNIT; ?> </p>
+            <?php if ($products_volume_weight > $products_weight) { ?>
+                <p><a rel="nofollow" class="product_info_vol_weight" target="_blank"
+                      href="index.php?main_page=page&id=21#P5"><?php echo TEXT_VOLUMETRIC_WEIGHT; ?></a>: <?php echo $products_volume_weight . ' ' . TEXT_PRODUCT_WEIGHT_UNIT; ?>
+                </p>
+            <?php } ?>
+            <p><?php if ($display_data) echo sprintf(TEXT_DATE_ADDED, zen_date_long($products_date_added)); ?></p>
+        </div>
+        <p class="fourlink1" style="line-height: 24px;">
+            <span><strong><?php echo TEXT_SHARE; ?></strong>:</span>
+            <?php if ($_SESSION['languages_id'] == 3) { ?>
+                <a href="<?php echo 'https://vk.com/share.php?url=' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '&title=' . META_TAG_TITLE . '&description=' . META_TAG_DESCRIPTION . '&image='; ?>"
+                   class='st_vkontakte'><span title="<?php echo TEXT_SHARE_TO_YOUR_VK; ?>"></span></a>
+            <?php } ?>
+            <a href="<?php echo 'https://www.facebook.com/sharer.php?u=' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '&t=' . META_TAG_TITLE ?>"
+               class='st_facebook'><span title="<?php echo TEXT_SHARE_TO_YOUR_FACEBOOK; ?>"></span></a>
+            <a href="<?php echo 'https://www.youtube.com/channel/UCRvI1TH9x5othhfAMts6jpQ?sub_confirmation=1' ?>"
+               class='st_twitter'><span title="<?php echo TEXT_SHARE_TO_YOUR_TWITTER; ?>"></span></a>
+            <a href="<?php echo 'https://www.pinterest.com/pin/create/null/?url=' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '&media=' . HTTP_IMG_SERVER . "bmz_cache/images/" . get_img_size($products_image, 500, 500) . '&h=500&w=500&description=' . META_TAG_TITLE ?>"
+               class='st_pinterest'><span title="<?php echo TEXT_SHARE_TO_YOUR_PINTEREST; ?>"></span></a>
+            <?php if ($_SESSION['languages_id'] != 3) { ?>
+                <a href="<?php echo 'https://plus.google.com/share?url=' . zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id']) . '&hl=en-US' ?>"
+                   class='st_googleplus'><span title="<?php echo TEXT_SHARE_TO_YOUR_GOOGLE; ?>"></span></a>
+            <?php } ?>
+        </p>
+        <?php
+        if ($is_silver_flag) {
+            echo '<p class="silver_report">' . TEXT_SILVER_REPORT . '</p>';
+        }
+        if ($is_swarovski_flag) {
+            echo '<p class="silver_report">' . TEXT_SWAROVSKI_CERTIFICATE . '</p>';
+        }
+        ?>
+    </dt>
+    <div class="clearfix"></div>
+    <div id="succs_<?php echo $_GET['products_id']; ?>" class="messageStackSuccess larger" style="display:none;"></div>
+</dl>
+
+<!-- bof product question -->
+<div class="questioncont" id="questioncont">
+    <p class="questioncont_tit"><strong><?php echo TEXT_INFO_PRODUCT_QUESTION; ?></strong><span
+                class="closepro">X</span></p>
+    <div class="clearfix"></div>
+    <div class="clearfix"></div>
+    <dl class="quesform">
+        <dd>
+            <p class="questionimgNo">
+                <img src="<?php echo HTTP_IMG_SERVER . 'bmz_cache/' . get_img_size($products_image, 130, 130) ?>"
+                     width="123" height="118"/><br>
+                <?php echo $products_model; ?>
+            </p>
+            <p class="questiondetail"><?php echo $products_name; ?></p>
+        </dd>
+        <dt class="pq_content">
+            <p><?php echo TEXT_INFO_PLEASE_SEND_US; ?><span>(<?php echo FORM_REQUIRED_INFORMATION; ?>)</span></p>
+            <form>
+                <table class="question-tab">
+                    <tr>
+                        <td width="100"><label>*</label><?php echo TEXT_INFO_CHOOSE_A_TOPIC; ?></td>
+                        <td>
+                            <div class="choosetext">
+                                <p class="p_select">
+                                    <span id="selecttext"><?php echo TEXT_INFO_DETAILS_ABOUT; ?></span>
+                                    <span id="arrowup">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </p>
+                                <ul class="selectlist">
+                                    <li><?php echo TEXT_INFO_DETAILS_ABOUT; ?></li>
+                                    <li><?php echo TEXT_INFO_POSTAGE; ?></li>
+                                    <li><?php echo TEXT_INFO_PAYMENT; ?></li>
+                                    <li><?php echo TEXT_INFO_OTHERS; ?></li>
+                                </ul>
+                            </div>
+                            <input type="hidden" id="topictext" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>*</label><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+                        <td class="textinput"><input type="text" class="emailinput"
+                                                     value="<?php echo $customer_email; ?>"/>
+                            <p class="pq_error"></p></td>
+                    </tr>
+                    <!-- <tr><td><label>*</label><?php echo ENTRY_FIRST_NAME; ?></td><td class="textinput"><input type="text" class="firstinput" value="<?php echo $_SESSION['customer_first_name']; ?>" /><p class="pq_error"></p></td></tr>
+					<tr><td><label>*</label><?php echo ENTRY_LAST_NAME ?></td><td class="textinput"><input type="text" class="lastinput" value="<?php echo $customer_info['lname']; ?>" /><p class="pq_error"></p></td></tr> -->
+                    <tr id="email_tr">
+                        <td><label>*</label><?php echo TEXT_INFO_QUESTION; ?></td>
+                        <td class="textinput"><textarea
+                                    class="pq_textarea"><?php echo TEXT_INFO_PLEASE_ADD; ?></textarea>
+                            <p class="pq_error"></p></td>
+                    </tr>
+                    <?php if ($_SESSION['auto_auth_code_display']['ask_questions'] >= 3) { ?>
+                        <tr id="auth_code_tr">
+                            <td style="vertical-align: middle;"><label>*</label><?php echo TEXT_VERIFY_NUMBER; ?>:</td>
+                            <td class="textinput"><input type="text" class="pq_input_checkcode"
+                                                         style="width:80px;margin-right:20px;"/><img id="pq_check_code"
+                                                                                                     src=""
+                                                                                                     onClick="this.src='./check_code.php?'+Math.random();"
+                                                                                                     style="top: 8px;position: relative;"/>
+                                <p class="pq_error"></p></td>
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" id="questsubbtn" value="<?php echo TEXT_SUBMIT; ?>"/></td>
+                    </tr>
+                </table>
+            </form>
+
+        </dt>
+    </dl>
+    <dl class="quessuccess">
+        <dd>
+            <p class="questionimgNo">
+                <a href="<?php echo zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id_current) ?>">
+                    <img src="<?php echo HTTP_IMG_SERVER . 'bmz_cache/' . get_img_size($products_image, 130, 130) ?>"
+                         width="123" height="118"/>
+                </a>
+                <br>
+                <?php echo $products_model; ?>
+            </p>
+            <p class="questiondetail"><a
+                        href="<?php echo zen_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id_current) ?>"><?php echo $products_name; ?></a>
+            </p>
+        </dd>
+        <dt class="quessuccess">
+            <ins class="righticon"></ins>
+            <div class="righttext">
+                <p><strong><?php echo TEXT_INFO_PRODUCT_QUESTION_CONFIRMATION; ?></strong></p>
+                <p><span><?php echo TEXT_INFO_A_CUSTOMER_SERVICE; ?> </span></p>
+                <p><a href="javascript:void(0);"><?php echo TEXT_INFO_CLICK_CLOSE_WINDOW; ?></a></p>
+            </div>
+        </dt>
+    </dl>
+
+    <div class="clearfix"></div>
+</div>
+<!-- eof product question -->
+
+<!-- bof product description -->
+<?php if ($products_description != '') { ?>
+    <div class="detailcont">
+        <p class="detailconttit"><strong><?php echo TEXT_INFO_DESCRIPTION; ?></strong></p>
+        <?php echo stripslashes($products_description); ?>
+    </div>
+<?php } ?>
+<!-- eof product description -->
+<?php require($template->get_template_dir('tpl_modules_other_package_sizes_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/' . 'tpl_modules_other_package_sizes_products.php'); ?>
+
+<?php require($template->get_template_dir('tpl_modules_matching_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/' . 'tpl_modules_matching_products.php'); ?>
+
+<?php require($template->get_template_dir('tpl_modules_also_like_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/' . 'tpl_modules_also_like_products.php'); ?>
+
+<?php require($template->get_template_dir('tpl_modules_also_purchased_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/' . 'tpl_modules_also_purchased_products.php'); ?>
+
+<?php require($template->get_template_dir('tpl_modules_write_review_new.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/' . 'tpl_modules_write_review_new.php'); ?>

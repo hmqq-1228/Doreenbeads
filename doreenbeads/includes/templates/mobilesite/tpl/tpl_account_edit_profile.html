@@ -1,0 +1,65 @@
+<div class="order_main">
+	{if $messageStack->size('account_profile')>0}
+		<div>{$messageStack->output('account_profile')}</div>
+	{/if}
+	<div class="order_place">
+  		<form class="addressform" method="post" name="account_edit_profile" action="index.php?main_page=account_edit&edit=profile&action=process" onsubmit="return check_account_edit_form(account_edit_profile)">
+        	<ul>
+        		<li>
+        			<label><b class="price_color">*</b> {$smarty.const.ENTRY_GENDER}</label>
+					<select name="gender" style="width:100%;">
+						<option {if {$gender}=='m'}selected{/if} value="m">{$smarty.const.TEXT_MALE}</option>
+						<option {if {$gender}!='m'}selected{/if} value="f">{$smarty.const.TEXT_FEMALE}</option>
+					</select>
+        		</li>
+          		<li>
+            		<label><b class="price_color">*</b> {$smarty.const.ENTRY_FIRST_NAME}</label>
+            		<input type="text" class="firstname required" name="firstname" id="firstname" value="{$firstname}"/>
+					<span class="warning_color" id="fn_error"></span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b> {$smarty.const.ENTRY_LAST_NAME}</label>	            		
+					<input type="text" class="lastname required" name="lastname" id="lastname" value="{$lastname}"/>
+					<span class="warning_color" id="ln_error"></span>
+          		</li>	          		
+          		<li>
+            		<label>{$smarty.const.ENTRY_DATE_BIRTH}</label>
+					<div id="birthday">
+				    	<select name="sel_year" style="width:39%" class="sel_year" rel="{$sel_year}"> </select>
+						<select name="sel_month" style="width:28%" class="sel_month" rel="{$sel_month}"> </select>
+						<select name="sel_day" style="width:27%" class="sel_day" rel="{$sel_day}"></select>
+					</div>
+					<span class="warning_color" id="birth_error"></span>
+					<div class="grey_9">{$smarty.const.TEXT_BIRTH_DAY_MESSAGE}</div>
+          		</li>
+          		<li >
+            		<label>{$smarty.const.ENTRY_BUSINESS_WEB}</label>
+					<input type="text" name="customers_business_web" value="{$business_web}" id="customers_business_web"/>
+					<span id="web_error" class="warning_color"></span>
+          		</li>
+          		<li >
+            		<label>{$smarty.const.ENTRY_TELEPHONE}</label>
+            		<input class="tell required" type="text" name="telephone" value="{$tel}"/>
+					<span id="tel_error" class="warning_color"></span>
+          		</li>
+          		<li>
+            		<label>{$smarty.const.ENTRY_CELL_PHONE}</label>
+					<input name="customers_cell_phone" type="text" value="{$cell}"/>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_COUNTRY}</label>
+				    {$country_select}	 
+				  	{literal}
+				  	<script type="text/javascript">
+					country_select_choose('customers_country_id');
+				  	</script>
+				  	{/literal}
+          		</li>
+    		</ul>
+          	<div class="cart_btn">
+		  		<button type="submit" id="infosubmit" class="btn_big btn_ltblue">{$smarty.const.TEXT_SAVE}</button>
+		  		<a href="index.php?main_page=myaccount&tag=settings" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+		  	</div>
+      	</form>
+  	</div>  	
+</div>

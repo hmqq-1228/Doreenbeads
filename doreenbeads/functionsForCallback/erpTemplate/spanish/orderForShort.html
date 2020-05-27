@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>service--8seasons.com</title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Estimado(a) {$firstName}, </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">¡Muchas gracias  por su compra!.</td></tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Los productos que no tenían existencias de su orden anterior hoy se han enviado hacia fuera:<br/>
+			{foreach $orderForShort as $productForShort}
+				{$productForShort.quantity}unidades. -{$productForShort.model}--{$productForShort.name}--Número de Pedido{$productForShort.orderId}
+				<p style="padding:0;margin:0;">{$productForShort.image}</p>
+			{/foreach}
+		</td>
+	</tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Su paquete ha sido enviado{if $boxCount > 0}(en {$boxCount} cajas){/if} por {$expressMethods} {$deliveryTime}, que va a tardar {$days} días en la entrega, y usted puede hacer el seguimiento de su paquete.
+		{if $isDhls}
+			<span style="color:#96F;"> 
+				Por favor tenga en cuenta que su paquete será devuelto a nosotros, si no hay nadie en casa para recibirlo. Así que si usted quiere pasar las vacaciones o hacer un viaje de negocio, por favor, avísenos para cambiar la dirección del envío o ofrézcanos el número de su móvil para facilitar la entrega del paquete. ¡Gracias por su cooperación!
+			</span>
+		{/if}
+		</td>
+	</tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Su paquete ha sido enviado a: <br/>{$address}</td></tr>
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Hemos declarado el valor de su paquete de {$reportAmount} según nuestra experiencia. Normalmente, el valor le ayudará a ahorrar los pagos de impuestos.</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">El número de segumiento de su pedido es:<br />{$traceNumbers}</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0 && $webSiteCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Uno o dos días después, puede realizar el seguimiento en:<br/>{$webSite}</td></tr>
+	{/if}
+
+	{if $isHmey}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Por favor que tenga en cuenta que el estado de la entrega de su paquete no se actualizará después de que su paquete salga de China. Pero no se preocupe. Su paquete será entregado a su destino sin problema. Hemos utilizado este método de envío muchas veces. ¡Muchas gracias por su comprensión!
+		</td>
+	</tr>
+	{/if}
+	{if $shortProductCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Pero lamentamos mucho informarle de que hay varios artículos que se agotaron  inesperadamente, aquí  son los detalles:<br />
+			{foreach $shortProduct as $product}
+				{$product.quantity}unidades. -{$product.model}--{$product.name}--Número de Pedido{$product.orderId}
+				<p style="padding:0;margin:0;">{$product.image}</p>
+			{/foreach}
+			<p style="padding:0;margin:0;"><br />Pero lamentamos mucho informarle de que hay varios artículos que se agotaron  inesperadamente, aquí son los detalles:<br /><br />
+			Para que usted reciba otros productos sin demora, hemos enviado su pedido con antelación. Y tenemos que dejarle saberlo.
+			En cuanto a los productos agotados, he aquí algunas sugerencias para usted:<br />
+			1. ¿Podremos envíarselos con su próxima orden cuando vuelva a hacer compras en nuestra tienda? Y usted podrá recordármelo la próxima vez.<br />
+			2. ¿Podremos envíarselos cuando estén disponibles?(Normalmente se los enviamos por el correo aéreo y se necesitarán 35-55 días para la entrega, y usted no necesita pagar el envío. Pero si usted tiene prisa, póngase en contacto con nosotros por favor y haremos todo lo posible para ofrecerle el servicio de envío más rápido.)<br />
+			<br />
+			¿Cuál prefiere usted? Dígamelo y le ofreceré el mejor servicio según su voluntad :)</p>
+		</td>
+	</tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Si usted tiene cualquier pregunta, por favor no dude en contactar con nosotros, y vamos a ofrecerle el mejor servicio a usted.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Le agradecemos otra vez por su compra y esperamos seguir haciendo negocios con usted más adelante.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Aténtamente,</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">======= Nota =========<br/>*Para asegurar que usted vaya a recibir correctos productos con la cantidad exacta, hemos escaneado y registrado cada artículo de su paquete andes de empaquetarlo. Entonces, normalmente no va a ocurrir errores. :-)</td></tr>
+</table>
+</body>
+</html>

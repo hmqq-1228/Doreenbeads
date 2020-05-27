@@ -1,0 +1,3 @@
+<div class="centerColumn" id="ezPageDefault">
+    <div>{$message_info_array['description']}</div>
+</div>

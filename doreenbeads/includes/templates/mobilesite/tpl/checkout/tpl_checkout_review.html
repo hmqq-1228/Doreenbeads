@@ -1,0 +1,185 @@
+<div class="order_main">
+    <div class="order_warp">
+    	<h3><span>4</span>{$smarty.const.TEXT_ORDER_REVIEW_PLACE}</h3>
+    	<ul class="confirm_order">
+	        <li>
+	          	<div class="confirm_title">
+	            	<h4>{$smarty.const.TEXT_SHIPPING_ADDRESS}</h4>
+	            	<a href="{$checkout_default_url}&pn=edit&aId={$smarty.session.sendto}" class="link_text">{$smarty.const.TEXT_EDIT}</a>
+	            </div>
+	          	<p>{$smarty.const.TABLE_HEADING_SHIPPED_TO}:</p>
+	          	<p class="grey_6">{$address_format}</p>
+	        </li>
+	        <li>
+	          	<div class="confirm_title">
+	            	<h4>{$smarty.const.TEXT_CART_SHIPPING_INFO}</h4>
+	            	<a href="{$checkout_default_url}&pn=sc" class="link_text">{$smarty.const.TEXT_EDIT}</a>
+	            </div>
+	          	<p class="grey_6">{$smarty.session.shipping.title},{$shipping_methods_show.cost_show}<br/>{$smarty.session.shipping.days_show},<br/>{if $smarty.session.shipping.special_cost}{$smarty.session.shipping.special_cost}{else}{$smarty.session.shipping.cost_show}{/if}</p>
+	        </li>
+	        <li>
+	          	<div class="confirm_title">
+	            	<h4>{$smarty.const.TEXT_CUSTOM_NO}</h4>
+	            	<a href="{$checkout_default_url}&pn=cm" class="link_text">{$smarty.const.TEXT_EDIT}</a>
+	            </div>
+	          	<p class="grey_6">{if $smarty.session.tariff != ''}{$smarty.session.tariff}{else}/{/if}</p>
+	          	{if $smarty.session.comments != ''}
+	          	<h4>{$smarty.const.TEXT_ORDER_MESSAGE}</h4>
+	          	<p>{if mb_strlen($smarty.session.comments) > 50}{$smarty.session.comments|@mb_substr:0:50:'UTF-8'}...<a href="javascript:void(0);" class="jq_show_order_message">{$smarty.const.TEXT_VIEW_DETAILS}</a>{else}{$smarty.session.comments}{/if}</p>
+	          	{/if}
+	        </li>
+      	</ul>
+      	<div class="items_warp">
+	        <h4><b>{$smarty.const.TEXT_ITEMS_REVIEW}</b></h4>
+	        <a href="{$shoppingcart_default_url}" class="link_text edit">{$smarty.const.TEXT_EDIT}</a>
+	        <div class="clearfix"></div>
+	        <div class="items">
+	        	<a href="javascript:void(0);" class="view_details">{$smarty.const.TEXT_PRODUCT_DETAILS}<!-- ({$total_num}) --><ins class="icon_arrow_up"></ins></a>
+	        	<div class="jq_detail_items display_none">
+		          	<p class="total">{$smarty.const.TEXT_CART_TOTAL_PRODUCT_PRICE}: <b class="price_color">{$total_price}</b></p>
+		          	<ul class="shopcart_ul">
+		          		{foreach from = $pinfo key = i item = p}
+			            <li>
+			              	<p class="cartpro_name">{$p.name}[{$p.model}]</p>
+			              	<div class="pro_img">{$p.image}{if $p.discount}<span class="cart_discount">{$p.discount}% {$smarty.const.TEXT_OFF}</span>{/if}</div>
+			              	<div class="pro_price">
+				                <p>
+				                	<span>{$smarty.const.TEXT_PRICE_WORDS}:</span>
+				                	{if $p.oprice neq $p.price}
+				                	<del>{$p.oprice}</del><br />
+									{/if}
+				                  	{$p.price}
+				                </p>
+				                <p><span>{$smarty.const.TABLE_HEADING_QUANTITY}:</span> <span>{$p.qty} {$smarty.const.TEXT_PACKET_2}</span> </p>
+				                <p><span>{$smarty.const.TEXT_ORDER_INFO_SUBTOTAL}:</span> {$p.total}</p>
+			              	</div>
+			              	<div class="clearfix"></div>
+			              	{if $p.is_preorder}<p class="avalaible">
+								{if $p.products_stocking_days > 7}
+					                {$smarty.const.TEXT_AVAILABLE_IN715}
+					            {else}
+					                {$smarty.const.TEXT_AVAILABLE_IN57}
+					            {/if}
+                            </p>{/if}
+			            </li>
+			            {/foreach}
+		          	</ul>
+		          	{if $cart_fen_ye_bottom != ''}{$cart_fen_ye_bottom}{/if}<!--
+		          	<div class="page"><a href="#" class="page_lt page_grey"></a><span>1/5</span><a href="#" class="page_rt"></a></div> -->
+	          	</div>
+	        </div>
+      	</div>
+		<div class="items_coupon">
+	        <h4><b>{$smarty.const.TEXT_WORD_COUPON}</b></h4>
+	        <div id='add_coupon_div'>
+               {$add_coupon_str}
+            </div>
+            {if $coupon_array|@sizeof > 0}
+	        <div id="coupon_select_div">
+		        <p style="padding-bottom: 0;"><strong >(2) {$smarty.const.TEXT_OTHER_COUPON_TITLE} (<span id="coupon_count">{$coupon_array|@sizeof}</span> {$smarty.const.TEXT_COUPON_AVAILABLE}):</strong></p>
+		        <p>{$smarty.const.TEXT_CHOOSE_COUPON_TIPS}, <a href="index.php?main_page=coupon_terms" class="link_text">{$smarty.const.TEXT_CLICK_HERE}</a>.</p>
+		        <div class="currency_nav">
+		        	{$coupon_select}
+		        </div>
+	        </div>
+	        {/if}
+	  	</div>
+
+
+		<div class="bottom_total">
+        	<h3>{$smarty.const.TEXT_ORDER_SUMMARY}</h3>
+        	{$order_total_str}
+        </div>
+
+        <div class="total_tip">
+	        <p><span class="price_color">* </span>{$smarty.const.TEXT_REORDER_PACKING_TIPS}</p>
+	        <p>
+	          	<label><input type="radio" name="packingway" id="pack1" value="1" />{if $smarty.session['packing_tips_choose'] == 3}{$smarty.const.TEXT_REORDER_PACKING_WAY_FOUR}{else}{$smarty.const.TEXT_REORDER_PACKING_WAY_ONE}{/if}</label>
+	          	<br />
+	          	<label><input type="radio" name="packingway" id="pack2" value="2"/>{if $smarty.session['packing_tips_choose'] == 3}{$smarty.const.TEXT_REORDER_PACKING_WAY_FIVE}{else}{$smarty.const.TEXT_REORDER_PACKING_WAY_TWO}{/if}</label>
+	          	<br />
+	        </p>
+	        <div class="tip_msg packchoice_tips"><a href="javascript:void(0);" class="grey_9">{$smarty.const.TEXT_EXTRA_TIPS}</a>
+	         	<p class="packchoicetips"><ins></ins>{$smarty.const.TEXT_EXTAR_SHIPPING_FEE}</p>
+	        </div>
+      </div>
+
+        <div class="cart_btn checkout-review">
+			<a href="javascript:void(0);" class="btn_big btn_ltblue jq_order_submit" id="continuenext">{$smarty.const.TEXT_PLACE_YOUR_ORDER}</a>
+			<a href="{$checkout_default_url}&pn=cm" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+	        <input type="hidden" name="address_id" value="{$smarty.session.sendto}">
+	        <input type="hidden" name="shipping_code" value="{$smarty.session.shipping.code}">
+	        <input type="hidden" name="tariff" value="{$smarty.session.tariff}">
+	        <input type="hidden" name="comments" value="{$smarty.session.comments}">
+		</div>
+
+
+<!-- <h3 class="addressnav">{$smarty.const.TEXT_ORDER_REVIEW_PLACE}</h3>
+<div class="addresscont">
+	<h3 class="order-reviewtit">{$smarty.const.TABLE_HEADING_SHIPPED_TO}:</h3>
+	<div class="order-review">
+		<p class="textleft">{$address_format}</p>
+		<a href="{$checkout_default_url}&pn=edit&aId={$smarty.session.sendto}" class="editbtn"></a>
+	</div>
+    <h3 class="order-reviewtit">{$smarty.const.TEXT_SHIPPING_METHOD}:</h3>
+    <div class="order-review">
+        <p class="textleft">{$smarty.session.shipping.title},{$shipping_methods_show.cost_show}<br/>{$smarty.session.shipping.days_show},<br/>{if $smarty.session.shipping.special_cost}{$smarty.session.shipping.special_cost}{else}{$smarty.session.shipping.cost_show}{/if}</p>
+        <a href="{$checkout_default_url}&pn=sc" class="editbtn"></a>
+    </div>
+    <h3 class="order-reviewtit">{$smarty.const.TEXT_CUSTOM_NO}:</h3>
+    <div class="order-review">
+        <p class="textleft">{if $smarty.session.tariff != ''}{$smarty.session.tariff}{else}/{/if}</p>
+        <a href="{$checkout_default_url}&pn=cm" class="editbtn"></a>
+    </div>
+	<h3 class="order-reviewtit">{$smarty.const.TEXT_ITEMS_REVIEW}:</h3>
+	<div class="order-review">
+		<a href="javascript:void(0);" class="viewallbtn">{$smarty.const.TEXT_VIEW_ALL_DETAILS}({$total_num})<ins></ins></a>
+		<a href="javascript:void(0);" class="viewlessbtn">{$smarty.const.TEXT_VIEW_LESS}<ins></ins></a>
+		<div class="alldetails">
+			{foreach from = $pinfo key = i item = p}
+			<div class="shopcart-list">
+				<div class="shopcartimg">
+				{$p.image}
+				{if $p.discount}
+				{if $smarty.session.languages_id == 1}
+				<div class="floatprice"><span>{$p.discount}%<br/>off</span></div>
+				{else}
+				<div class="floatprice"><span>-{$p.discount}%</span></div>
+				{/if}{/if}
+				</div>
+				<ul>
+					<li><span>{$p.name}<strong>({$p.model})</strong></span></li>
+					<li>{$smarty.const.TEXT_WEIGHT_WORDS} {$p.weight} {$smarty.const.TEXT_GRAM_WORD}</li>
+
+					{if $p.oprice neq $p.price}<li>{$smarty.const.TEXT_CART_UNIT_PRICE}: <del>{$p.oprice}</del></li>{/if}
+					<li>{if $p.oprice neq $p.price}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{else} {$smarty.const.TEXT_CART_UNIT_PRICE}:{/if}<strong>{$p.price}</strong></li>
+
+					<li>{$smarty.const.TABLE_HEADING_QUANTITY}: {$p.qty} {$smarty.const.TEXT_PACKET_2}</li>
+					<li class="nowprice">{$smarty.const.TEXT_ORDER_INFO_SUBTOTAL}: <strong>{$p.total}</strong></li>
+				</ul>
+			</div>
+			{/foreach}
+			{if $cart_fen_ye_bottom != ''}<div class="propagelist pagelist">{$cart_fen_ye_bottom}</div>{/if}
+			<div class="itemhide"><span></span></div>
+		</div>
+	</div>
+
+
+
+	{$coupon_str}
+
+	{$order_total_str}
+
+	{$packing_choose_tips}
+	<div class="contbtn checkout-review">
+		<a href="javascript:void(0);" class="button-now" id="continuenext">{$smarty.const.TEXT_PLACE_YOUR_ORDER}</a>
+		<a href="{$checkout_default_url}&pn=cm" class="button-change">{$smarty.const.TEXT_BACK}</a>
+        <input type="hidden" name="address_id" value="{$smarty.session.sendto}">
+        <input type="hidden" name="shipping_code" value="{$smarty.session.shipping.code}">
+        <input type="hidden" name="tariff" value="{$smarty.session.tariff}">
+        <input type="hidden" name="comments" value="{$smarty.session.comments}">
+	</div>
+</div> -->
+	</div>
+</div>
+<div class="packchoice-tips"><p>{$smarty.const.TEXT_ERROR_PACKING_TIPS}</p></div>

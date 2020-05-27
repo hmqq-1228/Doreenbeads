@@ -1,0 +1,16 @@
+li{ list-style:none;}
+img{ border:none;}
+.coupon2015 { width:766px; margin:0 auto; background-color:#d20339;}
+.coupon2015_content { margin:0 15px; background-color:#fbf4e7; border-radius:5px; padding:20px 15px;}
+.coupon2015_content h4{ font-size:18px; font-weight:normal; padding:10px 0;}
+.coupon2015_content p{ font-size:14px; line-height:24px;}
+.coupon2015_products { padding:20px 10px;}
+.coupon2015_products li{ float:left; margin:8px 6px 20px 6px; position:relative;}
+.coupon2015_products li p{position:absolute; top:142px; right:0;text-align:center; width:250px; font-size:18px;font-family:Tahoma;}
+.coupon2015_bule{ color:#11C8FD;}
+.coupon2015_red{ color:#D50000}
+.coupon2015_yellow { color:#FC8314}
+.clearfix{ clear:both}
+.coupon2015_line{ padding-bottom:20px; text-align:center;}
+.coupon2015_line p{ border-bottom:7px solid #fff; width:726px; margin:0 auto;}
+.coupon2015_line span{ color:#FFF; position:relative; top:15px; background-color:#d20339; padding:0 35px; font-size:26px; font-weight:bold;font-family:Tahoma;}

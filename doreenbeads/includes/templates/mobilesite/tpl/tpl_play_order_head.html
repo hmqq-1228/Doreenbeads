@@ -1,0 +1,8 @@
+<div class="shop-process">
+	<ul class="shopprocess-list">
+	   <li class="current-1 {if $smarty.get.main_page == checkout || $smarty.get.main_page == checkout_payment || $smarty.get.main_page == checkout_success} now{/if}"><span>1</span><strong>{$smarty.const.HEADER_PROCESS1}</strong></li>
+	   <li class="current-2 {if $smarty.get.main_page == checkout} now {elseif $smarty.get.main_page == checkout_payment || $smarty.get.main_page == checkout_success} now-1{/if}"><span>2</span><strong>{$smarty.const.HEADER_PROCESS2}</strong></li>
+	   <li class="current-3 {if $smarty.get.main_page == checkout_payment} now {elseif $smarty.get.main_page == checkout_success} now-1{/if}"><span>3</span><strong>{$smarty.const.HEADER_PROCESS3}</strong></li>
+	   <li class="current-4{if $smarty.get.main_page == checkout_success} now{/if}"><span>4</span><strong>{$smarty.const.HEADER_PROCESS4}</strong></li>
+	</ul>
+</div>

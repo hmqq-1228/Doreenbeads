@@ -1,0 +1,720 @@
+<script>window.lang_wdate='{$smarty.session.languages_code}';</script>
+<script type="text/javascript" src="includes/templates/cherry_zen/jscript/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript">
+  	var tempCount = 0, strDivID = "";
+  	function ShowMessage(Msg,UploadingTipId) {
+      alert(Msg);
+      var uploadingTip = $j("#" + UploadingTipId).html();
+      if (uploadingTip.length > 0) {
+          $j("#" + UploadingTipId).html("");
+      }
+  	}
+
+    function showUploadingFile(FileName,UploadingTipId) {
+		$j("#" + UploadingTipId).html("<img width='20' width='20' src='includes/templates/cherry_zen/images/zen_loader.gif'>");
+		$j("#" + UploadingTipId).show();
+    }
+    
+    function showAttachmentFile(FileName,NewFileName,FileSize,UploadingTipId) {
+		$j("#" + UploadingTipId).html('');
+		if(FileName.substr(FileName.lastIndexOf('.')+1).toLowerCase() == 'pdf'){
+			$j("#" + UploadingTipId).html(FileName+' <a href="javascript:void(0)" onclick="del_file(\''+UploadingTipId+'\')">delete</a>');
+		}else{
+			$j("#" + UploadingTipId).html('<img src="'+NewFileName+'" height="80px" width="80px" class="jq_showBigImg" /> <a href="javascript:void(0)" onclick="del_file(\''+UploadingTipId+'\')">{$smarty.const.TEXT_DELETE}</a>');
+		}		
+		$j("#payment_" + UploadingTipId).val(NewFileName);
+		$j("#payment_file_" + UploadingTipId).hide();
+    }
+  
+</script>
+
+	<p class="ordertit"><strong>{$message.header_title}</strong></p>
+	<p class="ordernum"><strong>{$smarty.const.TEXT_OD_ORDER_NUMBER}:</strong> <span class="order_details_oid">{$orders.order_id}</span>      <span>{$orders.date_purchased_format}</span></p>
+	{if $orders.order_status != 0}
+	<div class="orderprocess">
+		<ul>
+			{if $orders.order_status == 1 or $orders.order_status == 42}
+			<li class="pend">
+				<strong class="greenbold">{$smarty.const.TEXT_ORDER_STATUS_PENDING}</strong><ins class="qustion_icontips"></ins>
+				<div class="nowdiv">					
+					<div class="orderprocess_tips">
+						<span class="bot"></span>
+						<span class="top"></span>
+						{$smarty.const.TEXT_STATUS_PENDING_NOTE}
+					</div>
+            	</div>
+			</li>
+			<li class="process"><strong >{$smarty.const.TEXT_ORDER_STATUS_PROCESSING}</strong></li>
+			<li class="ship"><strong>{$smarty.const.TEXT_ORDER_STATUS_SHIPPED}</strong></li>
+			{/if}
+			
+			{if $orders.order_status == 2}
+			<li class="pendnext"><strong>{$smarty.const.TEXT_ORDER_STATUS_PENDING}</strong></li>
+			<li class="processnext">
+				<strong class="greenbold">{$smarty.const.TEXT_ORDER_STATUS_PROCESSING}</strong><ins class="qustion_icontips"></ins>
+				<div class="nowdiv">
+					<div class="orderprocess_tips">
+						<span class="bot"></span>
+						<span class="top"></span>
+						{$smarty.const.TEXT_STATUS_PROCESSING_NOTE}
+					</div>
+            	</div>
+			</li>
+			<li class="ship"><strong>{$smarty.const.TEXT_ORDER_STATUS_SHIPPED}</strong></li>
+			{/if}
+			
+			{if $orders.order_status == 3}
+			<li class="pendnext"><strong>{$smarty.const.TEXT_ORDER_STATUS_PENDING}</strong></li>
+			<li class="processthre"><strong>{$smarty.const.TEXT_ORDER_STATUS_PROCESSING}</strong></li>
+			<li class="shipthre">
+				<strong class="greenbold">{$smarty.const.TEXT_ORDER_STATUS_SHIPPED}</strong><ins class="qustion_icontips"></ins>
+				<div class="nowdiv">
+					<div class="orderprocess_tips">
+						<span class="bot"></span>
+						<span class="top"></span>
+						{$smarty.const.TEXT_STATUS_SHIPPED_NOTE}
+					</div>
+            	</div>
+			</li>
+			{/if}			
+			
+			{if $orders.order_status == 4}
+			<li class="pendnext"><strong>{$smarty.const.TEXT_ORDER_STATUS_PENDING}</strong></li>
+			<li class="processthre"><strong>{$smarty.const.TEXT_ORDER_STATUS_PROCESSING}</strong></li>
+			<li class="processthre"><strong>{$smarty.const.TEXT_ORDER_STATUS_SHIPPED}</strong></li>
+			<li class="shipthre">
+				<strong class="greenbold">{$smarty.const.TEXT_ORDER_STATUS_UPDATE}</strong><ins class="qustion_icontips"></ins>
+				<div class="nowdiv">
+					<div class="orderprocess_tips">
+						<span class="bot"></span>
+						<span class="top"></span>
+						{$smarty.const.TEXT_STATUS_UPDATE_NOTE}
+					</div>
+            	</div>
+			</li>
+			{/if}
+		</ul>       
+	</div>
+	{/if}
+	
+	{if $message.make_payment}
+	
+	<p class="itemstit">{$smarty.const.TEXT_PAYMENT_DETAILS}</p>
+	<div class="order_calculate_price">
+		<table class="paydetail">                
+			{$payment_details_str}
+		</table>
+	</div>    
+	<div id="errorMessage" style="font-size:14px;line-height:20px;padding-bottom:10px;color:#C00;"></div>
+	<div class=caption_shopgray><h3>{$smarty.const.TEXT_PAYMENT_METHODS}</h3></div>
+	<form name="checkout_payment" action="index.php?main_page=continued_order" method="post" onsubmit="return check_form(this);">
+		<input type="hidden" name="orders_id" value="{$orders.order_id}">
+		<div class="payment_cont paymentwap">			
+			<div class="left">
+				<ul>
+					{section name=i loop=$payment_selection}
+						{if $message.order_total_no_currency_left < $message.order_total_wire_min && ($payment_selection[i].id == 'wire' || $payment_selection[i].id == 'wirebc')}
+						{else}
+							{if $payment_selection[i].id != 'alipay' && $payment_selection[i].id != 'moneygram'}
+								{if $payment_selection[i].id != 'paypalmanually'}
+									<li type="{$payment_selection[i].id}" {if ($payment_selection[i].id == $order->info.payment_module_code && $order->info.payment_module_code != 'gcCreditCard') or (($order->info.payment_module_code == '' || $order->info.payment_module_code == 'Balance' || $order->info.payment_module_code == 'gcCreditCard' || ($order->info.payment_module_code == 'webMoney' && $WMdisplay == 'webMoney') || ($order->info.payment_module_code == 'QIWI' && $Qiwidisplay == 'QIWI')) and $payment_selection[i].id == 'paypalwpp')}class="chose"{/if}><label><input style="position: relative;top: 10px;margin-left: 10px;"  name="payment" type="radio" value="{$payment_selection[i].id}" id="{$payment_selection[i].id}" {if ($payment_selection[i].id == $order->info.payment_module_code && $order->info.payment_module_code != 'gcCreditCard') or (($order->info.payment_module_code == '' || $order->info.payment_module_code == 'Balance' || $order->info.payment_module_code == 'gcCreditCard' || ($order->info.payment_module_code == 'webMoney' && $WMdisplay == 'webMoney') || ($order->info.payment_module_code == 'QIWI' && $Qiwidisplay == 'QIWI')) and $payment_selection[i].id == 'paypalwpp')}checked="checked"{/if} />
+									{if $payment_selection[i].id == 'paypalwpp'}<ins class="icon_pay_Paypal"></ins>{$smarty.const.TEXT_PAYMENT_PAYPAL}
+									{elseif $payment_selection[i].id == 'wire'}<ins class="icon_pay_HSBC"></ins>{$smarty.const.TEXT_PAYMENT_HSBC}
+									{elseif $payment_selection[i].id == 'wirebc'}<ins class="icon_pay_China"></ins>{$smarty.const.TEXT_PAYMENT_BC}
+									{elseif $payment_selection[i].id == 'westernunion'}<ins class="icon_pay_Union"></ins>{$smarty.const.TEXT_PAYMENT_WESTERN}
+									{elseif $payment_selection[i].id == 'gcCreditCard'}<ins class="icon_pay_Card"></ins>{$smarty.const.MODULE_PAYMENT_GCCREDITCARD_TEXT_HEAD}
+									{elseif $payment_selection[i].id == 'braintree'}<ins class="icon_pay_braintree"></ins>{$smarty.const.MODULE_PAYMENT_BRAINTREE_TEXT_HEAD}
+									{elseif $payment_selection[i].id == 'braintree-google'}<ins class="icon_pay_braintree_google"></ins><strong>Google Pay</strong>
+									{elseif $payment_selection[i].id == 'braintree-apple'}<ins class="icon_pay_braintree_apple"></ins><strong>Apple Pay</strong>
+									{/if}
+								</label></li>
+								{/if}
+							{/if}
+						{/if}
+					{/section}
+					
+					<li type="moneygram" {if 'moneygram' == $order->info.payment_module_code}class="chose"{/if}><label><input style="position: relative;top: 10px;margin-left: 10px;"  name="payment" type="radio" value="moneygram" {if 'moneygram' == $order->info.payment_module_code}checked="checked"{/if} /><ins class="icon_money_gram"></ins>{$smarty.const.TEXT_PAYMENT_MONEY_GRAM}</label></li>
+				</ul>
+			</div>
+			
+			<div class="right">
+				<!--	paypal	-->
+				<div class="right_cont_chinabank right_cont_paypalwpp {if 'paypalwpp' == $order->info.payment_module_code or ($order->info.payment_module_code == '' || $order->info.payment_module_code == 'Balance' || $order->info.payment_module_code == 'gcCreditCard' || ($order->info.payment_module_code == 'webMoney' && $WMdisplay == 'webMoney') || ($order->info.payment_module_code == 'QIWI' && $Qiwidisplay == 'QIWI'))}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<div class="txt_paypal">
+						<p>
+							<img src="{$smarty.const.HTTP_SERVER}/includes/templates/cherry_zen/images/{$smarty.session.language}/btn_xpressCheckout_243x40.png" />
+							<img src="https://www.paypalobjects.com/digitalassets/c/website/marketing/na/us/logo-center/9_bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal">
+						</p>
+						<p>
+							<ins class="arrow"></ins>
+							<span>{$smarty.const.TEXT_PAYMENT_PAY_US_CLICK}</span>
+						</p>
+						<p>
+							<button class="paynow_btn jq_paypalwpp" data-url="index.php?main_page=continued_order&payment=paypalwpp&orders_id={$orders.order_id}" id="paypalwpp">
+								<span>
+									<strong>{$message.account_pay_now}</strong>
+								</span>
+							</button>
+						</p>
+						<p>
+							<ins class="arrow"></ins>
+							<span>{$smarty.const.TEXT_PAYMENT_OR_DIRECTLY_LOGIN}</span>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<!--	braintree	-->
+				<div class="right_cont_chinabank right_cont_braintree  {if 'braintree' == $order->info.payment_module_code || 'braintree-credit' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="550" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&action=credit&go=" style="height:300px;"></iframe>
+				</div>
+
+				<div class="right_cont_chinabank right_cont_braintree-google {if 'braintree-google' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="550" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&action=google&go=" style="height:300px;"></iframe>
+				</div>
+
+				<div class="right_cont_chinabank right_cont_braintree-apple {if 'braintree-apple' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="550" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&action=apple&go=" style="height:300px;"></iframe>
+				</div>
+
+
+				<!--	HSBC	-->
+				<div class="right_cont_chinabank right_cont_wire {if 'wire' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>					
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_PAYMENT_BANK_HSBC}</span><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Bank_Transfer(Citibank).txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a>
+                        <a class="download" title="{$smarty.const.TEXT_DOWNLOAD}" target="_blank" href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Bank_Transfer(Citibank).doc"></a></h5>
+						{$confirmation.wire.title}
+						<div class="borderbt"></div>
+						<p>{$smarty.const.TEXT_FILL_OUT}</p>
+						<table cellpadding="0" cellspacing="0" class="fill_info">
+							<tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_ORDER_NO}:</th>
+                                <td>{$orders.order_id}</td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</th>
+                                <td><input type="text" id="hsbs_yname" name="hsbs_yname"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th width="135"><span class="font_red">*</span> {$smarty.const.TEXT_CURRENCY}:</th>
+                                <td>
+                                	<p class="select3">
+	                                	<span class="text_left7">{$message.default_currency}</span>
+	                                	<span class="arrow_right7"><ins></ins></span>
+                                	</p>
+                                	<ul class="selectlist7">
+	                                	{section name=i loop=$currencies_array}
+	                                	<li>{$currencies_array[i].symbol_left}</li>
+	                                	{/section}
+	                                	<li>{$smarty.const.TEXT_OTHERS}</li>
+                                	</ul>
+                                	<input type="hidden" id="hsbs_Currency" name="hsbs_Currency" value="{$message.default_currency}"/>
+                                </td>
+                            </tr>
+                            
+                             <tr>
+                            	<th></th>
+                            	<td style="display:none">
+                            	<input type="text" value="" name="hsbs_Currency_input"/><span>{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                            	<br/>  	
+                            	<span  class="font_red error_payment"></span>
+                            	</td>
+                            </tr>
+                            
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_SUM}:</th>
+                                <td><input type="text" id="hsbs_amout" name="hsbs_amout"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_PAYMENT_DATE}:</th>
+                                <td>
+                                	<input class="date" value="" type="text" id="hsbs_date" name="hsbs_date" onclick="WdatePicker();"><br>
+                                	<span class="font_red error_payment"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_w">&nbsp;</span> {$smarty.const.TEXT_PAYMENT_REDEIPT}:</th>
+                                <td>
+                                	<input type="hidden" id="payment_loading_hsbs" name="hsbs_file" id="hsbs_file">
+                                	<div id="payment_file_loading_china">
+                                	<embed type="application/x-shockwave-flash" allowscriptaccess="always" quality="high" flashvars="postUrl={$smarty.const.HTTP_SERVER}/image_upload.php?Action=TicketFilePath&amp;maxSize=2097152&amp;minSize=0&amp;fileType=*.gif;*.png;*.jpeg;*.jpg;*.pdf;*.bmp;&amp;alertFun=ShowMessage&amp;upInfo=showUploadingFile&amp;pullBack=showAttachmentFile&amp;testAlert=flash_test&amp;UploadingTipId=loading_hsbs&amp;isAllowCNFileName=true&amp;postData=username=xm;userpassword=123;upath=/tmp" wmode="transparent" palette="transparent|transparent" src="flash/SimpleSwfupload.swf" name="SimpleSwfupload" class="divComposeAttachFlash_Object" style="background:url('includes/templates/cherry_zen/images/{$smarty.session.language}/btnbrowse.gif') no-repeat scroll 0 0 transparent;height: 27px;width:134px;position:relative;">
+                                	</embed>
+                                	</div>
+                                	<p style="display:none" id="loading_hsbs"></p>
+									<p class="txt_tip">(.gif / .png / .jpeg / .jpg / .bmp / .pdf), less than 2M.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <p class="txt_tip">{$message.account_payment_prompt}</p> 
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <button class="paynow_btn">{$smarty.const.TEXT_SUBMIT}</button>
+                                </td>
+                            </tr>
+                        </table>
+					</div>
+				</div>
+				
+				<!--	Bank of China	-->
+				<div class="right_cont_chinabank right_cont_wirebc {if 'wirebc' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>					
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_PAYMENT_BANK_CHINA}</span><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Bank_Transfer(Bank_of_China).txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a>
+                        <a class="download" title="{$smarty.const.TEXT_DOWNLOAD}" target="_blank" href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Bank_Transfer(Bank_of_China).doc"></a></h5>
+						{$confirmation.wirebc.title}
+						<div class="borderbt"></div>
+						<p>{$smarty.const.TEXT_FILL_OUT}</p>
+						<table cellpadding="0" cellspacing="0" class="fill_info">
+							<tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_ORDER_NO}:</th>
+                                <td>{$orders.order_id}</td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</th>
+                                <td><input type="text" id="china_yname" name="china_yname"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th width="135"><span class="font_red">*</span> {$smarty.const.TEXT_CURRENCY}:</th>
+                                <td>
+                                	<p class="select3">
+	                                	<span class="text_left7">{$message.default_currency}</span>
+	                                	<span class="arrow_right7"><ins></ins></span>                                	
+                                	</p>
+                                	<ul class="selectlist7">
+	                                	{section name=i loop=$currencies_array}
+	                                	<li>{$currencies_array[i].symbol_left}</li>
+	                                	{/section}
+	                                <!--  othersѡ��	<li>{$smarty.const.TEXT_OTHERS}</li> -->
+                                	</ul>
+                                	<input type="hidden" id="china_Currency" name="china_Currency" value="{$message.default_currency}"/>
+                                </td>
+                            </tr>
+                            
+                        <!--     <tr>
+                            	<th></th>
+                            	<td style="display:none" >
+                            	<input type="text" value="" name="china_Currency_input"/><span>{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                            	<br/>  	
+                            	<span  class="font_red error_payment"></span>
+                            	</td>
+                            </tr> -->
+                            
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_SUM}:</th>
+                                <td><input type="text" id="china_amout" name="china_amout"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_PAYMENT_DATE}:</th>
+                                <td>
+                                	<input class="date" value="" type="text" id="china_date" name="china_date" onclick="WdatePicker();"><br>
+                                	<span class="font_red error_payment"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_w">&nbsp;</span> {$smarty.const.TEXT_PAYMENT_REDEIPT}:</th>
+                                <td>
+                                	<input type="hidden" id="payment_loading_china" name="china_file" id="china_file">
+                                	<div id="payment_file_loading_china">
+                                	<embed type="application/x-shockwave-flash" allowscriptaccess="always" quality="high" flashvars="postUrl={$smarty.const.HTTP_SERVER}/image_upload.php?Action=TicketFilePath&amp;maxSize=2097152&amp;minSize=0&amp;fileType=*.gif;*.png;*.jpeg;*.jpg;*.pdf;*.bmp;&amp;alertFun=ShowMessage&amp;upInfo=showUploadingFile&amp;pullBack=showAttachmentFile&amp;testAlert=flash_test&amp;UploadingTipId=loading_china&amp;isAllowCNFileName=true&amp;postData=username=xm;userpassword=123;upath=/tmp" wmode="transparent" palette="transparent|transparent" src="flash/SimpleSwfupload.swf" name="SimpleSwfupload" class="divComposeAttachFlash_Object" style="background:url('includes/templates/cherry_zen/images/{$smarty.session.language}/btnbrowse.gif') no-repeat scroll 0 0 transparent;height: 27px;width:134px;position:relative;">
+                                	</embed>
+                                	</div>
+                                	<p style="display:none" id="loading_china"></p>
+                                	<p class="txt_tip">(.gif / .png / .jpeg / .jpg / .bmp / .pdf), less than 2M.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <p class="txt_tip">{$message.account_payment_prompt}</p> 
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <button class="paynow_btn">{$smarty.const.TEXT_SUBMIT}</button>
+                                </td>
+                            </tr>
+                        </table>
+					</div>
+				</div>
+
+				<!--	Westerm Union	-->
+				<div class="right_cont_chinabank right_cont_westernunion {if 'westernunion' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>					
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_PAYMENT_BANK_WESTERN_UNION}</span><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Western_Union.txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a>
+                        <a class="download" title="{$smarty.const.TEXT_DOWNLOAD}" target="_blank" href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Western_Union.doc"></a></h5>
+						{$confirmation.westernunion.title}
+						<div class="borderbt"></div>
+						<p>{$smarty.const.TEXT_FILL_OUT}</p>
+						<table cellpadding="0" cellspacing="0" class="fill_info">
+							<tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_ORDER_NO}:</th>
+                                <td>{$orders.order_id}</td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</th>
+                                <td><input type="text" id="western_yname" name="western_yname"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th width="135"><span class="font_red">*</span> {$smarty.const.TEXT_CURRENCY}:</th>
+                                <td>
+                                	<p class="select3">
+	                                	<span class="text_left7">{$message.default_currency}</span>
+	                                	<span class="arrow_right7"><ins></ins></span>                                	
+                                	</p>
+                                	<ul class="selectlist7">
+	                                	{section name=i loop=$currencies_array}
+	                                	<li>{$currencies_array[i].symbol_left}</li>
+	                                	{/section}
+	                                	<li>{$smarty.const.TEXT_OTHERS}</li>
+                                	</ul>
+                                	<input type="hidden" id="western_Currency" name="western_Currency" value="{$message.default_currency}"/>
+                                </td>                             
+                            </tr>
+                            
+                            <tr>
+                            	<th></th>
+                            	<td style="display:none">
+                            	<input type="text" value="" name="western_Currency_input"/><span>{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                            	<br/>  	
+                            	<span  class="font_red error_payment"></span>
+                            	</td>
+                            </tr>
+                            
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_SUM}:</th>
+                                <td><input type="text" id="western_amout" name="western_amout"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_CONTROL_NO}:</th>
+                                <td><input type="text" id="western_control_no" name="western_control_no"/><p class="txt_tip">{$smarty.const.TEXT_PAYMENT_WESTERN_CONTROL_NO}</p><span class="font_red error_payment"></span></td>
+                            </tr>                            
+                            <tr>
+                            	<th><span class="font_w">&nbsp;</span> {$smarty.const.TEXT_PAYMENT_REDEIPT}:</th>
+                                <td>
+                                	<input type="hidden" id="payment_loading_western" name="western_file" id="western_file">
+                                	<div id="payment_file_loading_western">
+                                	<embed type="application/x-shockwave-flash" allowscriptaccess="always" quality="high" flashvars="postUrl={$smarty.const.HTTP_SERVER}/image_upload.php?Action=TicketFilePath&amp;maxSize=2097152&amp;minSize=0&amp;fileType=*.gif;*.png;*.jpeg;*.jpg;*.pdf;*.bmp;&amp;alertFun=ShowMessage&amp;upInfo=showUploadingFile&amp;pullBack=showAttachmentFile&amp;testAlert=flash_test&amp;UploadingTipId=loading_western&amp;isAllowCNFileName=true&amp;postData=username=xm;userpassword=123;upath=/tmp" wmode="transparent" palette="transparent|transparent" src="flash/SimpleSwfupload.swf" name="SimpleSwfupload" class="divComposeAttachFlash_Object" style="background:url('includes/templates/cherry_zen/images/{$smarty.session.language}/btnbrowse.gif') no-repeat scroll 0 0 transparent;height: 27px;width:134px;position:relative;">
+                                	</embed>
+                                	</div>
+                                	<p style="display:none" id="loading_western"></p>
+                                	<p class="txt_tip">(.gif / .png / .jpeg / .jpg / .bmp / .pdf), less than 2M.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <p class="txt_tip">{$message.account_payment_prompt}</p> 
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <button class="paynow_btn">{$smarty.const.TEXT_SUBMIT}</button>
+                                </td>
+                            </tr>
+                        </table>
+					</div>
+				</div>
+				<!-- open or close gcCreditCard	-->
+				{if $message.show_gc_payment && 1 == 2}
+				<!--	Credit Card via Paypal	-->
+				<div class="right_cont_chinabank right_cont_gcCreditCard">
+					<div id="paymentInfo">
+						<input type="hidden" id="orderId" value="{$orderId}" />
+						<input type="hidden" id="paymentOrderId" value="{$paymentOrderId}" />
+						<input type="hidden" id="lastName" value="{$lastName}" />
+						<input type="hidden" id="firstName" value="{$firstName}" />
+						<input type="hidden" id="shippingFirstName" value="{$shippingFirstName}" />
+						<input type="hidden" id="shippingLastName" value="{$shippingLastName}" />
+						<input type="hidden" id="shippingStreet" value="{$shippingStreet}" />
+						<input type="hidden" id="shippingState" value="{$shippingState}" />
+						<input type="hidden" id="shippinCountryCode" value="{$shippinCountryCode}" />
+						<input type="hidden" id="shippinZip" value="{$shippinZip}" />
+						<input type="hidden" id="merchantRef" value="{$merchantRef}" />
+						<input type="hidden" id="price" value="{$price*100}" />
+						<input type="hidden" id="countryCode" value="{$countryCode}" />
+						<input type="hidden" id="lanuageCode" value="{$lanuageCode}" />
+						<input type="hidden" id="currencyCode" value="{$currencyCode}" />
+						<input type="hidden" id="shippingCity" value="{$shippingCity}" />
+						<input type="hidden" id="phoneNumber" value="{$phoneNumber}" />
+						<input type="hidden" id="email" value="{$email}" />
+						<input type="hidden" id="city" value="{$city}" />
+						<input type="hidden" id="state" value="{$state}" />
+						<input type="hidden" id="street" value="{$street}" />
+						<input type="hidden" id="type" value="{$type}" />
+						<input type="hidden" id="http_server" value="{$smarty.const.HTTP_SERVER}" />
+						
+					</div>
+					<div class="txt_card">            	
+						<ul style="float: left;padding-left: 7px;width: auto;">
+							<li style="float: left;padding: 0 20px 0 0; height: auto;" >
+								<input class="gcPayment" style="margin: 9px 10px 0 0;float: left;" type="radio" value="1" id="CreditCardType_1" name="CreditCardType" checked="checked">
+								<label for="CreditCardType_1" class="PayType" style="background: url('{$smarty.const.HTTPS_SERVER}/pic/visa.jpg') no-repeat;padding-left: 37px;margin: 5px 0 0 22px;display: block;">Visa</label>
+								
+							</li>
+							<li style="float: left;padding: 0 20px 0 0; height: auto;">
+								<input class="gcPayment" style="margin: 9px 10px 0 0;float: left;" type="radio" value="3" id="CreditCardType_3" name="CreditCardType">
+								<label for="CreditCardType_3" class="PayType" style="background: url('{$smarty.const.HTTPS_SERVER}/pic/icon-master.jpg') no-repeat;padding-left: 37px;margin: 5px 0 0 22px;display: block;">Master Card</label>
+							</li>
+						</ul>
+					</div>
+					<div class="payDetail">
+						<div id="loading">
+							<img style="margin-top: 10px;text-align:center;margin-top:40px;" src="{$smarty.const.HTTPS_SERVER}/pic/loader.gif" alt="">
+						</div>
+						<div id="payIframe">
+							<iframe id="gcFormActionUrl" scrolling="auto" width="445" frameborder=0 height="280" src=""></iframe>
+						</div>
+					</div>
+				</div>
+				{/if}
+				<!--	Monry Gram	-->
+				<div class="right_cont_chinabank right_cont_moneygram {if 'moneygram' == $order->info.payment_module_code}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>					
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_PAYMENT_MONEY_GRAM}</span><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Money_Gram.txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a>
+                        <a class="download" title="{$smarty.const.TEXT_DOWNLOAD}" target="_blank" href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Money_Gram.doc"></a></h5>
+						{$confirmation.moneygram.title}				 
+						<div class="borderbt"></div>
+						<p>{$smarty.const.TEXT_FILL_OUT}</p>
+						<table cellpadding="0" cellspacing="0" class="fill_info">
+							<tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_ACOOUNT_ORDER_NO}:</th>
+                                <td>{$orders.order_id}</td>
+                            </tr>
+							<tr>
+                            	<th width="150"><span class="font_red">*</span> {$smarty.const.TEXT_YOUR_FULL_NAME}:</th>
+                                <td><input type="text" id="moneygram_full_name" name="moneygram_full_name"/><br><span class="font_red">{$smarty.const.TEXT_ACCONT_ENTER_REMITTER}</span></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_YOUR_COUNTRY}:</th>
+                                <td>{$text_countries_list}</td>
+                            </tr>							
+                            <tr>
+                            	<th width="135"><span class="font_red">*</span> {$smarty.const.TEXT_CURRENCY}:</th>
+                                <td>
+                                	<p class="select3">
+	                                	<span class="text_left7">{$message.default_currency}</span>
+	                                	<span class="arrow_right7"><ins></ins></span>                                	
+                                	</p>
+                                	<ul class="selectlist7">
+	                                	{section name=i loop=$currencies_array}
+	                                	<li>{$currencies_array[i].symbol_left}</li>
+	                                	{/section}
+	                                	<li>{$smarty.const.TEXT_OTHERS}</li>
+                                	</ul>
+                                	<input type="hidden" id="moneygram_Currency" name="moneygram_Currency" value="{$message.default_currency}"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                            	<th></th>
+                            	<td style="display:none">
+                            	<input type="text" value="" name="moneygram_Currency_input"/><span>{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                            	<br/>  	
+                            	<span  class="font_red error_payment"></span>
+                            	</td>
+                            </tr>
+                            
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_SUM}:</th>
+                                <td><input type="text" id="moneygram_amout" name="moneygram_amout"/><br><span class="font_red error_payment"></span></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="font_red">*</span> {$smarty.const.TEXT_CONTROL_NO}:</th>
+                                <td><input type="text" id="moneygram_control_no" name="moneygram_control_no"/><p class="txt_tip">{$smarty.const.TEXT_PAYMENT_MONEY_GRAM_CONTROL_NO}</p><span class="font_red error_payment"></span></td>
+                            </tr>                            
+                            <tr>
+                            	<th><span class="font_w">&nbsp;</span> {$smarty.const.TEXT_PAYMENT_REDEIPT}:</th>
+                                <td>
+                                	<input type="hidden" id="payment_loading_moneygram" name="moneygram_file" id="moneygram_file">
+                                	<div id="payment_file_loading_moneygram">
+                                	<embed type="application/x-shockwave-flash" allowscriptaccess="always" quality="high" flashvars="postUrl={$smarty.const.HTTP_SERVER}/image_upload.php?Action=TicketFilePath&amp;maxSize=2097152&amp;minSize=0&amp;fileType=*.gif;*.png;*.jpeg;*.jpg;*.pdf;*.bmp;&amp;alertFun=ShowMessage&amp;upInfo=showUploadingFile&amp;pullBack=showAttachmentFile&amp;testAlert=flash_test&amp;UploadingTipId=loading_moneygram&amp;isAllowCNFileName=true&amp;postData=username=xm;userpassword=123;upath=/tmp" wmode="transparent" palette="transparent|transparent" src="flash/SimpleSwfupload.swf" name="SimpleSwfupload" class="divComposeAttachFlash_Object" style="background:url('includes/templates/cherry_zen/images/{$smarty.session.language}/btnbrowse.gif') no-repeat scroll 0 0 transparent;height: 27px;width:134px;position:relative;">
+                                	</embed>
+                                	</div>
+                                	<p style="display:none" id="loading_moneygram"></p>
+                                	<p class="txt_tip">(.gif / .png / .jpeg / .jpg / .bmp / .pdf), less than 2M.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td>
+                                    <p class="txt_tip">{$message.account_payment_prompt}</p> 
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th></th>
+                                <td><button class="paynow_btn">{$smarty.const.TEXT_SUBMIT}</button></td>
+                            </tr>
+                        </table>
+					</div>
+				</div>
+		  	</div>
+			<div class="clear"></div>			
+		</div>
+
+		<div id="paypal_payment_box" {if !$paypal_payment_message} style="display:none;"{/if}>
+			<p id="paypal_payment_message">{$paypal_payment_message}</p>
+		</div>
+
+		<!--	HSBC/bank of china	-->
+		<div class="paynotes paynotes_wirebc paynotes_wire">
+	        <p><strong>{$smarty.const.TEXT_NOTE}:</strong></p>
+	        {$smarty.const.TEXT_PAYMENT_HSBS_CHINA}
+	 	</div>
+	 
+		<!--	westerm union	-->
+	 	<div class="paynotes paynotes_westernunion ">
+        <p><strong>{$smarty.const.TEXT_NOTE}: </strong></p><p>1. {$smarty.const.TEXT_PAYMENT_NOTE_3} </p><p>2. {$smarty.const.TEXT_PAYMENT_NOTE_2} </p>
+		</div>
+		<div class="paynotes  paynotes_moneygram">
+        <p><strong>{$smarty.const.TEXT_NOTE}: </strong></p><p>1. {$smarty.const.TEXT_PAYMENT_NOTE_2} </p><p>2. {$smarty.const.TEXT_PAYMENT_NOTE_3} </p>
+		</div>
+	</form>
+	{else}
+	<div class="paydetails">
+		<div class="payment fleft">
+			<p class="paymenttit">{$smarty.const.TEXT_PAYMENT_DETAILS}</p>
+			<table class="paydetail">
+				{$payment_details_str}
+			</table>
+			<div class="makepayment">
+				{$orders.makepayment_str}
+			</div>   
+		</div>
+		<div class="shipinvoice fright">
+			<p class="paymenttit">{$smarty.const.TEXT_SHIPPING_INVOECE_COMMENTS}</p>
+			<table class="paydetail_special">
+				{if $order->info.shipping_restriction_total > 0 and ($orders.order_status == 2 or $orders.order_status == 3 or $orders.order_status == 4 or $orders.order_status == 10)}
+				<tr><td colspan="2" style="color:red;">{$smarty.const.TEXT_SHIPPING_RESTRICTION_IMPORTANT_NOTE}</td></tr>
+				{/if}
+
+				<tr><td><strong>{$smarty.const.TEXT_SHIPPING_METHOD}:</strong></td><td>{if $order->info.shipping_method != ''}{$order->info.shipping_method}{else}/{/if}</td></tr>
+				{if $message.shipping_number_input != ''}<tr><td><strong>{$smarty.const.TEXT_TRACKING_NUMBER}:</strong></td><td>{$message.shipping_number_input}</td></tr>{/if}
+				{if $message.shipping_days != ''}<tr><td><strong>{$smarty.const.TEXT_ESTSHIPPING_TIME}:</strong></td><td>{$message.shipping_days}</td></tr>{/if}
+			</table>
+			<p class="addr"><strong>{$smarty.const.TEXT_SHIPPING_ADDRESS}:</strong><br/><span>{$orders.shipping_address}</span></p>
+			<p class="addr"><strong>{$smarty.const.TEXT_ORDER_COMMONTS}:</strong><br/><span>{$orders.order_comments}</span></p>
+		</div>
+		<div class="clearBoth"></div>
+	</div>
+	<div class="clearBoth"></div>
+	<div class="doublebtn">
+		<a href="index.php?main_page=shopping_cart&action=add_order_to_wishlist&orders_id={$orders.order_id}">{$smarty.const.TEXT_CART_MOVE_WISHLIST}</a>
+		<a href="javascript:void(0);" class="quick_reorder" oid="{$orders.order_id}">{$smarty.const.TEXT_PAYMENT_QUICK_PEORDER}</a>
+		{if $orders.order_status == 2 or $orders.order_status == 3 or $orders.order_status == 4 or $orders.order_status == 10 }
+		<a href="{$message.http_download_img}downloads.php?order_id={$orders.order_id}">{$smarty.const.TEXT_DOWNLOAD_ALL_PICTURES}</a>
+ 		{/if}
+	</div>
+	{include file="includes/templates/checkout/tpl_quick_add_products.html"}
+	<div class="itemscont">
+		<p class="itemstit">{$smarty.const.TEXT_ITEMS_REVIEW}</p>
+		<p class="itemTotal"><a>{$smarty.const.HEADING_TOTAL}: <span class="font_red">{$total_products}</span> {if $total_products gt 1}{$smarty.const.HEADING_ITEMS}{else}{$smarty.const.HEADING_ITEM}{/if}</a>  <strong>{$smarty.const.HEADING_AMOUNT}:  <span class="font_red">{$message.payment_order_subtotal}</span></strong></p>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="shopcart_content">
+			<tr>
+	            <th width="105">{$smarty.const.HEADING_IMAGE}</th>
+	            <th width="60">{$smarty.const.HEADING_MODEL}</th>
+	            <th width="100">{$smarty.const.HEADING_WEIGHT}</th>
+	            <th width="230">{$smarty.const.HEADING_PRODUCT_NAME}</th>
+	            <th width="95">{$smarty.const.HEADING_PRICE}</th>
+	            <th width="80">{$smarty.const.HEADING_QUANTITY}</th>
+	            <th width="100">{$smarty.const.HEADING_SUBTOTAL}</th>
+	            <th width="100">{$smarty.const.HEADING_ACTION}</th>
+			</tr> 
+		</table>
+	 	<table  width="100%" border="0" cellspacing="0" cellpadding="0" class="shopcart_content table_order_products_review">
+		{foreach from = $orders_array key = k item = val}
+			<tr{if $k >= 3} class="hideTheTr"{/if}>
+				<td width="105">					
+					{$k+1}.{$val.products_img}
+				</td>
+	            <td width="60">{$val.products_model}</td>
+	            <td width="100" class="volweightwap">{$val.products_weight}g</td>
+	            <td width="230" style="text-align:left;" class="gift_name">{$val.products_name}
+	            {if $val.is_preorder==1 }
+	               {if $val.products_stocking_days > 7}
+	                   <div class="clearfix"></div><div style=" margin:10px 0 0 0; color:#999">{$smarty.const.TEXT_AVAILABLE_IN715}</div>
+	               {else}
+	                   <div class="clearfix"></div><div style=" margin:10px 0 0 0; color:#999">{$smarty.const.TEXT_AVAILABLE_IN57}</div>
+	               {/if}
+	            {/if}
+	            </td>
+	            <td width="95">{if $val.products_price_orignal neq $val.products_price }<del class="oprice_18862">{$val.products_price_orignal}</del>{/if}{$val.products_price}</td>
+	            <td width="80">{$val.products_qty} {if $val.products_qty gt 1}{$smarty.const.TEXT_PACKS}{else}{$smarty.const.TEXT_PACK}{/if}</td>
+	            <td width="95"><span class="font_red">{$val.products_price_total}</span></td>
+	            <td width="100">
+	              {if $val.products_id!=$gift_id}
+				    {if !$val.is_gift}
+	            	<a href="javascript:void(0);" class="order_detail_addcart">{$smarty.const.TEXT_CART_ADD_TO_CART}</a>
+	            	<input type="hidden" name="product_id" value="{$val.products_id}">
+	            	<input type="hidden" name="product_qty" value="{$val.products_qty}">
+	            	<div class="successtips_collect1">
+		            	<span class="bot"></span>
+		            	<span class="top"></span>
+		            	{$smarty.const.TEXT_ADD_TO_CART_SUCCESS}<br/>
+		            	<a href="index.php?main_page=shopping_cart" style="padding-right: 0px;">{$smarty.const.TEXT_VIEW_CART}</a> / <a href="javascript:void(0);" class="successtips_collect_close">{$smarty.const.TEXT_CLOSE}</a>
+	            	</div>
+					{/if}
+	            	{if $orders.order_status == 2 or $orders.order_status == 3 or $orders.order_status == 4 or $orders.order_status == 10}
+	            	<br/>
+	            	<a href="{$message.http_download_img}downloads.php?product_id={$val.products_id}">{$smarty.const.TEXT_DOWNLOAD_PIC}</a>
+	            	{/if}
+	            	{if $val.note != ''}	
+	            	<br/>
+	            	<div id="products_notes" style="position: absolute;width:70px;margin-left:20px;">		
+						<a style="color:#008FED;" href="javascript:void(0);" class="rp_btn_ipn remark_order" aid="{$val.products_id}" >{$smarty.const.TEXT_PRODUCTS_REMARK}</a>
+						<div id="show_note_{$val.products_id}" class="products_note_tips" style="border: 1px solid rgb(208, 209, 169); border-radius: 0px 0px 0px 0px; padding: 0px; text-align:left; position: relative; height: auto; width: 300px; left: -150px; top: 10px; background: none repeat scroll 0px 0px rgb(255, 255, 204); z-index: 1; display: none;">
+							<span class="bot" style="position: absolute;top:-16px;left: 190px;border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #D0D1A9;border-style: dashed dashed solid;border-width: 8px;"></span>
+							<span class="top" style="position: absolute;top:-15px;left: 190px;border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFFFCC;border-style: dashed dashed solid;border-width: 8px;"></span>
+							<div id="products_note_tips_191489">{$val.note}</div>
+						</div>
+					</div>
+					<br/>
+					{/if}
+	              {/if}
+	            </td>
+			</tr>
+		{/foreach}
+			{if $orders_array|count > 3}
+			<tr>
+				<td colspan="8" class="more"><a href="javascript:void(0);" class="close1"></a></td>
+			</tr>
+			{/if}
+	 		{if $order_products_review_split_str != '&nbsp;'}
+			<tr>
+				<td colspan="8">
+		            <div class="propagelist">
+		            	{$order_products_review_split_str}
+					</div>
+	      		</td>
+	      	</tr>
+	      	{/if}
+		</table>
+		<p class="itemstit">{$message.heading_order_history}</p>
+		 <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="shopcart_content">
+          <tr>
+            <th width="70">{$message.heading_status_date}</th>
+            <th width="45">{$message.heading_status_order_status}</th>
+            <th width="375">{$message.heading_status_comments}</th>
+          </tr>     
+		  {section name=i loop=$statusArray}
+          <tr>
+			<td style="height: 0px;padding: 10px 5px;">{$statusArray[i].date_added}</td>
+            <td style="height: 0px;padding: 10px 5px;">{$statusArray[i].orders_status_name}</td>
+			<td style="text-align: left;height: 0px;padding: 10px 5px;">{$statusArray[i].comments}</td>
+          </tr> 
+		  {/section}
+        </table>
+	</div>
+	{/if}

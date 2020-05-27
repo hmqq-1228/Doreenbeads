@@ -1,0 +1,553 @@
+<?php
+require('includes/application_top.php');
+define('TEXT_DISPLAY_NUMBER_OF_TRENDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> display area informations)');
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$_POST['action']=$action;
+$restriction_status = array(array('id' => '0' , 'text' => '请选择...'), array('id' => '10' , 'text' => '启用') , array('id' => '20' , 'text' => '禁用'));
+$country_array = zen_get_countries();
+$admin_email=$db->Execute('SELECT admin_email FROM '.TABLE_ADMIN.' WHERE admin_id='.$_SESSION['admin_id']);
+$_SESSION['admin_email']=$admin_email->fields['admin_email'];
+switch($action){
+    case 'forbid':
+    $forbid_id = zen_db_input($_POST['forbid_id']);
+    if ($forbid_id == '' || $forbid_id < 0) {
+        $messageStack->add_session('系统错误，禁用失败', 'error');
+        zen_redirect(zen_href_link('shipping_methods_restriction.php', zen_get_all_get_params(array('action,id'))));
+    }
+    $forbid_query =$db->Execute('UPDATE ' . TABLE_SHIPPING_METHOD_RESTRICTION . ' set status = 20 WHERE smr_id = ' . $forbid_id);
+    zen_redirect(zen_href_link('shipping_methods_restriction.php', zen_get_all_get_params(array('page','id','mode','action'))));
+    break;
+    case 'edit':;break;
+    case 'new':;break;
+    case 'save':    
+
+    if(sizeof($_POST['country_iso_code_2'])>=256){
+        $_POST['country_iso_code_2']=array();
+        unset($_POST['activity_countries_code_all']);
+    }
+    if(empty($_POST['country_iso_code_2'])){
+        $_POST['country_iso_code_2']=array();
+    }
+    $products_model = trim(zen_db_prepare_input($_POST['products_model']));
+    $country_iso_code_2 = zen_db_prepare_input($_POST['country_iso_code_2']);
+    $postcode_from = trim(zen_db_prepare_input($_POST['postcode_from']));
+    $postcode_to = trim(zen_db_prepare_input($_POST['postcode_to']));
+    $postcode_from=preg_replace('/[\s-]/','',strtoupper($postcode_from));
+    $postcode_to=preg_replace('/[\s-]/','',strtoupper($postcode_to));
+    $country_iso_code_2=implode($country_iso_code_2,",");
+    $start_time = trim(zen_db_prepare_input($_POST['start_time']));
+    $end_time = trim(zen_db_prepare_input($_POST['end_time']));
+    $shipping_method_str=trim(zen_db_prepare_input($_POST['shipping_methods_arr']));
+    $shipping_methods_arr = explode(",",$shipping_method_str);
+
+    $products_model = str_replace(chr(10),',',$products_model);
+    $products_model = str_replace(chr(13),'',$products_model);
+    $products_model_arr = explode(",",$products_model);
+    $products_model_str = implode("','",$products_model_arr);
+
+    $check_model_arr = array();
+    if(!empty($products_model_str)) {
+        $products_model_str = "'" . $products_model_str . "'";
+        $products_id_query = $db->Execute('select products_id,products_model from ' . TABLE_PRODUCTS . ' where products_model in ('.$products_model_str.') and products_status != 10 ');
+
+        while(!$products_id_query->EOF){
+            $check_model_arr[$products_id_query->fields['products_id']] = $products_id_query->fields['products_model'];
+            $products_id_query->MoveNext();
+        }
+    }else{
+        $check_model_arr[] = "";//因为是没有输入商品编号就是默认所有商品
+    }
+
+
+    if($check_model_arr) {
+        foreach ($check_model_arr as $pk=>$pv){
+            foreach ($shipping_methods_arr as $shipping_method){
+                $save_sql_array = array(
+                    'shipping_method' => $shipping_method,
+                    'products_id' => $pk,
+                    'products_model' => $pv,
+                    'country_iso_code_2' => $country_iso_code_2,
+                    'postcode_from' => $postcode_from,
+                    'postcode_to' => $postcode_to,
+                    'start_time' => $start_time == '' ? 'null' : $start_time,
+                    'end_time' => $end_time == '' ? 'null' : $end_time,
+                    'created_time' => 'now()',
+                    'created_admin_email' => $_SESSION['admin_email'],
+                    'limit_result' => 10//限制原因默认为10
+                );
+
+                zen_db_perform(TABLE_SHIPPING_METHOD_RESTRICTION, $save_sql_array);
+            }
+        }
+ 
+    }
+    zen_redirect(zen_href_link('shipping_methods_restriction.php', zen_get_all_get_params(array('page','action'))));break;
+        
+       break;
+}
+?>
+
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html <?php echo HTML_PARAMS; ?>>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+<title><?php echo TITLE; ?></title>
+<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" media="print" href="includes/stylesheet_print.css">
+<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
+<script language="javascript" src="includes/menu.js"></script>
+<script language="javascript" src="includes/general.js"></script>
+<script language="javascript" src="includes/javascript/jscript_jquery.js"></script>
+<script type="text/javascript" src="../includes/templates/cherry_zen/jscript/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+<!--
+function init()
+{
+cssjsmenu('navbar');
+if (document.getElementById)
+{
+  var kill = document.getElementById('hoverJS');
+  kill.disabled = true;
+}
+}// -->
+$(function(){
+    $('#submitbtn').mousedown(function(){
+     	var products_model=$('#products_model').val();
+    	var country_iso_code_2=[];
+		$("input[name='country_iso_code_2[]']:checked").each(function(i){
+			country_iso_code_2[i]=$(this).val();	
+			});
+		var postcode_from=$('#postcode_from').val();
+		var postcode_to=$('#postcode_to').val();
+		var start_time=$('#start_time').val();
+		var end_time=$('#end_time').val();
+		var shipping_methods= "";//$("input[name='shipping_methods']:checked").val();
+
+        $("input[name='shipping_methods']").each(function() {
+            if ($(this).is(":checked")) {
+                shipping_methods +=","+$(this).val();
+            }
+        });
+        if(shipping_methods){
+            shipping_methods = shipping_methods.substring(1);
+        }
+
+		$.post('ajax_shipping_methods_restrction.php',{action:'shipping_method_validate',
+			products_model:products_model,
+			country_iso_code_2:country_iso_code_2,
+			postcode_from:postcode_from,
+			postcode_to:postcode_to,
+			start_time:start_time,
+			end_time:end_time,
+			shipping_methods:shipping_methods
+			},function(data){
+				var checking_error_info=JSON.parse(data);
+ 				if(checking_error_info.products_model_error){
+				$('#products_model_error').html(checking_error_info.products_model_error);}else{
+						$('#products_model_error').html('')};
+				if(checking_error_info.time_error){
+					$('#time_error').html(checking_error_info.time_error);}else{
+						$('#time_error').html('')};
+    			if(checking_error_info.postcode_error){
+    				$('#postcode_error').html(checking_error_info.postcode_error);}else{
+						$('#postcode_error').html('')};
+				if(checking_error_info.checking_error){
+					$('#checking_error').html(checking_error_info.checking_error);}else{
+						$('#checking_error').html('')};
+				if($('.jq_shipping_methods_error').text()=='请选择一种运输方式' || $(".display_shipping_methods").text()==''){alert('请选择一种运输方式');return false;}
+				if(!$('#products_model_error').html()=='' || !$('#time_error').html()=='' || !$('#postcode_error').html()=='' || !$('#checking_error').html()==''){return false;}
+				$("#shipping_methods_arr").val(shipping_methods);
+				$("#save_form").submit();	
+		});
+	    });
+  	$('.dataTableRow').mouseover(function(){
+		$(this).addClass('dataTableRowSelected');
+		$(this).siblings().removeClass('dataTableRowSelected');
+	  	})	  
+	$('.countries_name').each(function(){
+		var countries_name=$(this).text();
+		if(countries_name.length>20){
+			var show_name=countries_name.substring(0,17)+"...";
+			$(this).text(show_name);
+			} 
+		});
+	$(".jq_countries_edit").toggle(function() {
+		$(this).text("保存更改");
+		$(".jq_activity_countries_code_all").show();
+		$(".jq_activity_countries_code").show();
+		$(".display_countries_name").text("");
+	}, function() {
+		$(this).text("编辑国家");
+		var countries_code=[];
+		$("input[name='country_iso_code_2[]']:checked").each(function(i){
+			countries_code[i]=$(this).val();	
+			});		
+		$(".jq_activity_countries_code_all").hide();
+		$(".jq_activity_countries_code").hide();
+		$.post('ajax_shipping_methods_restrction.php',{action:'show_countries_name',countries_code:countries_code},function(data){
+			var countries_name_all=eval(data);
+			if(countries_name_all=="all"){
+				$(".display_countries_name").text('所有国家');
+				}else{
+			$(".display_countries_name").text(countries_name_all);
+				}
+		});		
+	});		
+	$(".jq_activity_countries_code_all").click(function() {
+		if($(this).find("label").find("input").attr("checked") == "checked") {
+			$(".jq_activity_countries_code label input").attr("checked", "checked");
+		} else {
+			$(".jq_activity_countries_code label input").removeAttr("checked");
+		}
+	});
+	$(".jq_activity_countries_code").click(function() {
+		var all = $(".jq_activity_countries_code").find("label").find("input").length;
+		var checked = $("input[name='activity_countries_code[]']:checked").length;
+		if(all == checked) {
+			$(".jq_activity_countries_code_all label input").attr("checked", "checked");
+		} else {
+			$(".jq_activity_countries_code_all label input").removeAttr("checked");
+		}
+	});
+	
+	$(".jq_shipping_methods").toggle(function() {
+		$(this).text("保存更改");
+		$(".jq_shipping_methods_all").show();
+		$('.jq_shipping_methods_error').text('')
+		$(".display_shipping_methods").text("");
+	}, function() {
+		var shipping_methods="";//$("input[name='shipping_methods']:checked").val();
+
+        $("input[name='shipping_methods']").each(function() {
+            if ($(this).is(":checked")) {
+                shipping_methods +=","+$(this).val();
+            }
+        });
+        if(shipping_methods){
+            shipping_methods = shipping_methods.substring(1);
+        }
+
+		$(this).text("编辑运输方式");
+		$(".jq_shipping_methods_all").hide();
+		$.post('ajax_shipping_methods_restrction.php',{action:'show_shipping_methods_name',shipping_methods:shipping_methods},function(data){
+			var shipping_methods_name=eval(data);
+			if(shipping_methods_name==null){
+				$('.jq_shipping_methods_error').text('请选择一种运输方式')
+ 			}else{
+ 				$('.jq_shipping_methods_error').text('')
+				$(".display_shipping_methods").text(shipping_methods_name);
+			}
+		});
+	}); 			
+  });
+</script>
+<style>
+
+table a{text-decoration:underline;}
+td  {line-height:180%;}
+.table_info{font-size:12px; font-family: Arial;width: 80%} 
+.table_info tr{text-align: left;vertical-align: top;margin-bottom: 10px;line-height: 20px;}
+.table_info tr th{width:180px;}
+.table_info tr td br{}
+.table_desc{margin-left:30px;font-size: 12px; font-size:14px;}
+.table_desc tr{height:50px;}
+.table_desc tr th{width:150px;text-align: left;}
+.buttondiv{width: 300px;margin-left: 150px;}
+.buttondiv button{width:100px;}
+.normal_table tr td{text-align: center;}
+.country_table span{width:160px; display:inline-block; margin:0px 5px 10px 0; vertical-align: top; font-size: 12px;}
+.table_desc .title{width:80px;}
+.table_desc .note{width:322px;}
+
+</style>
+</head>
+<body onLoad="init()">
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<table border="0" cellpadding="0" cellspacing="0" width="97%" align="center">
+  	<tr>
+  		<td class="pageHeading"><?php echo zen_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT);?></td>
+  	</tr>
+  	<tr>
+  		<td class="pageHeading"><div style="float:left;">禁用运输方式设置</div></td>
+	</tr>
+
+	  	<?php if(!($action == 'new' || $action == 'edit')){
+	  	    $display_area_data = array();
+	  	    $id=$_GET['id'];	
+	  	    $status=trim(zen_db_input($_GET['restriction_status']));
+	  	    $search_key = trim(zen_db_input($_GET['search']));
+	  	    $filter_str="";
+	  	    $search_str="";
+    ?>
+    <table border="0" width="100%" cellspacing="2" cellpadding="2">
+		<tr height="80px">
+		<td>
+		 <table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+		<td style="float: right;">
+		<?php echo zen_draw_form('search_form', 'shipping_methods_restriction','','get');?>
+			<table border="0" width="95%" cellspacing="0" cellpadding="2" align="center">
+				<tr>
+					<td align="right" width="300px;">						
+						<strong style="font-size: 13px;line-height: 25px;display: inline;">状态 : </strong><?php echo zen_draw_pull_down_menu('restriction_status' , $restriction_status, $_GET['restriction_status'] ? $_GET['restriction_status'] : '' , 'style="height: 20px;"')?><br>						
+					</td>
+				</tr>
+				<tr>
+					<td align="right" width="300px;">
+					<?php 
+						echo zen_draw_input_field('search', $_GET['search'], 'size="21px" style="color:#999;height: 25px;" value="商品编号" onfocus="if (this.value == \'商品编号\'){this.value=\'\';this.style.color=\'#000\';}"');
+					?>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						 <?php echo zen_image_submit('button_search_cn.png','搜索');?>
+					</td>
+				</tr>
+			</table>
+			<?php echo '</form>';?>
+				</td>
+			</tr>
+		</table>
+		<?php      		
+    		if(isset($status) && $status!="0"&& $status!=""){
+    		    $filter_str=' WHERE zsmr.status='.$status;
+    		    if(!($search_key =='' || $search_key =='商品编号')){
+    		        $search_str=' AND zsmr.products_model like"%'.$search_key.'%"';
+    		    }
+    		}else{
+    		    if(!($search_key =='' || $search_key =='商品编号')){
+    		        $search_str=' WHERE zsmr.products_model like"%'.$search_key.'%"';
+    		    }
+    		}
+		    
+		    $show_restriction_sql="SELECT zsmr.smr_id,zsmr.products_model,zsmr.postcode_from,zsmr.postcode_to,zs.name,zsmr.country_iso_code_2,zsmr.start_time,zsmr.end_time,zsmr.shipping_method,
+                       zsmr.status FROM ".TABLE_SHIPPING_METHOD_RESTRICTION." as zsmr
+                       LEFT JOIN ".TABLE_SHIPPING." as zs on zs.code=zsmr.shipping_method ".$filter_str.$search_str." ORDER BY zsmr.smr_id DESC";
+	  	    $show_restriction_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS_REPORTS , $show_restriction_sql ,$show_restriction_query_numrows);
+	  	    $show_restriction=$db->Execute($show_restriction_sql);
+	  	    ?>
+	  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr class="dataTableHeadingRow">
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">ID</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">商品编号</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">运输方式</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">国家</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">邮编</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">开始时间</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">结束时间</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">状态</td>
+			<td class="dataTableHeadingContent" style="padding:5px 2px; width:10%;text-align:center;">操作</td>
+		</tr>
+		<?php while(!$show_restriction->EOF){
+    		    $countries_name_all="";
+    		    $countries_code=$show_restriction->fields['country_iso_code_2'];
+    		    if($countries_code!=""){
+    		        $countries_code=trim($countries_code,",");
+    		        $countries_code_array=explode(",",$countries_code);
+    		        foreach($countries_code_array as $key=>$code){
+    		            $countries_name_sql="SELECT countries_name FROM ".TABLE_COUNTRIES." WHERE countries_iso_code_2='".$code."'";
+    		            $countries_name=$db->Execute($countries_name_sql);
+    		            $countries_name_all[]=$countries_name->fields['countries_name'];
+    		        }
+    		        $countries_name_all=implode(",",$countries_name_all);
+    		    }
+
+            if($show_restriction->fields['name'] == ''){
+                $virtual_shipping_name_query = $db->Execute('select shipping_name from ' . TABLE_VIRTUAL_SHIPPING . ' where shipping_code ="' . $show_restriction->fields['shipping_method'] . '"');
+
+                if($virtual_shipping_name_query->RecordCount() > 0){
+                    $show_restriction->fields['name'] = $virtual_shipping_name_query->fields['shipping_name'];
+                }
+            }
+		    ?>		   
+			<tr class="dataTableRow">
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['smr_id'];?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['products_model']?$show_restriction->fields['products_model']:"/";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['name']?$show_restriction->fields['name']:"/";?></td>
+			<td class="dataTableContent countries_name" style="padding:5px 2px;" align="center"><?php echo $countries_name_all?$countries_name_all:"/";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['postcode_from']?($show_restriction->fields['postcode_from'].'-'.$show_restriction->fields['postcode_to']):"/";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['start_time']?$show_restriction->fields['start_time']:"/";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo $show_restriction->fields['end_time']?$show_restriction->fields['end_time']:"/";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center"><?php echo ($show_restriction->fields['status']==10)?"启用":"禁用";?></td>
+			<td class="dataTableContent" style="padding:5px 2px;" align="center">
+			<?php 
+			echo '<a href="' . zen_href_link('shipping_methods_restriction', zen_get_all_get_params(array('action','id')) . 'action=edit&id=' . $show_restriction->fields['smr_id'], 'NONSSL') . '">' . zen_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>';
+			?>
+			</td>
+		</tr>
+		<?php $show_restriction->MoveNext();}?>
+	  </table>
+	  <table border="0" width="100%" cellspacing="0" cellpadding="2px">
+		<tr>
+			<tr><td colspan="4" align="right"><a href="<?php echo zen_href_link('shipping_methods_restriction',  'page='.$_GET['page'] . '&action=new&'.zen_get_all_get_params(array('page','id', 'action'))); ?>"><button style="width:100px;">新建</button></a></td></tr>
+			<td class="smallText" valign="top" ><?php echo $show_restriction_split->display_count($show_restriction_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_TRENDS,zen_get_all_get_params(array('page','id','action'))); ?></td>
+		    <td class="smallText" align="right" ><?php echo $show_restriction_split->display_links($show_restriction_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], zen_get_all_get_params(array('page','id','action')) ); ?></td>
+		</tr>
+	  </table>
+	   <?php }elseif($action=='edit'){
+	           $countries_name_all="";
+	           $restriction_detail_sql="SELECT zsmr.smr_id,zsmr.products_model,zs.name,zsmr.country_iso_code_2,zsmr.start_time,zsmr.end_time,
+                                        zsmr.postcode_from,zsmr.postcode_to,zsmr.created_admin_email,zsmr.created_time 
+                                        FROM ".TABLE_SHIPPING_METHOD_RESTRICTION." as zsmr
+                                        LEFT JOIN ".TABLE_SHIPPING." as zs on zs.code=zsmr.shipping_method WHERE zsmr.smr_id=".$_GET['id'];
+	           $restriction_detail=$db->Execute($restriction_detail_sql);	           
+	           $countries_code=$restriction_detail->fields['country_iso_code_2'];
+	           if($countries_code!=""){
+	               $countries_code=trim($countries_code,",");
+	               $countries_code_array=explode(",",$countries_code);
+	               foreach($countries_code_array as $key=>$code){
+	                   $countries_name_sql="SELECT countries_name FROM ".TABLE_COUNTRIES." WHERE countries_iso_code_2='".$code."'";
+	                   $countries_name=$db->Execute($countries_name_sql);
+	                   $countries_name_all[]=$countries_name->fields['countries_name'];
+	               }
+	               $countries_name_all=implode(",",$countries_name_all);
+	           }
+	       ?>
+	   <table class="table_desc" border="0" cellpadding="0" cellspacing="0" width="100%">
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>商品编号：</td>
+    	   <td><?php echo $restriction_detail->fields['products_model']?$restriction_detail->fields['products_model']:"/"?></td>
+    	   <td>（若未填入商品编号，则表示所有商品都受此限制）</td>
+	   </tr>
+	   <tr>
+    	   <td ><font color="red">*</font><span>运输方式：</span></td>
+    	   <td colspan="2"><?php echo $restriction_detail->fields['name']?$restriction_detail->fields['name']:"/"?></td>
+	   </tr>
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>国家：</td>
+    	   <td width="400px"><?php echo $countries_name_all?$countries_name_all:"/"?></td>
+    	   <td>（若未选择任何国家，则表示所有国家都受此限制）</td>
+	   </tr>
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>邮编：</td>
+    	   <td><?php echo $restriction_detail->fields['postcode_from']?($restriction_detail->fields['postcode_from'].'-'.$restriction_detail->fields['postcode_to']):"/";?></td>
+    	   <td>（若未选择任何邮编，则表示所有邮编都受此限制）</td>
+	   </tr>
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>开始时间：</td>
+    	   <td><?php echo $restriction_detail->fields['start_time']?$restriction_detail->fields['start_time']:"/";?></td>
+    	   <td>（若未选择任何时间，则表示所有时间都受此限制）</td>
+	   </tr>
+	   	   <tr>
+    	   <td><span>&nbsp&nbsp</span>结束时间：</td>
+    	    <td><?php echo $restriction_detail->fields['end_time']?$restriction_detail->fields['end_time']:"/";?></td>
+    	   <td>（若未选择任何时间，则表示所有时间都受此限制）</td>
+	   </tr>
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>创建人：</td>
+		   <td colspan="2"><?php echo $restriction_detail->fields['created_admin_email']?$restriction_detail->fields['created_admin_email']:"/"?></td>
+	   </tr>
+	   <tr>
+    	   <td><span>&nbsp&nbsp</span>创建时间：</td>
+		   <td colspan="2"><?php echo $restriction_detail->fields['created_time']?$restriction_detail->fields['created_time']:"/"?></td>
+	   </tr>
+	   <tr>
+	   	   <?php $show_button=$db->Execute('SELECT smr_id FROM '.TABLE_SHIPPING_METHOD_RESTRICTION.' WHERE status=10 AND smr_id='.$_GET['id']);
+	   	   if(!$show_button->EOF){
+	   	   ?>
+    	   <td>
+    	   <form name="forbid" action="shipping_methods_restriction.php?action=forbid" method="post" onsubmit=" return confirm('是否禁用此条禁运规则?');">
+    	   <input type="hidden" name="forbid_id" value="<?php echo $_GET['id']; ?>">
+    	   <button>禁用</button>
+    	   </form></td>
+    	   <?php }?>
+		   <td><button onclick="location='shipping_methods_restriction.php' ">返回</button></td>
+	   </tr>
+	   </table><?php }?>	  
+</table><?php if($action=='new'){
+?>
+<form  action="<?php echo zen_href_link('shipping_methods_restriction',zen_get_all_get_params(array('action')) . 'action=save');?>" method="post" id="save_form">
+    <input type="hidden" name="shipping_methods_arr" id="shipping_methods_arr" />
+<table class="table_desc" border="0" cellpadding="0" cellspacing="0" >
+	   <tr  style="height:25px">
+    	   <td class="title" style="padding-top: 10px;"><span>&nbsp&nbsp</span>商品编号：</td>
+    	   <td style="padding-top: 10px;"><?php echo zen_draw_textarea_field('products_model','',60,30, $_POST['products_model'],'id="products_model"')?></td>
+    	   <td class="note" style="padding-top: 10px;">（若未填入商品编号，则表示所有商品都受此限制,多个编号用换行隔开）</td>
+	   </tr>
+	   <tr  style="height:25px;font-size:12px"><td colspan="3"><p style="color:red;margin-left:80px;" id="products_model_error"></p></td></tr>
+	   <tr>
+    	   <td valign="top" class="title"><font color="red">*</font><span >运输方式：</span></td>
+    	   <td ><p class="display_shipping_methods"></p>
+    	   <a class="jq_shipping_methods" href="javascript:void(0);" >编辑运输方式</a> <font class="jq_shipping_methods_error" style="color:red"></font><br/>
+    	   <span class="jq_shipping_methods_all" style="display:none;">
+    	   <?php $shipping_methods=$db->Execute("SELECT code,name FROM ".TABLE_SHIPPING);
+    	         while(!$shipping_methods->EOF){?>
+    	             <label><input type="checkbox" name="shipping_methods" value='<?php echo $shipping_methods->fields['code'];?>'><?php echo $shipping_methods->fields['name'];?></label>
+
+           <?php
+                     $shipping_methods->MoveNext();
+                 }
+
+                 $virtual_shipping_methods_query = $db->Execute("SELECT shipping_code, shipping_name FROM " . TABLE_VIRTUAL_SHIPPING);
+
+                 if($virtual_shipping_methods_query->RecordCount() > 0) {
+                     echo '<div style="font-weight: bold;margin: 20px;">虚拟海外仓运输方式</div>';
+                     while (!$virtual_shipping_methods_query->EOF) {
+           ?>
+                         <label><input type="checkbox" name="shipping_methods" value='<?php echo $virtual_shipping_methods_query->fields['shipping_code']; ?>'><?php echo $virtual_shipping_methods_query->fields['shipping_name']; ?></label>
+
+                         <?php $virtual_shipping_methods_query->MoveNext();
+                     }
+                 }
+           ?>
+    	       </span>
+    	       </td>    	   
+	   </tr>
+	   <tr>
+                    <td valign="top" class="title"><span>&nbsp&nbsp</span>国家：</td>
+                    <td class="country_table"><p class="display_countries_name"></p>
+						<a class="jq_countries_edit" href="javascript:void(0);" style="float: left">编辑国家</a><br/>		
+						<span class="jq_activity_countries_code_all" style="display:none;"><label><input name="activity_countries_code_all" type="checkbox" <?php if($ann_result['activity_countries_code_all'] == "20" || empty($ann_result['activity_countries_code_all'])) {echo " checked='checked'";}?> />所有国家</label></span>
+						<?php 
+						$countries_code_array = $countires_name_array = array();
+						foreach ($country_array as $unselected) { 
+						$checked = "";					
+						$checked = " checked='checked'";					
+						array_push($countries_code_array, $unselected['countries_iso_code_2']);
+						array_push($countires_name_array, $unselected['text']);
+						?>
+						<span class="jq_activity_countries_code" style="display:none;"><label><input name="country_iso_code_2[]" type="checkbox" value="<?php echo $unselected['countries_iso_code_2']; ?>" <?php echo $checked;?><?php echo $readonly;?> /><?php echo $unselected['text']; ?></label></span>						
+					<?php } ?>					
+                    </td>
+                    <td class="note">（若未填入国家，则表示所有国家都受此限制）</td>
+                </tr>
+	   <tr style="height:25px">
+    	   <td><span>&nbsp&nbsp</span>邮编：</td>
+    	   <td><?php echo zen_draw_input_field('postcode_from', $_POST['postcode_from'],'id="postcode_from"')?>-<?php echo zen_draw_input_field('postcode_to', $_POST['postcode_to'],'id="postcode_to"')?></td>
+    	   
+    	   <td class="note">（若未选择任何邮编，则表示所有邮编都受此限制）</td>
+	   </tr>
+	   <tr  style="height:25px;font-size:12px"><td colspan="3"><p style="color:red;margin-left:80px;" id="postcode_error"></p></td></tr>
+	   <tr>
+    	   <td class="title"><span>&nbsp&nbsp</span>开始时间：</td>
+    	   <td><input class="Wdate" <?php echo $promotion_active_state == '活动'?'':''?> type="text" id="start_time" name="start_time" min-date ="%y-%M-%d" dateFmt="yyyy-MM-dd HH:mm:ss" value="<?php echo $ann_result['activity_start_time'];?>" <?php if(empty($readonly)) {?> onClick="WdatePicker({startDate:'<?php if(!empty($ann_result['activity_start_time'])) {echo $ann_result['activity_start_time'];} else {echo "%y-%M-%d 00:00:00";}?>',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true});"<?php }?><?php echo $readonly;?> /></td>
+    	   <td class="note">（若未选择任何时间，则表示所有时间都受此限制）</td>
+	   </tr>
+	   	   <tr>
+    	   <td class="title"><span>&nbsp&nbsp</span>结束时间：</td>
+    	   <td><input class="Wdate" type="text" id="end_time" name="end_time" dateFmt="yyyy-MM-dd HH:mm:ss" value="<?php echo $ann_result['activity_end_time'];?>" onClick="WdatePicker({startDate:'<?php if(!empty($ann_result['activity_end_time'])) {echo $ann_result['activity_end_time'];} else {echo "%y-%M-%d 00:00:00";}?>',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true});" /></td>
+    	   <td class="note">（若未选择任何时间，则表示所有时间都受此限制）</td>
+	   </tr>
+	   <tr  style="height:25px;font-size:12px"><td colspan="3"><p style="color:red;margin-left:80px;" id="time_error"></p></td></tr>
+	   </table>
+	</form>
+	            <div class="buttondiv">
+                <button id="submitbtn" >提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onclick="location='shipping_methods_restriction.php'">取消</button>
+                
+            </div>
+			<p style="color:red;margin-left:40px;" id="checking_error"></p>
+	
+		<?php }?>	
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+<br />
+</body>
+</html>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

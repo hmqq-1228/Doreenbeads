@@ -1,0 +1,56 @@
+<div class="order_main border_bottom">
+	{if $messageStack->size('addressbook_success')>0}
+		<div>{$messageStack->output('addressbook_success')}</div>
+	{/if}
+	<div class="default_address">
+    	<h4>{$smarty.const.HEAD_YOUR_DEFAULT_ADD}:</h4>
+    	{foreach from=$def_address item=value}
+    	<p>
+	    	<b>{$value.firstname}&nbsp;{$value.lastname}</b><br/>
+	    	{if $value.company neq ''}<p>{$value.company}<br/>{/if}
+	    	{$value.street_address}<br/>
+	    	{if $value.suburb neq ''}{$value.suburb}<br/>{/if}
+	    	{$value.city} {$value.postcode}<br/>
+	    	{if $value.state}{$value.state}{/if}{$value.zone}&nbsp;{$value.country}<br/>    	
+	  		{if $value.tariff_number neq ''}{$value.tariff_number}<br/>{/if}
+	  		{if $value.backup_email neq ''}{$value.backup_email}<br/>{/if}
+	  		{if $value.telephone neq ''}Tel: {$value.telephone}<br/>{/if}
+    	</p>
+    	<a href="index.php?main_page=address_book&act=update&edit={$value.address_book_id}"></a>
+    	{/foreach}
+    	<div class="clearfix"></div>
+  	</div>
+  	{if $address|@sizeof > 1}
+  	<div class="other_address">
+    	<h3>{$smarty.const.TEXT_OTHER_SHIPPING_ADDRESS}</h3>
+ 		<ul>
+ 			{foreach from=$address key=key item=value}
+	 			{if $customers_default_address_id==$value.address_book_id}
+				{else}
+			  	<li>
+			      	<p>
+				    	<b>{$value.firstname}&nbsp;{$value.lastname}</b><br/>
+				    	{if $value.company neq ''}<p>{$value.company}<br/>{/if}
+				    	{$value.street_address}<br/>
+				    	{if $value.suburb neq ''}{$value.suburb}<br/>{/if}
+				    	{$value.city}{$value.postcode}<br/>
+				    	{if $value.state}{$value.state}{/if}{$value.zone}&nbsp;{$value.country}<br/>    	
+				  		{if $value.tariff_number neq ''}{$value.tariff_number}<br/>{/if}
+				  		{if $value.backup_email neq ''}{$value.backup_email}<br/>{/if}
+				  		{if $value.telephone neq ''}Tel: {$value.telephone}<br/>{/if}
+			    	</p>
+			      	<div class="float_lt">
+			      		<a class="btnedit_address" href="index.php?main_page=address_book&edit={$value.address_book_id}"></a>
+			      		<a class="btndelete_address" href="index.php?main_page=address_book&action=del&del={$value.address_book_id}"></a>
+			      	</div>
+			      	<div class="clearfix"></div>
+			    </li>
+			    {/if}
+		    {/foreach}
+		</ul>
+  	</div>
+  	{/if}
+  	{if $length lt 10}
+  	<a href="index.php?main_page=address_book&action=add" class="add_address">+ {$smarty.const.TEXT_ADD_ADDRESS}</a>
+  	{/if}
+</div>

@@ -1,0 +1,13 @@
+.detailproduct-btn .back-btn{ width:auto; display:inline-block;color:#333;background:-webkit-gradient(linear,0 0,0 100%,from(#f6f6f6),to(#efefef));background:-moz-linear-gradient(top,#f6f6f6,#efefef);background:-o-linear-gradient(top,#f6f6f6,#efefef);border:1px solid #d3d3d3;box-shadow:0 1px 0 0 #f7e586 inset, 0 0 0 1px #f7e282 inset;color:#3333;text-align:center;box-shadow:1px 1px 0px #d0cfcf;font-size:14px;border-radius:2px;line-height:22px;padding:4px 12px;margin-right:4%;font-weight:bold;}
+.sitemap h2{ display:inline-block; text-align:left; font-size:22px; color:#666;line-height:30px;padding-bottom:5px;}
+dl.sitemap{ margin-top:5px; border-bottom:#ccc 1px solid; border-top:#ccc 1px solid; padding:10px;}
+dl.sitemap dt{ height:30px; line-height:20px; clear:both;}
+dl.sitemap dt a{ color:#f60; text-decoration:none; font-size:16px; font-weight:bold;}
+dl.sitemap dd{ width:50%; float:left; height:36px; line-height:14px; font-size:13px;}
+dl.sitemap dd a{ color:#134dae; text-decoration:none;}
+dl.sitemap a:hover{ text-decoration:underline;}
+
+.search.zindex,.foot_wrap .email_wrap.zindex{z-index:1000; }
+.search{ /* display:none; */ background-color:#fff; width:98%; padding:4px; position:relative; top:-1px; border:1px solid #ccc; margin-left:1%; border-radius:4px; overflow:hidden; line-height:40px;margin-top: 50px;}
+.search_lf{background-color:#FFF; width:100%; border:none; padding:0 50px 0 10px; line-height:40px;}
+.search a.search_icon { position:absolute; right:0; display:inline-block; height:40px; width:50px; background:url(../images/currency.png) right -404px no-repeat; background-size:45px;}

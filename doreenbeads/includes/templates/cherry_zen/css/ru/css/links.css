@@ -1,0 +1,43 @@
+.linkstext{padding: 10 0;float:left;width:33%;text-align:center;font-size:1em;}
+/*.linkstext{padding: 10 0;text-align:center;font-size:1em}
+.linkListing-data .col1 {width:33%;font-size:1em;}
+.linkListing-data .col2 {width:50%;font-size:1em;}
+.linkListing-data .col3 {width:10%;font-size:1em;}
+.productListing-even .linkListing-data{padding:5px;font-size:1em;;background:ivory;color:#000;}
+.productListing-odd .linkListing-data{padding:5px;font-size:1em;color:#000;}
+img,img a {border:0;}
+*/
+#link_exchange{
+	font-family: Arial,Helvetica,sans-serif;
+	font-size:14px;
+}
+#link_submit_site{
+	float:right;
+	margin-right:30px;
+	font-size:14px;
+	font-weight:bold;
+	line-height:30px;
+}
+#link_submit_site a{
+	color: #cc5800;
+	text-decoration:underline;
+}
+#links_cate{
+	margin-left:50px;
+	font-family: Arial,Helvetica,sans-serif;
+	line-height:30px;
+}
+#links_cate a{
+	font-size:18px;
+	color:#a63a9b;
+	
+}
+#links_list {
+	align:center;
+	width:95%;
+}
+#links_list a{
+	color:#994090;
+	font-size:14px;
+	text-decoration:underline;
+}

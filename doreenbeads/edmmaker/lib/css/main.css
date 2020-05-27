@@ -1,0 +1,11 @@
+body,p,h3{margin:0 auto;}
+.main{width:380px;height:auto;margin:0 auto;font-family:"Arial, Helvetica, sans-serif","ËÎÌו";border:1px solid #ccc;padding:10px 10px 20px;margin-top:20px;font-size:14px;}
+.nav{margin:10px 0;}
+.nav a,#surebtn,#submitbtn{cursor:pointer;display:inline-block;width:80px;margin-right:40px;background:#393;color:#fff;line-height:30px;text-decoration:none;border:0;font-size:14px;text-align:center;}
+.maintab td select{border:1px solid #ccc;width:280px;height:26px;}
+.maintab td{vertical-align:top;padding-top:10px;}
+.maintab td span{display:block;font-size:14px;}
+.maintab td a{color:#39F}
+.maintab td input[type="file"]{border:1px solid #ccc;}
+.mainpage a{display:block;line-height:30px;color:#39F}
+.maintab td ins{text-decoration:none;color:#F00;}

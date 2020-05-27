@@ -1,0 +1,68 @@
+{include file = 'includes/templates/checkout/tpl_checkout_head.html'}
+<div class="min_main">
+	<div class="result_info">
+		<ins class="icon_ok"></ins>
+			<h2>{$message.success_successfully}</h2>
+			<br/>
+			<h3 style="color: #FF0000;">{{$smarty.const.TEXT_PAY_SUCCESS_TIP_TiTLE}}</h3>
+			<p style="margin-top: 10px;line-height: 18px;">{{$smarty.const.TEXT_PAY_SUCCESS_TIP}}</p>
+			<h2 style="color:#5b5a5a">{$message.set_coupon}</h2>
+			<br/>
+			<p>{$message.success_order_number} <span>{$message.success_orders_id}</span>{$message.success_date}</p>
+			<br/>
+			<p>{$smarty.const.TEXT_PLEASE_KINDLY_CHECK}</p>
+	</div>
+	<div class="paydetails_complete">
+		<div class="payment fleft">
+			<p class="paymenttit">{$message.success_payment_detailas}</p>
+			<table class="paydetail">
+				<tr><td align="right" nowrap style="padding-bottom:10px;">{$message.success_payment_method}</td><td style="padding-bottom:10px;">{$message.success_payment_method_text}</td></tr>
+				{$message.success_order_total}
+			</table>
+			<div style="text-align:center;">
+				<br/>
+				<a class="paynow_btn" href="{$message.success_order_details}" style="color:#fff;">{$message.success_order_detail}</a> &nbsp;&nbsp;
+				{if $message.success_order_status == 2}
+					{$message.success_you_ve_made_payment}
+				{elseif $message.success_order_status == 42}
+					{$message.success_payment_under_checking}
+				{else}
+				<a class="paynow_btn" style="color:#fff;" href="{$message.success_order_details}&continued_order=payment">
+				
+				{$smarty.const.TEXT_MAKE_PAYMENT}
+				</a>
+				{/if}
+			</div>
+			{if $message.success_order_status == 2}
+			<div class="makepayment"  style="margin-left:100px">
+			<a href="invoice.php?oID={$message.success_orders_id}" class="view_invoice" target="_blank">{$message.text_view_invoice}</a>
+			</div>
+			{/if}
+		</div>
+		<div class="shipinvoice fright">
+			<p class="paymenttit">{$message.success_shipping_invoece_comments}</p>
+			<table class="paydetail_special">
+				{if $order->info.shipping_restriction_total > 0 && ($message.success_order_status == 2 || $message.success_order_status == 3 || $message.success_order_status == 4 || $message.success_order_status == 10)}
+				<tr><td align="left" colspan="2" style="color:red;">{$smarty.const.TEXT_SHIPPING_RESTRICTION_IMPORTANT_NOTE}</td></tr>
+				{/if}
+				<tr><td width="25%" align="right" nowrap><strong>{$message.success_shipping_method}</strong></td><td>{$message.success_shipping_method_text}</td></tr>
+				{if $message.shipping_days != ''}<tr><td align="right" nowrap><strong>{$smarty.const.TEXT_ESTSHIPPING_TIME}</strong></td><td>{$message.shipping_days}</td></tr>{/if}
+<!--
+				{if $message.success_invoice_count > 0}
+				<tr><td align="right">Invoice Value:</td><td>
+					{if $message.order_invoice_value != ''}{$message.order_invoice_value}{else}/{/if}</td></tr>
+				<tr><td align="right">Invoice Shipping Fee:</td><td>
+					{if $message.order_shipping_fee != ''}{$message.order_shipping_fee}{else}/{/if}</td></tr>
+				<tr><td align="right">Item Description marked as:</td><td>
+					{if $message.order_item_description != ''}{$message.order_item_description}{else}/{/if}</td></tr> 
+				{/if}
+-->
+			</table>		  
+			<p class="addr"><strong>{$message.success_shipping_address}</strong><br/><span>{$message.success_order_shipping_address}</span></p>
+			<p class="addr"><strong>{$message.success_order_cumments}</strong><br/><span>{$message.order_comments}</span></p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+{include file = 'includes/templates/checkout/tpl_products_foryour_consider.html'}
+</div>

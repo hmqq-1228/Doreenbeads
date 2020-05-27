@@ -1,0 +1,77 @@
+<div class="invite">
+	<div class="invite_logo">
+		<h1><a href="{$logohref}">{$logo}</a></h1>
+		<p><a href="{$smarty.const.HTTP_SERVER}/page.html?id=159">{$smarty.const.TEXT_LOGO_TITLE}</a></p>
+	</div>
+
+	<p class="invite_title">{$smarty.const.INVITE_FRIENDS_TITLE}</p>
+	<div class="invite_email">
+		<p>{$smarty.const.INVITE_FRIENDS_BYEMAIL}</p>
+		<form name="formSend" id="formSend" method="post" action="#" onsubmit="return false;">
+			<input type="text" name="send_emails" id="send_emails" value="" placeholder="{$smarty.const.INVITE_FRIENDS_EMAIL_ENTER}" /><br />
+			<button id="send_btn">{$smarty.const.INVITE_FRIENDS_SEND}</button>
+			<p class="send_tips" id="send_error_empty">{$smarty.const.INVITE_FRIENDS_EMAIL_EMPTY}</p>
+			<p class="send_tips" id="send_error_wrong">{$smarty.const.INVITE_FRIENDS_EMAIL_WRONG}</p>
+			<p class="send_tips" id="send_succ">{$smarty.const.INVITE_FRIENDS_EMAIL_SUCC}</p>
+		</form>
+    </div>
+    <div class="invite_other">
+		<p>{$smarty.const.INVITE_FRIENDS_BYOTHER}</p>
+		<table>
+			<tr>
+				<th>
+					<div>
+						<ins></ins><span>{$smarty.const.INVITE_FRIENDS_COPYLINK}</span>
+						<div class="clearfix"></div>
+					</div>
+				</th>
+				<td>{$share_link}</td>
+			</tr>
+		</table>
+		<ul class="invite_shara ">
+			{if $smarty.session.languages_id == 3}
+			<li class="odnok"><ins></ins><a target="_blank" onclick="return !window.open(this.href, '{$smarty.const.INVITE_FRIENDS_SHAREVK}', 'width=640,height=300')" href="http://vkontakte.ru/share.php?url={$share_link_encode}&description=WWW.DOREENBEADS.COM&image=http://www.doreenbeads.com/ru/includes/templates/cherry_zen/images/russian/logo1.jpg">{$smarty.const.INVITE_FRIENDS_SHAREVK}</a></li>
+			<li class="vk_ru"><ins></ins><a target="_blank" onclick="return !window.open(this.href, '{$smarty.const.INVITE_FRIENDS_SHAREOD}', 'width=640,height=300')" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={$share_link_encode}&title={$share_link}&description=WWW.DOREENBEADS.COM&image=http://www.doreenbeads.com/ru/includes/templates/cherry_zen/images/russian/logo1.jpg">{$smarty.const.INVITE_FRIENDS_SHAREOD}</a></li>
+			{else}
+			<li class="facebook"><ins></ins><a target="_blank" onclick="return !window.open(this.href, '{$smarty.const.INVITE_FRIENDS_SHAREFB}', 'width=556,height=300')" href="//www.facebook.com/sharer.php?u={$share_link_encode}">{$smarty.const.INVITE_FRIENDS_SHAREFB}</a></li>
+			<li class="twitter"><ins></ins><a target="_blank"  onclick="return !window.open(this.href, '{$smarty.const.INVITE_FRIENDS_SHARETW}', 'width=640,height=300')" href="//twitter.com/share?url={$share_link_encode}&via=8Seasons_2003">{$smarty.const.INVITE_FRIENDS_SHARETW}</a></li>
+			{/if}
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<p class="invite_tips">{$smarty.const.INVITE_FRIENDS_DESCRIPTION}</p>
+</div>
+
+{literal}
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+	$("#send_btn").on('click', function(){
+		var send_emails = $.trim($("#send_emails").val());
+		$(".send_tips").hide();
+
+		if(send_emails == ''){
+			$(".send_tips#send_error_empty").show();
+			$("#send_emails").focus();
+			return false;
+		}
+
+		var arr = send_emails.split(",");
+		var reg_address = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+		for(var i in arr){
+			if(!reg_address.test($.trim(arr[i]))){
+				$(".send_tips#send_error_wrong").show();
+				$("#send_emails").focus();
+				return false;
+			}
+		}
+
+		$.post('/index.php?main_page=invite_friends&action=send', {send_emails:send_emails}, function(data){
+			$(".send_tips#send_succ").show();
+		});
+
+		return true;
+	});
+
+});
+</script>
+{/literal}

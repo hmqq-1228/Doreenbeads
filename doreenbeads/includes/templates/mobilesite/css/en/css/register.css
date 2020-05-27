@@ -1,0 +1,143 @@
+.loginform .check.select, .registerform .check.select {
+    background: url("../images/mainicon.png") repeat scroll -73px -72px / 200px 150px rgba(0, 0, 0, 0);
+    color: #2368D2;
+    font-weight: bold;
+}
+#createaccountBody #country_choose .choose_single {
+    height: 28px;
+}
+#country_choose {
+    clear: both;
+    color: #333333;
+    font-family: verdana;
+    font-size: 11px;
+    position: relative;
+    width: 100%;
+}
+.choose_single {
+    background-color: #FFFFFF;
+    background-image: -moz-linear-gradient(center bottom , #EEEEEE 0%, #FFFFFF 50%);
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    color: #444444;
+    display: block;
+    height: 22px;
+    line-height: 20px;
+    outline: medium none;
+    overflow: hidden;
+    padding: 0 0 0 8px;
+    position: relative;
+    white-space: nowrap;
+}
+a.choose_single:hover {
+    text-decoration: none;
+}
+.choose_single div {
+    background: -moz-linear-gradient(center bottom , #CCCCCC 0%, #EEEEEE 60%) repeat scroll 0 0 #CCCCCC;
+    border-left: 1px solid #AAAAAA;
+    border-radius: 0 4px 4px 0;
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 18px;
+}
+.choose_single span {
+    color: #444444;
+    cursor: pointer;
+    display: block;
+    margin-right: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.choose_single div b {
+    background: url("/includes/templates/ZCM0100451/css/en/images/country_choose.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.country_select_drop {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #AAAAAA;
+    border-left: 1px solid #AAAAAA;
+    border-radius: 0 0 4px 4px;
+    border-right: 1px solid #AAAAAA;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+    display: none;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 11;
+}
+.choose_single_click {
+    background-color: #EEEEEE;
+    background-image: -moz-linear-gradient(center bottom , #FFFFFF 0%, #EEEEEE 50%);
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 1px 0 #FFFFFF inset;
+}
+.choose_single_click span {
+}
+.choose_single_click div {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-left: 0 solid #FFFFFF;
+    border-radius: 0 4px 0 0;
+}
+.choose_single_click div b {
+    background-position: -18px 1px;
+}
+.choose_single_focus {
+    border: 1px solid #5897FB;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.choose_search {
+    background: url("/includes/templates/ZCM0100451/css/en/images/country_choose.png") no-repeat scroll 100% -22px rgba(0, 0, 0, 0);
+    border: 1px solid #AAAAAA;
+    margin: 3px 4px;
+    padding: 4px 20px 4px 5px;
+    white-space: nowrap;
+}
+.choose_search input:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.choose_search input {
+    border: medium none;
+    color: #444444;
+    font-size: 12px;
+    height: 14px;
+    line-height: 14px;
+    margin: 0;
+    padding: 0;
+}
+#create_default fieldset .choose_search input {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.country_select_drop ul {
+    margin: 8px 4px 4px 0;
+    max-height: 220px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 0 0 4px;
+    position: relative;
+}
+.country_select_drop ul li {
+    list-style: none outside none;
+    margin: 0;
+    padding: 6px 4px 8px;
+}
+.country_select_drop ul li.country_list_item {
+    cursor: pointer;
+}
+.country_select_drop ul li.country_list_line {
+    color: #999999;
+    font-weight: bold;
+}
+.country_list_item_hover {
+    background: none repeat scroll 0 0 #3875D7;
+    color: #FFFFFF;
+}
+.country_list_item_selected {
+    background: none repeat scroll 0 0 #3875D7;
+    color: #FFFFFF;
+}

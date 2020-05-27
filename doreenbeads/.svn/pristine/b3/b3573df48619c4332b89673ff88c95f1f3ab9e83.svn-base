@@ -1,0 +1,141 @@
+{include file = 'includes/templates/checkout/tpl_checkout_head.html'}
+<input type="hidden" id="paypal_success_url" value="{$paypal_success_url}">
+<div class="min_main">
+	<div class="caption_shopgray" numVal="n{$obj_info['info_customers_id']}" sto='{$obj_info["sendto"]}' lang='{$obj_info["langs"]}' listShow="{$obj_info['add_show']}">
+		<a name="marked1"></a><h3>1.{$smarty.const.TEXT_ADDRESS_INFOMATION}</h3><p><label>*</label>{$smarty.const.TEXT_REQUIRED_FIELDS}</p>
+	</div>
+	<div class="captioncontent captionloading">
+		<p id="shipping_address_show" class="addrtit" style="display:none">{$smarty.const.TABLE_HEADING_ADDRESS_LINE}:</p>
+		{if $address_num == 0}
+			<form class="addrform" id="new_address_book" name="new_address_book" style="display:none" onsubmit='return false'>
+				<table width="900" style="table-layout:fixed;">
+					<tr><td width="150"><label>*</label>{$smarty.const.TEXT_TITLE}:</td><td><!-- <input type="radio" value="m" name="gender" id="gender" style="float: none;" checked />&nbsp;&nbsp;&nbsp;{$smarty.const.MALE}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" id="gender" value="f" style="float: none;" />&nbsp;&nbsp;&nbsp;{$smarty.const.FEMALE} -->
+					<select name="gender" id="gender" style="width:80px;">
+						<option value="m" selected>{$smarty.const.MALE}</option>
+						<option value="f">{$smarty.const.FEMALE}</option>
+					</select>
+					</td></tr>
+					<tr>
+						<td><label>*</label>{$smarty.const.TEXT_NAME}:</td><td width="400"><input type="text" name="firstname" id="firstname" class="firstname myrequired"/><input type="text" name="lastname" id="lastname" class="lastname myrequired"/>
+							<div><span class="firstn error firstn_error"></span><span class="lastn error lastn_error"></span></div>
+							<dl class="name">
+								<dd>*</dd><dt>{$smarty.const.TEXT_FIRST_NAME}</dt><dd>*</dd><dt>{$smarty.const.TEXT_LAST_NAME}</dt>
+							</dl>
+						</td>
+					</tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;{$smarty.const.TEXT_CHECKOUT_COMPANY_NAME}:</td><td><input type="text" name="company" id="company" class="companyname"/></td></tr>
+					<tr>
+						<td><label>*</label>{$smarty.const.TABLE_HEADING_ADDRESS_LINE} 1:</td>
+						<td><input type="text" name="street_address" id="street_address" class="addresstext myrequired street"/><span class="error street_error"></span>
+							<div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_FILL_DETAIL}</div><div class="note note1"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_SUGGEST_ENGLISH}<ins class="question_icon"></ins>
+								<div class="addrtips"><span class="bot"></span><span class="top"></span>{$smarty.const.TEXT_CHECKOUT_SUGGEST_ENGLISH_INFO}</div>
+							</div>
+						</td>
+					</tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;{$smarty.const.TABLE_HEADING_ADDRESS_LINE} 2:</td><td><input type="text" name="suburb" id="suburb" class="addresstext"/><br/><span class="error suburb_error"></span></td></tr>
+					<tr><td><label>*</label>{$smarty.const.TEXT_CITY}:</td><td><input type="text" name='city' id='city' class="city myrequired"/><span class="error city_error"></span></td></tr>
+					<tr><td><label>*</label>{$smarty.const.ENTRY_COUNTRY}</td><td>{$obj_info["country_select"]}<span class="error country_error"></span></td></tr>
+					<tr><td><label>*</label>{$smarty.const.TEXT_CHECKOUT_STATE}:</td><td>{$obj_info["pulldown_states"]}<span class="error state_error"></span><div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_BETTER_FULFILL} </div></td></tr>
+					<tr><td><label>*</label>{$smarty.const.TEXT_CHECKOUT_POSTAL_CODE}:</td><td><input type="text" name='postcode' id='postcode' class="myrequired postal"/><span class="error postcode_error"></span></td></tr>
+					<tr><td><label>*</label>{$smarty.const.TEXT_CHECKOUT_PHONE_NUMBER}:</td><td><input type="text" name='telephone' id='telephone' class="tel myrequired"/><span class="error telephone_error"></span><div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_PHONE_NUMBER_REQUIRED}</div></td></tr>
+					<tr><td><span style="color:black;">{$smarty.const.TEXT_CUSTOM_NO}:</span></td><td><input type="text" name='tariff_number' id='tariff_number'><br><span class='tar myrequired'></span><br/><span class="error" id="tariff_number_error"></span></td></tr>
+					<tr><td><span style="color:black;">{$smarty.const.ENTRY_EMAIL_ADDRESS}</span></td><td><input type="text" name='email_address' id='email_address'><br><span class='backup_email myrequired'></span><br/><span class="error" id="email_address_error"></span></td></tr>
+					<tr><td></td><td><button class="addresssubmit" id="save_address">{$smarty.const.TABLE_SAVE_ADDRESS}</button></td></tr>
+				</table>
+			</form>
+		{/if}
+	</div>
+
+	<div class="caption_shopgray">
+		<a name="marked2"></a><h3>2.{$smarty.const.TEXT_SHIPPING_METHOD}</h3>
+	</div>
+	<div class="captioncontent captionloading">
+	</div>
+
+	<div class="caption_shopgray" nccemcy="{$obj_info['curreny']}">
+		<a name="marked3"></a><h3>3.{$smarty.const.TEXT_INVOICE_COMMENTS}</h3>
+	</div>
+	<div class="captioncontent captionloading">
+	</div>
+
+	<div class="caption_shopgray">
+		<h3>4.{$smarty.const.TEXT_REVIEW_ORDER}</h3>
+	</div>
+	<div class="captioncontent captionloading" id="order_shopcart">
+	</div>
+
+</div>
+
+<div class="windowbody" style="display:none;"></div>
+<!-- window of edit/add address -->
+<div class="smallwindow windowaddress" style="display:none;">
+	<div class="smallwindowtit"><strong>{$smarty.const.TEXT_EDIT_ADDRESS_INFO}</strong><a href="javascript:void(0);" class="addressclose">X</a></div>
+	<div class="addresscont">
+		<form id="new_address_book" name="new_address_book">
+			<table width="92%"><tbody>
+				<tr><th width="150"><span class="font_red">*</span><label>{$smarty.const.TEXT_TITLE}:</label></th>
+					<td width="296">
+						<select name="gender" style="width:80px;" id="gender">
+							<option value='m' {if $address_info["entry_gender"] == 'm' || $address_info["entry_gender"] ==''}selected {/if}>{$smarty.const.TEXT_MALE}</option>
+							<option value='f' {if $address_info["entry_gender"] == 'f'}selected {/if}>{$smarty.const.TEXT_FEMALE}</option>
+						</select>
+<!-- 					<input type="radio" value="m" name="gender" id="gender" style="float: none;" checked />&nbsp;{$smarty.const.MALE}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="gender" id="gender" value="f" style="float: none;" />&nbsp;{$smarty.const.FEMALE} -->
+					</td>
+				</tr>
+				<tr>
+					<th><span class="font_red">*</span><label>{$smarty.const.TEXT_NAME}:</label></th><td><input type="text" name="firstname" id="firstname" class="firstn firstname myrequired" value='{$address_info["entry_firstname"]}'/><input type="text" name="lastname" id="lastname" class="lastn lastname myrequired" value='{$address_info["entry_lastname"]}'/>
+						<div><span class="firstn error firstn_error"></span><span class="lastn error lastn_error"></span></div>
+						<dl>
+							<dd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>*</span>{$smarty.const.TEXT_FIRST_NAME}<dd>
+							<dt><span class="last">*</span>{$smarty.const.TEXT_LAST_NAME}</dt>
+						</dl>
+					</td>
+				</tr>
+				
+				<tr>
+					<th><span class="font_red">*</span><label>{$smarty.const.TABLE_HEADING_ADDRESS_LINE} 1:</label></th>
+					<td><input type="text" name="street_address" id="street_address" class="addresstext myrequired street" value='{$address_info["entry_street_address"]}'/>
+						<span class="error street_error"></span>
+						<div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_FILL_DETAIL}</div><div class="note note1"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_SUGGEST_ENGLISH}<ins class="question_icon"></ins>
+							<div class="addrtips"><span class="bot"></span><span class="top"></span>{$smarty.const.TEXT_CHECKOUT_SUGGEST_ENGLISH_INFO}</div>
+						</div>
+					</td>
+				</tr>
+				<tr><th><span class="font_red">&nbsp;&nbsp;</span><label>{$smarty.const.TABLE_HEADING_ADDRESS_LINE} 2:</label></th><td><input type="text" name="suburb" id="suburb" class="addresstext" value='{$address_info["entry_suburb"]}'/><span class="error suburb_error"></td></tr>
+				<tr><th><span class="font_red">*</span><label>{$smarty.const.TEXT_CITY}:</label></th><td><input type="text" name='city' id='city' class="citytext city myrequired" value='{$address_info["entry_city"]}'/><span class="error city_error"></td></tr>
+				<tr><th><span class="font_red">*</span><label>{$smarty.const.ENTRY_COUNTRY}:</label></th><td>{$obj_info["country_select"]}</td></tr>
+				<tr><th><span class="font_red">*</span><label>{$smarty.const.TEXT_CHECKOUT_STATE}:</label></th><td>{$obj_info["pulldown_states"]}<span class="error state_error"></span><div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_BETTER_FULFILL} </div></td></tr>
+				<tr><th><span class="font_red">*</span><label>{$smarty.const.TEXT_CHECKOUT_POSTAL_CODE}:</label></th><td><input type="text" name='postcode' id='postcode' class="myrequired postal" value='{$address_info["entry_postcode"]}'/><span class="error postcode_error"></span></td></tr>
+				<tr><th><span class="font_red">*</span><label>{$smarty.const.TEXT_CHECKOUT_PHONE_NUMBER}:</label></th><td><input type="text" name='telephone' id='telephone' class="tel myrequired" value='{$address_info["telephone_number"]}'/><span class="error telephone_error"></span><div class="note"><span>&bull;</span>{$smarty.const.TEXT_CHECKOUT_PHONE_NUMBER_REQUIRED}</div></td></tr>
+				<tr><th><span class="font_red"></span><label>{$smarty.const.TEXT_CHECKOUT_COMPANY_NAME}:</label></th><td><input type="text" name="company" id="company" value='{$address_info["entry_company"]}'/></td></tr>
+			    <tr><th><span style="color:black;"><label>{$smarty.const.TEXT_CUSTOM_NO}:</label></span></th><td><input type="text" name='tariff_number' id='tariff_number' class='tar myrequired' value='{$address_info["tariff_number"]}'><br><div class="note"><span>&bull;</span>{$smarty.const.ENTRY_TARIFF_REQUIRED_TEXT}</div></td></tr>
+                <tr><th><span style="color:black;"><label>{$smarty.const.ENTRY_EMAIL_ADDRESS}</label></span></th><td><input type="text" name='email_address' id='email_address' class='backup_email myrequired' value='{$address_info["backup_email_address"]}'><br><div class="note"><span>&bull;</span>{$smarty.const.ENTRY_BACKUP_EMAIL_REQUESTED_TEXT}</div></td></tr>
+			</tbody></table>
+			<div class="formbtn">
+				<button class="addresssubmit" id="save_address">{$smarty.const.TABLE_SAVE_ADDRESS}</button>
+				<button class="orderbtn_grey" id="cancel_address">{$smarty.const.TEXT_CANCEL}</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- window of pack tips -->
+<div class="extrawindow smallwindow" style="display:none;position: fixed;" id="open_window_checkout">
+	<h2><a class="checkoutclose" href="javascript:void(0)">X</a></h2>
+	<div class="packing_title_div">
+	</div>
+	<div class="extra_tips">
+			( <font> {$smarty.const.TEXT_EXTRA_TIPS}<ins class="icon_question"></ins></font> )
+			<div class="extratips" style="display:none;">
+				<span class="bot"></span>
+				<span class="top"></span>
+				{$smarty.const.TEXT_EXTAR_SHIPPING_FEE}
+			</div>
+		</div>
+	<div class="error_packing_info">{$smarty.const.TEXT_ERROR_PACKING_TIPS}</div>
+	<p class="doublebutton">
+		<button class="purplecolor_btn">{$smarty.const.TEXT_PLACE_YOUR_ORDER}</button>
+		<button class="greycolor_btn"><span><strong>{$smarty.const.TEXT_CANCEL}</strong></span></button>
+	</p>
+</div>

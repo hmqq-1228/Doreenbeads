@@ -1,0 +1,146 @@
+<?php
+/**
+ * Common Template
+ *
+ * outputs the html header. i,e, everything that comes before the \</head\> tag <br />
+ *
+ * @package templateSystem
+ * @copyright Copyright 2003-2006 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: html_header.php 4368 2006-09-03 19:31:00Z drbyte $
+ */
+/**
+ * load the module for generating page meta-tags
+ */
+require(DIR_WS_MODULES . zen_get_module_directory('meta_tags.php'));
+/**
+ * output main page HEAD tag and related headers/meta-tags, etc
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
+
+<head>
+
+    <title><?php echo META_TAG_TITLE; ?></title>
+    <meta name="description" content="<?php echo META_TAG_DESCRIPTION; ?>"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>"/>
+    <meta name="author" content="Doreenbeads"/>
+    <meta name="verify-v1" content="er+Vol32KIC1eD3tjyNZojGyvLudSG34JAIVck5UET4="/>
+    <?php if (defined('ROBOTS_PAGES_TO_SKIP') && in_array($current_page_base, explode(",", constant('ROBOTS_PAGES_TO_SKIP'))) || $current_page_base == 'down_for_maintenance') { ?>
+        <meta name="robots" content="noindex, nofollow"/>
+    <?php } ?>
+    <base href="<?php echo(($request_type == 'SSL') ? HTTPS_SERVER . DIR_WS_HTTPS_CATALOG : HTTP_SERVER . DIR_WS_CATALOG); ?>"/>
+    <?php if (defined('FAVICON')) { ?>
+        <link rel="icon" href="<?php echo FAVICON; ?>" type="image/x-icon"/>
+        <link rel="shortcut icon" href="<?php echo FAVICON; ?>" type="image/x-icon"/>
+    <?php } //endif FAVICON ?>
+    <!-- TrustBox script -->
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+    <!-- End Trustbox script -->
+
+
+    <!-- 此处加GA代码 -->
+
+    <?php
+    $google_analytics_code_arr = explode(';', GOOGLE_ANALYTICS_CODE_WEB);
+    $siteCode = $google_analytics_code_arr[0];
+    if ($_SESSION['languages_id'] == 2) {
+        $siteCode = $google_analytics_code_arr[1];
+    } elseif ($_SESSION['languages_id'] == 3) {
+        $siteCode = $google_analytics_code_arr[2];
+    } elseif ($_SESSION['languages_id'] == 4) {
+        $siteCode = $google_analytics_code_arr[3];
+    }
+    ?>
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '<?php echo $siteCode; ?>', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google AdWords: 1047889670 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo ADWORDS_SITE_TAG_CODE; ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', '<?php echo ADWORDS_SITE_TAG_CODE;?>');
+    </script>
+
+    <?php
+    if ($_GET['main_page'] == FILENAME_CHECKOUT_SUCCESS) {
+        ?>
+        <!-- Event snippet for 下单成功 conversion page -->
+        <script>
+            gtag('event', 'conversion', {
+                'send_to': '<?php echo ADWORDS_SITE_TAG_CODE;?>/HgnBCMzCqlkQsMLQ1AM',
+                'value': <?php echo $order->info['total']?>,
+                'currency': 'USD',
+                'transaction_id': '<?php echo $zv_orders_id;?>'
+            });
+        </script>
+        <?php
+    }
+    ?>
+    <?php include($template->get_template_dir('tpl_header_googleanalytics.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/tpl_header_googleanalytics.php'); ?>
+
+    <?php
+    define('MINIFY_MIN_DIR', 'min');
+    $min_app ['groups'] = (require MINIFY_MIN_DIR . '/groupsConfig.php');
+    $getMainPageCss = $current_page_base . '.css';
+    $getMainPageJs = $current_page_base . '.js';
+    $getMainPageCss = (is_array($min_app ['groups'] [$getMainPageCss]) && $min_app ['groups'] [$getMainPageCss] != '') ? $getMainPageCss : 'webDefault.css';
+    $getMainPageJs = (is_array($min_app ['groups'] [$getMainPageJs]) && $min_app ['groups'] [$getMainPageJs] != '') ? $getMainPageJs : 'webDefault.js';
+    $chooseCssLang = 'css_' . $_SESSION ['languages_code'] . '_lang/';
+    $chooseJsLang = 'js_' . $_SESSION ['languages_code'] . '_lang/';
+    ?>
+    <link href="<?php echo CURRENCY_CSS_JS_VERSION; ?>/<?php echo $chooseCssLang; ?>min/<?php echo $getMainPageCss; ?>"
+          rel="stylesheet" type="text/css"/>
+    <script src="<?php echo CURRENCY_CSS_JS_VERSION; ?>/<?php echo $chooseJsLang; ?>min/<?php echo $getMainPageJs; ?>"
+            type="text/javascript" charset="utf-8"></script>
+
+    <?php
+    /**
+     * include content from all page-specific jscript_*.php files from
+     * includes/modules/pages/PAGENAME, alphabetically.
+     */
+    $directory_array = $template->get_template_part($page_directory, '/^jscript_/');
+    while (list ($key, $value) = each($directory_array)) {
+        /**
+         * include content from all page-specific jscript_*.php files from
+         * includes/modules/pages/PAGENAME, alphabetically.
+         * These .PHP files can be manipulated by PHP when they're called, and are
+         * copied in-full to the browser page
+         */
+        require($page_directory . '/' . $value);
+        echo "\n";
+    }
+    ?>
+    <?php if (isset($_GET['utm_campaign']) && $_GET['utm_campaign'] == 'referrals') { ?>
+        <meta property="og:image"
+              content="<?php echo HTTP_SERVER; ?>/includes/templates/cherry_zen/images/<?php echo $_SESSION ['language']; ?>/banner0714.jpg"/>
+        <meta property="og:image:width" content="470"/>
+        <meta property="og:image:height" content="200"/>
+    <?php } ?>
+
+</head>

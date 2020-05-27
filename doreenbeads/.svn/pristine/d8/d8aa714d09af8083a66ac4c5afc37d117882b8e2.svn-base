@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package languageDefines
+ * @copyright Copyright 2003-2007 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: contact_us.php 6202 2007-04-12 22:56:10Z drbyte $
+ */
+
+define('HEADING_TITLE', 'Contactez-nous');
+define('NAVBAR_TITLE', 'Contactez-nous');
+define('TEXT_SUCCESS', 'Votre message a été envoyé avec succès.');
+define('EMAIL_SUBJECT', 'Message vient de ' . STORE_NAME);
+
+define('ENTRY_NAME', 'Nom Complet:');
+define('ENTRY_EMAIL', 'E-mail:');
+define('ENTRY_ENQUIRY', 'Message:');
+define('EMAIL_TITLE', 'E-Mail');
+define('CUSTOMER_SERVICE', 'Service de Client');
+
+define('SEND_TO_TEXT','Envoyer le message à l’adresse d’e-mail:');
+define('ENTRY_EMAIL_NAME_CHECK_ERROR','Pardon, si vous avez entré un nom correct? Il faut entrer au moins ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' caractères. Veuillez entrer un autre nom.');
+define('ENTRY_EMAIL_CONTENT_CHECK_ERROR','Vous avez oublié de laisser un message? Nous sommes toujours prêts à vous écouter. Vous pouviez écrire vos avis ci-dessous. ');
+define('TEXT_CHECK_URL','Il y a un lien illégal dans le contenu que vous avez entré. Veuillez le corriger.');
+define('NOT_LOGGED_IN_TEXT', 'Non Connecté');
+?>

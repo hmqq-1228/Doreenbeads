@@ -1,0 +1,55 @@
+<div class="order_main">
+    {if $tag_page == 'order'}
+    <ul class="account_order">
+        <li><a href="{$account_page_link.my_orders}">{$smarty.const.TEXT_ALL_ORDERS} {if $all_total > 0}(<span class="grey_9">{$all_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=1">{$smarty.const.TEXT_NON_PAYMENT} {if $pending_total > 0}(<span class="price_color">{$pending_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=2">{$smarty.const.TEXT_ORDER_PROCESSING} {if $processing_total > 0}(<span class="grey_9">{$processing_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=3">{$smarty.const.TEXT_ORDER_SHIPPED} {if $shipped_total > 0}(<span class="grey_9">{$shipped_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=4">{$smarty.const.TEXT_ORDER_UPDATE} {if $update_total > 0}(<span class="grey_9">{$update_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=10">{$smarty.const.TEXT_DELIVERED} {if $delivered_total > 0}(<span class="grey_9">{$delivered_total}</span>){/if}<ins></ins></a></li>
+        <li><a href="{$account_page_link.my_orders}&status_id=0">{$smarty.const.TEXT_ORDER_CANCELED} {if $cancel_total > 0}(<span class="grey_9">{$cancel_total}</span>){/if}<ins></ins></a></li>
+    </ul>
+    {elseif $tag_page == 'settings'}
+    <ul class="account_order">
+        <li><a href="{$account_page_link.address_book}">{$smarty.const.TEXT_ADDRESS_BOOK}<ins></ins></a></li>
+        <li><a href="{$account_page_link.account_setting}">{$smarty.const.TEXT_PROFILE_SET}<ins></ins></a></li>
+        {if !$if_from_facebook}<li><a href="{$account_page_link.account_setting}&edit=password">{$smarty.const.TEXT_WORD_CHANGE_PASSWORD}<ins></ins></a></li>{/if}
+        <li><a href="{$account_page_link.account_setting}&edit=email">{$smarty.const.TEXT_CHANG_EMAIL_ADDRESS}<ins></ins></a></li>
+        <li><a href="{$account_page_link.sub_notify}">{$smarty.const.TEXT_WORD_NEWSLETTER_SUBSCRIPTION}<ins></ins></a></li>
+    </ul>
+	{elseif $tag_page == 'message' }
+    <ul class="account_order">
+        <li><a href="{$account_page_link.message_list}">{$smarty.const.TEXT_MY_MESSAGE}<ins></ins></a></li>
+        <li><a href="{$account_page_link.message_setting}">{$smarty.const.TEXT_MESSAGE_SETTING}<ins></ins></a></li>
+    </ul>
+    {elseif $tag_page == 'affiliate' }
+    <ul class="account_order">
+        <li><a href="{$account_page_link.my_commission}">{$smarty.const.TEXT_MY_COMMISSION}<ins></ins></a></li>
+        <li><a href="{$account_page_link.commission_setting}">{$smarty.const.TEXT_SETTINGS}<ins></ins></a></li>
+    </ul>
+    {else}
+    <div class="account_user">
+        <p>{$head_picture}</p>
+        <p>{$greeting}</p>
+        <p>{$smarty.const.TEXT_VIP_LEVEL} {$vip_content}</p>
+    </div>
+    <div class="account_menu">
+        <p class="menu_top">
+            <a class="right_line" href="{$account_page_link.my_orders}&status_id=1">{$smarty.const.TEXT_NON_PAYMENT}{if $pending_total > 0}({$pending_total}){/if}</a>
+            <a href="{$account_page_link.my_orders}&status_id=2">{$smarty.const.TEXT_ORDER_PROCESSING}{if $processing_total > 0}({$processing_total}){/if}</a>
+        </p>
+        <ul>
+            <li><a href="{$account_page_link.myaccount}&tag=order"><ins class="orders_icon"></ins>{$smarty.const.TEXT_ORDERS}</a></li>
+            <li><a href="{$account_page_link.wishlist}"><ins class="wishlist_icon"></ins>{$smarty.const.TEXT_MY_WISHLIST}</a></li>
+            <li><a href="{$account_page_link.my_coupon}"><ins class="coupon_icon"></ins>{$smarty.const.TEXT_MY_COUPON}</a></li>
+            <li><a href="{$account_page_link.balance}"><ins class="credit_icon"></ins>{$smarty.const.TEXT_BLANCE}</a></li>
+            <li><a href="{$account_page_link.packing_slip}"><ins class="packing_icon"></ins>{$smarty.const.TEXT_PACKING_SLIP}</a></li>
+            <li><a href="{$account_page_link.myaccount}&tag=settings"><ins class="setting_icon"></ins>{$smarty.const.TEXT_SETTING}</a></li>
+			<li><a href="{$account_page_link.myaccount}&tag=message"><ins class="message_icon"></ins>{$smarty.const.TEXT_MESSAGE}</a></li>
+            {if $customers_dropper_id > 0}
+            <li><a href="{$account_page_link.myaccount}&tag=affiliate"><ins class="affiliate_icon"></ins>{$smarty.const.TEXT_AFFILIATE_PROGRAM}</a></li>
+            {/if}
+        </ul>
+    </div>
+    {/if}
+</div>

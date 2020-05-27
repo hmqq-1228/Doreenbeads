@@ -1,0 +1,126 @@
+/* This is the CSS needed for the Order Step Edition 2 contribution */
+
+#order_steps {       /* Is needed for the centering in IE */
+    padding: 0 3px;
+    margin: 10px 10px;
+    text-align: center;
+	 height:70px;
+}
+
+.order_steps_text {
+    margin: 0 auto;
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+	 height: 50px;
+}
+
+
+#active_step_text {       /* These are the styles for the active text */
+    color: #333333;
+    font-weight: 700;
+    font-size: 1.1em;
+	 width:24%;
+	 float:left;
+	 line-height:normal;
+}
+
+.order_steps_text2 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 25px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_text3 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 26px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_text4 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 26px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_line_2 {
+    padding: 5px 0 0 0;
+    margin: 0;
+	 width:100%;
+}
+
+.progressbar_active {
+    background: url(../images/orderstep.png) repeat-x;    
+	 background-color: #000000; /* Determines the active color of the completed part of the line */
+	 width:24%;
+	 float:left;
+	 height: 8px;
+	 color: #3DA200;
+}
+
+.progressbar_inactive {
+    background: url(../images/orderstep.png) repeat-x;    
+	 background-color: #9A9A9A; /* Determines the active color of the completed part of the line */
+	 width:24%;
+	 float:left;
+	 height: 8px;
+	 color: #9A9A9A;
+}
+
+/* End Order Steps contribution CSS */
+
+/* bof dorabeads 1.01 */
+p,dl,dd,dt,input,table,tr,td,ul,li{margin:0;padding:0;}
+.addlistcont{background:#000;position: absolute;z-index: 100000;filter:alpha(opacity=50);-moz-opacity:0.5;-kHTML-opacity: 0.5;opacity: 0.5;width: 100%;}
+.addressbody{width:650px;height:auto;border:3px solid #a1a1a1;position:absolute;background:#fff;z-index:100001;padding:10px;display:none;}
+.addressclosebtn{height:30px;line-height:30px;}
+.addressclosebtn strong{font-family:Arial, Helvetica, sans-serif;float:left;}
+.addressclosebtn span{display:inline-block;float:right;width:20px;height:20px;line-height:20px;color:#a1a1a1;font-weight:bold;text-decoration:none;font-family:Tahoma;font-size:14px;text-shadow:0px 1px 1px #FFF;text-align:center;cursor:pointer;}
+
+.addresswindow{padding:0 20px;margin-top:10px;}
+.addresswindow td{color:#333;font-size:12px;font-family:Arial, Helvetica, sans-serif;line-height:24px;padding:2px 0;vertical-align:text-top;}
+.addresswindow td span{color:#CC0000;font-size:12px;font-family:Arial, Helvetica, sans-serif;padding-right:5px;}
+.addresswindow td span.error{display:block;line-height:18px;}
+.addresswindow td span.last{padding-left:30px;}
+.addresswindow td input[type="text"]{border:1px solid #cdcdcd;height:22px;line-height:22px;width:340px;outline:none;font-family:Arial, Helvetica, sans-serif;padding:0 5px;outline:none;}
+.addresswindow td p{line-height:18px;}
+
+.addresswindow td p.selectdate{height: 22px;line-height: 22px;  background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #cdcdcd;float: left;width:350px;}
+.addresswindow td span.date{color: #333333;display: block;float: left;font-size: 12px;overflow: hidden;padding: 0 5px;text-overflow: ellipsis;white-space: nowrap;width:320px;}
+.addresswindow td span.datebeat{ width: 0; height: 0; border-top: 7px solid #333; border-left: 6px solid transparent; border-right:6px solid transparent;float:left;padding-right:0;position:relative;top:7px;cursor:pointer;}
+
+.addresswindow td ul.datelist{list-style-type:none;background:#FFFFFF;border:1px solid #cdcdcd;border-top:none;display: none;position: absolute; margin-top:0px;width:350px; z-index: 100;overflow:auto;height:250px;}
+.addresswindow td ul.datelist li{line-height: 24px;padding: 0 5px;list-style-type:none;color:#333;}
+.addresswindow td ul.datelist li:hover{background:#F6F6F6;cursor:pointer;}
+
+.addresswindow td input[type="text"].firstn{width:160px;margin-right:10px;}
+.addresswindow td input[type="text"].lastn{width:160px;}
+.addresswindow td dl{height:auto;overflow:hidden;}
+.addresswindow td dl dt{width:172px;float:left;line-height:18px;}
+.addresswindow td dl dd{width:172px;float:left;margin-right:10px;line-height:18px;}
+
+
+.addresswindow input.submitbtn{background:#bce4b5;border:1px solid #7dc171;border-radius:10px;padding:2px 15px;color:#131718;font-family:Arial, Helvetica, sans-serif;font-weight:bold;margin-right:10px;cursor:pointer;}
+.addresswindow input.closebtn{background:#73c5ef;border:1px solid #60bbea;border-radius:10px;padding:2px 15px;color:#131718;font-family:Arial, Helvetica, sans-serif;font-weight:bold;margin-right:10px;cursor:pointer;color:#fff;}
+
+.addresswindow div{font-family:Arial, Helvetica, sans-serif;font-size:12px;}
+.addresswindow div span{padding-right:5px;}
+.addresswindow .select_state{display:none;}
+
+.addresswindow td select{border:1px solid #cdcdcd;height:22px;line-height:22px;width:352px;outline:none;}
+.addresswindow td div.tips{width:270px;border:1px solid #d0d1a9;position:absolute;background:#FFC;top:-98px;z-index:100;padding:5px;left:165px;display:none;color:#333;line-height:20px;}
+.addresswindow td div.tips span{width:0; height:0; font-size:0; overflow:hidden; position:absolute;padding:0;}
+.addresswindow td div.tips span.bot{border-width:6px;border-style:solid dashed dashed;border-color:#d0d1a9 transparent transparent;left:140px;bottom:-12px;}
+.addresswindow td div.tips span.top{border-width:6px;border-style:solid dashed dashed;border-color:#ffc transparent transparent;left:140px;bottom:-10px;}
+.addresswindow td div ins{ background: url("../images/icon_shopcart.png") repeat scroll 0 0 transparent;cursor: pointer;display: inline-block;height: 15px;
+width: 15px;}
+.addresswindow td div{position:relative;}
+
+.addresswindow td p{line-height:18px;color:#666;}
+.addresswindow td div{position:relative;color:#666;line-height:18px;}
+/* eof dorabeads 1.01 */

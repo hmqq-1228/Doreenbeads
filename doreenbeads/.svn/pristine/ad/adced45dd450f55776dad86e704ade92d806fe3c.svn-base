@@ -1,0 +1,29 @@
+$j(document).ready(function(){	
+	$j('.firstDiv').hover(function(){
+		$j(this).addClass("firstDivhover");
+	},function(){
+		$j(this).removeClass("firstDivhover");
+	})
+	$j('.secondDiv').hover(function(){
+		$j(this).addClass("secondDivhover");
+		$j(this).find('.category_arrow').hide();
+	},function(){
+		$j(this).removeClass("secondDivhover");
+		$j(this).find('.category_arrow').show();
+	})
+	$j('.thirdDiv').hover(function(){
+		$j(this).addClass("cate_sub_part_thirdDiv");		
+		$j(this).parent().parent().find('.category_arrow').hide();
+	},function(){
+		$j(this).removeClass("cate_sub_part_thirdDiv");
+		$j(this).parent().parent().find('.category_arrow').show();
+	})
+	$j('.sub_more').hover(function(){
+		$j(this).children(".cate_sub_part").show();
+		$j(this).find(".cate_have_three").addClass("sub_more_have_three");
+	},function(){
+		$j(this).children(".cate_sub_part").hide();
+		$j(this).find(".cate_have_three").removeClass("sub_more_have_three");			
+	})
+})
+

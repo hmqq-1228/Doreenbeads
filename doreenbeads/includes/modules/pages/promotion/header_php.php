@@ -1,0 +1,243 @@
+<?php
+require(DIR_WS_MODULES . zen_get_module_directory('require_languages.php'));
+$solr = new Apache_Solr_service(SOLR_HOST, SOLR_PORT, '/solr/dorabeads_' . $_SESSION['languages_code']);
+if (!isset ($_GET ['action'])) {
+    if (!isset ($_SESSION ['display_mode']))
+        $_SESSION ['display_mode'] = 'normal';
+} else {
+    if ($_GET ['action'] == 'normal') {
+        $_SESSION ['display_mode'] = 'normal';
+    } elseif ($_GET ['action'] == 'quick') {
+        $_SESSION ['display_mode'] = 'quick';
+    }
+}
+if ((!empty($_GET['disp_order']) && !in_array($_GET['disp_order'], array(3, 4, 5, 6, 7, 30)) || (!empty($_GET['per_page']) && !in_array($_GET['per_page'], array(30, 60, 90))))) {
+    header("HTTP/1.0 404");
+    exit();
+}
+
+$myhref = FILENAME_PROMOTION;
+$mypara = isset($_GET['aId']) ? '&aId=' . $_GET['aId'] : '';
+$mypara .= isset($_GET['off']) ? '&off=' . $_GET['off'] : '';
+$mypara .= isset($_GET['disp_order']) ? '&disp_order=' . $_GET['disp_order'] : '';
+
+$promotion_area_id = (isset($_GET['aId']) && intval($_GET['aId']) > 0 ? intval($_GET['aId']) : '');
+$languages_id = intval($_SESSION['languages_id']);
+
+if ($promotion_area_id) {
+    $promotion_area_query_result = $promotion_area_query_result = get_product_promotion_area_info($promotion_area_id, $languages_id, 1);
+
+    if ($promotion_area_query_result->RecordCount() > 0) {
+        if (!$promotion_area_query_result->EOF) {
+            $promotion_area_info = $promotion_area_query_result->fields;
+        }
+    }
+
+    if ($promotion_area_info) {
+        $promotion_area_info['related_language'] = explode(',', $promotion_area_info['promotion_area_languages']);
+
+        if ($promotion_area_info['promotion_area_status'] != 1 || (is_array($promotion_area_info['related_language']) && !in_array($_SESSION['languages_id'], $promotion_area_info['related_language']))) {
+            //记录无效链接
+            record_valid_url();
+            //eof
+            zen_redirect(zen_href_link(FILENAME_DEFAULT));
+        }
+    } else {
+        //记录无效链接
+        record_valid_url();
+        //eof
+        zen_redirect(zen_href_link(FILENAME_DEFAULT));
+    }
+}
+
+
+$show_promotion_index = DISPLAY_SHOW_PROMOTION_INDEX_STATUS;//true;
+
+$base_link_title = NAVBAR_TITLE;
+$base_promotion_link = zen_href_link(FILENAME_PROMOTION) . (isset($_GET['disp_order']) ? '&disp_order=' . $_GET['disp_order'] : '');
+if ($promotion_area_info) {
+    $base_link_title = $promotion_area_info['promotion_area_name'];
+    $base_promotion_link .= '&aId=' . $promotion_area_info['promotion_area_id'];
+    $show_promotion_index = $promotion_area_info['show_index'] == 1;
+} else {
+    $show_promotion_index = false;
+}
+
+if (isset ($_GET ['off']) && $_GET ['off']) {
+    $promotion_off_info = explode('_', $_GET ['off']);
+    $show_promotion_index = false;
+}
+
+if ((isset ($_GET ['cId']) && $_GET ['cId'] != 0) || isset ($_GET ['off'])) {
+    $show_promotion_index = false;
+}
+
+if (isset ($_GET ['pcount']) && $_GET ['pcount']) {
+    $show_promotion_index = false;
+}
+
+$breadcrumb->add($base_link_title, $base_promotion_link);
+
+//zen_get_all_get_params(array('page', 'id');
+
+$is_promotion_time = true;
+$referer_from_level2 = true;
+
+if ($is_promotion_time && !$show_promotion_index) {
+    if ($promotion_off_info && count($promotion_off_info) == 1) {
+        $discount_off_first_result = $db->Execute('select promotion_id,promotion_discount,promotion_status,promotion_type from ' . TABLE_PROMOTION . ' where promotion_id = ' . $promotion_off_info[0] . ' limit 1');
+        if ($discount_off_first_result->RecordCount() > 0) {
+            if (!$discount_off_first_result->EOF) {
+                $discount_off_first_info = $discount_off_first_result->fields;
+            }
+
+            if ($discount_off_first_info) {
+                $discount_off_name = zend_format("{0}% off", round($discount_off_first_info ['promotion_discount'], 2));
+                $base_promotion_link .= '&off=' . $discount_off_first_info['promotion_id'];
+                $breadcrumb->add($discount_off_name, $base_promotion_link);
+            }
+        }
+    }
+
+    if (isset ($_GET ['cId']) && $_GET ['cId'] != 0) {
+        $cIdArray = zen_get_category_full_path_info($_GET ['cId']);
+        foreach ($cIdArray as $val) {
+            $current_category_link = $base_promotion_link . '&cId=' . $val ['cId'];
+            $breadcrumb->add($val ['cName'], $current_category_link);
+        }
+    }
+
+    $disp_order_default = PRODUCT_FEATURED_LIST_SORT_DEFAULT;
+    $solr_str_array = get_listing_display_order($disp_order_default);
+    $solr_order_str = $solr_str_array['solr_order_str'];
+    $order_by = $solr_str_array['order_by'];
+    $products_new_array = array();
+    $refine_by_off = ( int )($_GET ['off']) > 0 ? ' AND pm.promotion_id=' . ( int )($_GET ['off']) . ' ' : '';
+
+    if (isset ($_GET ['cId']) && $_GET ['cId'] != '') {
+        $top_cate = $_GET ['cId'];
+        $subcategory = zen_get_subcategories($subcategories_array, $top_cate);
+        $subcategory_id = @implode(',', $subcategories_array);
+        if (zen_not_null($subcategory_id)) {
+            $subcategory_id .= ',' . $top_cate;
+            $filter_str = " AND ptc.categories_id in (" . $subcategory_id . ") ";
+        } else {
+            $filter_str = " AND ptc.categories_id = '" . $top_cate . "' ";
+        }
+    } else {
+        $filter_str = '';
+    }
+
+    $normal_category_list_show = true;
+}
+
+$do_not_show_products_listing = $show_promotion_index;
+
+$solr_order_str = 'products_ordered desc, products_date_added desc';
+if (isset ($_SESSION ['per_page'])) {
+    $item_per_page = $_SESSION ['per_page'];
+} else {
+    $item_per_page = ITEM_PERPAGE_SMALL;
+}
+if (isset ($_GET ['per_page'])) {
+    $item_per_page = $_GET ['per_page'];
+}
+if (!in_array($item_per_page, array(ITEM_PERPAGE_SMALL, ITEM_PERPAGE_DEFAULT, ITEM_PERPAGE_LARGE))) {
+    $item_per_page = ITEM_PERPAGE_SMALL;
+}
+
+if (isset ($_GET ['page']) && $_GET ['page'] != '' && is_numeric($_GET ['page'])) {
+    $current_page = ( int )(trim($_GET ['page']));
+} else {
+    $current_page = 1;
+}
+
+if (!isset ($_GET ['action'])) {
+    if (!isset ($_SESSION ['display_mode'])) {
+        $_SESSION ['display_mode'] = 'normal';
+    }
+} else {
+    if ($_GET ['action'] == 'quick') {
+        $_SESSION ['display_mode'] = 'quick';
+    } else {
+        $_SESSION ['display_mode'] = 'normal';
+    }
+}
+
+$solr_order_str = '';
+$order_by = '';
+$solr_str_array = get_listing_display_order($disp_order_default);
+$solr_order_str = $solr_str_array['solr_order_str'];
+$order_by = $solr_str_array['order_by'];
+
+$result_array = zen_product_property_display($item_per_page, $current_page);
+$delArray = $result_array['delArray'];
+$propertyGet = $result_array['propertyGet'];
+$getsInfoArray = $result_array['getsInfoArray'];
+$extra_select_str = $result_array['extra_select_str'];
+$search_offset = $result_array['search_offset'];
+$properties_select = $result_array['properties_select'];
+$property_by_group = $result_array['property_by_group'];
+
+$extra_select_str = 'is_promotion:1' . $extra_select_str;
+
+if ($promotion_area_id) {
+    $extra_select_str .= ' AND promotion_area_id:' . $promotion_area_id;
+}
+
+if ($promotion_off_info && count($promotion_off_info) > 0) {
+    $off_solr_array = array();
+    foreach ($promotion_off_info as $item) {
+        $off_solr_array[] = 'promotion_type:' . $item;
+    }
+
+    $extra_select_str .= ' AND(' . implode(' OR ', $off_solr_array) . ')';
+}
+
+$current_time = time();
+$extra_time_str = ' AND +promotion_end_time:[' . $current_time . ' TO ' . PHP_INT_MAX . ']';
+
+$solr_select_query .= $extra_select_str . $properties_select . $extra_time_str; #. (isset ( $_GET ['off'] ) ? ' AND promotion_type:' . ( int ) $_GET ['off'] . ' ' : '');
+
+$solr_result_array = get_product_property_solr($solr, $solr_select_query, $solr_order_str, $search_offset, $item_per_page);
+$num_products_count = $solr_result_array['num_products_count'];
+$properties_facet = $solr_result_array['properties_facet'];
+$product_all = $solr_result_array['product_all'];
+$products_new_split = $solr_result_array['products_new_split'];
+$condition = $solr_result_array['condition'];
+
+$product_res = array();
+$display_product_cnt = 0;
+foreach ($product_all as $prod_val) {
+    $product_res [] = $prod_val->products_id;
+    $display_product_cnt++;
+}
+//记录无效链接
+record_valid_url(true, $display_product_cnt, 0);
+
+if (!$do_not_show_products_listing) {
+    //显示列表页
+    if ($current_page_base == FILENAME_PROMOTION && $promotion_area_info) {    //促销区
+        $include_file = zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/html_includes/promotion_area/', 'promotion_area_index_' . $promotion_area_info['promotion_area_id'] . '.php', 'false');
+    }
+
+    if ($_SESSION ['display_mode'] == 'normal') {
+        $result_array = get_product_list_by_property($products_new_split, $product_res);
+        $list_box_contents_property = $result_array['list_box_contents_property'];
+        $error_categories = $result_array['error_categories'];
+    } else {
+        $result_array = get_products_gallery_by_property($products_new_split, $product_res);
+        $show_products_content = $result_array['show_products_content'];
+    }
+} else {
+    if ($current_page_base == FILENAME_PROMOTION && $show_promotion_index && $promotion_area_info) {    //促销区
+        $include_file = zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/html_includes/promotion_area/', 'promotion_area_index_' . $promotion_area_info['promotion_area_id'] . '.php', 'false');
+    }
+}
+$normal_category_list_show = true;
+$show_matched_property_listing = true;
+
+$result_array = zen_get_property($solr, $properties_facet, $current_page_base, $delArray, $getsInfoArray, $property_by_group, $extra_select_str, $normal_category_list_show, $show_matched_property_listing, $search_offset, $item_per_page, $condition);
+$pcontents = $result_array['content'];
+$getsProInfo = $result_array['getsProInfo'];
+?>

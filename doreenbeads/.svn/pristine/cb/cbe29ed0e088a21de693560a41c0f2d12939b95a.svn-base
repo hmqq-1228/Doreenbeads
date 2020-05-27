@@ -1,0 +1,35 @@
+p,div,body,img,h1,form,input,button,ul,li,ins{ margin:0; padding:0;}
+body{ background-color:#f7f7f7; font-family:Arial, Helvetica, sans-serif; height:100% }
+a{ text-decoration:none; color:#333;}
+.invite{ max-width:748px; margin:0 auto; min-width:320px; padding:0 10px }
+.invite_logo{ padding:10px 0 20px 0; }
+.invite_logo p{font-style:italic; font-size:14px; font-weight:bold;color:#404040;}
+.invite_title{ padding-top:5px;}
+.invite_title span{font-weight:bold; color:#F00;}
+.invite_email { padding-top:30px;font-size:14px; font-weight:bold;}
+.invite_email input { border:1px solid #ccc; border-top:1px solid #b2b2b2; width:91%; margin:10px 0;  font-family:Arial, Helvetica, sans-serif; color:#555; line-height:28px; padding-left:2%; font-size:12px; height:28px;}
+.invite_email button {background:-moz-linear-gradient(center top , #8680bb, #666199) repeat scroll 0 0 rgba(0, 0, 0, 0);
+ color:#fff; font-weight:bold; font-family:Arial, Helvetica, sans-serif; font-size:14px; border:1px solid #656098; padding:0 40px; line-height:26px; border-radius:2px; background-color:#666199;}
+.invite_email .send_tips {font-weight:normal; display:none;}
+.invite_email .send_tips#send_error_empty, .invite_email .send_tips#send_error_wrong {color:red; }
+.invite_other{ padding-top:30px; }
+.invite_other p{ font-size:14px; font-weight:bold; padding-bottom:10px;}
+.invite_other th{ font-weight:normal; border-right: 1px solid #ccc; font-size:14px;}
+.invite_other th div{ width:115px;}
+.invite_other th ins{ background:url(../images/copy01.png) no-repeat ; display:block; height:21px; width:21px; float:left; }
+.invite_other th span{ float:left; padding-left:10px; display:block; width:84px; text-align:left;}
+.invite_other td{font-size:14px; color:#333;word-break:break-all;}
+.invite_other table { border:1px solid #ccc; line-height:24px; background-color:#FFF; font-size:14px;width:93%;}
+.invite_shara { list-style:none; padding-top:20px; font-size:14px;}
+.invite_shara li{ float:left; padding-bottom:30px;}
+.invite_shara li a:hover{ color:#03C;}
+.invite_shara  .facebook ins{ display:block; float:left; width:24px; height:24px; background:url(../images/bg_join.png) 0 0;}
+.invite_shara  .facebook a{ float:left; padding:5px 40px 0 10px;}
+.invite_shara  .twitter ins{ display:block; float:left; background:url(../images/bg_join.png) 0 -39px; width:24px; height:24px;}
+.invite_shara  .twitter a{ float:left; padding:5px 40px 0 10px;}
+.invite_shara  .vk_ru ins{ display:block; float:left; background:url(../images/bg_join.png) 0 -78px; width:24px; height:24px;}
+.invite_shara  .vk_ru a{ float:left; padding:5px 40px 0 10px;}
+.invite_shara  .odnok ins{ display:block; float:left; background:url(../images/bg_join.png) 0 -110px; width:24px; height:24px;}
+.invite_shara  .odnok a{ float:left; padding:5px 40px 0 10px;}
+.clearfix{ clear:both}
+.invite_tips { color:#666; border-top:1px solid #ccc; font-size:14px; padding-top:10px;} 

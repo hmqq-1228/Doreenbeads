@@ -1,0 +1,143 @@
+.carousel {
+  position: relative;
+  line-height: 1;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-inner > .item {
+  position: relative;
+  display: none;
+  -webkit-transition: 0.6s ease-in-out left;
+     -moz-transition: 0.6s ease-in-out left;
+       -o-transition: 0.6s ease-in-out left;
+          transition: 0.6s ease-in-out left;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  line-height: 1;
+}
+
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+
+.carousel-inner > .active {
+  left: 0;
+}
+
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.carousel-inner > .next {
+  left: 100%;
+}
+
+.carousel-inner > .prev {
+  left: -100%;
+}
+
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+
+.carousel-inner > .active.left {
+  left: -100%;
+}
+
+.carousel-inner > .active.right {
+  left: 100%;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 42%;
+  left: 15px;
+  width: 43px;
+  height: 56px;
+  font-size: 40px;
+  font-weight: 100;
+  line-height: 56px;
+  color: #bbb;
+  text-align: center;
+  background: #999;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.carousel-control.right {
+  right: 15px;
+  left: auto;
+}
+
+.carousel-control:hover,
+.carousel-control:focus {
+  color: #bbb;
+  text-decoration: none;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  right: 42%;
+  z-index: 1;
+  margin: 0;
+  list-style: none;
+}
+
+.carousel-indicators li {
+  display: block;
+  float: left;
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  text-indent: -999px;
+  background-color: #bbb;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border:#bbb 1px solid;
+}
+
+.carousel-indicators .active {
+  background-color: #999;
+  border:#fff 1px solid;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.affix {
+  position: fixed;
+}

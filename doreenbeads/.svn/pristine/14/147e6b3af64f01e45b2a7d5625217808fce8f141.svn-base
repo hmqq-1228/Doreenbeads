@@ -1,0 +1,13 @@
+<?php
+/**express_dhl.php
+ * jessa 2010-03-21
+ */
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_TEXT_TITLE', 'DHLエクスプレス' );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_DESCRIPTION_TEXT_DESCRIPTION', 'DHLエクスプレス' );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_SORT_ORDER', '並べ替え順序' );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_CURRENCY', '人民元対米ドル' );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_INVALID_ZONE', TEXT_NO_SHIPPING_WORDS );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_NOTE', sprintf ( TEXT_SHIPPING_NOTE, 'DHL' ) );
+define ( 'MODULE_SHIPPING_EXPRESS_DHL_VOLUME_NOTE', TEXT_SHIPPING_FEE . ',
+				<a href="' . HTTP_SERVER . '/page.html?chapter=0&id=92" target="_blank">' . TEXT_CLICK_HERE_FOR_MORE . '.</a>' );
+?>

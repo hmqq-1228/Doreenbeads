@@ -1,0 +1,68 @@
+<style>
+/*2019--3-22 郑丹丹**李玉萍 DB联盟项目 开始*/
+.Affiliate-Setting input[type="text"]{
+	line-height: 30px;
+	width: 60%;
+	border: 1px solid #ccc;
+}
+.Affiliate-Setting  h4{
+	padding-top: 15px; font-size: 18px;
+}
+.Affiliate-Setting .Tips{
+	font-size: 13px;
+    color: #BF0101;
+}
+.program-login{
+	   width: 70%;
+		margin: 0 auto;
+	    border:1px solid #d6a7cd;
+		box-shadow:2px 5px 2px #eaeaea;
+	    margin-top:50px;
+	    padding: 8%;
+	}
+	.program-login .account{
+	 margin-bottom: 20px;
+	}
+	.program-login .account p{
+        color: #BF0101;
+		font-size: 13px;
+		
+	}
+	.program-login .account input {
+		width:100%;
+		border: 1px solid #ccc;
+		line-height: 30px;
+		display: block;
+	}
+	.program-login button{
+		display: block;
+		background-color:#bc66d8;
+		border: 1px solid #974add;
+		width:100%;
+		line-height: 30px;
+		color:#fff;
+		font-size: 14px;
+		font-weight: bold;
+		margin-top: 10px;
+	}
+	
+
+</style>
+<script src="includes/templates/mobilesite/jscript/affiliate_program.js">
+</script>
+
+    <form  name="loginform" action="index.php?main_page=affiliate_program&action=process" method="POST" onsubmit="return check_submit_form(submit);">
+	<div class="program-login">
+    <div class="account"><input type="text" name="email_address" id="email_address" placeholder="{$smarty.const.TEXT_PLACEHOLDER1}">
+     <p id="error_info1"></p>
+    </div>
+
+	<div class="account"><input type="text" id="paypal" placeholder="{$smarty.const.TEXT_PLACEHOLDER2}">
+	 <p id="error_info2"></p>
+	</div>
+	<input type="checkbox" name="banlance" value="1" id="checkbox"  onclick="checkboxOnclick(this)" >
+	<label for="rememberme">Balance</label>
+	<button type="submit">{$smarty.const.TEXT_SUBMIT}</button>
+    </div>
+    </form>
+

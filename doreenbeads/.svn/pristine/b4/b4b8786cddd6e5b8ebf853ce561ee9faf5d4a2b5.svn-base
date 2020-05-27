@@ -1,0 +1,129 @@
+<!-- bof quick add product -->
+<div class="smallwindow quickfind" id="quickaddsmallwindow" style="display: none;">
+	<div class="smallwindowtit"><strong>{$smarty.const.TEXT_CART_QUICK_ORDER_BY}</strong><a href="javascript:void(0);" class="addressclose">X</a></div>
+    <ul class="choose_tab">
+      <li class="current" data-target=".jq_cart_normal">{$smarty.const.TEXT_BY_PART_NO}</li>
+      <li data-target=".jq_cart_spreadsheet">{$smarty.const.TEXT_BY_SPREADSHEET}</li>
+      <div class="clearfix"></div>
+    </ul>
+	<div class="quickaddcont jq_cart_normal">
+		<p class="quicktext">{$smarty.const.TEXT_CART_QUICK_ADD_NOW_TITLE}</p> 
+		<form action="index.php?main_page=shopping_cart&page={$page}" method="post" name="quick_add">
+			<input type="hidden" name="action" value="addselect">
+			<table class="quickadd" width="100%">
+				<tr><th>{$smarty.const.TEXT_CART_P_NUMBER}</th><th>{$smarty.const.TEXT_CART_P_QTY}</th></tr>
+				<tr><td style="padding-top:15px;"><input type="text" name="product_model[]"/></td><td style="padding-top:15px;"><input type="text" name="product_qty[]" onpaste="return false"/></td></tr>
+				{assign var="loop" value="4"}
+				{section name='loop' loop=$loop}
+				<tr>
+					<td><input type="text" name="product_model[]" /></td>
+					<td><input type="text" name="product_qty[]" onpaste="return false" /></td>
+				</tr>
+				{/section}
+			</table>
+		</form>
+		<div class="doublebutton">
+			<div class="successtips_update quickadd_sub">
+				<span class="bot"></span>
+				<span class="top"></span>
+				<p class="quickadd_sub_note"></p>
+			</div>
+			<button class="paynow_btn">{$smarty.const.TEXT_CART_ADD_TO_CART}</button>			
+			<button class="greybtn">{$smarty.const.TEXT_CART_ADD_MORE_ITEMS_CART}</button>
+			
+		</div>
+	</div>
+    
+	<div class="add_spreadsheet jq_cart_spreadsheet" style="display:none;">
+        <!-- <form name="jq_export" method="get">
+            <input type="hidden" name="main_page" value="shopping_cart" />
+            <input type="hidden" name="action" value="export_cart" />
+        </form> -->
+        <form action="index.php?main_page=shopping_cart&page={$page}" method="post" id="quick_add_spreadsheet" name="quick_add_spreadsheet" enctype="multipart/form-data" onsubmit="return false;">
+            <input type="hidden" name="action" value="add_spreadsheet">
+            <p>{$smarty.const.TEXT_BY_SPREADSHEET_TIPS}</p><br/>
+            <div>
+                <input type="file" id="filePath" name="filePath" onchange="loadFile(this);" />
+                <div class="upload_notice">
+                    <div class="pop_note_tip">
+                        <i class="top"></i><em class="top"></em>
+                        {$smarty.const.TEXT_UPLOAD_EXCEL_ERROR_TIPS}
+                    </div>
+                </div>
+            </div> 
+            <span class="fred jq_error_tips" style="display:none;"></span>
+            <p class="fred jq_tips"></p>
+            {if $show_upload_auth_code}
+                <p>
+                    {$smarth.const.TEXT_VERIFY_NUMBER}
+                    {$show_upload_auth_code_str}
+                    <img  id="check_code" src="./check_code.php" style="height: 26px;vertical-align: middle;"  onClick="this.src='./check_code.php?'+Math.random();" />
+                </p>
+                 <span class="fred jq_error_authsode_tips" style="display:none;"></span>
+            {/if}
+            <br/><button class="paynow_btn">{$smarty.const.TEXT_CART_ADD_TO_CART}</button>
+        </form>
+        <!-- <div class="fexample"> {$smarty.const.TEXT_EXAMPLE}:
+          <table width="200" border="0" cellspacing="0" cellpadding="0">
+          doublebutton  <tr>
+              <th scope="col">Part No.</th>
+              <th scope="col">QTY</th>
+            </tr>
+            <tr>
+              <td>B00001</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>B00002</td>
+              <td>5</td>
+            </tr>
+          </table>
+          <p>{$smarty.const.TEXT_SAMPLE_FROM_YOUR_SPREADSHEET}</p>
+        </div> -->
+	</div>
+      
+</div>
+<!-- eof quick add product -->
+{literal}
+<script>
+    function loadFile(file) {
+        var filePath = file.value;
+        var fileExt = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
+
+        $j('.jq_error_tips').text('').hide();
+
+        if (!checkFileExt(fileExt)) {
+            //alert("Format only Accept: .xlsx,.xls .One file should be no more than 2MB.");
+            $j('.jq_error_tips').text($lang.TEXT_UPLOAD_EXCEL_ERROR_TIPS).show();
+            file.value = "";
+            return;
+        }
+        if (file.files && file.files[0]) {
+            if ( (file.files[0].size / 1024 ) > 2048) {
+                $j('.jq_error_tips').text($lang.TEXT_UPLOAD_EXCEL_ERROR_TIPS).show();
+                file.value = "";
+                return;
+            };
+        } else {
+            file.select();
+            var url = document.selection.createRange().text;
+            try {
+                var fso = new ActiveXObject("Scripting.FileSystemObject");
+            } catch (e) {
+                //alert('如果你用的是ie8以下 请将安全级别调低！');
+            }
+             if ( (fso.GetFile(url).size / 1024) > 2048) {
+                $j('.jq_error_tips').text($lang.TEXT_UPLOAD_EXCEL_ERROR_TIPS).show();
+                file.value = "";
+                return;
+            };
+        }
+    } 
+    function checkFileExt(ext) {
+        if (!ext.match(/.xls|.xlsx/i)) {
+            return false;
+        }
+        return true;
+    }
+</script>
+{/literal}

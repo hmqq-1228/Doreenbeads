@@ -1,0 +1,2 @@
+<p>If you choosed to pay us by Western Union Money Instant Transfer or Direct Bank Transfer(Wire Transfer), please do not forget to follow the instruction to send the payment.</p>
+<p><strong>Click here to check Payment Instructions again. <a href="http://www.doreenbeads.com/index.php?main_page=page&id=15">Payment Method</a></strong></p>

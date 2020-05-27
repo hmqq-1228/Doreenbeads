@@ -1,0 +1,369 @@
+<script>window.lang_wdate='{$smarty.session.languages_code}';</script>
+<script type="text/javascript" src="includes/templates/cherry_zen/jscript/My97DatePicker/WdatePicker.js"></script>
+<div class="order_main">
+    <div class="order_wrap">
+        <input type="hidden" name="current_order_id" value="{$orders.order_id}" id="current_order_id" />
+        <table class="order_details_top"> 
+            <tr><th>{$smarty.const.TEXT_ORDER_NUMBER}:</th><td>{$orders.order_id}</td></tr>
+            <tr><th>{$smarty.const.TEXT_ORDER_DATE}:</th><td>{$orders.account_order_date}</td></tr>
+            <tr><th>{$smarty.const.HEADING_TOTAL}:</th><td>{$ot_subtotal}</td></tr>
+            <tr><th>{$smarty.const.TABLE_HEADING_STATUS}:</th><td>{$order->info.orders_status}</td></tr>
+        </table>
+    </div>
+    <div class="bottom_total">
+        <h3>{$smarty.const.TEXT_ACCOUNT_PERSONAL_INFORMATION}</h3>
+        <table>
+            <tr><th>{$smarty.const.TEXT_ACCOUNT_TELEPHONE_NUMBER}</td><td>{$orders.account_order_telephone}</td></tr>
+       <tr><th>{$smarty.const.TEXT_ACCOUNT_SHIPPING_ACCOUNT}</td><td>{$orders.account_order_shipping_address}</td></tr>
+        </table>
+    </div>
+    <div class="bottom_total">
+        <h3>{$smarty.const.TEXT_ORDER_SUMMARY}</h3>
+        <table>{$orders.str}</table>
+    </div>
+    {if $orders.is_use_balance}
+    <div class="bottom_total">
+        <h3>Credit Balance</h3>
+        <p>{$smarty.const.TEXT_BALANCE_TOTAL}:<span class="price_color"> {$orders.balance_total}</span>.
+        <p>{$orders.balance_use}</p>
+        <p>{$orders.balance_need_to_pay}</p>
+    </div>
+    {/if}
+    <div class="order_pay">
+        <h3>{$smarty.const.TEXT_CHECKOUT_STEP3}</h3>
+        <div id="errorMessage" style="display:none;"></div>
+        <div class="payment_wrap">
+            <p class="payment_title">{$smarty.const.HEADING_PAYMENT_METHODS}:</p>
+            <ul class="jq_show_payment_li">
+                <form name="checkout_payment" action="index.php?main_page=continued_order" method="post" onsubmit="return check_form();">
+                    <!-- paypal -->
+                    <li>
+
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="paypal" value="paypalwpp"{if $orders.payment_code == 'paypalwpp' || $orders.payment_code == ''} checked{/if}/><ins class="paypal" ></ins><span>{$smarty.const.TEXT_PAYPAL}</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'paypalwpp' || $orders.payment_code == ''}style="display: block;"{/if}>
+                            <p class="grey_6">-{$smarty.const.TEXT_PAYMENT_PAY_US_CLICK}</p>
+                            <p class="grey_6">-{$smarty.const.TEXT_PAYMENT_OR_DIRECTLY_LOGIN}</p>
+                            <button class="btn_blue btn_with230">{$smarty.const.TEXT_PAY_NOW}</button>
+                        </div>
+                    </li>
+                <!-- braintree -->
+                <li>
+                    <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="braintree" value="braintree"{if $orders.payment_code == 'braintree' || $orders.payment_code == 'braintree-credit'  } checked{/if}/><ins class="braintree"></ins><span>{$smarty.const.TEXT_BRAINTREE}</span></h4></label>
+                    <div class="payment_show" {if $orders.payment_code == 'braintree'  || $orders.payment_code == 'braintree-credit' }style="display: block;"{/if}>
+                        <iframe id="braintree_iframe" scrolling="auto" width="100%" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=credit" style="height:266px;"></iframe>
+                    </div>                    
+                </li>
+
+                <li>
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="braintree-google" value="braintree-google"{if $orders.payment_code == 'braintree-google' } checked{/if}/><ins class="braintree-google"></ins><span>Google Pay</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'braintree-google' }style="display: block;"{/if}>
+                        <iframe id="braintree_iframe" scrolling="auto" width="100%" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=google" style="height:266px;"></iframe>
+                </div>
+                </li>
+
+                <li>
+                    <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="braintree-apple" value="braintree-apple"{if $orders.payment_code == 'braintree-apple' } checked{/if}/><ins class="braintree-apple"></ins><span>Apple Pay</span></h4></label>
+                    <div class="payment_show" {if $orders.payment_code == 'braintree-apple' }style="display: block;"{/if}>
+                    <iframe id="braintree_iframe" scrolling="auto" width="100%" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$orders.order_id}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=apple" style="height:266px;"></iframe>
+                    </div>
+                </li>
+                <!-- HSBC -->
+                {if $orders.order_total_no_currency_left >= $orders.order_total_wire_min }
+                <li>
+                        
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="HSBC" value="wire"{if $orders.payment_code == 'wire'} checked{/if}/><ins class="hsbc"></ins><span>{$smarty.const.TEXT_BANK_ACCOUNT_HSBC}</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'wire'}style="display: block;"{/if}> 
+                            <table>
+                                <tr><td colspan="2"> <p><strong>{$smarty.const.TEXT_PAYMENT_BANK_HSBC}:</strong></p></td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BENEFICIARY_BANK} </th><td>{$smarty.const.MODULE_PAYMENT_WIRE_BENEFICIARY_BANK}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_SWIFT_CODE} </th><td>{$smarty.const.MODULE_PAYMENT_WIRE_SWIFT_CODE}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BANK_ADDRESS}</th><td >{$smarty.const.MODULE_PAYMENT_WIRE_BANK_ADDRESS}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_ACCOUNT_NO}</th><td>{$smarty.const.MODULE_PAYMENT_WIRE_ACCOUNT_NO_NEW}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BENEFICIARY}</th><td >{$smarty.const.MODULE_PAYMENT_WIRE_BENEFICIARY}</td></tr>
+                            </table>
+                            <div class="order_pay_note">
+                                <p>{$smarty.const.TEXT_FILL_OUT}</p>
+                                <div class="order_hsbc">
+                                  <h4>{$smarty.const.TEXT_ORDER_NUMBER}: {$orders.order_id}</h4>
+                                  <ul>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</label>
+                                        <input type="text" id="hsbs_yname" name="hsbs_yname" />
+                                        <p class="warning_color"></p>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_CURRENCY}:</label>
+                                        <div class="currency_nav">
+                                            <select name="hsbs_Currency" class="select_currency">
+                                                {section name=i loop=$currencies_array}
+                                                <option>{$currencies_array[i].symbol_left}</option>
+                                                {/section}
+                                                <option>{$smarty.const.TEXT_OTHERS}</option>
+                                            </select>
+                                            <p class="warning_color"></p>
+                                        </div>
+                                        <div class="other_currency">
+                                            <input type="text" value="" name="hsbs_Currency_input" style="width:30%" /><span class="grey_6">{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                                            <p class="warning_color"></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_SUM}:</label>
+                                        <input name="hsbs_amout" type="text" />
+                                        <p class="warning_color"></p>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_PAYMENT_DATE}:</label>
+                                        <input name="hsbs_date" type="text" onclick="WdatePicker();">
+                                        <p class="warning_color"></p>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="browse">
+                                    <p><span>{$smarty.const.TEXT_PAYMENT_REDEIPT}</span> <br />
+                                        (.gif / .png / .jpeg / .jpg / .bmp,
+                                        less than 2M.)</p>
+                                    <a class="btn_grey">
+                                        <span class="btn_browse "></span>Browse
+                                        <input type="file" name="pic" class="fileUpload btn_grey filebtn" accept="image/*"/>
+                                        <input type="hidden" id="payment_loading_western" name="hsbs_file" id="western_file" />
+                                    </a>
+                                    <ul>
+                                        <li class="uploadPreview"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn_blue btn_with230">{$smarty.const.TEXT_SUBMIT}</button>
+                        </div>
+                    
+                </li>
+                <!-- Bank of China -->
+                <li>
+                    
+                        
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="bankchina" value="wirebc"{if $orders.payment_code == 'wirebc'} checked{/if}/><ins class="china_bank"></ins><span>{$smarty.const.TEXT_BANK_ACCOUNT_BC}</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'wirebc'}style="display: block;"{/if}> 
+                            <table>
+                                <tr><td colspan="2"> <p><strong>{$smarty.const.TEXT_PAYMENT_BC}:</strong></p></td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BENEFICIARY_BANK} </th><td>{$smarty.const.MODULE_PAYMENT_WIRE_BENEFICIARY_BANK}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_SWIFT_CODE} </th><td>{$smarty.const.MODULE_PAYMENT_WIRE_SWIFT_CODE}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BANK_ADDRESS}</th><td >{$smarty.const.MODULE_PAYMENT_WIRE_BANK_ADDRESS}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_ACCOUNT_NO}</th><td>{$smarty.const.MODULE_PAYMENT_WIRE_ACCOUNT_NO_NEW}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WIRE_TEXT_BENEFICIARY}</th><td >{$smarty.const.MODULE_PAYMENT_WIRE_BENEFICIARY}</td></tr>
+                            </table>
+                            <div class="order_pay_note">
+                                <p>{$smarty.const.TEXT_FILL_OUT}</p>
+                                <div class="order_hsbc">
+                                  <h4>{$smarty.const.TEXT_ORDER_NUMBER}: {$orders.order_id}</h4>
+                                  <ul>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</label>
+                                        <input type="text" id="china_yname" name="china_yname" />
+                                        <p class="warning_color"></p>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_CURRENCY}:</label>
+                                        <div class="currency_nav">
+                                            <select name="china_Currency" class="select_currency">
+                                                {section name=i loop=$currencies_array}
+                                                <option>{$currencies_array[i].symbol_left}</option>
+                                                {/section}
+                                                <option>{$smarty.const.TEXT_OTHERS}</option>
+                                            </select>
+                                            <p class="warning_color"></p>
+                                        </div>
+                                        <div class="other_currency">
+                                            <input type="text" value="" name="china_Currency_input" style="width:30%" /><span class="grey_6">{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                                            <p class="warning_color"></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_SUM}:</label>
+                                        <input name="china_amout" type="text" />
+                                        <p class="warning_color"></p>
+                                    </li>
+                                    <li>
+                                        <label><b class="price_color">*</b> {$smarty.const.TEXT_PAYMENT_DATE}:</label>
+                                        <input name="china_date" type="text" onclick="WdatePicker();">
+                                        <p class="warning_color"></p>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="browse">
+                                    <p><span>{$smarty.const.TEXT_PAYMENT_REDEIPT}</span> <br />
+                                        (.gif / .png / .jpeg / .jpg / .bmp,
+                                        less than 2M.)</p>
+                                    <a class="btn_grey">
+                                        <span class="btn_browse "></span>Browse
+                                        <input type="file" name="pic" class="fileUpload btn_grey filebtn" accept="image/*"/>
+                                        <input type="hidden" id="payment_loading_western" name="china_file" id="western_file" />
+                                    </a>
+                                    <ul>
+                                        <li class="uploadPreview"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn_blue btn_with230">{$smarty.const.TEXT_SUBMIT}</button>
+                        </div>
+                    
+                </li>
+                {/if}
+                <li>
+                   
+                        
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="westunion" value="westernunion"{if $orders.payment_code == 'westernunion'} checked{/if}/><ins class="western"></ins><span>{$smarty.const.TEXT_WESTERN_UNION}</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'westernunion'}style="display: block;"{/if}> 
+                            <table>
+                                <tr><td colspan="2"><p><strong>{$smarty.const.TEXT_PAYMENT_BANK_WESTERN_UNION}:</strong></p></td></tr>
+                                <tr><td>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_FIRST_NAME} </th><td>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_FIRST_NAME}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_LAST_NAME} </th><td>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_LAST_NAME}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_ADDRESS}</th><td >{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_ADDRESS}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_ZIP}</th><td>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_ZIP}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_CITY}</th><td >{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_CITY}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_COUNTRY}</th><td >{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_COUNTRY}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_WESTERNUNION_ENTRY_PHONE}</th><td >{$smarty.const.MODULE_PAYMENT_WESTERNUNION_RECEIVER_PHONE}</td></tr>
+                            </table>
+                            <div class="order_pay_note">
+                                <p>{$smarty.const.TEXT_FILL_OUT}</p>
+                                <div class="order_hsbc">
+                                    <h4>{$smarty.const.TEXT_ORDER_NUMBER}: {$orders.order_id}</h4>
+                                    <ul>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_ACOOUNT_YOUR_NAME}:</label>
+                                            <input name="western_yname" type="text" />
+                                            <p class="warning_color"></p>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_CURRENCY}:</label>
+                                            <div class="currency_nav">
+                                                <select name="western_Currency" class="select_currency">
+                                                    {section name=i loop=$currencies_array}
+                                                    <option>{$currencies_array[i].symbol_left}</option>
+                                                    {/section}
+                                                    <option>{$smarty.const.TEXT_OTHERS}</option>
+                                                </select>
+                                                <p class="warning_color"></p>
+                                            </div>
+                                            <div class="other_currency">
+                                                <input type="text" value="" name="western_Currency_input" style="width:30%" /><span class="grey_6">{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                                                <p  class="font_red error_payment"></p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_SUM}:</label>
+                                            <input name="western_amout" type="text" />
+                                            <p class="warning_color"></p>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_CONTROL_NO}:</label>
+                                            <input name="western_control_no" type="text" />
+                                            <p class="warning_color"></p>
+                                            <span>{$smarty.const.TEXT_PAYMENT_WESTERN_CONTROL_NO}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="browse">
+                                    <p><span>{$smarty.const.TEXT_PAYMENT_REDEIPT}</span> <br />
+                                        (.gif / .png / .jpeg / .jpg / .bmp,
+                                        less than 2M.)</p>
+                                    <a class="btn_grey">
+                                        <span class="btn_browse "></span>Browse
+                                        <input type="file" name="pic" class="fileUpload btn_grey filebtn" accept="image/*"/>
+                                        <input type="hidden" id="payment_loading_western" name="western_file" id="western_file" />
+                                    </a>
+                                    <ul>
+                                        <li class="uploadPreview"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <button class="btn_blue btn_with230">{$smarty.const.TEXT_SUBMIT}</button>
+                        </div>
+                    
+                </li>
+                <!-- moneygram -->
+                <li>
+                    
+                        
+                        <label><h4 class="payment_meta"><input class="float_left" name="payment" type="radio" id="moneygram" value="moneygram"{if $orders.payment_code == 'moneygram'} checked{/if}/><ins class="money_gram"></ins><span>{$smarty.const.TEXT_MONEY_GRAM_INFO}</span></h4></label>
+                        <div class="payment_show" {if $orders.payment_code == 'moneygram'}style="display: block;"{/if}> 
+                            <table>
+                                <tr><td colspan="2"> <p>{$smarty.const.TEXT_PAYMENT_MONEY_GRAM_TITLE}:</p></td></tr>
+                                <tr><td>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_FIRST_NAME} </th><td width="58%">{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_FIRST_NAME}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_LAST_NAME} </th><td>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_LAST_NAME}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_ADDRESS}</th><td >{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_ADDRESS}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_ZIP}</th><td>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_ZIP}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_CITY}</th><td >{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_CITY}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_COUNTRY} </th><td >{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_COUNTRY}</td></tr>
+                                <tr><th>{$smarty.const.MODULE_PAYMENT_MONEYGRAM_ENTRY_PHONE} </th><td >{$smarty.const.MODULE_PAYMENT_MONEYGRAM_RECEIVER_PHONE}</td></tr>
+                            </table>
+                            <div class="order_pay_note">
+                                <p>{$smarty.const.TEXT_FILL_OUT}</p>
+                                <div class="order_hsbc">
+                                    <h4>{$smarty.const.TEXT_ORDER_NUMBER}: {$orders.order_id}</h4>
+                                    <ul>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_YOUR_FULL_NAME}:</label>
+                                            <input name="moneygram_full_name" type="text" />
+                                            <p class="warning_color"></p>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_YOUR_COUNTRY}:</label>
+                                            {$text_countries_list}
+                                            <p class="warning_color"></p>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_CURRENCY}:</label>
+                                            <div class="currency_nav">
+                                                <select name="moneygram_Currency" class="select_currency">
+                                                    {section name=i loop=$currencies_array}
+                                                    <option>{$currencies_array[i].symbol_left}</option>
+                                                    {/section}
+                                                    <option>{$smarty.const.TEXT_OTHERS}</option>
+                                                </select>
+                                                <p class="warning_color"></p>
+                                            </div>
+                                            <div class="other_currency">
+                                                <input type="text" value="" name="moneygram_Currency_input" style="width:30%" /><span class="grey_6">{$smarty.const.TEXT_YOUR_CURRENCY}</span>
+                                                <p class="warning_color"></p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_SUM}:</label>
+                                            <input name="moneygram_amout" type="text" />
+                                            <p class="warning_color"></p>
+                                        </li>
+                                        <li>
+                                            <label><b class="price_color">*</b> {$smarty.const.TEXT_CONTROL_NO}:</label>
+                                            <input name="moneygram_control_no" type="text" />
+                                            <p class="warning_color"></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="browse">
+                                    <p><span>{$smarty.const.TEXT_PAYMENT_REDEIPT}</span> <br />
+                                        (.gif / .png / .jpeg / .jpg / .bmp,
+                                        less than 2M.)</p>
+                                    <a class="btn_grey">
+                                        <span class="btn_browse "></span>Browse
+                                        <input type="file" name="pic" class="fileUpload btn_grey filebtn" accept="image/*"/>
+                                        <input type="hidden" id="payment_loading_western" name="moneygram_file" id="western_file" />
+                                    </a>
+                                    <ul>
+                                        <li class="uploadPreview"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn_blue btn_with230">{$smarty.const.TEXT_SUBMIT}</button>
+                        </div>
+                    
+                </li>
+            </ul>
+            <input type="hidden" name="order_id" value="{$orders.order_id}">
+        </div>
+    </div>
+</div>

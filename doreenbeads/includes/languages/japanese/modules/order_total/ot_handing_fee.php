@@ -1,0 +1,4 @@
+<?php
+define ( 'MODULE_ORDER_TOTAL_HANDING_FEE_TITLE', '手数料' );
+define ( 'MODULE_ORDER_TOTAL_HANDING_FEE_DESCRIPTION', '手数料' );
+?>

@@ -1,0 +1,80 @@
+<div class="order_main">
+	
+	<div class="coupon_add"> <a class="link_text coupon_conditions" href="index.php?main_page=coupon_terms">{$smarty.const.TEXT_COUPON_TERMS}</a>
+	    <p> {$smarty.const.TEXT_ADD_COUPON_TITLE}:</p>
+	    <form name="couponAddForm" class="coupon_add_form" onsubmit="return false;">
+	      	<input class="coupon_name" name="add_coupon_code" type="text" id="add_coupon_code" placeholder="{$smarty.const.TEXT_ENTER_A_COUPON_CODE}" />
+	      	<div class="message_tips warning_color" style="display:none;"></div>
+	      	<a class="btn_ltblue jq_coupon_add" href="javascript:void(0);">{$smarty.const.TEXT_ADD_COUPON}</a>
+	    </form>
+	    <div class="currency_nav">
+	    	<a class="currency jq_show_cpStatus" href="javascript:void(0);" data-status="{$status}"><span>{$cp_status_name}</span><ins></ins></a>
+	      	<ul class="currency_on">
+	        	<li><a href="{$mycoupon_link}&status=1" data-status="1">{$smarty.const.TEXT_ACTIVE_COUPONS}</a></li>
+	        	<li><a href="{$mycoupon_link}&status=0" data-status="0">{$smarty.const.TEXT_INACTIVE_COUPONS}</a></li>
+	      	</ul>
+	    </div>
+	    {if $empty}
+		<div class="no_records">
+	    	<p>{$smarty.const.TEXT_NO_RECORD}</p>
+	    </div>
+		{else}
+	    <div class="coupon_list">
+		    {foreach $coupon_show_array as $value}
+		    <table>
+		      	<tr>
+		        	<th>{$smarty.const.TEXT_COUPON_CODE}:</th>
+		        	<td>{$value.coupon_code}</td>
+		      	</tr>
+		      	<tr>
+			        <th>{$smarty.const.TEXT_COUPON_PAR_VALUE}:</th>
+			        <td>{$value.value}</td>
+		      	</tr>
+		      	<tr>
+			        <th>{$smarty.const.TEXT_COUPON_MIN_ORDER}:</th>
+			        <td>{$value.min_order}</td>
+		      	</tr>
+		      	{if $status eq 1}
+		      	<tr>
+			        <th>{$smarty.const.TEXT_DATE_ADDED}:</th>
+			        <td>{$value.date_created}</td>
+		      	</tr>
+		      	{/if}
+		      	{if $value.coupon_description neq '' && $status eq 1}
+		      	<tr>
+			        <th>{$smarty.const.TEXT_MEMO}:</th>
+			        <td>{$value.coupon_description}</td>
+		      	</tr>
+		      	{/if}
+		      	{if $status eq 0}
+		      	<tr>
+			        <th>{$smarty.const.TEXT_COUPON_STATUS}:</th>
+			        <td>{$value.status}</td>
+		      	</tr>
+		      	<tr>
+			        <th>{$smarty.const.TEXT_COUPON_ORDER_NUMBER}:</th>
+			        {if $value.orders_id eq ''}
+			        <td>/</td>
+			        {else}
+			        <td>{$value.orders_id}</td>
+			        {/if}
+		      	</tr>
+		      	<tr>
+			        <th>{$smarty.const.TEXT_COUPON_USED_TIME}:</th>
+			        {if $value.used_time eq ''}
+			        <td>/</td>
+			        {else}
+			        <td>{$value.used_time}</td>
+			        {/if}
+		      	</tr>
+		      	{/if}
+		    </table>
+		    {/foreach}
+	    </div>
+	    <div class="page_wrap">
+	      	<div class="page">{$coupon_fen_ye}</div>
+	      	<div class="clearfix"></div>
+	    </div>
+	    {/if}
+  	</div>  	
+</div>

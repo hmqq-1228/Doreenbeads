@@ -1,0 +1,13 @@
+.vDotLine
+{
+    background:transparent url("../images/delim_v.gif") top center repeat-y;
+    width: 20px;
+    font-size: 1px;
+}
+
+.hDotLine
+{
+    background-image: url("../images/delim_h.gif");
+	padding:1px 0;
+	height:3px;
+}

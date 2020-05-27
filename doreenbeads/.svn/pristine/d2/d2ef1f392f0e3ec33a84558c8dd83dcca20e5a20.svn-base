@@ -1,0 +1,82 @@
+<script type="text/javascript">
+
+$(function(){	
+	$('.products_list li img').each(function(){
+		var imgwidth = $('.products_list li img').width();
+		$(this).css("height", imgwidth)
+	});			
+	$(window).resize(function(){
+		$('.products_list li img').each(function(){
+			var imgwidth = $(this).width();
+			$(this).css("height", imgwidth)
+		});		
+	});	
+});
+
+</script>
+<div class="mian_wrap products_list">
+  <h3>{$body_header_title}</h3>
+  {if $smarty.get.main_page != "promotion"}
+  <span class="products_filter_onsale"><a href="{$view_only_sale_url}">{$smarty.const.TEXT_VIEW_ONLY_SALE_ITEMS} <span><img src="/includes/templates/mobilesite/images/view_only_sale_items_{if $smarty.get.products_filter_onsale}on{else}off{/if}.png" /></span></a></span>
+  {/if}
+
+  <div class="clearfix"></div>
+  {if $related_str != ""}
+  <p class="search_related"><b>Related: </b><span class='jq_related_item'>{$related_str}</span></p>
+  {/if}
+  
+  <div class="filter_wap">
+	<div class="filter"><a href="javascript:void(0);" id="btnChangeSortBy"><span>{$smarty.const.TEXT_SORT_BY}</span> <ins class="icon_arrow_up"></ins></a></div>
+	{if $smarty.get.main_page != "products_common_list" && $smarty.get.aId != "1"}
+	<div class="filter"><a href="javascript:void(0);" id="btnChangeFilterBy"><span>{$smarty.const.TEXT_FILTER_BY}</span> <ins class="icon_arrow_up"></ins></a></div>
+	{/if}
+	<span class="products_total">( {$result_count} {$smarty.const.TEXT_RESULTS} )</span> 
+  </div>
+  
+  <div class="clearfix"></div>
+   <ul>
+   		{if $product_info_list && is_array($product_info_list)}
+	   		{foreach from=$product_info_list item= product_info}
+	       <li>
+	       	{if $product_info.products_status ne 0}<a href="{$product_info['link']}" title="{$product_info['products_name']}">{/if} 
+	       		<img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/310.gif" data-size="310" data-lazyload="{$product_info['main_image_src']}" alt = "{$product_info['products_name']}" title="{$product_info['products_name']}" >
+	       		{if $product_info.discount_amount && $product_info.discount_amount >0}
+	       		{if $smarty.session.languages_id == 1}
+				<div class="floatprice"><span>{$product_info.discount_amount}% <br /> {$smarty.const.TEXT_OFF}</span></div>
+				{else}
+				<div class="floatprice"><span>-{$product_info.discount_amount}%</span></div>
+				{/if}{/if}
+	       		<p class="pro_name">{$product_info['show_name']}</p>
+	       	{if $product_info.products_status ne 0}</a>{/if} 
+	        <div class="pro_price">
+	        	<p class="lf">{$smarty.const.TEXT_PRICE_LOWEST} :</p>
+	        	<p class="rt">
+	        		{$product_info['price_html']}
+	        	</p>
+	        </div>
+	        <div class="clearfix"></div>
+	        <div class="button">
+	        	{if $product_info.products_status eq 1} 
+	        	<a class="btn_orange btn_with150 btnProductListBuy" id="btnProductListBuy_{$product_info['products_id']}" href="javascript:void(0);" data-id="{$product_info['products_id']}" data-oldqty="1"><ins class="btn_cart"></ins></a>
+				<a class="btn_wishlist btn_rt btnProductWishlist" href="javascript:void(0)" id="btnProductWishlist_{$product_info['products_id']}" data-id="{$product_info['products_id']}"></a>
+	        	{else}
+	        	<a class="btn_grey btn_with150" href="javascript:void(0);" data-id="{$product_info['products_id']}" data-oldqty="1">{$smarty.const.TEXT_REMOVED}</a>
+	        	{/if}
+	        </div> 
+			<p class="stock">
+	            {if $product_info.products_limit_stock == 1 && $product_info.products_quantity gt 0}
+	            {$product_info.products_quantity} {$smarty.const.TEXT_STOCK_REMAINING} 
+	            {else}
+	            &nbsp;
+	            {/if}
+	        </p>
+	        </li>
+	        {/foreach}
+        {/if}
+         <div class="clearfix"></div>
+    </ul>
+    <div class="page">
+    	{$split_page_link_info}
+    </div>
+    <div class="clearfix"></div> 
+</div>

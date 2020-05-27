@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$firstName}様</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">このたびはご注文{$orderNormalAll}いただき誠にありがとうございます。</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">ここでは出荷情報を更新させていただきます。ご注文{if $boxCount > 0}( {$boxCount} {if $boxCount>1}箱{else}箱{/if}){/if}は{$deliveryTime}に{$expressMethods}によって出荷されます。通常、{$days}日間の配送時間がかかります。ご注文された商品を無事にお届けできるよう細心の注意を払ってまいります。</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">お届け先: <br/>{$address}</td></tr>
+	{if $istrstm}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">ご注文された商品がモスクワに到着すると、宅配業者はお客様に連絡したいます。それから、お客様がモスクワからご住所までの配送方法を選択してください。この宅配業者がお客様の指示に従って、ご注文された商品を配送します。また、お客様が国内配送料を支払わなければなりません。</td></tr>
+	{/if}
+	{if $isynkqy}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">ご注文された商品がお住まいの地域の近くに到着すると、私達の配送業者がご連絡させていただきます。お客様が自分でご注文された商品を取る場合は、別途の配送料金を支払う必要がありません。（モスクワの倉庫に小包を保つには課金されますから、予めご了承ください。モスクワの近くに住んでいれば、できる限り早く小包を取るにいらっしゃいます。）</td></tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">15日間後に、ご注文はお国に到着し次第、追跡番号を更新いたします。ご都合の良い時、それを追跡することができます。<br/>{if $issfhky}配送業者はお手元に配送します。{else}小包がお近くの郵便局に到着したら、配送業者はご連絡させていただきます。{/if}</td></tr>
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">我々の経験に従ってご注文に{$reportAmount}の価値を申告します。通常関税の費用を節約するのに役に立ちます。</td></tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">ご注文された商品は中国に出荷された後に追跡情報が更新されますから、予めご了承下さいますようお願い申し上げます。それにつきましては、ご心配する必要がありません。長い時間にわたり、我々はこの配送方法を利用していますから、お買い求めいただきました商品は無事にお届けできます。</td></tr>
+
+	{if $shortProductCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			また、大変ご迷惑をおかけいたしますが、いくつかのご注文された商品が予期せずに売り切れました。ここは詳細な情報です：<br />
+			{foreach $shortProduct as $product}
+				{$product.quantity}ロット -{$product.model}--{$product.name}--注文番号{$product.orderId}
+				<p style="padding:0;margin:0;">{$product.image}</p>
+			{/foreach}
+			<p style="padding:0;margin:0;"><br />ご注文された商品が遅滞なくお手元に到着できるには、我々は事前にご注文を出荷されます。<br /><br />
+			売り切れたアイテムにつきまして、ここはお客様への提案です：<br />
+			1. 再び弊社のウェブサイトにご注文いただく時、ご注文された新しい商品と一緒に出荷されます。<br />
+			2. 数日後に売り切れの商品が在庫あり次第、再び発送いたします。（通常お届けまでに約35〜55日間の航空便を通してそれらを発送いたします。別途の配送料金を支払う必要がありません。しかし、緊急にそれを必要とする場合は、お気軽にお問い合わせ下さい。我々はできる限りより高速な配送方法を提供したいます。）<br />
+			<br />
+			どの提案がお気に入りますか。お気軽に教えてください。お客様のご指示に従っていつでも御用を承ります。</p>
+		</td>
+	</tr>
+	{/if}
+
+	{if $orderForShortCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			以前の注文から売り切れのアイテムが今日出荷されています。ここは詳細な情報です：<br />
+			{foreach $orderForShort as $productForShort}
+				{$productForShort.quantity}ロット -{$productForShort.model}--{$productForShort.name}--注文番号{$productForShort.orderId}
+				<p style="padding:0;margin:0;">{$productForShort.image}</p>
+			{/foreach}
+		</td>
+	</tr>
+	{/if}
+
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">なお、ご不明の点がございましたら、ご遠慮なくご一報ください。ご説明申し上げます。</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">今後とも何卒よろしくお願い申し上げます。</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">敬具</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">======= ご注意 =========<br/>*お買い求めいただきました商品を無事にお届けできるよう、我々は小包を出荷する前にアイテムと数量をもう一度確認していました。通常、ミスが起こりません。</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div class="notifications">
+     <h3>{$smarty.const.NAVBAR_TITLE_3}</h3>
+     <p>{$smarty.const.MY_NOTIFICATIONS_DESCRIPTION}</p>
+     {if $messageStack->size('account_notifications')>0}
+     	{$messageStack->output('account_notifications')}
+     {else}
+     {/if}
+     
+     {if $flag_products_check!=0}	
+     	<h6>{$smarty.const.NOTIFICATIONS_DESCRIPTION}</h6>
+     {else}
+     	<h6>{$smarty.const.NOTIFICATIONS_NON_EXISTING}</h6>
+	 {/if}
+</div> 
+<form method="post" action="index.php?main_page=account_notifications&action=process">
+   {foreach from=$notificationsArray  key=key item=value}  		
+	   <div class="product">
+	      <input id="chkRemoveStyles" type="checkbox" checked="checked" value="1" name="product_global"/> <img src="{$value.products_image}"> <p>{$value.products_name}</p>
+	      <div class="clear"></div>
+	   </div>
+   {foreachelse}
+   {/foreach}
+     
+ <div class="product-foot"><button class="addresssubmit-btn" style="margin-left:20px;" type="submit">{$smarty.const.TEXT_UPDATE}</button></div>
+ </form>
+ <div class="clear"></div>

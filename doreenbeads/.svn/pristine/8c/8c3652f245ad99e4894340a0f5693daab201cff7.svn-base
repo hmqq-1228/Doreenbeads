@@ -1,0 +1,139 @@
+<style>
+.affiliate-program {
+	margin-top: 20px;
+}
+.affiliate-program table{
+ border: 1px solid #e8e8e8;
+ border-collapse: collapse;
+ margin-bottom: 15px;
+	width: 100%;
+	max-width: 640px;
+
+}
+
+.affiliate-program .th{
+background: #f7f7f7;
+border-bottom: 1px solid #e8e8e8;
+height: 27px;
+font-size: 13px;
+color: #010101;	
+float: left;
+}
+.affiliate-program a{
+	text-decoration:none ;
+}
+.affiliate-program li{
+
+border-bottom: 1px solid #e8e8e8;
+padding: 20px 0;
+vertical-align: top;
+font-size: 13px;
+color: #444;	
+float: left;
+}
+
+.affiliate-bt{
+	width: 100%;
+max-width: 640px;
+position: fixed;
+z-index: 999;
+bottom: 0;
+color: #FFF;
+}
+.affiliate-bt li{
+	display: inline-block;
+	background-color: #f7f7f7;
+	width:50%;
+	line-height: 40px;
+	float: left;
+	color: #333;
+	text-align: center;
+	font-size: 17px;
+}
+.affiliate-bt .on{
+	background-color: #bc66d8;
+	color: #fff;
+}
+</style>
+<script src="includes/templates/mobilesite/jscript/my_commission.js">
+</script>
+         <div class="affiliate-program">
+         	<ul class="commissiontable commissiontable-one sh">
+         		
+			
+				<li class="th" style="width: 30%">
+				 {$smarty.const.TEXT_DATE} 
+				</li>
+				<li class="th" style="width: 40%">
+				 {$smarty.const.IN_ORDER_TOTAL}
+				</li>     
+				<li class="th" style="width: 30%">
+				 {$smarty.const.RETURN_COMMISSION} 
+				</li>
+			    
+
+			{foreach $commission_method as $method => $val}	
+				
+				<a href="index.php?main_page=my_commission_info&cid={$val.customers_dropper_id}&pid={$val.prometers_commission_info_id}">
+				<li style="width: 30%">
+				{$val.time}
+				</li>
+				<li style="width: 40%">
+				{$val.in_orders_total}
+				</li>
+				<li style="width: 30%">
+				{$val.return_commission_total}
+			    </li>
+	           </a>
+		    
+			{/foreach}
+		    </ul>
+		    <div class="page">{$message.account_text_result_page}</div>
+	   </div>
+
+	   <div class="affiliate-program" style="display:none">
+         	<ul class="commissiontable commissiontable-two sh">
+			  <li class="th" style="width: 20%">
+				{$smarty.const.TEXT_DATE}
+			  </li> 
+			  <li class="th" style="width: 20%">
+				{$smarty.const.IN_ORDER_TOTAL} 
+			  </li>
+			  <li class="th" style="width: 20%"> 
+				{$smarty.const.RETURN_COMMISSION}
+			  </li>
+			  <li class="th" style="width: 20%">
+				{$smarty.const.PAYMENT_DATE}  
+			  </li>
+			  <li class="th" style="width: 20%">
+				{$smarty.const.PAYMENT_METHOD}
+			  </li>
+			  
+			{foreach $commission_over_method as $method => $val}
+			<a href="index.php?main_page=my_commission_over_info&cid={$val.customers_dropper_id}&pid={$val.prometers_commission_info_id}">
+			  <li style="width: 20%">
+				{$val.time}
+			  </li>
+			  <li style="width: 20%">
+				{$val.in_orders_total} 
+			  </li>
+			  <li style="width: 20%">
+				{$val.return_commission_total} 
+			  </li>
+			  <li style="width: 20%">
+				{$val.return_commission_time} 
+			  </li>
+			  <li style="width: 20%">
+				{$val.payment_method}
+			  </li>
+			</a>
+			{/foreach}	
+			
+		    </table>
+		    <div class="page">{$message.account_text_result_page2}</div>
+	   </div>
+		<div class="affiliate-bt">
+		<li class="on">{$smarty.const.NAVBAR_TITLE_2}</li> 
+		<li>{$smarty.const.NAVBAR_TITLE_3}</li>	
+		</div>
+		

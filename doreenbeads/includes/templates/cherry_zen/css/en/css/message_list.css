@@ -1,0 +1,15 @@
+.user_message_top{width:98%; padding-top:20px; padding-bottom:14px;}
+.user_message_top_left{float:left;}
+.user_message_top_right{float:right; margin-top:0px; font-size:14px;}
+.user_message_top_right label{cursor:pointer;}
+.user_message_top_right input{width:18px; height:18px;}
+.user_message_list {font-size:14px; text-align:center; line-height:150%; padding-bottom:20px;}
+.user_message_list table{width:100%;}
+.user_message_list table tr th{border-top:1px solid #bcbcbc;}
+.user_message_list table tr th, .user_message_list table tr td{padding:10px 0px 10px 0px; border-bottom:1px solid #bcbcbc;}
+.user_message_list .unread{background:#FFF4E8;}
+.user_message_list .unread_title{font-weight:bold;}
+.user_message_list .message_title{text-align:left; padding-left:8px;}
+.user_message_list  a{color:#008fed;}
+.user_message_list .message_title a{color:#000000;}
+.forange{color:#ff6701;}

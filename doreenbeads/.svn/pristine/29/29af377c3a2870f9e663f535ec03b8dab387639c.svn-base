@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+.packtit{color:#333333;bpack-bottom:2px solid #f2f2f2;line-height:30px;height:30px;}
+.packtit strong{float:left;font-size:16px;}
+.packtit a{float:right;color:#008FED;font-family: verdana;font-size: 13px;font-weight:bold;}
+.packtit a:hover{color:#FF6600;}
+
+.packtip ul li{list-style-type: disc;margin-bottom: 10px;}
+.packtip ul li span{line-height: 20px;}
+.packtip{
+	padding-left: 20px;
+    font-size: 14px;
+    padding-top: 15px;
+    }
+.packdetail{margin-top:25px;}
+.packdetail table{bpack:1px solid #e8e8e8; bpack-collapse:collapse;width:830px;}
+.packdetail table th{background:#f7f7f7;bpack-bottom:1px solid #e8e8e8;height:27px;}
+.packdetail table td{text-align:center;bpack-bottom:1px solid #e8e8e8;padding:10px 0; }
+.packdetail table td a{color:#008FED;}
+.packdetail table td.txtr,.packdetail table th.txtr{text-align:left;}
+
+.packtip_null{
+    height: 25px;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px 5px 15px 5px;
+    font-size: 15px;
+}
+
+.packtip_null span{
+    display: inline-block;
+    padding-top: 4px;
+    padding-left: 10px;
+}

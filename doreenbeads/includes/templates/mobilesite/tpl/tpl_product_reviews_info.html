@@ -1,0 +1,50 @@
+<div class="pro_reviews">
+  <h3 class="pagetille"><span>{$smarty.const.TEXT_REVIEWS}</span></h3>
+  {if $reviews_count && $reviews_count > 0 }
+  <h5><a href="javascript:void(0);" class="btn_review_detail_toggle">{$smarty.const.TEXT_AVERAGE_RATING}: 
+  		{if $product_rating_array && is_array($product_rating_array)}
+  		{foreach from = $product_rating_array item=rating_info}
+	  		{if $rating_info == 1}
+		  	<ins class="stars"></ins> 
+		  	{else}
+		  	<ins class="stars_grey"></ins>
+		  	{/if}
+	  	{/foreach}
+	  	{/if}
+	    <span>({$smarty.const.TEXT_GRAND_TOTAL}: {$reviews_count} {$smarty.const.TEXT_REVIEWS|lower})<ins class="icon_toggle icon_arrow_up"></ins></span>
+   	</a>
+  </h5>
+  <div class="reviews_sub_info" style="display:none;">
+  	  {foreach from=$reviews_infos item=reviews_info}
+	  <div class=" customer_reviews">
+	  	{if $reviews_info.reviewsRatingArray && is_array($reviews_info.reviewsRatingArray)}
+  		{foreach from = $reviews_info.reviewsRatingArray item=rating_info}
+	  		{if $rating_info == 1}
+		  	<ins class="stars"></ins> 
+		  	{else}
+		  	<ins class="stars_grey"></ins>
+		  	{/if}
+	  	{/foreach}
+	  	{/if}
+	    <p>{$reviews_info.reviewsText}</p>
+	    <span>{$reviews_info.dateAdded} {$smarty.const.TEXT_BY} {$reviews_info.customersName}</span>
+	    {if strlen($reviews_info.reviews_reply_text) > 1}
+	    <p>{$smarty.const.TEXT_REPLY}: {$reviews_info.reviews_reply_text}</p>
+	    {/if}
+	  </div>
+	  {/foreach}
+  </div>
+  {else} 
+  	<h5>
+  	<a href="javascript:void(0);">{$smarty.const.TEXT_NO_PRODUCT_REVIEWS}</a> 
+  	</h5>
+  {/if}
+</div>
+
+{if $num_pages && $num_pages >1}
+<div class="page reviews_sub_info" style="display:none;">
+	{$reviews_display_link}
+</div>
+{/if}
+
+<div class=" clearfix"></div>

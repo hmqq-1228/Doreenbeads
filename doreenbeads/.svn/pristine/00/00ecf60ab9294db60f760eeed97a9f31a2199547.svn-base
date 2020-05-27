@@ -1,0 +1,23 @@
+
+<link href="includes/templates/mobilesite/css/en/css/message_setting1.css" rel="stylesheet" type="text/css">
+<script src="includes/templates/mobilesite/jscript/commission_set.js">
+</script>
+<div class="user_message_setting Affiliate-Setting">
+		<p>{$smarty.const.URL}: {$dropper_url}</p>
+		<form class="jq_from_message_setting" method="post" action="index.php?main_page=commission_set&action=edit" onsubmit="return check_submit_form();">
+		<p>{$smarty.const.CONTACT_WAY}:</p>
+		<div><input type="text" id="contact_way" name="contact_way" value="{$contact_way}">
+		 <p class="Tips" id="error_info1"></p>
+		</div>
+		<h4>{$smarty.const.PAY_MENTMETHOD}</h4>
+	    	<p><label><input type="radio" id="banlance" class="radio" name="message_receive_type" value="10" onclick="checkboxOnclick(this)">Balance</label></p>
+			<p><label><input type="radio" id="paypal"  class="radio" name="message_receive_type" value="20" onclick="checkboxOnclick(this)">Paypal</label></p>
+    	    <div><input type="text" id="pay" name="paypal" value="{$paypal}"></div>
+    	    <p class="Tips" id="error_info2"></p>
+	    	<div class="cart_btn">
+		  		<button type="submit" class="jq_message_setting_button btn_big btn_ltblue" data-message="Please choose at least one type of message." data-confirm="You will no longer receive all our messages, are you sure?">Save</button>
+		  	</div>
+			<br>
+			<div class="jq_message_content" style="color:#cb0000;display:none; text-align:center;"></div>
+	    </form>
+  	</div>

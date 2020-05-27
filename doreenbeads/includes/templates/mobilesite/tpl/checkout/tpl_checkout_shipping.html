@@ -1,0 +1,101 @@
+<div class="order_main">
+    <div class="order_warp">
+		<div class="ship_methods">
+        	<div class="price_sort">
+	          	<div class="currency_nav" style="margin-bottom: 15px;">
+		            <select class="sc_sort">
+			            <option value="drise">{$smarty.const.TEXT_DAYS_ALT_S_Q}</option>
+			            <option value="ddown">{$smarty.const.TEXT_DAYS_ALT_Q_S}</option>
+			            <option value="prise" selected>{$smarty.const.TEXT_PRICE_ALT_L_H}</option>
+			            <option value="pdown">{$smarty.const.TEXT_PRICE_ALT_H_L}</option>
+			        </select>
+	          	</div>
+	        </div>
+        	<ul class="address shipping_ul">
+        		{assign var = n value = 1}
+			    {foreach from = $shipping_methods_show key = k item = v}
+          		<li >
+	          		<div {if $k == $default_shipping_method}class="shippingcontContentSelect"{/if} style="margin: 15px 0 15px 0;">
+			            <p>
+			            	<span class="price_color">{$v.cost_show}</span><br />
+			              	{$v.title}<br />{$v.days_show}
+			              	<input type="hidden" value="{$v.code}" class="code">
+			              	<input type="hidden" value="{$v.final_cost}" class="cost">
+			              	<input type="hidden" value="{$v.day*100+$v.day_high}" class="day">
+			            </p>
+			            {if $v.show_note != ''}
+				            <img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/addr_info.png" style="margin-top: 25px;margin-right: 10px;" href="javascript:void(0);"class="notebook">
+			    		{/if}
+		    		</div>
+		    		{if $v.show_note != ''}
+		    			<div style="position:relative;">
+				    		<div class="tip_wrap" style="position: absolute;z-index: 2;top:-10px">
+				                <div class="tip_msg">{$v.show_note}</div>
+				    		</div>
+			    		</div>
+				    {/if}
+           		</li>
+           		{assign var = n value = $n + 1}
+		        {/foreach}
+		        {if $shipping_methods_unshow|@sizeof > 0}
+		        	{foreach from = $shipping_methods_unshow key = k item = v}
+		        	{if !$shipping_method_limit[$v['id']]}
+		        		<li class="not_show" >
+		        			<div {if $k == $default_shipping_method}shippingcontContentSelect{/if} style="margin: 15px 0 15px 0;">
+					            <p>
+					            	<span class="price_color">{$v.cost_show}</span><br />
+					              	{$v.title}<br />{$v.days_show}
+					              	<input type="hidden" value="{$v.code}" class="code">
+					              	<input type="hidden" value="{$v.final_cost}" class="cost">
+					              	<input type="hidden" value="{$v.day*100+$v.day_high}" class="day">
+					            </p>
+					            {if $v.show_note != ''}
+						            <a style="margin-top: 17px;" href="javascript:void(0);"class="notebook"></a> 
+					    		{/if}
+				    		</div>
+				    		{if $v.show_note != ''}
+				    			<div style="position:relative;">
+						    		<div class="tip_wrap" style="position: absolute;z-index: 2;top:-10px">
+						                <div class="tip_msg">{$v.show_note}</div>
+						    		</div>
+					    		</div>
+						    {/if}
+		           		</li>
+		        	{/if}
+		        	{/foreach}
+		        {/if}
+		        <!-- 被限制的运输方式需要排在最下面，并且不可排序。 -->
+		        {assign var = n value = 1}
+			    {foreach from = $shipping_methods_show key = k item = v}
+			    {if $shipping_method_limit[$v['code']]}	   
+					<li class="shipping_method_limit_tr">
+						<div {if $k == $default_shipping_method}shippingcontContentSelect{/if} style="margin: 15px 0 15px 0;">
+				            <p>
+				            	<span class="price_color">{$v.cost_show}</span><br />
+				              	{$v.title}<br />{$v.days_show}
+				              	<input type="hidden" value="{$v.code}" class="code">
+				              	<input type="hidden" value="{$v.final_cost}" class="cost">
+				              	<input type="hidden" value="{$v.day*100+$v.day_high}" class="day">
+				            </p>
+				            {if $v.show_note != ''}
+					            <a style="margin-top: 17px;" href="javascript:void(0);"class="notebook"></a> 
+				    		{/if}
+			    		</div>
+			    		{if $v.show_note != ''}
+			    			<div style="position:relative;">
+					    		<div class="tip_wrap" style="position: absolute;z-index: 2;top:-10px">
+					                <div class="tip_msg">{$v.show_note}</div>
+					    		</div>
+				    		</div>
+					    {/if}
+	           		</li>
+				{/if}
+				{assign var = n value = $n + 1}
+		        {/foreach}
+        	</ul>
+        	{if $shipping_methods_unshow|@sizeof > 0}
+			<div class="shipping_method_display_tips">{$smarty.const.TEXT_SHIPPING_METHOD_DISPLAY_TIPS}</div>
+			{/if}
+      	</div>
+	</div>
+</div> 

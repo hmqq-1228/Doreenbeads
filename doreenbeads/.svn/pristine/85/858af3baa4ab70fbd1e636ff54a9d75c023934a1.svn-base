@@ -1,0 +1,397 @@
+.warpper {
+    width:1000px;
+    margin:0 auto;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+}
+#promotiondisplayareaBody{
+	position:relative;
+}
+.trends_products{
+     height: 400px;
+}
+.galleryimgshow{
+    border:#eaeaea 1px solid;
+}
+.newproducttoplist{
+    padding-left:10px;
+}
+.related_items , .trends_head{
+    border-bottom:#eaeaea 2px solid;
+}
+.newproducttoplist li{
+    margin-left:10px;
+    margin-right:12px;
+}
+.newproducttoplist {
+    height: 200px;
+}
+.gallerylistshow ,.newproducttoplist{
+    font-size:12px;
+    width:670px;
+}
+h3, h4, p, ul, li {
+    padding:0px;
+    margin:0px;
+}
+ul, li {
+    list-style-type:none;
+}
+.fred {
+    color:#ff791d;
+}
+.fgrey {
+    color:#666;
+}
+.clearfix {
+    clear:both;
+    height:0px;
+    font-size:0px;
+    line-height:0px;
+}
+.trends_intro {
+    border:#eaeaea 1px solid;
+    padding:25px;
+    margin-bottom:25px;
+    line-height:20px;
+    color:#999;
+    background:url(../images/sales_bg.jpg) no-repeat;
+}
+.trends_intro h3 {
+    font-weight:normal;
+    font-size:24px;
+    color:#ffef01;
+    line-height:24px;
+    padding-bottom:10px;
+    display:block;
+    width:650px;
+}
+.trends_intro p {
+    width:650px;
+    color: white;
+}
+.trends_main {
+    width:660px;
+    float:left;
+    color:#999;
+}
+.trends_main h3 {
+    font-weight:normal;
+    font-size:24px;
+    color:#444;
+    line-height:24px;
+    padding:20px 25px 10px;
+    display:block;
+}
+.trends_main .category_block {
+    background:url(../images/trends_line.png) bottom no-repeat;
+    padding-bottom:3px;
+    margin-bottom:30px;
+}
+.trends_main .category_block{
+    border-left:#eaeaea 1px solid;
+    border-right:#eaeaea 1px solid;
+    background:url(../images/trends_line_top.png) top no-repeat;
+}
+.trends_main .trends_head p {
+    padding:0 25px 20px;
+}
+.trends_main .trends_head p.category_time {
+    padding:10px 25px 20px;
+    color:#666;
+}
+.trends_main .trends_head p.category_time ins {
+    display:inline-block;
+    position:relative;
+    top:2px;
+    width:16px;
+    height:16px;
+    margin-right:7px;
+    background:url(../images/trends_icon.png) no-repeat;
+}
+.trends_main .trends_head .related_items{
+    display:none;
+}
+.subtitle {
+    display:block;
+    padding:20px 25px;
+    font-size:16px;
+    color:#444;
+    font-weight:normal;
+    border-top:#ccc 1px dotted;
+}
+.trends_main .trends_head .gallerylistshow,.trends_main .trends_head ul.productlist{
+    overflow:hidden;
+}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow{
+    border:#eaeaea 1px solid;
+    width:130px;
+    height:130px;
+    position:relative;
+}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow ins{
+    position:absolute;
+    display:block;
+    width:56px;
+    height:29px;
+    top:4px;
+    left:-5px;
+}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow ins.top1{ background:url(../images/trends_icon.png) 0 -91px no-repeat;}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow  ins.top2{ background:url(../images/trends_icon.png) -66px -91px no-repeat;}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow  ins.top3{ background:url(../images/trends_icon.png) -132px -91px no-repeat;}
+.trends_products .gallerylistshow .galleryimg .galleryimgshow  ins.top4{ background:url(../images/trends_icon.png) -198px -91px no-repeat;}
+.trends_main .trends_head .gallerylistshow .galleryimgshow img{
+    border:0;
+}
+.trends_main .trends_head input.backorder{
+    margin-top:3px;
+}
+.trends_main .trends_head .gallerylistshow li p,.trends_main .trends_head ul.productlist li p{
+    padding:8px 0 0;
+    margin:0;
+}
+.trends_main .trends_head .messageStackSuccess{
+    font-size:12px;
+    color:#000;
+}
+.trends_main .trends_head ul.productlist li{
+    float:left;
+    width:122px;
+    margin-left:34px;
+    position: relative;
+    text-align: center;
+    padding-bottom:10px;
+}
+.trends_main .trends_head ul.productlist li .galleryimgshow{
+    border:#eaeaea 1px solid;
+    width:120px;
+    height:120px;
+}
+.trends_main .trends_head ul.productlist li p{
+    height:36px;
+    overflow:hidden;
+}
+.trends_main .trends_head ul.productlist li a{
+    color:#999;
+    text-decoration:none;
+}
+.trends_main .related_items .btn_close, .trends_main .trends_head .btn_show {
+    display:block;
+    width:268px;
+    height:23px;
+    line-height:23px;
+    text-align:center;
+    color:#666;
+    text-decoration:none;
+    margin:0 auto;
+    background:url(../images/trends_icon.png) 0 -26px no-repeat;
+    cursor:pointer;
+}
+.trends_main .trends_head .btn_show {
+    background:url(../images/trends_icon.png) 0 -59px no-repeat;
+}
+.DetBgW {
+    background: none repeat scroll 0 0 #666666;
+    height: 4016px;
+    left: 0;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.trends_side {
+    width:280px;
+    padding:15px 15px 0;
+    border:#eaeaea 1px solid;
+    float:right;
+    color:#999;
+}
+.trends_side a{
+    color:#999;
+    text-decoration:none;
+}
+.trends_main h4, .trends_side h4,.trends_side h5{
+    font-size:16px;
+    font-weight:normal;
+    color:#444;
+}
+.trends_side h5{
+    display:inline-block;
+    position:relative;
+    top:-28px;
+    padding:0px;
+    margin:0px;
+}
+.trends_main .trends_head input.backorder[type=image]{
+    margin-top:0;
+    float:right;
+}
+.trends_side .subscribe{
+    background:url(../images/trends_side_img.png) right bottom no-repeat;
+    padding:8px 0 40px;
+    line-height:20px;
+}
+.trends_side .subscribe ins,.trends_side .subscribe li span{
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin-right:8px;
+}
+.trends_side .subscribe ins{    
+    background:url(../images/trends_icon.png) -118px 0 no-repeat;
+}
+.trends_side .subscribe_email{
+    position:relative;
+    top:-18px;
+    overflow:hidden;
+    padding-bottom:10px;
+}
+.trends_side .subscribe_email .text{
+    float:left;
+    background:#fafafa;
+    border:#dedede 1px solid;
+    color:#666;
+    line-height:24px;
+    height:24px;
+    width:183px;
+    padding:0 5px;
+}
+.trends_side p{
+    padding:10px 0;
+}
+
+.trends_side .line{
+    border-top:#ccc 1px dotted;
+    display:block;
+    padding-top:20px;
+    position:relative;
+}
+.trends_side .list{
+    padding:8px 0;  
+}
+.trends_side .list li{
+    border-bottom:#eaeaea 1px dashed;
+    line-height:36px;
+    cursor:pointer;
+}
+.trends_side .list li ins{
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin-right:5px;
+    background:url(../images/trends_icon.png) -40px 3px no-repeat;
+}
+.trends_side .list li.more{
+    border:none;
+    text-align:right;
+}
+.trends_side .list li.more ins{
+    background:url(../images/trends_icon.png) -75px 3px no-repeat;
+    margin-right:0;
+}
+
+.hidden_date{
+    display:none;
+}
+
+/*以下为网站原始css样式引入*/
+.gallerylistshow li {
+    float: left;
+    height: auto;
+    margin-left: 26px;
+    position: relative;
+    text-align: center;
+    width: 130px;
+}
+.pcenter {
+    height: auto !important;
+    line-height: 15px;
+    margin-top: 10px;
+    min-height: 30px;
+    overflow: visible;
+    text-align: center;
+    width:150px;
+}
+.addinputext {
+    color: #666;
+}
+.position_fix{
+    position: relative;
+    left: -10px;
+}
+.addinputbg {
+    background: rgba(0, 0, 0, 0) url("../images/btnbg_detail.gif") repeat scroll 0 -352px;
+    border: 1px solid #aaa;
+    color: #333;
+    height: 22px;
+    line-height: 22px;
+    margin-left: 10px;
+    padding-left: 3px;
+    width: 50px;
+}
+.collectinfo {
+    background: rgba(0, 0, 0, 0) url("../images/btnbg_detail.gif") repeat scroll 0 -132px;
+    border: medium none;
+    cursor: pointer;
+    height: 25px;
+    width: 28px;
+}
+.input_addcart {
+    margin-right: 0px;
+}
+.addbuy {
+    background: rgba(0, 0, 0, 0) url("../images/addbuybtn.gif") repeat scroll 0 0;
+    border: medium none;
+    cursor: pointer;
+    height: 26px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 45px;
+}
+.trends_side .subscribe_email .btn{
+    float:right;
+    width:78px;
+    height:26px;
+    line-height:26px;
+    background:url(../images/trends_btn.png) repeat-x;
+    text-align:center;
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    border:#edae4c 1px solid;
+    cursor:pointer;
+}
+.messageStackSuccess {
+    background: #ffe1e1 none repeat scroll 0 0;
+}
+.messageStackWarning, .messageStackError, .messageStackSuccess, .messageStackCaution {
+    clear: both;
+    padding: 0.2em;
+}
+.news_right_div{margin-left:200px;display: none;background:#fff;border:1px solid #000;position: fixed; top:40%; left:25%;   width:400px;font-size:18px;color:#696969;padding:15px;z-index: 100001;  }
+.news_right_div table tr td input{border:1px solid #7F9DB9;width:195px;height:30px;padding-left:5px;line-height:30px}
+.newproducttoplist li p{width:128px;}
+.news_error{display: none;height: 115px;background:#fff;border:1px solid #000;position: fixed; top:40%; left:25%;font-size:18px;color:#696969;padding:15px;z-index: 100001; }
+.messageStackWarning, .messageStackError, .messageStackSuccess, .messageStackCaution{
+    position: relative;
+    top: -20px;
+}
+#newsletter_bot_input{width:165px;}
+.trends_side .subscribe_email .btn{width:95px;}
+.split_current_page{
+    border: 1px solid #fff;
+    font-weight: bold;
+    }
+.pagelist_l{width:336px;height:auto;overflow:hidden;}
+.pagelist_r{height:auto;padding-top:0px;text-align:right;}
+.pagelist_r span{ display:inline-block;margin-left:5px;}
+.pagelist_r span a{ background: none repeat scroll 0 0 #ffffff;border: 1px solid #DDDDDD;color:#68C149;font-weight:bold; padding: 4px 7px;*padding:0px 4px;}
+.pagelist_r span a:hover{text-decoration:underline;color:#ff6600}
+.pagelist_r span.ellipsis a{ background:none;border: medium none;}
+.pagelist_l p{line-height:30px;}
+.pagelist_l p span{padding:0 4px;}
+.pagelist_r a.nextpage{background:url(../images/menu.gif) no-repeat 30px -874px #DBDBDB;padding-right:10px;}
+.main_c_pagelist{padding:5px 0;height:auto;overflow:hidden;border-bottom:0px solid #ccc;margin-top:12px;}
+.pagelist_bot{padding-top:8px;}

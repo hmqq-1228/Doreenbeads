@@ -1,0 +1,5 @@
+<?php
+define('MODULE_SHIPPING_HMAUEXPR_TEXT_TITLE', 'Australia Express Line');
+define('MODULE_SHIPPING_HMAUEXPR_TEXT_DESCRIPTION', 'Australia Express Line');
+define('MODULE_SHIPPING_HMAUEXPR_NOTE', sprintf(TEXT_SHIPPING_NOTE,'HMAUEXPR'));
+?>

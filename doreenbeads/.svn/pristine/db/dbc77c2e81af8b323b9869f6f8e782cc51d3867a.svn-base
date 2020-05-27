@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>service--8seasons.com</title>
+{literal}
+<style>
+	div{line-height: 20px;margin:10px;}
+	body {background-color:#ffffff; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif; text-align:left;width: 600px;}
+	a:link {color:#0066cc;}
+	a:hover {background-color:#eeeecc; color:#0066cc;}
+	a:visited {color:#0066cc;}
+</style>
+{/literal}
+</head>
+
+<body>
+	<div>Hallo {$customers_name}</div>
+	<div>Wie geht's Ihnen? Ich hoffe, dass alles bei Ihnen gut gelaufen sind.</div>
+	<div>Zuerst freut es mich, dass Sie Ihr Paket für Bestellung #{orders_id} schon erhalten haben. Sehr schön!</div>
+	<div>Hoffentlich kommen alle Artikel bei Ihnen reibungslos und in gutem Zustand an. </div>
+	<div>Ich möchte mich bei Ihnen erkundigen, ob Sie unsere Erzeunisse genießen.Sind Sie damit zufrieden?</div>
+	<div>Falls Sie fehlerhafte Artikel oder falsche Artikel finden, bitte senden Sie Email an uns.</div>
+	<div>Ihr exklusiv Manager wird innerhalb von 24 Stunden darauf antworten, nachdem wir Ihr Email erhalten.</div>
+	<div>Übrigens Ihre Meinung sind sssssssehr wichtig für uns. </div>
+	<div>Falls Sie irgendwelchen Vorschlag oder Reklamation über unsere Erzeugnisse oder deutsche Webseite haben, bitte nehmen Sie Kontakt mit uns per Email auf. </div>
+	<div>Wir werden unser Bestes tun, zu verbessern.</div>
+	<div>Mit freundlichen Grüßen. </div>
+	<div>Doreenbeads Team</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<div class="detailproduct-btn"><a href="javascript:history.back()" class="back-btn">{$smarty.const.TEXT_BACK}</a></div>
+	<div class="txt-wap">
+	    <h4>{$smarty.const.TEXT_CONTACT_US}</h4>
+	    {if $messageStack->size('contact')>0}
+	    	{$messageStack->output('contact')}
+	    {/if}
+		<form class="questionform" name="contact_form" action="index.php?main_page=contact_us&action=send" method="post" onsubmit="return check(this.name)">
+		  <table>	
+		  	 <tr><td><label>*</label>{$smarty.const.TEXT_NAME}:</td></tr><tr><td><input type="text" id="first-name" class="required" name="contactname" value="{$name}"/><p id="first_name_span"></p></td></tr>		 
+			 <tr><td><label>*</label>{$smarty.const.TEXT_EMAIL_ADDRESS}</td></tr>
+			 <tr><td><input type="text" id="question-email" class="required" name="email" value="{$email}"/><p id="email_span"></p></td></tr>	
+			 <tr><td><label>*</label>{$smarty.const.TEXT_MESSAGES}:</td></tr>
+			 <tr><td><textarea class="required" name="enquiry" id="message"></textarea><p id="message_span"></p></td></tr>	
+			 
+			 {if $auto_auth_code_display }
+			     <tr><td><label>*</label>{$smarty.const.TEXT_VERIFY_NUMBER}:</td></tr>
+                <tr><td class="textinput"><input type="text" id="check_code_input" style="width:80px;margin-right:20px;" /><img id="check_code" src="./check_code.php"  onClick="this.src='./check_code.php?'+Math.random();" style="top: 12px;position: relative;height: 29px;" /><p id="login_checkcode_error"></p></td></tr>
+             {/if}		
+			 <tr>
+			 	 <td>
+			 		 <input type="Submit" value="{$smarty.const.TEXT_SUBMIT}" id="question-submit"/>
+			 		 <input type="reset" value="{$smarty.const.TEXT_RESET}"  class="addresssubmit-btn2 addresscheck"/><br><br>
+			 	 </td>
+			 </tr>
+		  </table>
+		  </form>
+		</div> 
+	<!-- 	<div class="contactbt-info">
+			<span class="clivechat"></span>
+			<p><strong>Live Chat</strong>
+			The Quickest way to get help.</p>
+		</div> -->
+		<div class="contactbt-info">
+			<span class="cemail"></span>
+			<p><strong>{$smarty.const.TEXT_EMAIL}:</strong>
+			<a href="mailto:sale@doreenbeads.com">{$smarty.const.TEXT_SALE_EMAIL_ADDRESS}</a></p>
+		</div>
+		<div class="contactbt-info">
+			<span class="ctelephone"></span>
+			<p><strong>{$smarty.const.TEXT_TELEPHONE}:</strong>
+			{$smarty.const.TEXT_TELEPHONE_NUMBER}</p>
+		</div>
+		<div class="contactbt-info">
+			<span class="cskype"></span>
+			<p><strong>{$smarty.const.TEXT_SKYPE_ID}:</strong>
+			{$smarty.const.TEXT_WEBSITE_SERVICE_8SEASONS}</p>
+		</div>
+		<div class="contactbt-info contactbtbord">
+			<span class="cmail"></span>
+			<p><strong>{$smarty.const.TEXT_MAIL}:</strong>
+			{$smarty.const.TEXT_PANDUO_ADDRESS}</p>
+		</div>
+		
+	
+	<div class="clearfix"></div>
+	

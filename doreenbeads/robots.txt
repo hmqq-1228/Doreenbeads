@@ -1,0 +1,17 @@
+# <URL:http://www.robotstxt.org/wc/exclusion.html#robotstxt>
+# Format is:
+#       User-agent: <name of spider>
+#       Disallow: <nothing> | <path>
+# -----------------------------------------------------------------------------
+User-agent: *
+Disallow: /backup/
+Disallow: /download/
+Disallow: /images/
+Disallow: /includes/
+Disallow: /panadmin/
+Disallow: /cache/
+Disallow: /tmp/
+Disallow: /email/
+Disallow: /phplivefinal/
+Disallow: /editors/
+Disallow: /index.php?main_page=advanced_search_result*

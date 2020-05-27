@@ -1,0 +1,1959 @@
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+ec_step1 - 1
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1725 	
+Checking to see if we are in markflow
+cart contents: physical
+
+NOTE: $this->showPaymentPage = 0
+Customer ID: 138766
+Session Data: Array
+(
+    [securityToken] => 9b4ac3af6ac494f8160c0fcc00863eb6
+    [customers_host_address] => DESKTOP-15A4OFH
+    [customers_level] => 0
+    [per_page] => 60
+    [cartID] => 
+    [cart] => shoppingCart Object
+        (
+            [have_gift] => 
+            [gift_id] => 
+            [total] => 0
+            [total_new] => 0
+            [total_original] => 0
+            [promotion_total] => 0
+            [promotion_weight] => 0
+            [weight] => 0
+            [volume_weight] => 0
+            [volume_shipping_weight] => 0
+            [cartID] => 
+            [content_type] => physical
+            [discount_num] => 0
+            [deduct_shippingfee] => 0
+            [products_volume_weight_orgin:shoppingCart:private] => 0
+            [observers] => Array
+                (
+                )
+
+            [volume_weight_ems] => 0
+            [discount_amount] => 0
+            [origin_amount] => 0
+            [promotion_total_usd] => 0
+            [daily_deal_total] => 0
+            [products_products_checked] => Array
+                (
+                )
+
+        )
+
+    [navigation] => navigationHistory Object
+        (
+            [path] => Array
+                (
+                    [0] => Array
+                        (
+                            [page] => product_info
+                            [mode] => NONSSL
+                            [get] => Array
+                                (
+                                    [products_id] => 55752
+                                )
+
+                            [post] => Array
+                                (
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [page] => index
+                            [mode] => NONSSL
+                            [get] => Array
+                                (
+                                    [type] => ec
+                                    [markflow] => 1
+                                    [clearSess] => 1
+                                    [stage] => final
+                                )
+
+                            [post] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [snapshot] => Array
+                (
+                )
+
+            [observers] => Array
+                (
+                )
+
+        )
+
+    [check_valid] => true
+    [lng] => language Object
+        (
+            [languages] => Array
+                (
+                    [ar] => Array
+                        (
+                            [0] => ar([-_][[:alpha:]]{2})?|arabic
+                            [1] => arabic
+                            [2] => ar
+                        )
+
+                    [bg-win1251] => Array
+                        (
+                            [0] => bg|bulgarian
+                            [1] => bulgarian-win1251
+                            [2] => bg
+                        )
+
+                    [bg-koi8r] => Array
+                        (
+                            [0] => bg|bulgarian
+                            [1] => bulgarian-koi8
+                            [2] => bg
+                        )
+
+                    [ca] => Array
+                        (
+                            [0] => ca|catalan
+                            [1] => catala
+                            [2] => ca
+                        )
+
+                    [cs-iso] => Array
+                        (
+                            [0] => cs|czech
+                            [1] => czech-iso
+                            [2] => cs
+                        )
+
+                    [cs-win1250] => Array
+                        (
+                            [0] => cs|czech
+                            [1] => czech-win1250
+                            [2] => cs
+                        )
+
+                    [da] => Array
+                        (
+                            [0] => da|danish
+                            [1] => danish
+                            [2] => da
+                        )
+
+                    [de] => Array
+                        (
+                            [0] => de([-_][[:alpha:]]{2})?|german
+                            [1] => german
+                            [2] => de
+                        )
+
+                    [el] => Array
+                        (
+                            [0] => el|greek
+                            [1] => greek
+                            [2] => el
+                        )
+
+                    [en] => Array
+                        (
+                            [0] => en([-_][[:alpha:]]{2})?|english
+                            [1] => english
+                            [2] => en
+                        )
+
+                    [es] => Array
+                        (
+                            [0] => es([-_][[:alpha:]]{2})?|spanish
+                            [1] => spanish
+                            [2] => es
+                        )
+
+                    [et] => Array
+                        (
+                            [0] => et|estonian
+                            [1] => estonian
+                            [2] => et
+                        )
+
+                    [fi] => Array
+                        (
+                            [0] => fi|finnish
+                            [1] => finnish
+                            [2] => fi
+                        )
+
+                    [fr] => Array
+                        (
+                            [0] => fr([-_][[:alpha:]]{2})?|french
+                            [1] => french
+                            [2] => fr
+                        )
+
+                    [gl] => Array
+                        (
+                            [0] => gl|galician
+                            [1] => galician
+                            [2] => gl
+                        )
+
+                    [he] => Array
+                        (
+                            [0] => he|hebrew
+                            [1] => hebrew
+                            [2] => he
+                        )
+
+                    [hu] => Array
+                        (
+                            [0] => hu|hungarian
+                            [1] => hungarian
+                            [2] => hu
+                        )
+
+                    [id] => Array
+                        (
+                            [0] => id|indonesian
+                            [1] => indonesian
+                            [2] => id
+                        )
+
+                    [it] => Array
+                        (
+                            [0] => it|italian
+                            [1] => italian
+                            [2] => it
+                        )
+
+                    [ja-euc] => Array
+                        (
+                            [0] => ja|japanese
+                            [1] => japanese-euc
+                            [2] => ja
+                        )
+
+                    [ja-sjis] => Array
+                        (
+                            [0] => ja|japanese
+                            [1] => japanese-sjis
+                            [2] => ja
+                        )
+
+                    [ko] => Array
+                        (
+                            [0] => ko|korean
+                            [1] => korean
+                            [2] => ko
+                        )
+
+                    [ka] => Array
+                        (
+                            [0] => ka|georgian
+                            [1] => georgian
+                            [2] => ka
+                        )
+
+                    [lt] => Array
+                        (
+                            [0] => lt|lithuanian
+                            [1] => lithuanian
+                            [2] => lt
+                        )
+
+                    [lv] => Array
+                        (
+                            [0] => lv|latvian
+                            [1] => latvian
+                            [2] => lv
+                        )
+
+                    [nl] => Array
+                        (
+                            [0] => nl([-_][[:alpha:]]{2})?|dutch
+                            [1] => dutch
+                            [2] => nl
+                        )
+
+                    [no] => Array
+                        (
+                            [0] => no|norwegian
+                            [1] => norwegian
+                            [2] => no
+                        )
+
+                    [pl] => Array
+                        (
+                            [0] => pl|polish
+                            [1] => polish
+                            [2] => pl
+                        )
+
+                    [pt-br] => Array
+                        (
+                            [0] => pt[-_]br|brazilian portuguese
+                            [1] => brazilian_portuguese
+                            [2] => pt-BR
+                        )
+
+                    [pt] => Array
+                        (
+                            [0] => pt([-_][[:alpha:]]{2})?|portuguese
+                            [1] => portuguese
+                            [2] => pt
+                        )
+
+                    [ro] => Array
+                        (
+                            [0] => ro|romanian
+                            [1] => romanian
+                            [2] => ro
+                        )
+
+                    [ru-koi8r] => Array
+                        (
+                            [0] => ru|russian
+                            [1] => russian-koi8
+                            [2] => ru
+                        )
+
+                    [ru-win1251] => Array
+                        (
+                            [0] => ru|russian
+                            [1] => russian-win1251
+                            [2] => ru
+                        )
+
+                    [sk] => Array
+                        (
+                            [0] => sk|slovak
+                            [1] => slovak-iso
+                            [2] => sk
+                        )
+
+                    [sk-win1250] => Array
+                        (
+                            [0] => sk|slovak
+                            [1] => slovak-win1250
+                            [2] => sk
+                        )
+
+                    [sr-win1250] => Array
+                        (
+                            [0] => sr|serbian
+                            [1] => serbian-win1250
+                            [2] => sr
+                        )
+
+                    [sv] => Array
+                        (
+                            [0] => sv|swedish
+                            [1] => swedish
+                            [2] => sv
+                        )
+
+                    [th] => Array
+                        (
+                            [0] => th|thai
+                            [1] => thai
+                            [2] => th
+                        )
+
+                    [tr] => Array
+                        (
+                            [0] => tr|turkish
+                            [1] => turkish
+                            [2] => tr
+                        )
+
+                    [uk-win1251] => Array
+                        (
+                            [0] => uk|ukrainian
+                            [1] => ukrainian-win1251
+                            [2] => uk
+                        )
+
+                    [zh-tw] => Array
+                        (
+                            [0] => zh[-_]tw|chinese traditional
+                            [1] => chinese_big5
+                            [2] => zh-TW
+                        )
+
+                    [zh] => Array
+                        (
+                            [0] => zh|chinese simplified
+                            [1] => chinese_gb
+                            [2] => zh
+                        )
+
+                )
+
+            [catalog_languages] => Array
+                (
+                    [en] => Array
+                        (
+                            [id] => 1
+                            [name] => English
+                            [image] => icon.gif
+                            [code] => en
+                            [directory] => english
+                        )
+
+                    [de] => Array
+                        (
+                            [id] => 2
+                            [name] => Deutsch
+                            [image] => icon.gif
+                            [code] => de
+                            [directory] => german
+                        )
+
+                    [ru] => Array
+                        (
+                            [id] => 3
+                            [name] => Русский
+                            [image] => icon.gif
+                            [code] => ru
+                            [directory] => russian
+                        )
+
+                    [fr] => Array
+                        (
+                            [id] => 4
+                            [name] => Français
+                            [image] => icon.gif
+                            [code] => fr
+                            [directory] => french
+                        )
+
+                )
+
+            [browser_languages] => 
+            [language] => Array
+                (
+                    [id] => 1
+                    [name] => English
+                    [image] => icon.gif
+                    [code] => en
+                    [directory] => english
+                )
+
+            [observers] => Array
+                (
+                )
+
+        )
+
+    [language] => english
+    [languages_id] => 1
+    [languages_code] => en
+    [currency] => USD
+    [today_is] => 2020-04-16
+    [updateExpirations] => 1
+    [customers_ip_address] => 127.0.0.1
+    [recent_products] => Array
+        (
+            [0] => 55752
+        )
+
+    [FBRLH_state] => 2482586976d666d6be1db77dff2b4bd7
+    [verification_code_register] => b9hb
+    [customer_id] => 138766
+    [has_valid_order] => 
+    [customer_default_address_id] => 86479
+    [customers_authorization] => 0
+    [customer_first_name] => 1994
+    [customer_last_name] => 
+    [customer_country_id] => 
+    [customer_zone_id] => 
+    [customer_email] => 1994@qq.com
+    [customers_group_pricing] => 0
+    [customers_default_shipping] => 
+    [customers_is_rcd] => 0
+    [is_old_customers] => 0
+    [channel] => 
+    [register_languages_id] => 1
+    [display_mode] => normal
+    [new_products_id_in_cart] => 218631
+    [count_cart] => 0
+    [cart_sort_by] => customers_basket_id
+    [cart_sort_type] => desc
+    [prev_url] => http://www.doreenbeadslocal.com/index.php?main_page=products_common_list&pn=new&products_filter_in_stock=1
+    [valid_to_checkout] => 1
+    [cart_products_errors] => 
+    [cart_errors] => 
+    [basket_product_orderby] => 1
+    [cart_products_out_stoct_errors] => 
+    [cart_products_down_errors] => 
+    [shipping] => Array
+        (
+            [id] => airmail_airmail
+            [code] => airmail
+            [is_remote] => 
+            [name] => 航空小包
+            [title] => air mail (small-size parcel)
+            [box] => 1
+            [day_low] => 20
+            [day_high] => 35
+            [days] => 20-35
+            [cost] => 0.12917538396858
+            [box_note] => 
+            [remote_note] => 
+            [remote_fee] => 0
+            [volume_note] => 
+            [track_url] => http://www.17track.net/en/
+            [error] => 
+            [shipping_package_box_weight] => 1.2
+            [shipping_weight] => 13.2
+            [shipping_volume_weight_title] => 
+            [shipping_volume_weight_alt] => 
+            [shipping_volume_weight] => 0
+            [time_unit] => 10
+            [is_display] => 0
+            [final_cost] => 0
+            [days_show] => 20-35 days
+            [cost_show] => Free Shipping
+            [show_note] => 
+            [special_cost] => 
+        )
+
+    [sendto] => 86479
+    [payment] => paypalwpp
+    [own_coupn] => 20
+    [packing_way] => 2
+    [billto] => 86479
+    [packing_tips_choose] => 1
+    [order_number_created] => 1000108
+    [has_first_coupon] => 1
+)
+
+=================================
+
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+ec-step1-addr_check
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1742 	
+cart contents is not all virtual or customer is not logged in ... therefore will be submitting address details
+=================================
+
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+getOverrideAddress - 1
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2333 	
+Now in markflow mode.
+SESSION[sendto] = 86479
+=================================
+
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+getOverrideAddress - 2
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2394 	
+$address_arr->fields = Array
+(
+    [entry_firstname] => h
+    [entry_lastname] => m
+    [entry_street_address] => PO Box 573
+    [entry_suburb] => 
+    [entry_city] => Clinton
+    [entry_postcode] => 73601
+    [entry_country_id] => 223
+    [entry_zone_id] => 0
+    [entry_state] => OK
+    [zone_code] => OK
+    [countries_iso_code_2] => US
+)
+
+=================================
+
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+ec-step1-addr_check3
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1777 	
+address details from override check:Array
+(
+    [entry_firstname] => h
+    [entry_lastname] => m
+    [entry_street_address] => PO Box 573
+    [entry_suburb] => 
+    [entry_city] => Clinton
+    [entry_postcode] => 73601
+    [entry_country_id] => 223
+    [entry_zone_id] => 0
+    [entry_state] => OK
+    [zone_code] => OK
+    [countries_iso_code_2] => US
+)
+
+=================================
+
+2020-04-16 16:02:12
+Paypal_Action_
+04-16-2020-04-02_mWZh
+ec_step1 - 2 -submit
+2020-04-16 16:02:12	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1805 	
+Array
+(
+    [AMT] => 2.16
+    [RETURNURL] => http://www.doreenbeadslocal.com/ipn_main_handler.php?type=ec
+    [CANCELURL] => http://www.doreenbeadslocal.com/index.php?main_page=checkout_payment&amp;ec_cancel=1
+    [ORDERSID] => 1000108
+    [LOCALECODE] => US
+    [CURRENCY] => USD
+    [PAYMENTACTION] => Sale
+    [ADDROVERRIDE] => 0
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOCITY] => Clinton
+    [SHIPTOZIP] => 73601
+    [SHIPTOSTATE] => OK
+    [SHIPTOCOUNTRYCODE] => US
+    [EMAIL] => 1994@qq.com
+    [SOLUTIONTYPE] => SOLE
+)
+
+=================================
+
+2020-04-16 16:02:13
+-------------------
+(sandbox transaction) --> https://api-3t.sandbox.paypal.com/nvp
+Request Headers: 
+Array
+(
+    [0] => Content-Type: text/namevalue
+    [1] => X-VPS-Timeout: 45
+    [2] => X-VPS-VIT-Client-Type: PHP/cURL
+    [3] => X-VPS-VIT-Integration-Product: PHP::Zen Cart - WPP-NVP
+    [4] => X-VPS-VIT-Integration-Version: 1.3.8a
+)
+
+
+Request Parameters: {SetExpressCheckout} 
+Array
+(
+    [ORDERSID] => 1000108
+    [LOCALECODE] => US
+    [PAYMENTACTION] => Sale
+    [ADDROVERRIDE] => 0
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOCITY] => Clinton
+    [SHIPTOZIP] => 73601
+    [SHIPTOSTATE] => OK
+    [SHIPTOCOUNTRYCODE] => US
+    [EMAIL] => 1994@qq.com
+    [AMT] => 2.16
+    [RETURNURL] => http://www.doreenbeadslocal.com/ipn_main_handler.php?type=ec
+    [CANCELURL] => http://www.doreenbeadslocal.com/index.php?main_page=checkout_payment&amp;ec_cancel=1
+    [PAGESTYLE] => Primary
+    [METHOD] => SetExpressCheckout
+    [CURRENCYCODE] => USD
+    [USER] => bussinesstest_api1.gmail.com
+    [PWD] => ****************
+    [VERSION] => 3.2
+    [SIGNATURE] => ****************************************************ux4u
+)
+
+
+Response: 
+Array
+(
+    [TOKEN] => EC-0FH15248JK2466043
+    [TIMESTAMP] => 2020-04-16T08:02:13Z
+    [CORRELATIONID] => a1b1fb74c33d3
+    [ACK] => Success
+    [VERSION] => 3.2
+    [BUILD] => 54449905
+    [CURL_ERRORS] => 
+)
+
+Paypal_CURL_
+EC-0FH15248JK2466043_Uknb
+
+SetExpressCheckout, Elapsed: 1551ms -- Success
+Paypal_CURL_
+EC-0FH15248JK2466043_Uknb
+
+2020-04-16 16:03:13
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+PayPal test Log - ec_step2 $_REQUEST data
+2020-04-16 16:03:13	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1868 	
+In function: ec_step2()
+Data in $_REQUEST = 
+Array
+(
+    [type] => ec
+    [token] => EC-0FH15248JK2466043
+    [PayerID] => FBLBJYK5BPCMN
+)
+
+=================================
+
+2020-04-16 16:03:16
+-------------------
+(sandbox transaction) --> https://api-3t.sandbox.paypal.com/nvp
+Request Headers: 
+Array
+(
+    [0] => Content-Type: text/namevalue
+    [1] => X-VPS-Timeout: 45
+    [2] => X-VPS-VIT-Client-Type: PHP/cURL
+    [3] => X-VPS-VIT-Integration-Product: PHP::Zen Cart - WPP-NVP
+    [4] => X-VPS-VIT-Integration-Version: 1.3.8a
+)
+
+
+Request Parameters: {GetExpressCheckoutDetails} 
+Array
+(
+    [TOKEN] => EC-0FH15248JK2466043
+    [REQBILLINGADDRESS] => 1
+    [METHOD] => GetExpressCheckoutDetails
+    [USER] => bussinesstest_api1.gmail.com
+    [PWD] => ****************
+    [VERSION] => 3.2
+    [SIGNATURE] => ****************************************************ux4u
+)
+
+
+Response: 
+Array
+(
+    [TOKEN] => EC-0FH15248JK2466043
+    [BILLINGAGREEMENTACCEPTEDSTATUS] => 0
+    [TIMESTAMP] => 2020-04-16T08:03:15Z
+    [CORRELATIONID] => 8f67af22933a5
+    [ACK] => Success
+    [VERSION] => 3.2
+    [BUILD] => 54449905
+    [EMAIL] => xxf@anavia.com
+    [PAYERID] => FBLBJYK5BPCMN
+    [PAYERSTATUS] => verified
+    [FIRSTNAME] => xu
+    [LASTNAME] => xuefeng
+    [COUNTRYCODE] => US
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOCITY] => Clinton
+    [SHIPTOSTATE] => OK
+    [SHIPTOZIP] => 73601
+    [SHIPTOCOUNTRYCODE] => US
+    [SHIPTOCOUNTRYNAME] => United States
+    [ADDRESSSTATUS] => Confirmed
+    [CURL_ERRORS] => 
+)
+
+Paypal_CURL_
+EC-0FH15248JK2466043_cqAi
+
+GetExpressCheckoutDetails, Elapsed: 2640ms -- Success
+Paypal_CURL_
+EC-0FH15248JK2466043_cqAi
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+ec_step2_finish - 1
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1956 	
+START: paypal_ec_payer_info= Array
+(
+    [payer_id] => FBLBJYK5BPCMN
+    [payer_email] => xxf@anavia.com
+    [payer_salutation] => 
+    [payer_gender] => 
+    [payer_firstname] => xu
+    [payer_lastname] => xuefeng
+    [payer_business] => 
+    [payer_status] => verified
+    [ship_country_code] => US
+    [ship_address_status] => Confirmed
+    [ship_phone] => 
+    [ship_name] => h m
+    [ship_street_1] => PO Box 573
+    [ship_street_2] => 
+    [ship_city] => Clinton
+    [ship_state] => OK
+    [ship_postal_code] => 73601
+    [ship_country_name] => United States
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+ec_step2_finish - 2
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2057 	
+country_id = 223 United States US
+address_format_id = 2
+state_id = 48 (original state tested: OK)
+country1->fields['countries_id'] = 223
+country2->fields['countries_id'] = 223
+$order = order Object
+(
+    [info] => Array
+        (
+            [currency] => USD
+            [currency_value] => 1.000000
+            [payment_method] => 
+            [payment_module_code] => 
+            [shipping_method] => air mail (small-size parcel)
+            [shipping_module_code] => airmail
+            [coupon_code] => 
+            [cc_type] => 
+            [cc_owner] => 
+            [cc_number] => 
+            [cc_expires] => 
+            [date_purchased] => 2020-04-16 16:02:02
+            [orders_status] => Pending
+            [last_modified] => 
+            [total] => 2.16
+            [tax] => 0.00
+            [ip_address] => 127.0.0.1
+            [shippingNum] => 
+            [order_customers_group_pricing] => 0
+            [orders_status_id] => 1
+            [order_status] => 1
+            [shipping_restriction_total] => 0
+            [tax_groups] => Array
+                (
+                    [0.0000] => 1
+                )
+
+        )
+
+    [totals] => Array
+        (
+            [0] => Array
+                (
+                    [title] => Handling Fee: 
+                    [text] => USD  0.99
+                    [class] => ot_handing_fee
+                    [value] => 0.9900
+                )
+
+            [1] => Array
+                (
+                    [title] => Sub-Total:
+                    [text] => USD  1.17
+                    [class] => ot_subtotal
+                    [value] => 1.1700
+                )
+
+            [2] => Array
+                (
+                    [title] => air mail (small-size parcel):
+                    [text] => Free Shipping
+                    [class] => ot_shipping
+                    [value] => 0.0000
+                )
+
+            [3] => Array
+                (
+                    [title] => Total:
+                    [text] => USD  2.16
+                    [class] => ot_total
+                    [value] => 2.1600
+                )
+
+        )
+
+    [products] => Array
+        (
+            [0] => Array
+                (
+                    [qty] => 1
+                    [id] => 218631
+                    [name] => Wood Spacer Beads Heart At Random Smile Pattern About 18mm( 6/8") x 16mm( 5/8"), Hole: Approx 2mm, 15 PCs
+                    [model] => B0154460
+                    [tax] => 0.0000
+                    [price] => 1.1698
+                    [final_price] => 1.1700
+                    [onetime_charges] => 0.0000
+                    [products_priced_by_attribute] => 0
+                    [product_is_free] => 0
+                    [note] => 
+                    [products_discount_type] => 0
+                    [products_discount_type_from] => 0
+                )
+
+        )
+
+    [customer] => Array
+        (
+            [id] => 138766
+            [name] => 1994 
+            [company] => 
+            [street_address] => PO Box 573
+            [suburb] => 
+            [city] => Clinton
+            [postcode] => 73601
+            [state] => OK
+            [country_iso_code_2] => US
+            [country] => United States
+            [format_id] => 2
+            [telephone] => 15225103787
+            [email_address] => 1994@qq.com
+        )
+
+    [delivery] => Array
+        (
+            [name] => h m
+            [company] => 
+            [street_address] => PO Box 573
+            [suburb] => 
+            [city] => Clinton
+            [postcode] => 73601
+            [state] => OK
+            [country_iso_code_2] => US
+            [country] => United States
+            [format_id] => 2
+            [telephone] => 
+            [tariff_number] => 
+            [backup_email_address] => 
+        )
+
+    [content_type] => 
+    [email_low_stock] => 
+    [products_ordered_attributes] => 
+    [products_ordered] => 
+    [products_ordered_email] => 
+    [attachArray] => 
+    [cart_products] => 
+    [observers] => Array
+        (
+        )
+
+    [billing] => Array
+        (
+            [name] => h m
+            [company] => 
+            [street_address] => PO Box 573
+            [suburb] => 
+            [city] => Clinton
+            [postcode] => 73601
+            [state] => OK
+            [country_iso_code_2] => US
+            [country] => United States
+            [format_id] => 2
+        )
+
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+findMatchingAddressBookEntry - 2-read for match
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2495 	
+
+SQL was:SELECT address_book_id, entry_street_address, entry_suburb
+                FROM t_address_book
+                WHERE customers_id = 138766
+                AND entry_country_id = 223
+                AND entry_street_address = 'PO Box 573'
+RecordCount = 1
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+findMatchingAddressBookEntry - 3a
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2522 	
+From PayPal:
+pobox573
+
+From DB:
+pobox573
+queryFactoryResult Object
+(
+    [is_cached] => 
+    [resource] => Resource id #200
+    [cursor] => 0
+    [EOF] => 
+    [fields] => Array
+        (
+            [address_book_id] => 86479
+            [entry_street_address] => PO Box 573
+            [entry_suburb] => 
+        )
+
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+findMatchingAddressBookEntry - 3b
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2529 	
+Exact match:
+Array
+(
+    [address_book_id] => 86479
+    [entry_street_address] => PO Box 573
+    [entry_suburb] => 
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+ec_step2_finish - 3
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2098 	
+Exiting ec_step2_finish logged-in mode.
+Selected address: 86479
+Original was: 86479
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+termEC-2
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2766 	
+BEFORE: $this->showPaymentPage = 0
+Token Data:EC-0FH15248JK2466043
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+termEC-3
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2783 	
+AFTER: $this->showPaymentPage = 0
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+termEC-7
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2804 	
+$this->showPaymentPage NOT true, and have custom page parameter: checkout_process
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_aI8S
+termEC-10
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 2825 	
+Redirecting to checkout_process - Stack: header
+Message: 
+Session Data: Array
+(
+    [securityToken] => 9b4ac3af6ac494f8160c0fcc00863eb6
+    [customers_host_address] => DESKTOP-15A4OFH
+    [customers_level] => 0
+    [per_page] => 60
+    [cartID] => 
+    [cart] => shoppingCart Object
+        (
+            [have_gift] => 
+            [gift_id] => 
+            [total] => 0
+            [total_new] => 0
+            [total_original] => 0
+            [promotion_total] => 0
+            [promotion_weight] => 0
+            [weight] => 0
+            [volume_weight] => 0
+            [volume_shipping_weight] => 0
+            [cartID] => 
+            [content_type] => physical
+            [discount_num] => 0
+            [deduct_shippingfee] => 0
+            [products_volume_weight_orgin:shoppingCart:private] => 0
+            [observers] => Array
+                (
+                )
+
+            [volume_weight_ems] => 0
+            [discount_amount] => 0
+            [origin_amount] => 0
+            [promotion_total_usd] => 0
+            [daily_deal_total] => 0
+            [products_products_checked] => Array
+                (
+                )
+
+        )
+
+    [navigation] => navigationHistory Object
+        (
+            [path] => Array
+                (
+                    [0] => Array
+                        (
+                            [page] => product_info
+                            [mode] => NONSSL
+                            [get] => Array
+                                (
+                                    [products_id] => 55752
+                                )
+
+                            [post] => Array
+                                (
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [page] => index
+                            [mode] => NONSSL
+                            [get] => Array
+                                (
+                                    [type] => ec
+                                    [token] => EC-0FH15248JK2466043
+                                    [PayerID] => FBLBJYK5BPCMN
+                                )
+
+                            [post] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [snapshot] => Array
+                (
+                )
+
+            [observers] => Array
+                (
+                )
+
+        )
+
+    [check_valid] => true
+    [lng] => language Object
+        (
+            [languages] => Array
+                (
+                    [ar] => Array
+                        (
+                            [0] => ar([-_][[:alpha:]]{2})?|arabic
+                            [1] => arabic
+                            [2] => ar
+                        )
+
+                    [bg-win1251] => Array
+                        (
+                            [0] => bg|bulgarian
+                            [1] => bulgarian-win1251
+                            [2] => bg
+                        )
+
+                    [bg-koi8r] => Array
+                        (
+                            [0] => bg|bulgarian
+                            [1] => bulgarian-koi8
+                            [2] => bg
+                        )
+
+                    [ca] => Array
+                        (
+                            [0] => ca|catalan
+                            [1] => catala
+                            [2] => ca
+                        )
+
+                    [cs-iso] => Array
+                        (
+                            [0] => cs|czech
+                            [1] => czech-iso
+                            [2] => cs
+                        )
+
+                    [cs-win1250] => Array
+                        (
+                            [0] => cs|czech
+                            [1] => czech-win1250
+                            [2] => cs
+                        )
+
+                    [da] => Array
+                        (
+                            [0] => da|danish
+                            [1] => danish
+                            [2] => da
+                        )
+
+                    [de] => Array
+                        (
+                            [0] => de([-_][[:alpha:]]{2})?|german
+                            [1] => german
+                            [2] => de
+                        )
+
+                    [el] => Array
+                        (
+                            [0] => el|greek
+                            [1] => greek
+                            [2] => el
+                        )
+
+                    [en] => Array
+                        (
+                            [0] => en([-_][[:alpha:]]{2})?|english
+                            [1] => english
+                            [2] => en
+                        )
+
+                    [es] => Array
+                        (
+                            [0] => es([-_][[:alpha:]]{2})?|spanish
+                            [1] => spanish
+                            [2] => es
+                        )
+
+                    [et] => Array
+                        (
+                            [0] => et|estonian
+                            [1] => estonian
+                            [2] => et
+                        )
+
+                    [fi] => Array
+                        (
+                            [0] => fi|finnish
+                            [1] => finnish
+                            [2] => fi
+                        )
+
+                    [fr] => Array
+                        (
+                            [0] => fr([-_][[:alpha:]]{2})?|french
+                            [1] => french
+                            [2] => fr
+                        )
+
+                    [gl] => Array
+                        (
+                            [0] => gl|galician
+                            [1] => galician
+                            [2] => gl
+                        )
+
+                    [he] => Array
+                        (
+                            [0] => he|hebrew
+                            [1] => hebrew
+                            [2] => he
+                        )
+
+                    [hu] => Array
+                        (
+                            [0] => hu|hungarian
+                            [1] => hungarian
+                            [2] => hu
+                        )
+
+                    [id] => Array
+                        (
+                            [0] => id|indonesian
+                            [1] => indonesian
+                            [2] => id
+                        )
+
+                    [it] => Array
+                        (
+                            [0] => it|italian
+                            [1] => italian
+                            [2] => it
+                        )
+
+                    [ja-euc] => Array
+                        (
+                            [0] => ja|japanese
+                            [1] => japanese-euc
+                            [2] => ja
+                        )
+
+                    [ja-sjis] => Array
+                        (
+                            [0] => ja|japanese
+                            [1] => japanese-sjis
+                            [2] => ja
+                        )
+
+                    [ko] => Array
+                        (
+                            [0] => ko|korean
+                            [1] => korean
+                            [2] => ko
+                        )
+
+                    [ka] => Array
+                        (
+                            [0] => ka|georgian
+                            [1] => georgian
+                            [2] => ka
+                        )
+
+                    [lt] => Array
+                        (
+                            [0] => lt|lithuanian
+                            [1] => lithuanian
+                            [2] => lt
+                        )
+
+                    [lv] => Array
+                        (
+                            [0] => lv|latvian
+                            [1] => latvian
+                            [2] => lv
+                        )
+
+                    [nl] => Array
+                        (
+                            [0] => nl([-_][[:alpha:]]{2})?|dutch
+                            [1] => dutch
+                            [2] => nl
+                        )
+
+                    [no] => Array
+                        (
+                            [0] => no|norwegian
+                            [1] => norwegian
+                            [2] => no
+                        )
+
+                    [pl] => Array
+                        (
+                            [0] => pl|polish
+                            [1] => polish
+                            [2] => pl
+                        )
+
+                    [pt-br] => Array
+                        (
+                            [0] => pt[-_]br|brazilian portuguese
+                            [1] => brazilian_portuguese
+                            [2] => pt-BR
+                        )
+
+                    [pt] => Array
+                        (
+                            [0] => pt([-_][[:alpha:]]{2})?|portuguese
+                            [1] => portuguese
+                            [2] => pt
+                        )
+
+                    [ro] => Array
+                        (
+                            [0] => ro|romanian
+                            [1] => romanian
+                            [2] => ro
+                        )
+
+                    [ru-koi8r] => Array
+                        (
+                            [0] => ru|russian
+                            [1] => russian-koi8
+                            [2] => ru
+                        )
+
+                    [ru-win1251] => Array
+                        (
+                            [0] => ru|russian
+                            [1] => russian-win1251
+                            [2] => ru
+                        )
+
+                    [sk] => Array
+                        (
+                            [0] => sk|slovak
+                            [1] => slovak-iso
+                            [2] => sk
+                        )
+
+                    [sk-win1250] => Array
+                        (
+                            [0] => sk|slovak
+                            [1] => slovak-win1250
+                            [2] => sk
+                        )
+
+                    [sr-win1250] => Array
+                        (
+                            [0] => sr|serbian
+                            [1] => serbian-win1250
+                            [2] => sr
+                        )
+
+                    [sv] => Array
+                        (
+                            [0] => sv|swedish
+                            [1] => swedish
+                            [2] => sv
+                        )
+
+                    [th] => Array
+                        (
+                            [0] => th|thai
+                            [1] => thai
+                            [2] => th
+                        )
+
+                    [tr] => Array
+                        (
+                            [0] => tr|turkish
+                            [1] => turkish
+                            [2] => tr
+                        )
+
+                    [uk-win1251] => Array
+                        (
+                            [0] => uk|ukrainian
+                            [1] => ukrainian-win1251
+                            [2] => uk
+                        )
+
+                    [zh-tw] => Array
+                        (
+                            [0] => zh[-_]tw|chinese traditional
+                            [1] => chinese_big5
+                            [2] => zh-TW
+                        )
+
+                    [zh] => Array
+                        (
+                            [0] => zh|chinese simplified
+                            [1] => chinese_gb
+                            [2] => zh
+                        )
+
+                )
+
+            [catalog_languages] => Array
+                (
+                    [en] => Array
+                        (
+                            [id] => 1
+                            [name] => English
+                            [image] => icon.gif
+                            [code] => en
+                            [directory] => english
+                        )
+
+                    [de] => Array
+                        (
+                            [id] => 2
+                            [name] => Deutsch
+                            [image] => icon.gif
+                            [code] => de
+                            [directory] => german
+                        )
+
+                    [ru] => Array
+                        (
+                            [id] => 3
+                            [name] => Русский
+                            [image] => icon.gif
+                            [code] => ru
+                            [directory] => russian
+                        )
+
+                    [fr] => Array
+                        (
+                            [id] => 4
+                            [name] => Français
+                            [image] => icon.gif
+                            [code] => fr
+                            [directory] => french
+                        )
+
+                )
+
+            [browser_languages] => 
+            [language] => Array
+                (
+                    [id] => 1
+                    [name] => English
+                    [image] => icon.gif
+                    [code] => en
+                    [directory] => english
+                )
+
+            [observers] => Array
+                (
+                )
+
+        )
+
+    [language] => english
+    [languages_id] => 1
+    [languages_code] => en
+    [currency] => USD
+    [today_is] => 2020-04-16
+    [updateExpirations] => 1
+    [customers_ip_address] => 127.0.0.1
+    [recent_products] => Array
+        (
+            [0] => 55752
+        )
+
+    [FBRLH_state] => 2482586976d666d6be1db77dff2b4bd7
+    [verification_code_register] => b9hb
+    [customer_id] => 138766
+    [has_valid_order] => 
+    [customer_default_address_id] => 86479
+    [customers_authorization] => 0
+    [customer_first_name] => 1994
+    [customer_last_name] => 
+    [customer_country_id] => 
+    [customer_zone_id] => 
+    [customer_email] => 1994@qq.com
+    [customers_group_pricing] => 0
+    [customers_default_shipping] => 
+    [customers_is_rcd] => 0
+    [is_old_customers] => 0
+    [channel] => 
+    [register_languages_id] => 1
+    [display_mode] => normal
+    [new_products_id_in_cart] => 218631
+    [count_cart] => 0
+    [cart_sort_by] => customers_basket_id
+    [cart_sort_type] => desc
+    [prev_url] => http://www.doreenbeadslocal.com/index.php?main_page=products_common_list&pn=new&products_filter_in_stock=1
+    [valid_to_checkout] => 1
+    [cart_products_errors] => 
+    [cart_errors] => 
+    [basket_product_orderby] => 1
+    [cart_products_out_stoct_errors] => 
+    [cart_products_down_errors] => 
+    [shipping] => Array
+        (
+            [id] => airmail_airmail
+            [code] => airmail
+            [is_remote] => 
+            [name] => 航空小包
+            [title] => air mail (small-size parcel)
+            [box] => 1
+            [day_low] => 20
+            [day_high] => 35
+            [days] => 20-35
+            [cost] => 0.12917538396858
+            [box_note] => 
+            [remote_note] => 
+            [remote_fee] => 0
+            [volume_note] => 
+            [track_url] => http://www.17track.net/en/
+            [error] => 
+            [shipping_package_box_weight] => 1.2
+            [shipping_weight] => 13.2
+            [shipping_volume_weight_title] => 
+            [shipping_volume_weight_alt] => 
+            [shipping_volume_weight] => 0
+            [time_unit] => 10
+            [is_display] => 0
+            [final_cost] => 0
+            [days_show] => 20-35 days
+            [cost_show] => Free Shipping
+            [show_note] => 
+            [special_cost] => 
+        )
+
+    [sendto] => 86479
+    [payment] => paypalwpp
+    [own_coupn] => 20
+    [packing_way] => 2
+    [billto] => 86479
+    [order_number_created] => 1000108
+    [has_first_coupon] => 1
+    [paypal_ec_markflow] => 1
+    [paypal_ec_token] => EC-0FH15248JK2466043
+    [paypal_ec_payer_id] => FBLBJYK5BPCMN
+    [paypal_ec_payer_info] => Array
+        (
+            [payer_id] => FBLBJYK5BPCMN
+            [payer_email] => xxf@anavia.com
+            [payer_salutation] => 
+            [payer_gender] => 
+            [payer_firstname] => xu
+            [payer_lastname] => xuefeng
+            [payer_business] => 
+            [payer_status] => verified
+            [ship_country_code] => US
+            [ship_address_status] => Confirmed
+            [ship_phone] => 
+            [ship_name] => h m
+            [ship_street_1] => PO Box 573
+            [ship_street_2] => 
+            [ship_city] => Clinton
+            [ship_state] => OK
+            [ship_postal_code] => 73601
+            [ship_country_name] => United States
+            [country_id] => 223
+            [country_code3] => USA
+            [address_format_id] => 2
+            [state_id] => 48
+        )
+
+    [paypal_ec_temp] => 
+    [packing_tips_choose] => 1
+    [cot_gv] => 0.00
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+getLineItemDetails 1
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1589 	
+Order Subtotal does not match sum of line-item prices. Line-item-details skipped.
+0 1.17
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+getLineItemDetails 3
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1598 	
+LineItemDetails: 
+Details:Array
+(
+    [ITEMAMT] => 0
+    [HANDLINGAMT] => 0
+)
+
+
+DEFAULT_CURRENCY = USD
+SESSION['currency'] = USD
+order->info['currency'] = USD
+$currencies->currencies[$_SESSION['currency']]['value'] = 1.00000000
+currencies Object
+(
+    [currencies] => Array
+        (
+            [USD] => Array
+                (
+                    [title] => US Dollar
+                    [symbol_left] => USD 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 1.00000000
+                )
+
+            [EUR] => Array
+                (
+                    [title] => Euro
+                    [symbol_left] => EUR
+                    [symbol_right] => 
+                    [decimal_point] => ,
+                    [thousands_point] => 
+                    [decimal_places] => 2
+                    [value] => 0.86248499
+                )
+
+            [GBP] => Array
+                (
+                    [title] => GB Pound
+                    [symbol_left] => GBP 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 0.75437999
+                )
+
+            [CAD] => Array
+                (
+                    [title] => Canadian Dollar
+                    [symbol_left] => CAD 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 1.30119801
+                )
+
+            [AUD] => Array
+                (
+                    [title] => Australian Dollar
+                    [symbol_left] => AUD 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 1.40362000
+                )
+
+            [NZD] => Array
+                (
+                    [title] => New Zealand Dollar
+                    [symbol_left] => NZD 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 1.53334999
+                )
+
+            [JPY] => Array
+                (
+                    [title] => Japanese Yen
+                    [symbol_left] => JPY 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 0
+                    [value] => 112.32299042
+                )
+
+            [SGD] => Array
+                (
+                    [title] => Singapore Dollar
+                    [symbol_left] => SGD 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 1.37547505
+                )
+
+            [RUB] => Array
+                (
+                    [title] => Russian Ruble
+                    [symbol_left] => RUB 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 65.96060181
+                )
+
+            [UAH] => Array
+                (
+                    [title] => Ukrainian Hryvnia
+                    [symbol_left] => UAH 
+                    [symbol_right] => 
+                    [decimal_point] => .
+                    [thousands_point] => ,
+                    [decimal_places] => 2
+                    [value] => 27.95102119
+                )
+
+        )
+
+    [observers] => Array
+        (
+        )
+
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+getLineItemDetails 7
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1637 	
+checking subtotals... 
+itemamt: 0.00
+taxamt: 
+shippingamt: 
+handlingamt: 0.00
+-------------------
+subtotal: 0.00
+AMT: 
+-------------------
+difference: 0  (abs+rounded: 0)
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+getLineItemDetails 8
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 1640 	
+subtotals balance - okay
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+before_process - EC-1
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 479 	
+Beginning EC mode
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+before_process - EC-2
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 494 	
+address overrides added:
+Array
+(
+    [ITEMAMT] => 0.00
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOSTREET2] => 
+    [SHIPTOCITY] => Clinton
+    [SHIPTOSTATE] => OK
+    [SHIPTOZIP] => 73601
+    [SHIPTOCOUNTRYCODE] => US
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+before_process - EC-3
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 497 	
+address info added:
+Array
+(
+    [ITEMAMT] => 0.00
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOSTREET2] => 
+    [SHIPTOCITY] => Clinton
+    [SHIPTOSTATE] => OK
+    [SHIPTOZIP] => 73601
+    [SHIPTOCOUNTRYCODE] => US
+)
+
+=================================
+
+2020-04-16 16:03:16
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+before_process - EC-4
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 546 	
+info being submitted:
+EC-0FH15248JK2466043 FBLBJYK5BPCMN 2.16
+Array
+(
+    [ITEMAMT] => 0.00
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOCITY] => Clinton
+    [SHIPTOSTATE] => OK
+    [SHIPTOZIP] => 73601
+    [SHIPTOCOUNTRYCODE] => US
+    [BUTTONSOURCE] => ZenCart-EC_us
+    [CURRENCY] => USD
+)
+
+=================================
+
+2020-04-16 16:03:21
+-------------------
+(sandbox transaction) --> https://api-3t.sandbox.paypal.com/nvp
+Request Headers: 
+Array
+(
+    [0] => Content-Type: text/namevalue
+    [1] => X-VPS-Timeout: 45
+    [2] => X-VPS-VIT-Client-Type: PHP/cURL
+    [3] => X-VPS-VIT-Integration-Product: PHP::Zen Cart - WPP-NVP
+    [4] => X-VPS-VIT-Integration-Version: 1.3.8a
+)
+
+
+Request Parameters: {DoExpressCheckoutPayment} 
+Array
+(
+    [ITEMAMT] => 0.00
+    [SHIPTONAME] => h m
+    [SHIPTOSTREET] => PO Box 573
+    [SHIPTOCITY] => Clinton
+    [SHIPTOSTATE] => OK
+    [SHIPTOZIP] => 73601
+    [SHIPTOCOUNTRYCODE] => US
+    [BUTTONSOURCE] => ZenCart-EC_us
+    [TOKEN] => EC-0FH15248JK2466043
+    [PAYERID] => FBLBJYK5BPCMN
+    [AMT] => 2.16
+    [PAYMENTACTION] => Sale
+    [NOTIFYURL] => http://www.doreenbeadslocal.com/ipn_main_handler.php
+    [METHOD] => DoExpressCheckoutPayment
+    [CURRENCYCODE] => USD
+    [USER] => bussinesstest_api1.gmail.com
+    [PWD] => ****************
+    [VERSION] => 3.2
+    [SIGNATURE] => ****************************************************ux4u
+)
+
+
+Response: 
+Array
+(
+    [TOKEN] => EC-0FH15248JK2466043
+    [TIMESTAMP] => 2020-04-16T08:03:20Z
+    [CORRELATIONID] => 2a11308068004
+    [ACK] => Success
+    [VERSION] => 3.2
+    [BUILD] => 54449905
+    [TRANSACTIONID] => 153390590T143615B
+    [TRANSACTIONTYPE] => expresscheckout
+    [PAYMENTTYPE] => instant
+    [ORDERTIME] => 2020-04-16T08:03:19Z
+    [AMT] => 2.16
+    [FEEAMT] => 0.38
+    [TAXAMT] => 0.00
+    [CURRENCYCODE] => USD
+    [PAYMENTSTATUS] => Pending
+    [PENDINGREASON] => None
+    [REASONCODE] => None
+    [CURL_ERRORS] => 
+)
+
+Paypal_CURL_
+EC-0FH15248JK2466043_b0rF
+
+DoExpressCheckoutPayment, Elapsed: 4438ms -- Success
+Paypal_CURL_
+EC-0FH15248JK2466043_b0rF
+
+2020-04-16 16:03:21
+Paypal_Action_
+EC-0FH15248JK2466043_Dc4u
+before_process - EC-5
+2020-04-16 16:03:16	 in E:\www\doreenbeads\includes\modules\payment\paypalwpp.php on line 553 	
+resultset:
+Array
+(
+    [TOKEN] => EC-0FH15248JK2466043
+    [TIMESTAMP] => 2020-04-16T08:03:20Z
+    [CORRELATIONID] => 2a11308068004
+    [ACK] => Success
+    [VERSION] => 3.2
+    [BUILD] => 54449905
+    [TRANSACTIONID] => 153390590T143615B
+    [TRANSACTIONTYPE] => expresscheckout
+    [PAYMENTTYPE] => instant
+    [ORDERTIME] => 2020-04-16T08:03:19Z
+    [AMT] => 2.16
+    [FEEAMT] => 0.38
+    [TAXAMT] => 0.00
+    [CURRENCYCODE] => USD
+    [PAYMENTSTATUS] => Pending
+    [PENDINGREASON] => None
+    [REASONCODE] => None
+    [CURL_ERRORS] => 
+)
+
+=================================
+

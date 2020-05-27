@@ -1,0 +1,173 @@
+{if $address_num <= 0}
+{include file = 'includes/templates/mobilesite/tpl/checkout/tpl_checkout_address.html'}
+{else}
+<div class="order_main">
+    <div class="order_warp">
+        <h3>{$smarty.const.TEXT_ADDRESS_INFOMATION}</h3>
+        <div class="addresscont" id='addressAnchor'>
+	    	<div class="selected" id="addressbox" onclick="saveAddressInfo('index.php?main_page=checkout&pn=lt');">
+	    		<label>{$address_checked.address_info}</label>
+	    		
+	    		<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/method_arrow.png" />
+	    	</div>
+    	</div>
+		<div id="hidden_shipping_address_info" style="display: none;">
+			<input type='hidden' name="gender" value='{$address_info["entry_gender"]}'>
+			<input type='hidden' name='firstname' id='firstname' value='{$address_info["entry_firstname"]}'>
+			<input type='hidden' name='lastname' id='lastname' value='{$address_info["entry_lastname"]}'>
+			<input type='hidden' name='country' id='country' value='{$address_info["entry_country_id"]}'>
+			<input type='hidden' name='zone_id' id='zone_id' value='{$address_info["entry_zone_id"]}'>
+			<input type='hidden' name='state' id='state' value='{$address_info["entry_state"]}'>
+			<input type='hidden' name='street_address' id='street_address' value='{$address_info["entry_street_address"]}'>
+			<input type='hidden' name='city' id='city' value='{$address_info["entry_city"]}'>
+			<input type='hidden' name='postcode' id='postcode' value='{$address_info["entry_postcode"]}'>
+			<input type='hidden' name='telephone' id='telephone' value='{$address_info["telephone_number"]}'>
+		</div>
+    	
+    	<h3 class="addressnav" id='shippingAnchor' style="margin-top:15px;">{$obj_text["text_shipping_method"]}</h3>
+		<div class="shippingcontcheck" style="position:relative;" onclick="saveAddressInfo('index.php?main_page=checkout&pn=sc');">
+			<div class="shippingcontContent shippingcontContentSelect">
+				<span class="shippingTitle"><span class="price_color">{$shipping_info.cost_show}</span><br>{$shipping_info.title}<br>{$shipping_info.days_show}</span>
+				<span class="shippingDays"></span>
+				{if $shipping_info.show_note != ''}
+					<span class='shippingTip'><img class="methodInfo" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/addr_info.png" /></span>
+				{else}
+					<span class='shippingTip'>&nbsp;</span>
+				{/if}
+				<span class="shippingMore"><img class="medthodArrow" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/method_arrow.png" /></span>
+			</div>
+			{if $shipping_info.show_note != ''}
+				<div class="shippingTipContent">
+					{$shipping_info.show_note}
+				</div>
+			{/if}
+		</div>
+		<form class="commentform" name="commentform" action="index.php?main_page=checkout" method="post">
+		<input type="hidden" value="comment" name="action">
+		<h3 class="addressnav">{$smarty.const.TEXT_MESSAGE_CUSTOM_NO}</h3>
+		<div class="shipcont">
+		     <div class="ordermessage">
+		       <h3>{$smarty.const.TEXT_ORDER_MESSAGE}</h3>
+		       <textarea id="ordermessage" maxlength="1000" name="orderComments" style="color: darkgray;padding: 2%;" origin-tip="{$smarty.const.TABLE_BODY_COMMENTS}">{$smarty.const.TABLE_BODY_COMMENTS}</textarea>
+		       <span id="message-byte">{$smarty.const.TEXT_WORDS_LEFT}</span>
+		     </div>
+		     
+		      <div class="ordermessage">
+		       <h3>{$smarty.const.TEXT_CUSTOM_NO}</h3>
+		       {$tariff_text}
+		     </div>
+		</div>
+		</form>
+		
+        <h4><b>{$smarty.const.TEXT_ITEMS_REVIEW}</b></h4>
+        <div class="clearfix"></div>
+        <div class="items">
+        	<a href="javascript:void(0);" class="view_details">{$smarty.const.TEXT_PRODUCT_DETAILS}<!-- ({$total_num}) --><ins class="icon_arrow_up"></ins></a>
+        	<div class="jq_detail_items display_none">
+	          	<p class="total">{$smarty.const.TEXT_CART_TOTAL_PRODUCT_PRICE}: <b class="price_color">{$total_price}</b></p>
+	          	<ul class="shopcart_ul">
+	          		{foreach from = $pinfo key = i item = p}
+		            <li>
+		              	<p class="cartpro_name">{$p.name}[{$p.model}]</p>
+		              	<div class="pro_img">{$p.image}{if $p.discount}<span class="cart_discount">{$p.discount}% {$smarty.const.TEXT_OFF}</span>{/if}</div>
+		              	<div class="pro_price">
+			                <p>
+			                	<span>{$smarty.const.TEXT_PRICE_WORDS}:</span>
+			                	{if $p.oprice neq $p.price}
+			                	<del>{$p.oprice}</del><br />
+								{/if}
+			                  	{$p.price}
+			                </p>
+			                <p><span>{$smarty.const.TABLE_HEADING_QUANTITY}:</span> <span>{$p.qty} {$smarty.const.TEXT_PACKET_2}</span> </p>
+			                <p><span>{$smarty.const.TEXT_ORDER_INFO_SUBTOTAL}:</span> {$p.total}</p>
+		              	</div>
+		              	<div class="clearfix"></div>
+		              	{if $p.is_preorder}<p class="avalaible">
+							{if $p.products_stocking_days > 7}
+				                {$smarty.const.TEXT_AVAILABLE_IN715}
+				            {else}
+				                {$smarty.const.TEXT_AVAILABLE_IN57}
+				            {/if}
+                           </p>{/if}
+		            </li>
+		            {/foreach}
+	          	</ul>
+	          	{if $cart_fen_ye_bottom != ''}{$cart_fen_ye_bottom}{/if}
+				<div class="bottom_arrow">
+					<div class="bottom_background">
+						<ins></ins>
+					</div>
+				</div>
+          	</div>
+        </div>
+		<div class="items_coupon">
+	        <h3>{$smarty.const.TEXT_DISCOUNT_COUPOU}</h3>
+            {$add_coupon_str}
+            {if $coupon_display}
+				{if $coupon_select|count > 0}
+					{if $show_coupon|count > 0}
+						<div class="couponSelect" conpon_id="{$show_coupon.coupon_to_customer_id}" onclick="saveAddressInfo('index.php?main_page=checkout&pn=cm');">
+							<span class="couponContent">
+								<span class="couponDesc">{$show_coupon.coupon_description}</span>
+								<span class="couponDate" align="center">{$show_coupon.coupon_start_time_format} - {$show_coupon.deadlineformat}</span>
+							</span>
+							<span class="couponArrow">
+								<img class="" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/method_arrow.png" />
+							</span>
+						</div>
+					{else}
+						<div class="couponSelect"  onclick="saveAddressInfo('index.php?main_page=checkout&pn=cm');">
+							<span class="couponContent">
+								<span class="couponDesc">{$smarty.const.TEXT_DISCOUNT_COUPON_NULL}</span>
+								<span class="couponDate" align="center">&nbsp;</span>
+							</span>
+							<span class="couponArrow">
+								<img class="" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/method_arrow.png" />
+							</span>
+						</div>
+					{/if}
+				{else}
+					<div class="no_use_coupon"  onclick="saveAddressInfo('index.php?main_page=checkout&pn=cm');">
+						<span class="couponContent">
+							<span class="couponDesc">{$smarty.const.TEXT_DISCOUNT_COUPON_NO_USE}</span>
+							<span class="couponDate" align="center">&nbsp;</span>
+						</span>
+						<span class="couponArrow">
+							<img class="" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/method_arrow.png" />
+						</span>
+					</div>
+				{/if}
+			{/if}
+	  	</div>
+	  	
+		
+		<div class="bottom_total">
+        	<h3>{$smarty.const.TEXT_ORDER_SUMMARY}</h3>
+        	{$order_total_str}
+        </div>
+
+        <div class="total_tip">
+	        <p><span class="price_color">* </span>{$smarty.const.TEXT_REORDER_PACKING_TIPS}</p>
+	        <p>
+	          	<label><input type="radio" name="packingway" id="pack1" value="1" />{if $smarty.session['packing_tips_choose'] == 3}{$smarty.const.TEXT_REORDER_PACKING_WAY_FOUR}{else}{$smarty.const.TEXT_REORDER_PACKING_WAY_ONE}{/if}</label>
+	          	<br />
+	          	<label><input type="radio" name="packingway" id="pack2" value="2"/>{if $smarty.session['packing_tips_choose'] == 3}{$smarty.const.TEXT_REORDER_PACKING_WAY_FIVE}{else}{$smarty.const.TEXT_REORDER_PACKING_WAY_TWO}{/if}</label>
+	          	<br />
+	        </p>
+	        <div class="tip_msg packchoice_tips"><a href="javascript:void(0);" class="grey_9">{$smarty.const.TEXT_EXTRA_TIPS}</a>
+	         	<p class="packchoicetips"><ins></ins>{$smarty.const.TEXT_EXTAR_SHIPPING_FEE}</p>
+	        </div>
+      </div>
+
+        <div class="cart_btn checkout-review">
+			<a href="javascript:void(0);" class="btn_big btn_ltblue jq_order_submit" id="continuenext">{$smarty.const.TEXT_PLACE_YOUR_ORDER}</a>
+			<a href="{$shoppingcart_default_url}" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+	        <input type="hidden" name="address_id" value="{$smarty.session.sendto}">
+	        <input type="hidden" name="shipping_code" value="{$smarty.session.shipping.code}">
+		</div>
+		
+    	
+    </div>
+</div>
+<div class="packchoice-tips"><p>{$smarty.const.TEXT_ERROR_PACKING_TIPS}</p></div>
+{/if}

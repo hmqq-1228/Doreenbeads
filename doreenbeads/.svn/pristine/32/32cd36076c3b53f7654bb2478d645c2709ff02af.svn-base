@@ -1,0 +1,106 @@
+<?php 
+	if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != ''){
+		$customer_info = zen_get_customer_info($_SESSION['customer_id']);
+		$customer_name = $customer_info['name'];
+	}else{
+		$customer_name = '';
+	}
+	if (isset($_SESSION['reviews_post_rate'])){
+		$style_show = 'style="display:inline-block;"';
+	}else{
+		$style_show = '';
+	}
+	
+	$last = substr($count, -1);
+	if ($last >= 5 || $last == 0){
+		$reviews_based_on = sprintf(TEXT_INFO_BASED_ON_5, $count);
+	}elseif ($last >= 2 && $last <= 4){
+		$reviews_based_on = sprintf(TEXT_INFO_BASED_ON_24, $count);
+	}elseif ($last == 1){
+		$reviews_based_on = sprintf(TEXT_INFO_BASED_ON_1, $count);
+	}
+?>
+
+<a name="reviewcontent" id="reviewcontent"></a>
+<div class="detailcont">
+	<p class="detailconttit"><strong><?php echo TEXT_INFO_CUSTOMER_REVIEWS;?></strong></p>
+	<div class="reviewcont">       
+		<div class="reviewcont_tit">
+			<?php if ($count == 0){ ?>         
+			<!---- product has no reviews --->
+			<p><?php echo TEXT_INFO_NO_REVIEWS;?><a rel="nofollow" href="<?php echo (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != '') ? 'javascript:void(0);"' : zen_href_link(FILENAME_LOGIN, 'click=write_reviews', 'SSL');?><?php echo (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != '') ? 'onclick="check_have_buy();"' : '"'?> class="write_review"><?php echo TEXT_WRITE_REVIEWS_TITLE;?></a></p>
+	        <!---- product has no reviews --->
+	        <?php } else { ?>
+	        <p>Average rating :
+	        <span>
+	        <?php
+	        	for($j = 0; $j < $review_rate; $j ++)  echo '<ins class="gold"></ins>';							
+				for($j = 0; $j < 5 - $review_rate; $j ++) echo '<ins class="grey"></ins>';
+			?>
+	        
+	        </span>        (<?php echo $reviews_based_on;?>)<a <?php echo $style_show;?> href="javascript:void(0);" class="write_review"><?php echo TEXT_WRITE_REVIEWS_TITLE;?></a></p>
+	        <?php } ?>
+	        <div id="forbid_write" style="display: none;"><?php echo TEXT_FORBID_REVIEW;?></div>
+			<form <?php echo $style_show;?> action="<?php echo zen_href_link(FILENAME_PRODUCT_INFO, zen_get_all_get_params()) . '#reviewcontent';?>" method="post">
+			<input type="hidden" value="write_review" name="action">
+				<table>
+					<tr>
+						<th><span style="color:#ff0000;margin-right:10px;float:none;">*</span><?php echo TEXT_INFO_RATING;?></th>
+						<td id="review">
+						<input type="hidden" value="<?php echo $_SESSION['reviews_post_rate'];?>" name="review_rating" />
+						<?php
+				        	for($j = 0; $j < $_SESSION['reviews_post_rate']; $j ++)  echo '<img src="includes/templates/cherry_zen/images/star_gold.png">';							
+							for($j = 0; $j < 5 - $_SESSION['reviews_post_rate']; $j ++) echo '<img src="includes/templates/cherry_zen/images/star_grey.png">';
+						?>
+						<ins></ins><label></label>
+						</td>
+					</tr>
+	                <tr><th><span style="color:#ff0000;margin-right:10px;float:none;">*</span><?php echo TEXT_INFO_CUSTOMER_NAME;?></th><td><input type="text" name="review_name" id="review_name" value="<?php echo $customer_name;?>" /><input type="hidden" value="<?php echo ($_SESSION['reviews_post_name'] != '' ? $_SESSION['reviews_post_name'] : $customer_name);?>" id="default_customer_name"></td></tr>
+	                <tr><th><span style="color:#ff0000;margin-right:10px;float:none;">*</span><?php echo TEXT_INFO_YOUR_REVIEW;?></th><td align="right"><textarea id="review_text" name="review_text"><?php echo $_SESSION['reviews_post_text'] != '' ? $_SESSION['reviews_post_text'] : TEXT_INFO_PLEASE_ADD;?></textarea><div>(<?php echo sprintf(TEXT_INFO_CHARACTERS_REMAINING, 1000);?>)</div></td></tr>
+	                <tr>
+						<td align="right"><span style="color:#ff0000;margin-right:10px;float:none;">*</span><?php echo TEXT_VERIFY_NUMBER;?></td>
+						<td width="30"><input type="text" class="wr_input_checkcode" style="width:80px;margin-right:20px;"/><img id="wr_check_code" src=""  onClick="this.src='./check_code.php?'+Math.random();" style="top: 8px;position: relative;float:none;" /><div class="font_red wr_error"></div></td>
+					</tr>
+	                <tr><th></th><td style="vertical-align:top;"><button class="pro_btn_yellow" id="reviewsubmit"><?php echo TEXT_SUBMIT;?></button><button class="pro_btn_cancelgrey"><?php echo TEXT_CANCEL;?></button></td></tr>
+	                </tr>
+				</table>
+			</form>
+		</div>
+		<?php if ($count > 0){ ?>
+		<div class="reviewcont_list">
+		<?php for($i = 0; $i < sizeof ( $customer_reviews ); $i ++) { ?>
+		<dl class="reviewlist">
+			<dd>
+				<p class="reviewlevel" title="<?php echo $customer_reviews [$i] ['reviews_rating'];?> out of 5 stars">
+					<?php
+						for($j = 0; $j < $customer_reviews [$i] ['reviews_rating']; $j ++)  echo '<ins class="gold"></ins>';							
+						for($j = 0; $j < 5 - $customer_reviews [$i] ['reviews_rating']; $j ++) echo '<ins class="grey"></ins>';
+					?>
+				</p>
+				<p><strong><?php echo $customer_reviews [$i] ['custormer_name'];?>, </strong><?php echo $customer_reviews [$i] ['custormer_country'];?></p>
+				<p><?php echo date('M d, Y',strtotime($customer_reviews [$i] ['date_added']));?></p>
+			</dd>
+			<dt>
+				<div><span></span><p><?php echo $customer_reviews [$i] ['reviews_text'];?></p></div>
+				<?php if ($customer_reviews [$i] ['reviews_reply_text'] != ''){ ?>
+				<div class="reply"><strong><?php echo TEXT_INFO_REPLY;?> : </strong><?php echo $customer_reviews [$i] ['reviews_reply_text'];?></div>
+				<?php } ?>
+			</dt> 
+		</dl>
+		<?php } ?>
+		</div>
+		<?php } ?>
+		<div class="clearfix"></div>  
+	</div>
+	<?php 
+		if($reviews_split->number_of_rows>5){
+	?>
+	<div class="propagelist">
+	<?php 
+		echo $reviews_split->display_links_for_review(5, zen_get_all_get_params(array('page', 'info','x', 'y', 'main_page')));
+	?>
+	</div>
+	<?php
+		}
+	?>	
+</div>

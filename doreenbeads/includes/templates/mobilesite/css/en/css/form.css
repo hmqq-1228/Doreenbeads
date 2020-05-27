@@ -1,0 +1,39 @@
+@charset "utf-8";
+/*form*/ 
+.btn_grey ,.btn_blue ,.btn_orange {cursor:pointer;font-size:16px;  }
+.btn_orange{ background:#f75100;  color:#FFF;border-radius:5px;height:40px; line-height:40px; display:inline-block;}
+.btn_grey {background-color:#fafafa;color:#333;border-radius:5px; height:40px; line-height:38px; border:1px solid #ccc; display:inline-block; padding:0 20px; }
+.btn_blue{background-color:#00509d;color:#fff; line-height:40px; padding:0 20px; height:40px;}
+.btn_cart{  background:url(../images/icon.png) no-repeat -66px -177px; background-size:400px; display:inline-block; height:40px; width:48px;}
+.btn_with150{ text-align:center; font-size:16px; width:60%; padding:0; }
+.btn_with230 { text-align:center; font-size:16px; width:45%;}
+.btn_orange span , .btn_update span , .btn_success span{ display:inline-block; line-height:40px;  position:relative; top:-15px} 
+.btn_wishlist {background:url(../images/icon.png) no-repeat -66px -225px; background-size:400px;display:inline-block; height:40px; width:48px;}
+.btn_wishlist_red {background:url(../images/icon.png) no-repeat -124px -225px; background-size:400px;display:inline-block; height:40px; width:48px;}
+
+.addToWhishlist,.addToWhishlist_success{position:relative;top:-1px;width:53%;display:inline-block;color:#333;background:-webkit-gradient(linear,0 0,0 100%,from(#f6f6f6),to(#efefef));background:-moz-linear-gradient(top,#f6f6f6,#efefef);background:-o-linear-gradient(top,#f6f6f6,#efefef);border:1px solid #d3d3d3;box-shadow:0 1px 0 0 #f7e586 inset, 0 0 0 1px #f7e282 inset;color:#3333;text-align:center;box-shadow:1px 1px 0px #d0cfcf;font-size:14px;border-radius:2px;line-height:38px;}
+.btnProductWishlist strong{display:inline-block;width:24px;height:24px;background:url(../images/iconbg.png) -69px -41px;background-size:200px 200px;-webkit-background-size:200px 200px;-moz-background-size:200px 200px;-o-background-size:200px 200px;position:relative;top:8px;margin-right:5px;}
+.btnProductWishlist_success strong{display:inline-block;width:24px;height:24px;background:url(../images/iconbg.png) -39px -41px;background-size:200px 200px;-webkit-background-size:200px 200px;-moz-background-size:200px 200px;-o-background-size:200px 200px;position:relative;top:8px;margin-right:5px;}
+.btnProductinfoWishlist strong{display:inline-block;width:24px;height:24px;background:url(../images/iconbg.png) -69px -41px;background-size:200px 200px;-webkit-background-size:200px 200px;-moz-background-size:200px 200px;-o-background-size:200px 200px;position:relative;top:8px;margin-right:5px;}
+.addToWhishlist{display: inline-block;margin-top: 10px;width: 45%;margin-right: 5px;}
+
+.btn_success{background-color:#fffbf0;color:#7fb835;border-radius:5px; height:40px; line-height:38px; border:1px solid #ccc; display:inline-block;}
+.btn_success ins{  background:url(../images/icon.png) no-repeat -88px -415px; background-size:400px; height:40px; width:26px; display:inline-block;}
+.btn_rt{ float:right;}
+.btn_update { background:url(../images/icon.png) no-repeat -66px -267px; background-size:400px; display:inline-block; height:40px; width:48px;}
+.icon_arrow,.icon_arrow_up{ background:url(../images/icon.png) no-repeat ; background-size:400px; height:26px ; width:50px; display:inline-block;}
+.icon_arrow { background-position: -296px -122px;}
+.icon_arrow_up{ background-position: -296px -167px;}
+.btn_more{ background-color:#f9f9f9; height:40px; border-radius:5px; border:1px solid #ccc; display:inline-block; padding:0 30px; line-height:35px; font-size:16px; float:right; margin-right:10px;}
+.btn_more ins{ display:inline-block; background:url(../images/icon.png) no-repeat -209px -186px; background-size:400px; display:inline-block; width:15px; height:18px; position:relative; top:3px;}
+.btn_apply{background-color:#00509d; display:none; position:fixed; z-index:999; bottom:0; color:#FFF; width:270px; text-align:center; line-height:40px; font-size:18px; z-index:10001;}
+/**page**/
+.page { line-height:50px; margin:0 auto; width:200px;}
+.page span{ height:50px; display:block;font-size:16px; float:left; width:80px; text-align:center;}
+.page a{ display:block; width:60px; height:50px; border:1px solid #ccc; float:left;}
+.page_rt{ background:url(../images/icon.png) no-repeat -292px -219px;background-size:400px; width:30px; height:50px;}
+.page_lt{background:url(../images/icon.png) no-repeat -295px -183px; background-size:400px; width:30px; height:50px;}
+.page .page_grey{ background-color:#ededed;}
+.pagetille{ font-size:22px;border-bottom:1px solid #ccc; text-align:center; margin:15px 0;}
+.pagetille span{ margin:0 auto; background-color:#FFF; padding:0 10px; display:inline-block; position:relative;top:5px;}
+

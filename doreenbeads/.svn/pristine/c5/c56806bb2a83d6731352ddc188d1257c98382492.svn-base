@@ -1,0 +1,160 @@
+
+<div class="mian_wrap learn_wrap">
+ 	<div class="title "><h3><a href="{$learning_center_index}">{$smarty.const.TEXT_LEARNING_CENTER}</a></h3> <ins id="clicklcPopup"></ins>
+        <div class="clearfix"></div>
+    </div>
+            
+    {if empty($aid)}
+    <div class="learn_main">
+        {if empty($cid)}
+            <h4>{$smarty.const.LC_INDEX_TITLE_EN}</h4>
+            <img src="{$smarty.const.DIR_WS_IMAGES|cat:$smarty.const.LC_INDEX_IMG_EN}">
+        {/if}
+        <!-- <div class="learn_share"></div> -->
+            {foreach key=fcid item=firstcate from=$allcate}
+            <div class="learn_products">
+            <h4>{$firstcate.name}</h4>
+                <ul>
+                    {foreach key=scid item=secondcate from=$firstcate[$firstcate.id] }
+                    {if $view}
+                        <li><a href="{$secondcate.url}"><img src="{$smarty.const.DIR_WS_IMAGES|cat:$secondcate.images}" /><p style="word-break:break-all"> {$secondcate.name} </p></a></li>
+                    {elseif (count($firstcate[$firstcate.id]) < 7)}
+                    <li><a href="{$secondcate.url}"><img src="{$smarty.const.DIR_WS_IMAGES|cat:$secondcate.images}" /><p style="word-break:break-all"> {$secondcate.name} </p></a></li>
+                    {else}
+                        {if $scid <= 4}
+                            <li><a href="{$secondcate.url}"><img src="{$smarty.const.DIR_WS_IMAGES|cat:$secondcate.images}" /><p style="word-break:break-all"> {$secondcate.name} </p></a></li>
+                        {elseif $scid == 5}
+                            <li><a {if $ishomepage}href="{$learning_center_url}&cid={$firstcate.id}&view=1"{else}href="javascript:void(0);" class="viewHere"{/if}><img src="{'/includes/templates/mobilesite/css/'|cat:$smarty.session.languages_code|cat:'/images/learn_more.jpg'}"><p style="word-break:break-all">{$smarty.const.TEXT_VIEW_ALL}</p></a></li>
+                        {elseif $scid > 5 && !$ishomepage}
+                            <li style="display:none;" class="hideThisLi"><a href="{$secondcate.url}"><img src="{$smarty.const.DIR_WS_IMAGES|cat:$secondcate.images}" /><p style="word-break:break-all"> {$secondcate.name} </p></a></li>
+                        {/if}
+                    {/if}
+                    {/foreach}
+
+                    
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+            {/foreach}
+            
+    </div>
+    {else}
+    <div class="learn_main">
+        <h4>{$article.title}</h4>
+        {if $article.video_position == 10}{$article.video_code}{/if}
+        {if $article.images neq ''}
+        <img src="{$smarty.const.DIR_WS_IMAGES|cat:$article.images}"><br/>
+        {/if}
+        {if $article.video_position == 20}{$article.video_code}{/if}
+        {$article.article_summary}<br/>
+        <div class="learn_share">
+            {literal}
+                <!--<a class="facebook" href="#"></a>
+                <a class="pinterest" href="#"></a>
+                <a class="twitter" href="#"></a>
+                <a class="googleplus" href="#"></a>-->
+                <span class='st_googleplus_large'></span>
+                <span class='st_twitter_large'></span>
+                <span class='st_pinterest_large'></span>
+                <span class="fb-like" data-href="https://www.facebook.com/doreenbeads" data-layout="button" data-action="like" data-show-faces="false" data-share="false" style="top:-6px;"></span>
+                <span class="fb-share-button" data-layout="button" style="top:-6px;"></span>
+                <style>#___ytsubscribe_0{position:relative;top:-4px;}</style>
+                <span class="g-ytsubscribe" data-channelid="UCRvI1TH9x5othhfAMts6jpQ" data-layout="default" data-count="hidden"></span>
+            {/literal}
+        </div>
+        {if $article.video_position == 30}{$article.video_code}{/if}
+
+        {$article.material_list}<br/>
+        {if $article.video_position == 40}{$article.video_code}{/if}
+
+        <div class="learn_step">
+            {foreach key=key item=art from=$articlesteps}
+            {if $art.article_steps_images neq '' }
+            <img src="{$smarty.const.DIR_WS_IMAGES|cat:$art.article_steps_images}"><br/>
+            {/if}
+            {$art.article_steps_summary}<br/>
+            {/foreach} 
+        </div>
+        
+        {if $article.video_position == 50}{$article.video_code}{/if}
+        <div class="learn_shop">
+            
+            {if $product_info_list && is_array($product_info_list)} 
+            <h3>Purchase Idea Kit Components</h3>
+            <div class="products_list">
+                <ul>
+                    {foreach from=$product_info_list item= product_info}
+                    <li>
+                        {if $product_info.products_status ne 0}<a href="{$product_info['link']}" title="{$product_info['products_name']}">{/if} 
+                        <img src="{$product_info['main_image_src']}" alt = "{$product_info['products_name']}" title="{$product_info['products_name']}">
+                        {if $product_info.discount_amount && $product_info.discount_amount >0}
+                        <div class="floatprice"><span>{$product_info.discount_amount}% <br /> {$smarty.const.TEXT_OFF}</span></div>
+                        {/if}
+                        <p class="pro_name">{$product_info['show_name']}</p>
+                        {if $product_info.products_status ne 0}</a>{/if} 
+                        <div class="pro_price">
+                            <p class="lf">{$smarty.const.TEXT_PRICE_LOWEST} :</p>
+                            <p class="rt">
+                                {$product_info['price_html']}
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="button">
+                            {if $product_info.products_status ne 0} 
+                            <a class="btn_orange btn_with150 btnProductListBuy" id="btnProductListBuy_{$product_info['products_id']}" href="javascript:void(0);" data-id="{$product_info['products_id']}" data-oldqty="1"><ins class="btn_cart"></ins></a>
+                            <a class="btn_wishlist btn_rt btnProductWishlist" href="javascript:void(0)" id="btnProductWishlist_{$product_info['products_id']}" data-id="{$product_info['products_id']}"></a>
+                            {else}
+                            <a class="btn_grey btn_with150" href="javascript:void(0);" data-id="{$product_info['products_id']}" data-oldqty="1">{$smarty.const.TEXT_REMOVED}</a>
+                            {/if}
+                        </div> 
+                        <p class="stock">
+                            {if $product_info.products_limit_stock == 1 && $product_info.products_quantity gt 0}
+                            {$product_info.products_quantity} {$smarty.const.TEXT_STOCK_REMAINING} 
+                            {else}
+                            &nbsp;
+                            {/if}
+                        </p>
+                    </li>
+                    {/foreach}
+                    
+                    <div class="clearfix"></div>
+                </ul>
+            <div class="clearfix"></div>
+            <div class="shop_btn "><a href="javascript:void(0);" type="all" aid="{$aid}" class=" btn_orange partsadd "> ADD ALL TO CART</a></div>
+            <div class="clearfix"></div>
+            </div>
+            {/if}
+        </div>
+        {if $article.video_position == 60}{$article.video_code}{/if}
+        {if $article.video_position == 70}{$article.video_code}{/if}
+</div>
+
+{literal}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "8c9fa0f5-056b-4e6c-91ed-b8398b2cbe74"}); </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=461521814022842";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async="async"></script>
+<script type="text/javascript">
+    $(document).on('click', '.partsadd', function(){
+        var aid = $(this).attr('aid');
+        var type = $(this).attr('type');
+        $.post('./ajax_add_all_to_cart.php', {aid: aid, type: type}, function(data){
+            if(data != ''){
+                alert(data);
+            }
+            window.location.href = 'index.php?main_page=shopping_cart';
+        });
+    });
+</script>
+{/literal}
+
+{/if}
+</div>

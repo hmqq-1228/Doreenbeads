@@ -1,0 +1,20 @@
+<div class="order_main">
+    {if $messageStack->size('account_email') > 0}
+        <div>{$messageStack->output('account_email')}</div>
+    {/if}
+    <div class="change_email">
+        <form class="addressform" name="account_email" action="index.php?main_page=account_edit&edit=email&action=process" method="post" onsubmit='return change_email(account_email)'>
+            <p><span class="price_color">* </span>{$smarty.const.ACCOUNT_EDIT_EMAIL_ADDRESS}</p>
+            <input name="email_address" type="text" class="newemail required" value="{$email}"/>
+            <span id="email_error"></span>
+            <p class="top_margin grey_6">{$smarty.const.TEXT_YOU_WILL_NEED}</p>
+            <p id="emailtext"></p>
+
+            <div class="cart_btn">
+                <button type="submit" class="btn_big btn_ltblue">{$smarty.const.TEXT_SAVE}</button>
+                <a href="index.php?main_page=myaccount&tag=settings" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+            </div>
+
+        </form>
+    </div>
+</div>

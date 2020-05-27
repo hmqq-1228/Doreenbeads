@@ -1,0 +1,75 @@
+{literal}
+<script language="javascript" type="text/javascript">
+function receive_coupon(){
+	$('.Close').click(function(){
+		$('.Anniversary-2018_error').hide();
+	});
+	
+	$.ajax({
+		type : 'post',
+		url : 'index.php?main_page=receive_coupon',
+		data : {action : 'receive_coupon'},
+		async : false,
+		success : function(result){
+			var returnInfo = process_json(result);
+			var lang = $('input[name=c_lan]').val();
+
+			if(returnInfo.error == true){
+    			switch(returnInfo.error_type){
+    				case 1:
+						window.location.href = returnInfo.redirect_url;
+            			break;
+    				case 2:
+						$('.Anniversary-2018_error p').html(returnInfo.error_info);
+						$('.Anniversary-2018_error').show();
+            			break;
+    				case 3:
+    					$('.receive_button').attr('src', '/includes/templates/mobilesite/css/' + lang + '/images/Black_Friday1115_m4_grep.jpg');
+    					$j('.receive_button').removeAttr('onclick');
+        				break;
+    			}
+			}else{
+				$('.receive_button').attr('src', '/includes/templates/mobilesite/css/' + lang + '/images/Black_Friday1115_m4_grep.jpg');
+				$('.Anniversary-2018_error p').html(returnInfo.error_info);
+				$('.Anniversary-2018_error').show();
+				$j('.receive_button').removeAttr('onclick');
+			}
+		}
+	});
+
+	return false;
+}
+
+$(document).ready(function(){
+	$('.Close').click(function(){
+		$('.Anniversary-2018_error').hide();
+	});
+});
+</script>
+{/literal}
+
+<div class="wrap-page"><!--手机站外框div-->
+	<input type="hidden" name="c_lan" value="{$smarty.session.languages_code}">
+	<div class="promotion1111_wrap">
+		<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/hm/banner.jpg" />
+		{if $receivable}
+			<div class="en_btnBox">
+				<div onclick="receive_coupon()" class="receive_button">{$smarty.const.GET_COUPON_MOB}</div>
+			</div>
+		{else}
+		    <div class="en_btnBox">
+			   <div class="unreceive_button">{$smarty.const.GET_COUPON_MOB}</div>
+			</div>
+		{/if}
+		<div class="HowToUse">{$smarty.const.TEXT_HOW_TO_USE}</div>
+		<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/hm/coupon_step.jpg" />
+		<div class="notice_1111">
+			{$smarty.const.TEXT_RECEIVE_COUPON_WARNING}
+		</div>
+		<div class="Anniversary-2018_error" style="display: none">
+			<span class="Close"></span>
+			<p style="line-hright:26px;"></p>
+		</div>
+
+	</div>
+</div>

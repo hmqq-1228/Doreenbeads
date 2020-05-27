@@ -1,0 +1,132 @@
+<?php 
+/**
+ * header_php.php
+ * �����ļ�
+ * �ͻ�дfeedback
+ */
+
+  require(DIR_WS_MODULES . zen_get_module_directory('require_languages.php'));
+  $breadcrumb->add(NAVBAR_TITLE);
+  
+  $feedback_type_array = array('--Select One--' => array('--Select One--'),
+  							   'Website' => array('The Layout', 'The Function (Such As Search Function)', 'Website Navigation / Display', 'Bug /Error Report', 'Website Content', 'Other'),
+  							   'Products' => array('Products Quality', 'New Products Recommendation', 'Looking for Special Products', 'Other'),
+  							   'Service' => array('Shipping', 'Payment', ' Email Processing', 'Other'),
+  							   'New Products Recommendation' => array(),
+  							   'Looking for Special Products' => array(),
+  							   'Complaint' => array(),
+  							   'Others' => array());
+  
+  $error = false;
+  $success = false;
+  
+  if (isset($_POST['action']) && $_POST['action'] == 'write_new'){
+  	//bof get the form data
+  	$regarding_main = zen_db_input(trim($_POST['main_type']));
+  	$regarding_detail = (isset($_POST[$regarding_main])) ? zen_db_input(trim($_POST[$regarding_main])) : '';
+  	$customer_name = (isset($_POST['customer_name'])) ? zen_db_input(trim($_POST['customer_name'])) : '';
+  	$customer_email = (isset($_POST['customer_email'])) ? zen_db_input(trim($_POST['customer_email'])) : '';
+  	$feedback_comment = zen_db_input(trim($_POST['comment']));
+  	//eof get the form data
+    	if(isset($_SESSION['customer_id'])&&$_SESSION['customer_id'] != ''){
+  	$customer_query = "SELECT customers_firstname, customers_lastname, customers_email_address
+                   FROM " . TABLE_CUSTOMERS . "
+                   WHERE customers_id = :customersID";
+	
+	$customer_query = $db->bindVars($customer_query, ':customersID', $_SESSION['customer_id'], 'integer');
+	$customer = $db->Execute($customer_query);
+	$customer_email = $customer->fields['customers_email_address'];
+	$customer_name = $customer->fields['customers_firstname'] . ' ' . $customer->fields['customers_lastname'];	
+  	}
+  	//bof check the form
+  	if (!zen_not_null($regarding_main)){
+  		$error = true;
+  		$messageStack->add_session('error', TEXT_ERROR_REGARDING, 'error');
+  	}
+  	if (!zen_not_null($feedback_comment)){
+  		$error = true;
+  		$messageStack->add_session('error', TEXT_ERROR_COMMENT_REQUIRED, 'error');
+  	}
+  	if (!isset($_SESSION['customer_id']) || (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == '')){
+  		if (!zen_not_null($customer_name)){
+  			$error = true;
+  			$messageStack->add_session('error', TEXT_ERROR_CUSTOMER_NAME, 'error');
+  		}
+  		if (!zen_not_null($customer_email)){
+  			$error = true;
+  			$messageStack->add_session('error', TEXT_ERROR_CUSTOMER_EMAIL, 'error');
+  		}
+  	}
+  	
+  	if ($error == true){
+  		zen_redirect(zen_href_link(FILENAME_FEEDBACK));
+  	}
+  	
+  	//eof check the form
+  	$upload_result = array();
+  	$attach_file_list = '';
+  	if ($error == false){
+  		for ($upload_cnt = 0; $upload_cnt < 6; $upload_cnt++){
+  			$attach_tmp = $_FILES['attachfile_' . $upload_cnt]['tmp_name'];
+  			$attach_name = $_FILES['attachfile_' . $upload_cnt]['name'];
+			$attach_size = $_FILES['attachfile_' . $upload_cnt]['size'];
+			$attach_type = $_FILES['attachfile_' . $upload_cnt]['type'];
+			$attach_error = $_FILES['attachfile_' . $upload_cnt]['error'];
+			
+			if (zen_not_null($attach_tmp) && zen_not_null($attach_name) && zen_not_null($attach_size) && zen_not_null($attach_type)){
+				if ($attach_error > 0){
+					switch ($attach_error){
+						case 1: break;
+						case 2: break;
+						case 3: break;
+						case 4: break;
+					}
+					continue;
+				}
+				
+				$file_type_array = array('text/plain', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'application/vnd.ms-powerpoint', 'application/msword', 'application/pdf');
+				if (!in_array($attach_type, $file_type_array) && substr($attach_type, strrpos($attach_type, '.')) != '.xls'){
+					continue;
+				}
+				
+				$upload_file = 'feedback_file/' . date('YmdHis') . zen_create_random_value('4', 'digits') . substr($attach_name, strrpos($attach_name, '.'));
+				if (is_uploaded_file($attach_tmp)){
+					if (!move_uploaded_file($attach_tmp, $upload_file)){
+						continue;
+					}
+				} else {
+					continue;
+				}
+				$attach_file_list .= $upload_file . ',';
+			}
+  		}
+  		
+  		$attach_file = substr($attach_file_list, 0, -1);
+  		$date = date('YmdHis');
+  		$customer_id = (isset($_SESSION['customer_id']) && zen_not_null($_SESSION['customer_id'])) ? $_SESSION['customer_id'] : 0;
+  		
+  		$db->Execute("Insert Into " . TABLE_CUSTOMER_FEEDBACK . " (feedback_main_type, feedback_detail_type, feedback_comment, feedback_attach, customer_id, customer_name, customer_email, feedback_date_added)
+  					       Values ('" . $regarding_main . "', '" . $regarding_detail . "', '" . $feedback_comment . "', '" . $attach_file . "', " . $customer_id . ", '" . $customer_name . "', '" . $customer_email . "', '" . $date . "')");
+  		
+  		$success = true;
+  	if (FEEDBACK_APPROVAL == '1' && SEND_EXTRA_FEEDBACK_NOTIFICATION_EMAILS_TO_STATUS == '1' and defined('SEND_EXTRA_FEEDBACK_NOTIFICATION_EMAILS_TO') and SEND_EXTRA_FEEDBACK_NOTIFICATION_EMAILS_TO !='') {
+      $email_text  = sprintf(EMAIL_FEEDBACK_CONTENT_DETAILS, $feedback_comment) . "\n\n" ;
+      $email_subject = EMAIL_FEEDBACK_PENDING_SUBJECT;
+      $html_msg['EMAIL_SUBJECT'] = EMAIL_FEEDBACK_PENDING_SUBJECT;
+      $html_msg['EMAIL_MESSAGE_HTML'] = sprintf(EMAIL_FEEDBACK_MAIN_TYPE,$regarding_main) .'<br />'.sprintf(EMAIL_FEEDBACK_SUB_TYPE,$regarding_detail) .
+     '<br/>'.sprintf(EMAIL_FEEDBACK_CUSTOMER_NAME,$customer_name).'<br/>'.sprintf(EMAIL_FEEDBACK_CUSTOMER_EMAIL,$customer_email).'<br />Date Added: '. date("m/d/Y") . '<br />'.
+      sprintf(EMAIL_FEEDBACK_COMMENT,$feedback_comment)."<br/>"; 
+      $extra_info=email_collect_extra_info($name,$email_address, $customer_name, $customer_email);
+      $html_msg['EXTRA_INFO'] = $extra_info['HTML'];
+      
+    // print_r($html_msg);exit;
+//       echo SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO.'<br />'.'text:'.$html_msg['EMAIL_MESSAGE_HTML']. $extra_info['HTML'] ;
+//       die();
+
+      zen_mail('', SEND_EXTRA_FEEDBACK_NOTIFICATION_EMAILS_TO, $email_subject, $email_text . $extra_info['TEXT'], STORE_NAME, EMAIL_FROM, $html_msg, 'feedback_extra');
+   }
+  		$_SESSION['write_feedback_success'] = TEXT_SUCCESS_WRITE_FEEDBACK;
+  		zen_redirect(zen_href_link(FILENAME_FEEDBACK));
+  	}
+  }
+?>

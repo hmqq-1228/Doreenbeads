@@ -1,0 +1,34 @@
+<div class="order_main">
+  	<div class="delete_address">
+	    <p>{$smarty.const.TEXT_ARE_YOU_SURE_DELETE_ADDRESS_BOOK}</p>
+    	<p>
+	    	<b>{$del_address_info.firstname}&nbsp;{$del_address_info.lastname}</b><br/>
+	    	{if $del_address_info.company neq ''}<p>{$del_address_info.company}<br/>{/if}
+	    	{$del_address_info.street_address}<br/>
+	    	{if $del_address_info.suburb neq ''}{$del_address_info.suburb}<br/>{/if}
+	    	{$del_address_info.city} {$del_address_info.postcode}<br/>
+	    	{if $del_address_info.state}{$del_address_info.state}{/if}{$del_address_info.zone}&nbsp;{$del_address_info.country}<br/>    	
+	  		{if $del_address_info.tariff_number neq ''}{$del_address_info.tariff_number}<br/>{/if}
+	  		{if $del_address_info.backup_email neq ''}{$del_address_info.backup_email}<br/>{/if}
+	  		{if $del_address_info.telephone neq ''}Tel: {$del_address_info.telephone}<br/>{/if}
+    	</p>
+	    <div class="btn_div">
+		    <a href="index.php?main_page=address_book&action=deleteconfirm&delete={$del_address_id}" class="btn_blue">Yes</a>
+		    <a href="index.php?main_page=address_book" class="btn_grey">No</a>
+	    </div>
+    </div>
+</div>
+<!-- <div class="address-book">
+	 <h3>{$smarty.const.TEXT_DELETE_ADDRESS_BOOK_ENTRY}</h3>
+	 <p class="DeleteEntry1">{$smarty.const.TEXT_ARE_YOU_SURE_DELETE_ADDRESS_BOOK}</p>
+	 <p class="DeleteEntry">{$street_address}</p>
+	 <p class="DeleteEntry">
+	 	<a href="index.php?main_page=address_book&action=deleteconfirm&delete={$del_address_id}">
+	 		<button class="deletesubmit-btn">{$smarty.const.TEXT_DELETE}</button>
+	 	</a>
+	 	<a href="index.php?main_page=address_book">
+	 		<button class="addresscancel-btn">{$smarty.const.TEXT_BACK}</button>
+	 	</a>
+	 </p>
+	 <div class="clear"></div>
+ </div> -->

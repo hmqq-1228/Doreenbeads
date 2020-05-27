@@ -1,0 +1,18 @@
+<!-- {include file = $tpl_head} -->
+
+<!--<a href="index.php?main_page=shopping_cart" class="continue-shopbtn">{$smarty.const.TEXT_BACK}</a>-->
+<div class="shopmain">
+	<div class="shipweight">
+		<!--<h6>{$smarty.const.TEXT_VIEW_SHIPPING_WEIGHT} ({$smarty.const.TEXT_CART_WORD_TOTAL}: <span>{$total_weight}</span> {$smarty.const.TEXT_CART_WEIGHT_UNIT})</h6>-->
+		<p class="shipweight-tit">{$smarty.const.TEXT_SHIPPING_COST_INOF}</p>
+		<table class="shipweighttab">
+			<tr><td>{$smarty.const.TEXT_PRODUCT_WEIGHT}</td><td>{$total_weight} {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td></tr>
+			{if $smarty.session.shipping.shipping_volume_weight > 0}
+			<tr><td><a href="page.html?id=21#P5">{$smarty.const.TEXT_CART_P_V_WEIGHT}</a></td><td>{$smarty.session.shipping.shipping_volume_weight} {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td></tr>
+			{/if}
+			<tr><td>{$smarty.const.TEXT_WORD_PACKAGE_BOX_WEIGHT}</td><td>{$smarty.session.shipping.shipping_package_box_weight} {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td></tr>
+			<tr><td>{$smarty.const.TEXT_WORD_SHIPPING_WEIGHT}</td><td>{$smarty.session.shipping.shipping_weight} {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td></tr>
+			
+		</table>
+	</div>
+</div>

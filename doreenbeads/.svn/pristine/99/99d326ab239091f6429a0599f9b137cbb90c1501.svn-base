@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Caro(a) {$firstName}, </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Buona giornata!</td></tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Qui vorrei aggiornare che per quanto riguarda gli articoli persi dal Suo ordine scorso, sono già spediti oggi:<br/>
+			{foreach $orderForShort as $productForShort}
+				{$productForShort.quantity}pacco(pacchi). -{$productForShort.model}--{$productForShort.name}--Numero di Ordine{$productForShort.orderId}
+				<p style="padding:0;margin:0;">{$productForShort.image}</p>
+			{/foreach}
+		</td>
+	</tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">E' già spedito{if $boxCount > 0}(in {$boxCount} {if $boxCount>1}boxes{else}box{/if}){/if} via {$expressMethods} nel {$deliveryTime}, e ci vogliono circa {$days} sulla consegna, si prega di fare attenzione per riceverlo.
+		{if $isDhls}
+			<span style="color:#96F;"> 
+				Si prega di notare che il pacco sarà ritornato a noi se non c'è nessuno a casa a prenderlo. Quindi se stai progettando un viaggio d'affari o una vacanza, si prega di cambiare l'indirizzo di spedizione o ci fornisce il Suo numero di cellulare.
+			</span>
+		{/if}
+		</td>
+	</tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Il Suo pacco è già spedito a: <br/>{$address}</td></tr>
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Abbiamo contrassegnato il Suo pacco al valore di  {$reportAmount} secondo la nostra esperienza. Normalmente il valore vi aiuterà a risparmiare la tassa di imposta.</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Il Suo numero di traccia è:<br />{$traceNumbers}</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0 && $webSiteCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Uno o due giorni dopo, è possibile tracciarlo su:<br/>{$webSite}</td></tr>
+	{/if}
+<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Ou vous pouvez <a href="http://www.8seasons.com/index.php?main_page=track_info&order_id={$orderNormalAll}">cliquer ici</a> pour voir les informations de suivi des colis en ligne.</td></tr>
+	{if $isHmey}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Si prega di notare che le informazioni di traccia non saranno aggiornate dopo che il pacco non è in Cina. Però non si preoccupi, il Suo pacco sarà spedito alla Sua casa sicuramente e con successo. Abbiamo già utilizzato questo metodo di spedizione per un lungo tempo. La Sua comprensione gentile sarà altamente apprezzata.
+		</td>
+	</tr>
+	{/if}
+	{if $shortProductCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Ma mi dispiace molto che alcuni articoli sono già esauriti inaspettatamente, qui ci sono gli dettagli:<br />
+			{foreach $shortProduct as $product}
+				{$product.quantity}pacco(pacchi). -{$product.model}--{$product.name}--Numero di Ordine{$product.orderId}
+				<p style="padding:0;margin:0;">{$product.image}</p>
+			{/foreach}
+			<p style="padding:0;margin:0;"><br />In modo che potrebbe ricevere gli altri articoli senza ritardo, abbiamo spedito il Suo ordine anticipatamente. <br /><br />
+			Per quanto riguarda gli articoli esauriti, ecco ci sono alcuni suggerimenti per Lei:<br />
+			1. Ti dispiacerebbe che li invieremo con il Suo ordine prossimo quando compra nel nostro sito di nuovo? Si può sentire libero di ricordarmi la prossima volta.<br />
+			2. Ti dispiacerebbe che li invieremo quando sono disponibili nei prossimi giorni. (Di solito li inviamo via airmail che ci voglio circa 35-55 giorni da consegnare, Lei non ha bigogno di pagare la tassa di spedizione. Ma se ha bisogno urgentemente di quelli articoli, si prega di contattarci, faremo il nostro meglio per offrirLe una consegna più rapida)<br />
+			<br />
+			Quale suggerimento preferisce? Si prega di farmi sapere, seguirò la Sua istruzione gentile per fornirLe il nostro ottimo servizio :)</p>
+		</td>
+	</tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Se Lei ha qualsiasi domanda, si prega di contattarci, Le forniremo il servizio ottimo. </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Grazie mille di nuovo per la Sua collaborazione e siamo in attesa della Sua visita.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Cordiali saluti</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+</table>
+</body>
+</html>

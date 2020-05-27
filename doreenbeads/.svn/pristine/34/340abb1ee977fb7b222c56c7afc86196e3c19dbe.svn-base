@@ -1,0 +1,19 @@
+<?php
+define('TEXT_HOW_TO_USE', '<h2>Как использовать купоны</h2>');
+define('TEXT_RECEIVE_COUPON_STEP_1', '<h3>Step 1.</h3><p>Click the above " Get Coupons Now " button to claim all coupons.</p>');
+define('TEXT_RECEIVE_COUPON_STEP_2', '<h3>Step 2.</h3><p>Add items to cart and check out.</p>');
+define('TEXT_RECEIVE_COUPON_STEP_3', '<h3>Step 3.</h3><p>Choose a coupon to use when confirming the order.</p>');
+define('TEXT_RECEIVE_COUPON_STEP_4', '<h4>Discount applied to your order successfully. </h4>');
+define('TEXT_RECEIVE_COUPON_WARNING', '<h3>Тепло Обратите внимание:</h3>
+                    <ol>
+                        <li>Вы можете получить купоны бесплатно до <span>11:00 6 декабря</span>, просто нажав выше кнопку <span>«Получить все купоны»</span></li>
+                        <li>Вы можете использовать их во время <b>Черной пятницы и Кибер понедельника распродажи</b> и сэкономить больше! <span>(с 22 ноября по 6 декабря.)</span></li>
+                        <li><span><b>Только для товаров по обычной цене.</b></span></li>
+                        <li>Один человек может получить несколько купонов. Но один купон можно получить только один раз.</li>
+                        <li>Вы можете использовать купоны, когда ваша соответствующая покупка достигает указанной суммы</li>
+                        <li>Пожалуйста, свяжитесь с нами по любым вопросам.</li>
+                    </ol>');
+
+define('TEXT_RECEIVE_COUPON_OLD_CUSOMERS_ERROR', 'Sorry, coupons are only available to new customer.');
+define('TEXT_RECEIVE_COUPON_HAVE_RECEIVE', 'Поздравления! У вас есть купоны до US $67. Пожалуйста, зарегистрируйтесь в «<a style="color:#00F" href="' . zen_href_link(FILENAME_MY_COUPON) . '">Мой Купон</a>». ');
+?>

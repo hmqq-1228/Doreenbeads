@@ -1,0 +1,6 @@
+<?php
+
+// recently viewed sidebox title name
+  define('BOX_HEADING_RECENTLY_VIEWED', 'Articles vus R¨¦cemment');
+
+?>

@@ -1,0 +1,68 @@
+{include file="includes/templates/checkout/tpl_checkout_head.html"}
+<!-- shopping cart -->
+<div class="min_main">	
+    {include file="includes/templates/checkout/tpl_shopping_cart_products.html"}
+    {include file="includes/templates/checkout/tpl_recently_viewed_products.html"}    
+</div>
+<!-- shopping cart -->
+
+<!-- bof quick add product -->
+<div id="quick_add_content">
+{include file="includes/templates/checkout/tpl_quick_add_products.html"}
+</div>
+<!-- eof quick add product -->
+
+<!-- bof shipping calculator -->
+<div class="smallwindow windowship" id="estimatewindow" style="display: none;">
+	<div class="smallwindowtit">
+		<strong>{$smarty.const.TEXT_CART_SHIPPING_INFO}</strong>
+		<a href="javascript:void(0);" class="shipclose_btn">X</a>
+	</div>
+	<div class="clearfix"></div>
+	<table class="shiptab">
+		<tr>
+			<td><ins>{$smarty.const.TEXT_WORD_SHIPPING_WEIGHT}:</ins><input class="canread total_weight_input" value="{$total_weight}g" disabled /></td>
+			<td><ins>{$smarty.const.TEXT_CART_SHIPPING_COUNTRY}:</ins><div class="shipping_cal_country">{$text_countries_list}</div></td>
+		</tr>
+		<tr>
+			<td><ins>{$smarty.const.TEXT_CART_SHIPPING_CITY}:</ins><input class="estimate_city" type="text" value="{$customer_default_city}" /><input class="estimate_ocity" type="hidden"  value="{$customer_default_city}" /></td>
+			<td><ins>{$smarty.const.TEXT_CART_SHIPPING_POSTCODE}:</ins><input class="estimate_postcode" type="text" value="{$customer_default_postcode}" /><input class="estimate_opostcode" type="hidden" value="{$customer_default_postcode}" /></td>
+		</tr>
+		<tr>
+			<td>
+				<button class="paynow_btn estimate_btn">
+					{$smarty.const.TEXT_CART_SHIPPING_CAL}
+				</button>
+			</td>
+			<td></td>
+		</tr>
+	</table>	
+	
+	<span style="margin-left:20px;">{$smarty.const.TEXT_SHIPPING_COST_IS_CAL_BY}</span>
+	<span class="view_shippping_weight">({$smarty.const.TEXT_VIEW_SHIPPING_WEIGHT})    
+    <div class="successtips_weight">
+		<span class="bot"></span>
+		<span class="top"></span>
+		{$smarty.const.TEXT_SHIPPING_COST_IS_CAL_BY}
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+		    	<td style="border-bottom:#d0d1a9 1px solid; border-right:#d0d1a9 1px solid;" width="60%">{$smarty.const.TEXT_PRODUCT_WEIGHT}</td>
+		        <td style="border-bottom:#d0d1a9 1px solid;"><font class="view_weight_1">{$total_weight}</font> {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td>
+		    </tr>
+			<tr class="show_volume_weight_tr">
+			</tr>
+		    <tr>
+		    	<td style="border-bottom:#d0d1a9 1px solid; border-right:#d0d1a9 1px solid;">{$smarty.const.TEXT_WORD_PACKAGE_BOX_WEIGHT}</td>
+		        <td style="border-bottom:#d0d1a9 1px solid;" class="show_package_box_weight_td"><font class="view_weight_2">{if $total_weight > 50000}{$total_weight * 0.06}{else}{$total_weight * 0.1}{/if}</font> {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td>
+		    </tr>
+		    <tr>
+		    	<td style="border-bottom:#d0d1a9 1px solid; border-right:#d0d1a9 1px solid;">{$smarty.const.TEXT_WORD_SHIPPING_WEIGHT}</td>
+		        <td style="border-bottom:#d0d1a9 1px solid;" class="shipping_total_weight_td"><font class="view_weight_3">{if $total_weight > 50000}{$total_weight * 1.06}{else}{$total_weight * 1.1}{/if}</font> {$smarty.const.TEXT_CART_WEIGHT_UNIT}</td>
+		    </tr>
+		</table>
+	</div>
+    </span>
+	
+	<div class="estimate_content"><div class="estshipping_loading"><img src="includes/templates/cherry_zen/images/zen_loader.gif"></div></div>
+</div>
+<!-- eof -->

@@ -1,0 +1,17 @@
+{include file = $define_page}
+ 
+<div class="menu">
+  <div class="menu_title">
+    <h3>{$smarty.const.TEXT_SHOP_CATEGORIES}</h3>
+  </div> 
+  
+  <ul>
+    {if is_array($index_root_categories_array) && $index_root_categories_array}
+	    {foreach from=$index_root_categories_array item=category}
+	    	{if $category['level'] lte $smarty.session.customers_level }
+	    		<li><a href="{$smarty.const.FILENAME_DEFAULT|zen_href_link:$category['cPath']}"><span>{$category['text']}</span> <ins class="{$category['class_name']}"></ins></a></li> 
+	    	{/if}
+		{/foreach}  
+    {/if}
+  </ul>
+</div>

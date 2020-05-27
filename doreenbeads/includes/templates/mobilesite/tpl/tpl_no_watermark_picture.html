@@ -1,0 +1,131 @@
+<div class="no_picture">
+    <img src="includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/banner_no_water.jpg" />
+    <div class="np_banner">
+        <h2>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_TITLE}</h2>
+        <p>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_DESCRIPTION}</p>
+    </div>
+
+    <table class="service_detail" cellpadding="0" cellspacing="0"><tr><td>
+        <div class="detail d_left" style="height:inherit">
+            <img src="includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/fs_title.jpg" />
+            <p>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_DETAIL} </p>
+            <p class="note">{$smarty.const.TEXT_NO_WATERMARK_SERVICE_NOTE}</p>
+        </div>
+        <div style="width: 1%;display: table-cell;"></div>
+        <div class="detail d_right" style="height:inherit">
+            <img src="includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/lcs_title.jpg" />
+            <p>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_VIP_DISCOUNT}</p>
+            <p class="note">{$smarty.const.TEXT_NO_WATERMARK_SERVICE_VIP_DISCOUNT_NOTE}</p>
+        </div>
+        <div class="clearfix"></div>
+    </td></tr></table>
+
+    <div class="np_title">
+        <h3>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_QUESTION}</h3>
+        <img src="includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/process.jpg" />
+    </div>
+    <div class="np_title">
+        <h3>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_START}</h3>
+        <div class="np_left"><a href="/file/products_images_mode.xlsx" class="np_btn">{$smarty.const.TEXT_NO_WATERMARK_SERVICE_DOWNLOAD}</a></div>
+	    <form action="index.php?main_page=no_watermark_picture" id="picture_form" enctype="multipart/form-data" method="post">
+            <div><input type="hidden" name="action" value="upload_file"><input type="hidden" name="customers_id" value="{$smarty.session.customer_id}"></div>
+            <div class="clearfix"></div>
+            <div class="np_upload_wrap"><span class="a-upload"><input type="file" name="products_mode_file" size="50" onchange="change_display();">{$smarty.const.TEXT_NO_WATERMARK_SERVICE_UPLOAD}</span><span id="file_name"></span>
+            </div>
+            <div class="clearfix"></div>
+            <span class="np_button"><strong class="np_upload">{$smarty.const.TEXT_SUBMIT}</strong></span>
+            <div class="clearfix"></div>
+        </form>
+        <div id="error_info"></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="np_title">
+        <h3>{$smarty.const.TEXT_NO_WATERMARK_SERVICE_SUBMIT}</h3>
+        <p class="np_require">{$smarty.const.TEXT_NO_WATERMARK_SERVICE_SUBMIT_DESCRIPTION}</p>
+    </div>
+</div>
+{literal}
+<script type="text/javascript">
+function change_display(){
+    var filename = $("input[name=products_mode_file]").val();
+    var fileArray = filename.split('\\');
+    var basename = fileArray.pop();
+
+    $('#file_name').text(basename);
+}
+function check_form(){
+	var error = false;
+	var errorInfo = '';
+	var filename = $("input[name=products_mode_file]").val();
+	$(".np_upload").removeClass("np_upload").addClass("np_upload_disabled");
+
+	if(filename != ''){
+		var fileArray = filename.split('.');
+		var format = fileArray[1].toLocaleLowerCase();
+		
+		if(format == 'xlsx' || format == 'xls'){
+			var formData = new FormData($('form')[0]);
+			formData.append('products_mode_file', $(':file')[0].files[0]);
+			formData.append('action', 'check_file');
+
+			 $.ajax({
+				  url:'index.php?main_page=no_watermark_picture',
+				  type: 'POST',
+				  data: formData,
+				  async:false,
+				  contentType: false,
+				  processData: false,
+				  success:function(data){
+					var data = process_json($.trim(data));
+
+					if(data.error == true){
+						errorInfo = data.error_info;
+						error = true;
+					}
+				  }
+		     });
+			
+		}else{
+{/literal}
+			errorInfo = "{$smarty.const.TEXT_NO_WATERMARK_UPLOAD_FILE_FORMAT_ERROR}";
+			error = true;
+{literal}
+		}
+	}else{
+{/literal}
+		errorInfo = "{$smarty.const.TEXT_NO_WATERMARK_UPLOAD_FILE_EMPTY}";
+		error = true;
+{literal}
+	}
+
+	if(error){
+	    $("#error_info").text(errorInfo);
+	    $(".np_upload_disabled").removeClass("np_upload_disabled").addClass("np_upload");
+	}else{
+{/literal}
+    $("#error_info").text("{$smarty.const.TEXT_SUBMIT_SUCCESS}");
+    setTimeout(function(){
+        $("#picture_form").submit();
+    }, 1000);
+{literal}
+	}
+    
+	return !error;
+}
+
+$(document).ready(function(){
+	$(".np_upload").click(function(){
+		var customers_id = $("input[name=customers_id]").val();
+		var result = false;
+
+		if(customers_id == '' || customers_id == 0){
+			window.location.href = "index.php?main_page=login";
+		}else{
+			check_form();
+		}
+		
+	});
+
+});
+</script>
+{/literal}

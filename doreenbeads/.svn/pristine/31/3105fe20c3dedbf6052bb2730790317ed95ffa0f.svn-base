@@ -1,0 +1,11 @@
+<?php
+/**
+ * usexpr.php
+ *
+ */
+define ( 'MODULE_SHIPPING_USEXPR_TEXT_TITLE', '米国速達サービス' );
+define ( 'MODULE_SHIPPING_USEXPR_TEXT_DESCRIPTION', '米国速達サービス' );
+define ( 'MODULE_SHIPPING_USEXPR_INVALID_ZONE', TEXT_NO_SHIPPING_WORDS );
+define ( 'MODULE_SHIPPING_USEXPR_SHIPPING_DAYS', '' );
+
+?>

@@ -1,0 +1,44 @@
+<nav><a href="index.php?main_page=product_info&products_id={$smarty.get.products_id}"><strong>{$smarty.const.TEXT_BACK}</strong></a></nav>
+<div class="questioncontent">
+	<p>{$smarty.const.TEXT_QUESTION_PRODUECT}</p>
+	<dl class="product-question">
+		<dt>{$p.image_show}</dt>
+		<dd><p>{$p.model}</p>{$p.name_show}</dd>
+    </dl>
+	<p class="question-tit">{$smarty.const.TEXT_INFO_PLEASE_SEND_US}<br><span>({$smarty.const.FORM_REQUIRED_INFORMATION})</span></p>
+	<form name="product_question" action="index.php?main_page=product_question&action=process&products_id={$smarty.get.products_id}" method="post" class="questionform">
+	<table>
+		<tr><td width="120"><label>*</label>{$smarty.const.TEXT_INFO_CHOOSE_A_TOPIC}</td></tr>
+		<tr>
+			<td colspan=2>
+				<select name="question_topic">
+					<option>{$smarty.const.TEXT_INFO_DETAILS_ABOUT}</option>
+					<option>{$smarty.const.TEXT_INFO_POSTAGE}</option>
+					<option>{$smarty.const.TEXT_INFO_PAYMENT}</option>
+					<option>{$smarty.const.TEXT_INFO_OTHERS}</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td><label>*</label>{$smarty.const.TEXT_EMAIL_ADDRESS}</td><td><input type="text" id="question-email" name="emailinput" class="required" value="{$c.email}"/><p></p></td></tr>
+		<tr><td><label>*</label>{$smarty.const.TEXT_FIRST_NAME}:</td><td><input type="text" id="first-name" class="required" name="firstinput" value="{$c.fname}"/><p></p></td></tr>
+		<tr><td><label>*</label>{$smarty.const.TEXT_LAST_NAME}:</td><td><input type="text" id="last-name" class="required" name="lastinput" value="{$c.lname}"/><p></p></td></tr>
+		<tr><td><label>*</label>{$smarty.const.TEXT_QUESTION}:</td><td><textarea id="question-text" class="required" name="MESSAGE">{$customers_question}</textarea><p></p></td></tr>
+		<tr>
+			<td style="padding-top:10px;"><label>*</label>{$smarty.const.FOOTER_TESTIMONIAL_VERIFY_NUMBER}:</td>
+			<td>
+				<table>
+					<tr>
+						<td width="30%"><input type="text" size=4 id="check_code_input" class="validate-code" /></td>
+						<td><img id="check_code" src="./check_code.php?{$mt_rand}"  onClick="this.src='./check_code.php?'+Math.random();" /></td>
+					</tr>
+					<tr>
+						<td><p id="verify_code_note"></p></td>
+						<td> </td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td><td><input type="Submit" value="{$smarty.const.TEXT_SUBMIT}" id="question-submit"/></td></tr>
+	</table>
+	</form>
+</div>

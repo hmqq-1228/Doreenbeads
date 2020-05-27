@@ -1,0 +1,16 @@
+<div class="dlgallery matching_content">
+	<h3 class="titleh3">{$smarty.const.TEXT_MATCHED_ITEMS}</h3>
+	<ul class="dlgallery-list">
+		{foreach from = $matching_products_content key = k item = v}
+		<li>
+			{$v.img}
+			{$v.price}
+			{$v.button}
+		</li>
+		{/foreach}
+	</ul>
+	{if $disp_num_best_match > 4}
+		<p class="viewmore"><a href="javascript:void(0);">View More</a></p>
+	{/if}
+	<div class="clearfix"></div>    
+</div>

@@ -1,0 +1,98 @@
+{if $make_payment}
+{include file = $make_payment_file}
+{else}
+<div class="order_main">
+	<div class="order_wrap">
+		<input type="hidden" name="current_order_id" value="{$orders.order_id}" id="current_order_id" />
+		<table class="order_details_top">
+        	<tr><th>{$smarty.const.TEXT_ORDER_NUMBER}:</th><td>{$orders.order_id}</td></tr>
+            <tr><th>{$smarty.const.TEXT_ORDER_DATE}:</th><td>{$orders.account_order_date}</td></tr>
+            <tr><th>{$smarty.const.HEADING_TOTAL}:</th><td>{$ot_subtotal}</td></tr>
+            <tr><th>{$smarty.const.TABLE_HEADING_STATUS}:</th><td>{$order->info.orders_status}</td></tr>
+        </table>
+	</div>
+	<div class="bottom_total">
+        <h3>{$smarty.const.TEXT_ORDER_SUMMARY}</h3>
+        <table>
+        {$orders.str}
+		{if $orders.account_show_payment eq 0 && $orders.order_status eq 1}
+		<tr><td colspan="2"><a href="index.php?main_page=account_history_info&continued_order=payment&order_id={$orders.order_id}" class="btn_blue btn_with150 margin5">{$smarty.const.TEXT_PAY_NOW}</a></td></tr>
+		{elseif $orders.is_underchecking}
+		<tr><td colspan="2"><div class="payment_text">{$smarty.const.TEXT_PAYMENT_UNDER_CHECKING}</div></td></tr>
+		{elseif $orders.is_made_payment}
+		<tr><td colspan="2"><div class="payment_text">{$smarty.const.TEXT_YOU_VE_MADE_PAYMENT}</div></td></tr>
+		{else}
+		{/if}
+        </table>
+  	</div>
+  	<div class="bottom_comments">
+        <h3>{$smarty.const.TEXT_SHIPPING_INVOECE_COMMENTS}</h3>
+        <table>
+            {if $order->info.shipping_restriction_total > 0 && ($orders.order_status == 2 || $orders.order_status == 3 || $orders.order_status == 4 || $orders.order_status == 10)}
+			<tr><td colspan="2" style="color:red">{$smarty.const.TEXT_SHIPPING_RESTRICTION_IMPORTANT_NOTE}</td></tr>
+			{/if}
+			<tr><th>{$smarty.const.TEXT_SHIPPING_ADDRESS}:</th><td>{$orders.account_order_shipping_address}</td></tr>
+            <tr><th>{$smarty.const.HEADING_SHIPPING_METHOD}:</th><td>{$order->info.shipping_method}</td></tr>
+            {if $orders.shipping_days != ''}
+            <tr><th>{$smarty.const.TEXT_ESTSHIPPING_TIME}:</th><td>{$orders.shipping_days}</td></tr>
+            {/if}
+            <tr><th>{$smarty.const.TEXT_ORDER_CUMMENTS}:</th><td>{$orders.order_comments}</td></tr>
+        </table>
+    </div>
+    <div class="items_review jq_detail_items">
+        <h3>{$smarty.const.TEXT_ITEMS_REVIEW}</h3>
+        <div class="quick_reorder_div">
+        	<div>
+	            <a class="quick_reorder link_text float_left" href="javascript:void(0);" oid="{$orders.order_id}">{$smarty.const.TEXT_PAYMENT_QUICK_PEORDER}</a>
+	            <a class="link_text float_lt"href="index.php?main_page=shopping_cart&action=add_order_to_wishlist&orders_id={$orders.order_id}">{$smarty.const.TEXT_CART_MOVE_WISHLIST}</a>
+            </div>
+            <div class="clearfix"></div>
+            <p>{$smarty.const.TEXT_CART_TOTAL_PRODUCT_PRICE}: <span class="price_color">{$ot_subtotal}</span></p>
+        </div>
+        <ul class="shopcart_ul">
+        	{foreach from = $orders_array key = k item = v }
+        	<li>
+	        	<p class="cartpro_name"><a href="{$v.link}">{$v.name}[{$v.model}]</a></p>
+	            <div class="pro_img"><a href="{$v.link}">{$v.image}{if $v.discount}<span class="cart_discount">{$v.discount}% {$smarty.const.TEXT_OFF}</span>{/if}</a></div>
+	            <div class="pro_price">
+	                <p>
+	                	<span>{$smarty.const.TEXT_PRICE_WORDS}:</span>
+	                	{if $v.oprice neq $v.price}
+	                	<del>{$v.oprice}</del><br />
+						{/if}
+	                  	{$v.price}
+	                </p>
+	                <p><span>{$smarty.const.TABLE_HEADING_QUANTITY}:</span> <span>{$v.qty} {$smarty.const.TEXT_PACKET_2}</span> </p>
+	                <p><span>{$smarty.const.TEXT_ORDER_INFO_SUBTOTAL}:</span> {$v.total}</p>
+              	</div>
+              	<div class="clearfix"></div>
+	            {if $v.is_preorder || $v.qty >= $smarty.const.PRODUCTS_DAYS_FOR_PREPARATION}
+	               {if $v.products_stocking_days > 7}
+	                   <p class="avalaible">{$smarty.const.TEXT_AVAILABLE_IN715}</p>
+	               {else}
+	                   <p class="avalaible">{$smarty.const.TEXT_AVAILABLE_IN57}</p>
+	               {/if}
+	            {/if}
+	            {if $v.status == 1}
+	            <div class="margin5">
+		            <a class="link_text with100 cart-button" href="javascript:void(0);">{$smarty.const.TEXT_CART_ADD_TO_CART}</a>
+					<input type="hidden" name="product_id" value="{$v.id}">
+					<input type="hidden" name="product_qty" value="{$v.qty}">
+	            </div>
+	            {/if}
+        	</li>
+        	{/foreach}
+        </ul>
+        {if $cart_fen_ye != ''}{$cart_fen_ye}{/if}
+    </div>
+</div>
+{/if}
+<div class="order_history_tips jq_order_history_tips" style="display:none;">
+  	<div class="popup_cart_de">
+  		<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+    	<div class="popup_products_tips">
+      		<p></p>
+      		<a href="index.php?main_page=shopping_cart" class="btn_orange">OK</a>
+      	</div>
+  	</div>
+</div>

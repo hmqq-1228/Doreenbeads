@@ -1,0 +1,105 @@
+<?php
+/**
+ * index category_row.php
+ *
+ * Prepares the content for displaying a category's sub-category listing in grid format.	
+ * Once the data is prepared, it calls the standard tpl_list_box_content template for display.
+ *
+ * @package page
+ * @copyright Copyright 2003-2006 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: category_row.php 4084 2006-08-06 23:59:36Z drbyte $
+ * @modified	lxy 2013-08-02
+ */
+
+ $solr_str_array = get_listing_display_order($disp_order_default);
+ $solr_order_str = $solr_str_array['solr_order_str'];
+ $order_by = $solr_str_array['order_by'];
+if (!defined('IS_ADMIN_FLAG')) {
+	die('Illegal Access');
+}
+$solr = new Apache_Solr_service(SOLR_HOST , SOLR_PORT ,'/solr/dorabeads_'.$_SESSION['languages_code']);
+
+$categories = $db->Execute("select c.categories_id, cd.categories_name,c.categories_image
+		from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+		where c.categories_id=cd.categories_id
+		and c.categories_status = 1 and c.left_display = 10
+		and cd.language_id='".$_SESSION['languages_id']."'
+		and c.parent_id='".$current_category_id."'
+		order by c.sort_order");
+
+$subCategories = array();
+
+if(count($cPath_array) <0) {
+	$list_box_contents = array();
+	while (!$categories->EOF) {
+		$solr_select_query='products_status:1';
+		$solr_select_query .= ' AND categories_id:'.(int)$categories->fields['categories_id'];
+		
+		$condition['fl'] = 'products_id, score';		
+		$count_res = $solr->search($solr_select_query, 0, 1 ,$condition);
+		$num_products_count = $count_res->response->numFound;
+		$categoryParam['count'] = $num_products_count;
+		if( $categoryParam['count'] == 0 ) {$categories->MoveNext(); continue;}
+		if (!$categories->fields['categories_image']) $categories->fields['categories_image'] = 'pixel_trans.gif';
+		$category_info_memcache = get_category_info_memcache($categories->fields['categories_id'] );
+		$categories_image = $category_info_memcache['categories_image'];		
+		$categoryParam['image'] = zen_image(HTTP_IMG_SERVER1 . $categories_image, '', SUBCATEGORY_IMAGE_TOP_WIDTH, SUBCATEGORY_IMAGE_TOP_HEIGHT);	
+		$cPath_new = 'cPath=' . $category_info_memcache['cPath'];
+		// strip out 0_ from top level cats
+		$categoryParam['link'] = zen_href_link(FILENAME_DEFAULT, $cPath_new);	
+		$categoryParam['name'] = $categories->fields['categories_name'];	
+		//	if this is category-level-1, show 2&3
+		$categoryParam['sub'] = array();
+		if($current_category_id == $cPath_array[0]){
+			$categoryParam['sub'] = $category_info_memcache['products_count'];
+		}		
+		$list_box_contents[] = $categoryParam;
+		$categories->MoveNext();
+	}
+} else{
+	$num_categories = $categories->RecordCount();
+	
+	$row = 0;
+	$col = 0;
+	$list_box_contents = '';
+	if ($num_categories > 0) {
+		$cnt=1;
+		while (!$categories->EOF) {
+			$categories_id = $categories->fields['categories_id'];
+			$categories_name = htmlspecialchars($categories->fields['categories_name'], ENT_QUOTES);
+			$category_info_memcache = get_category_info_memcache($categories->fields['categories_id'] );
+			$categories_count = $category_info_memcache['products_count'];
+			$categories_image = $categories->fields['categories_image']?$categories->fields['categories_image'] : 'pixel_trans.gif';
+			
+			if( $categories_count == 0 ) {$categories->MoveNext(); continue;}
+			$cPath_new = 'cPath=' . $category_info_memcache['cPath'];
+							
+			$categories_image_link = HTTP_IMG_SERVER.'/images/category_new/' . $categories_id . '.jpg';
+			$categories_link = zen_href_link(FILENAME_DEFAULT, $cPath_new);
+
+			$subCategories[] = array(
+					"categories_id" =>$categories->fields['categories_id'],
+					"name" => $categories_name,
+					"count" => $categories_count,
+					"categories_image" => $categories_image,
+					"categories_image_link" =>$categories_image_link,
+					"link"=>$categories_link
+			);
+	
+			$cnt++;
+			
+			$categories->MoveNext();
+		}
+	}
+}
+
+$category_info = get_category_info_memcache($current_category_id,'detail');
+
+$smarty->assign ( 'category_info', $category_info ); 
+$smarty->assign ( 'subCategories', $subCategories );
+
+$smarty->assign ( 'category_content', $list_box_contents );
+//$smarty->assign ( 'bread_nav', $bread_nav );
+?>

@@ -1,0 +1,65 @@
+<!-- {if $messageStack->size('forgetpwd') > 0}
+{$messageStack->output('forgetpwd')}
+{/if} -->
+<!-- <div class="maincontent">
+ <h3 class="themetit">{$smarty.const.TEXT_FORGET_PWD}</h3>
+    <div class="find-password">
+      <h5>{$smarty.const.TEXT_MAIN}<p>(* {$smarty.const.TEXT_REQUIRED_INFO})</p></h5>
+      <form class="findpass-form" method="post" action="index.php?main_page=forgetpwd&action=process" onsubmit="return checkValidateCode(this.form)">
+         <table>
+           <tr><td width="30%"><label><ins>*</ins>{$smarty.const.TEXT_EMAIL_ADDRESS}</label></td><td><input type="text" class="forgetaddress" id="email_address" name="email_address"/><span id="emailnotice"></span></td></tr>
+           <tr><td width="30%"><label><ins>*</ins>{$smarty.const.TEXT_CHECK_CODE}</label></td>
+         <td><input type="text" class="validatepass1" id="check_code_input" name="check_code" />&nbsp;<img src="./check_code.php?code_suffix=password&"+Math.random() align="absmiddle" onclick="this.src='./check_code.php?'+Math.random()" />
+          <span id="codenotice"></span>
+         </td>
+       </tr>
+         </table>
+         <div>
+             <button class="find-submit" id="forgetpass">{$smarty.const.TEXT_SUBMIT}</button>
+        <button class="find-back" type="button" onclick="javascript:window.location.href='index.php?main_page=login'">{$smarty.const.TEXT_BACK}</button>
+       </div>
+         <div><strong>{$smarty.const.TEXT_NOTE}</strong>{$smarty.const.TEXT_FORGOT_EMAIL_ADDRESS}</div>
+      </form>
+    </div>
+</div> -->
+{literal}
+<style>
+    .login_forgetpwd_success{padding: 0;}
+    .login_forgetpwd_success .messageStackError{padding: 0;color: #333; background-color: #fff;font-size: 14px;}
+    .login_forgetpwd_failed{padding: 0; border: 1px solid #ccc; margin-bottom: 20px;}
+    .login_forgetpwd_failed .messageStackError{padding: 5px;color: #f00; background-color: #ffffee;font-size: 13px;}
+    .messageStackError a{color: #00509d; }
+</style>
+{/literal}
+<div class="popup">
+    <div class="reset_forgot_password">
+        {if $messageStack->size('login_forgetpwd_success') > 0}
+            <div class="login_forgetpwd_success">
+            {$messageStack->output('login_forgetpwd_success')}
+            </div>
+        {else}
+            {if $messageStack->size('link') > 0}
+                <div class="login_forgetpwd_failed">
+                    {$messageStack->output('link')}
+                </div>
+            {/if}
+            <p>{$smarty.const.TEXT_MAIN}</p>
+            <form class="findpass-form" method="post" action="index.php?main_page=forgetpwd&action=process" onsubmit="return checkValidateCode(this.form)">
+                <input class="signin_input forgetaddress" id="email_address" name="email_address" type="text" placeholder="{$smarty.const.ENTRY_EMAIL_ADDRESS}"/>
+                <span class="msg" id="emailnotice">Email Address</span>
+                <div class="Code">
+                    <input type="text" class="validatepass1" id="check_code_input" name="check_code" placeholder="{$smarty.const.TEXT_CHECK_CODE}"/>
+                    <img height="40px" src="./check_code.php?code_suffix=password&"+Math.random() align="absmiddle" onclick="this.src='./check_code.php?code_suffix=password&'+Math.random()" />
+                </div>
+                <span class="msg" id="codenotice">Email Address</span>            
+                {if $messageStack->size('login') > 0}
+                    <div class="remove_messageStack_css">
+                    {$messageStack->output('login')}
+                    </div>
+                {/if}            
+                <button class="button_join" id="forgetpass">{$smarty.const.TEXT_SUBMIT}</button>
+            </form>
+            <span class="prompt">{$smarty.const.TEXT_FORGOT_EMAIL_ADDRESS}</span>        
+        {/if}
+    </div>
+</div>

@@ -1,0 +1,17 @@
+
+<div class="dlgallery other_package_size_products_content" id="other_package_size_products">
+	<h3 class="titleh3">{$other_package_products_title}</h3>
+	<ul class="dlgallery-list">
+		{foreach from = $other_package_size_products_content key = k item = v}
+		<li>
+			{$v.img}
+			{$v.price}
+			{$v.button}
+		</li>
+		{/foreach}
+	</ul>
+	{if $disp_num_other_package_size > 4}
+		<p class="viewmore"><a href="javascript:void(0);">View More</a></p>
+	{/if}
+	<div class="clearfix"></div>    
+</div>

@@ -1,0 +1,17 @@
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=$CHARSET" />
+
+<base href="$BASE_HREF" />
+
+</head>
+
+<body>
+
+$EMAIL_MESSAGE_HTML
+
+</body>
+
+</html>

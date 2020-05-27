@@ -1,0 +1,96 @@
+<div class="order_main">
+    <div class="order_wrap">
+        {if $ordersarray|count eq 0}
+            <div><p class="no_records">{$smarty.const.TEXT_ORDER_NO_EXISTS}</p></div>
+        {else}
+        <!--用户订单搜素开始--> 
+        <div class="order_search">{$message.account_text_result_count}<ins class="orderSearchFormShow"></ins>
+            <form class="orderSearchForm" name="orderfilters" action="index.php?main_page=account" method="post" {if $check_filter neq 0} style="display:block;" {/if}>
+                <table>
+                    <input name="orderfilter" type="hidden" value="1" />
+                    <tr>
+                        <th>{$smarty.const.TABLE_HEADING_ORDER_NUMBER}: </th>
+                        <td><input name="ordernumber" type="text" {if $filter.filter_ordernumber != ''} value="{$filter.filter_ordernumber}" {/if}/></td>
+                    </tr>
+                    <tr>
+                        <th>{$smarty.const.TEXT_MODEL}: </th>
+                        <td><input name="pronumber" type="text" {if $filter.filter_pronumber != ''} value="{$filter.filter_pronumber}" {/if}/></td>
+                    </tr>
+                    <tr>
+                        <th>{$smarty.const.TABLE_HEADING_STATUS}: </th>
+                        <td>
+                            <select name="orderstatus" class="select_status">
+                                <option value="99">{$smarty.const.TEXT_ALL_ORDERS}</option>
+                                <option value="1" {if $filter.filter_status eq 1} selected="true" {/if}>{$smarty.const.TEXT_ORDER_STATUS_PENDING}</option>
+                                <option value="2" {if $filter.filter_status eq 2} selected="true" {/if}>{$smarty.const.TEXT_ORDER_STATUS_PROCESSING}</option>
+                                <option value="3" {if $filter.filter_status eq 3} selected="true" {/if}>{$smarty.const.TEXT_ORDER_STATUS_SHIPPED}</option>
+                                <option value="4" {if $filter.filter_status eq 4} selected="true" {/if}>{$smarty.const.TEXT_ORDER_STATUS_UPDATE}</option>
+                                <option value="10" {if $filter.filter_status eq 10} selected="true" {/if}>{$smarty.const.TEXT_DELIVERED}</option>
+                                <option value="0" {if $filter.filter_status eq 0} selected="true" {/if}>{$smarty.const.TEXT_ORDER_CANCELED}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>                    
+                        <th>{$smarty.const.TABLE_HEADING_DATE}: </th>
+                        <td>
+                            <input name="datestart" type="text" id="datestart" runat="server" style="width:45%" value="{$filter.filter_date_start}" />
+                            <span> -</span>
+                            <input name="dateend" type="text" id="dateend" style="width:45%" value="{$filter.filter_date_end}" />
+                        </td>
+                        <script>
+                            var calendar = new lCalendar();
+                            calendar.init({
+                                'trigger': '#datestart',
+                                'type': 'date'
+                            });
+                            var calendardatetime = new lCalendar();
+                            calendardatetime.init({
+                                'trigger': '#dateend',
+                                'type': 'date'
+                            });
+                        </script>
+                    </tr>
+                </table>
+                <button class="btn_filter btn_grey">{$smarty.const.TEXT_FILTER}</button>
+            </form>            
+            <div class="clearfix"></div>
+        </div>
+        <!--用户订单搜素结束-->
+        <ul class="order_details">
+            {section name=i loop=$ordersarray}
+            <li>
+                <a href="index.php?main_page=account_history_info&order_id={$ordersarray[i].orders_id}">
+                    <table>
+                        <tr>
+                            <th>{$smarty.const.TABLE_HEADING_ORDER_NUMBER}:</th>
+                            <td>{$ordersarray[i].orders_id}</td>
+                        </tr>
+                        <tr>
+                            <th>{$smarty.const.TABLE_HEADING_DATE}:</th>
+                            <td>{$ordersarray[i].date_purchased}</td>
+                        </tr>
+                        <tr>
+                            <th>{$smarty.const.TABLE_HEADING_TOTAL}:</th>
+                            <td>{$ordersarray[i].order_total}</td>
+                        </tr>
+                        <tr>
+                            <th>{$smarty.const.TABLE_HEADING_STATUS}:</th>
+                            <td>{$ordersarray[i].orders_status_name}</td>
+                        </tr>
+                    </table>
+                    <a class="details_icon" href="index.php?main_page=account_history_info&order_id={$ordersarray[i].orders_id}"></a>
+                    <div class="clearfix"></div>
+                    {if $ordersarray[i].orders_status == 1 && $ordersarray[i].show_payment == 0}
+                    <a class="btn_blue btn_pay with25" href="index.php?main_page=account_history_info&order_id={$ordersarray[i].orders_id}&continued_order=payment">{$smarty.const.TEXT_PAY_ORDER}</a>
+                    {/if}
+                    {if $ordersarray[i].show_track_info == 1 }
+                    <a class="btn_blue btn_pay with25" href="index.php?main_page=track_info&order_id={$ordersarray[i].orders_id}">{$smarty.const.TEXT_PAYMENT_TRACK_INFO}</a>
+                    {/if}
+                </a>
+            </li>
+            {/section}
+        </ul>
+        <div class="page">{$message.account_text_result_page}</div>
+        {/if}
+    </div>
+</div>

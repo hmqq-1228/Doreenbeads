@@ -1,0 +1,13 @@
+<?php
+$currency_symbol=array(
+	"USD"=>'US$',
+	"EUR"=>"&euro;",
+	"GBP"=>"GBP",
+	"CAD"=>"CA$",
+	"AUD"=>"AU$",
+	"JPY"=>"JPY",
+	"NZD"=>"NZD",
+	"RUB"=>"RUB",
+	"SGD"=>"SGD",
+	"UAH"=>"UAH"
+);

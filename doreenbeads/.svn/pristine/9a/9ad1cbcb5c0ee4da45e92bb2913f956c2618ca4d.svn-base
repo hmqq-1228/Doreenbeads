@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<definitions name="soap" targetNamespace="urn:soap" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="soapPort"><operation name="run">
+<input message="tns:runRequest" />
+<output message="tns:runResponse" />
+</operation>
+</portType>
+<binding name="soapBinding" type="tns:soapPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="run">
+<soap:operation soapAction="urn:soap#orders_status_update#run" />
+<input><soap:body use="encoded" namespace="urn:soap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:soap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="soap">
+<documentation />
+<port name="soapPort" binding="tns:soapBinding"><soap:address location="http://www.dorabeadsorg.com:80/web_services/orders_status_update.php" />
+</port>
+</service>
+<message name="runRequest">
+<part name="str_xml" type="xsd:string" />
+</message>
+<message name="runResponse">
+<part name="run" type="xsd:string" />
+</message>
+</definitions>

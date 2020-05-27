@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Bonjour {$firstName}, </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Merci pour votre affaire avec nous {$orderNormalAll}!</td></tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Ils ont été expédiés {if $boxCount > 0}(dans {$boxCount} boîtes){/if}  par l'intermédiaire {$expressMethods} {$deliveryTime}, qui prendra environ {$days} sur la livraison, veuillez garder un œil sur elle.
+			{if $isDhls}
+			<span style="color:#3C3;">
+				Veuillez remarquer que les colis seraient renvoyés à nous s'il n'y a personne à la maison pour la réception. Donc, si vous planifiez un voyage des vacances ou d'affaires, veuillez changer l'adresse de livraison ou nous fournir votre numéro de portable pour faciliter la livraison de colis. Merci pour la coopération. 
+			</span>
+			{/if}
+		</td>
+	</tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Votre colis est expédié à: <br/>{$address}</td></tr>
+	{if $isVirtual}
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Nous avons déclaré votre colis à valeur de {$reportAmount} .</td></tr>
+	{/if}
+	{/if}
+	{if $isjtau}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">2 jours plus tard, nous mettrons à jour votre numéro de suivi en temps. Veuillez garder un oeil sur elle et attendre patiemment, svp.</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Votre numéro de piste est :<br /> {$traceNumbers}</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0 && $webSiteCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">1 ou 2 jours plus tard, il peut être pisté sur:<br/>{$webSite}</td></tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Ou vous pouvez <a href="http://www.doreenbeads.com/index.php?main_page=track_info&order_id={$orderNormalAll}">cliquer ici</a> pour voir les informations de suivi des colis en ligne.</td></tr>
+	{if $isHmey}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			Veuillez noter que les informations de piste ne sera pas mis à jour après que le colis a quitté la Chine. Mais ne vous inquiétez pas, votre colis sera livré à votre porte en toute sécurité et avec succès. Nous avons utilisé ce genre de méthode d'expédition depuis très longtemps.
+		</td>
+	</tr>
+	{/if}
+	{if $shortProductCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Mais ici, je suis vraiment désolé pour vous informer qu\'il y a quelques articles épuisés à l\'improviste, voici le détail:<br/>
+		{foreach $shortProduct as $product}
+			{$product.quantity}{if $product.quantity>1}Paquets{else}Paquet{/if} -{$product.model}--{$product.name}--Order No.{$product.orderId}
+			<p style="padding:0;margin:0;">{$product.image}</p>
+		{/foreach}
+		<p style="padding:0;margin:0;"><br />Afin de vous permettre de recevoir sans délai les autres articles, nous avons expédié votre commande à l\'avance. Donc ici Je veux vous faire savoir ce qui se passe.<br /><br />
+		En ce qui concerne les articles vendus, voici quelques suggestions pour vous:<br />
+		1. Souhaitez-vous que nous vous les envoyions avec votre prochaine commande ? N’hésitez pas à me contacter pour  en discuter.<br />
+		2. Souhaitez-vous que nous vous les expédions dès qu’ils seront disponibles sous quelques jours. (Normalement, nous les envoyons par la poste aérienne, vous n\'aurez pas besoin de payer des frais d\'expédition. Mais si vous en avez besoin de toute urgence, s\'il vous plaît n'hésitez pas à nous contacter et nous ferons de notre mieux pour proposer une livraison plus rapide)<br />
+		3.Vous pouvez également choisir librement des articles de remplacement.<br />
+		Afin de vous offrir notre meilleur service, je vous remercie de m’indiquer quelle suggestion vous préférez.</p>
+	</td></tr> 
+	{/if}
+	{if $orderForShortCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Pour les articles manquants de votre commande précédente, ils ont été expédiés aujourd'hui:<br/>
+		{foreach $orderForShort as $productForShort}
+			{$productForShort.quantity}{if $product.quantity>1}Paquets{else}Paquet{/if} -{$productForShort.model}--{$productForShort.name}--Order No.{$productForShort.orderId}
+			<p style="padding:0;margin:0;">{$productForShort.image}</p>
+		{/foreach}
+	</td></tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Si vous aviez des questions, s'il vous plaît n’héditeriez pas à nous contacter, nous vous fournirons le meilleur service.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Encore une fois, merci beaucoup pour votre affaire, et nous sommes impatients de faire affaire avec vous bientôt</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Cordialement<br/>{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">======= Remarque =========<br/>* Afin d’assurer que vous recevez l'article correct avec la quantité correcte, nous avons scanné et enregistré chaque article dans votre colis avant de le sceller. Donc, normalement, l'erreur ne se fera pas.:)</td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" height="1" style="margin-left: 0;margin-top: 10px;">
+					<tr>
+						<td><a href="http://eepurl.com/gq3Ndv"><img src="https://img.doreenbeads.com/promotion_photo/fr/images/20190814/dbfr-abonnerheng.jpg" alt="Abonnez-vous ид notre newsletter maintenant"/></a></td>
+					</tr>
+				
+				</table>
+</body>
+</html>

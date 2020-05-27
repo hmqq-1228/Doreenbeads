@@ -1,0 +1,5 @@
+<?php
+define ( 'MODULE_SHIPPING_UPSDH_TEXT_TITLE', 'UPS（ラガー小包）)' );
+define ( 'MODULE_SHIPPING_UPSDH_TEXT_DESCRIPTION', 'UPS（ラガー小包）' );
+define ( 'MODULE_SHIPPING_UPSDH_SHIPPING_DAYS', '4-6' );
+?>

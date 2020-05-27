@@ -1,0 +1,76 @@
+
+fieldset {display:block; background: #F9F4EC; border:1px solid #B6ABD5; padding:5px; font-family:verdana, sans-serif; }
+fieldset#personal {background: url(../images/personal.png) no-repeat top right}
+fieldset#contact {background: url(../images/contact.png) no-repeat top right}
+fieldset#secure {background: url(../images/secure.png) no-repeat top right}
+fieldset#news {background: url(../images/news.png) no-repeat top right}
+fieldset#age {background: url(../images/age.png) no-repeat top right}
+fieldset#opt {background:#F9F4EC;}
+fieldset#write{background: url(../images/write.png) no-repeat top right }
+legend {font-family:verdana, arial, helvetica, sans-serif; font-size:1.1em; color: #000; font-weight:bold; margin-bottom:5px; padding:3px; background:#fff url(../images/form.png) repeat-x center left;}
+select {margin:0;background:#C8E3F6;}
+textarea {margin: auto; padding:0.5em; float: left;	display: block; width: 75%; border:1px solid #B6ABD5; overflow:auto;}
+option {background:#C8E3F6; color:navy;}
+optgroup {background:#C8E3F6; color:navy; font-family:verdana, arial, helvetica, sans-serif;}
+optgroup option {background:#B6ABD5; color:navy;}
+
+
+label.inputLabel {
+	width: 11em;
+	float: left;
+	color: navy;
+	}
+	
+/*input:focus, select:focus, textarea:focus {
+	background: #C8E3F6;
+	}
+*/		
+.hiddenField {
+	display: none;
+}	
+LABEL.checkboxLabel, LABEL.radioButtonLabel {
+	margin: 0.5em 0.3em;
+	color: navy;
+	}
+	
+#link_submit_page {
+    margin:5px;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size:14px;	
+}
+#link_submit_page input{
+	border: 1px solid #59ACFF;
+	background:#FFFFFF;
+	width:300px;
+	height:18px;
+}
+#link_submit_page textarea{
+	margin-left:6px;
+	border: 1px solid #59ACFF;
+	background:#FFFFFF;
+}
+#link_submit_page textarea:focus{
+	background: #FFFFFF;
+}
+
+#link_submit_page select{
+	border: 1px solid #59ACFF;
+	background:#FFFFFF;
+}
+#link_submit_page option{
+	color:#000;
+	background:#FFFFFF;
+}
+#link_submit_page a{
+	color:#994090;
+}
+.alert{
+	vertical-align:middle;
+	font-size:12px;
+}
+.link_tips{
+	margin-left:5px;
+	color:#666666;
+	font-size:11px;
+	
+}

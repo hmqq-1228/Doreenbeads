@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Hallo {$firstName},</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Vielen Dank für Ihre Bestellung. </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Hier wollen wir mitteilen, dass diese folgenden fehlenden Artikel aus Ihrer vorigenen Bestellungen heute losgeschickt werden:<br/>
+		{foreach $orderForShort as $productForShort}
+			{$productForShort.quantity} x -{$productForShort.model}--{$productForShort.name}--Bestellnummer. {$productForShort.orderId}
+			<p style="padding:0;margin:0;">{$productForShort.image}</p>
+		{/foreach}
+	</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Es wurde verschickt am {$deliveryTime} per {$expressMethods} {if $boxCount > 0}(in {$boxCount} {if $boxCount>1}Boxen{else}Box{/if}){/if}, das dauert etwa {$days} zuzustellen.<br/>
+		{if $isDhls}
+		<span style="color:#C9F;">
+			Bitte achten Sie auf die Sendung.Wenn diese Sendung nicht erfolgreich zugestellt und danach nicht rechtzeitig abgeholt werden kann, wird sie an uns zurückgeschickt. Wenn Sie wegen Urlaub oder Geschäftsreise nicht zu Hause sind,bitte ändern Sie jetzt diese Lieferadresse oder geben Sie uns Ihre Handynummer an, damit wir oder der Zusteller Ihnen erreichen können. Vielen Dank für Ihre Zusammenarbeit.
+		</span>
+		{/if}
+	</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$address}</td></tr>
+	{if $isVirtual}
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Wir deklarierten {$reportAmount} für Ihr Paket auf der Zollinhaltserklärung.</td></tr>
+	{/if}
+	{/if}
+	{if $traceNumbersCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Die Tracking-Nummer ist :<br/>{$traceNumbers}</td></tr>
+	{/if}
+	{if $traceNumbersCount > 0 && $webSiteCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">in folgenden zwei oder drei Tagen können Sie diese Sendung auf dieser Webseite verfolgen:<br/>{$webSite}</td></tr>
+	{/if}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Oder Sie könnten <a href="http://www.doreenbeads.com/index.php?main_page=track_info&order_id={$orderNormalAll}">hier klicken</a>, um die Tracking-Informationen von Paketen online zu sehen.</td></tr>
+	{if $isHmey}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Bitte achten Sie darauf, sobald dieses Paket nach Ausland geliefert ist, wird diese Tracking-Information nicht weiter aktualisiert.Aber keine Sorge, wir verwenden Europa Luftpost viele Jahre, jedesmals klappt es, zu liefern.
+	</td></tr>
+	{/if}
+
+	{if $shortProductCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Hier entschuldigen Sie bitte dafür,dass einige Artikel plötzlich unlieferbar sind.Das Detail ist wie folgend:<br/>
+		{foreach $shortProduct as $product}
+			{$product.quantity} x -{$product.model}--{$product.name}-Bestellnummer. {$product.orderId}
+			<p style="padding:0;margin:0;">{$product.image}</p>
+		{/foreach}
+		<p style="padding:0;margin:0;"><br />Wir haben andere lieferbare Artikel im Voraus verschickt,damit Sie andere Artikel ohne Verspätung erhalten können.Hier möchten Wir nur informieren,was passiert.<br /><br />
+		Über die fehlende Artikel bieten wir Ihnen 3 Möglichkeiten:<br />
+		①	Es wäre sehr nett von Ihnen, wenn Sie die fehlende Artikel bei Ihrer nächsten Bestellung mitgeschickt zu werden dürfen. Wir wären Ihnen sehr dankbar, wenn Sie uns bei der nächsten Bestellung daran erinnern.<br />
+		②	Die fehlende Artikel werden per Luftpost nachgeschickt, wenn sie wieder auf Lager (normalerweise in einigen Tagen) sind.Dafür brauchen Sie keine weitere Versandkosten zu zahlen. Falls Sie drigend benötigen,verbinden Sie sich mit uns. Wir werden unser Bestes tun, die schnellere Versandart anzubieten.<br />
+		③	Sie können auch andere Artikel als Ersatz auf der Webseite auswählen. Dann kontaktieren Sie uns per Email.<br /><br />
+		Was meinen Sie? Oder haben Sie andere Gedanken? Bitte sagen uns. Wir werden nach Ihrem Hinweit tun. :)</p>
+	</td></tr>
+	{/if}
+
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Bei weiteren Fragen stehen wir Ihnen gerne zur Verfügung.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Wir bedanken uns für Ihre Bestellung und freuen uns auf Ihren nächsten Besuch!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Mit herzlichen Grüßen!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">======Hinweis=======<br/>**Um zu versichern, dass Sie die richtigen Waren in rechten Quantitäten erhalten,tasten wir jeden Artikel im Paket ab. Nämlich gibt es normalerweise kein Fehler.</td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" height="1" style="margin-left: 0;margin-top: 10px;">
+					<tr>
+						<td><a href="http://eepurl.com/gq4YqX"><img src="https://img.doreenbeads.com/promotion_photo/de/images/20190812/550X100de.jpg" alt="Abonnieren Sie jetzt unseren Newsletter"/></a></td>
+					</tr>
+				
+				</table>
+</body>
+</html>

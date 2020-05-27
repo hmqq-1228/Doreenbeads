@@ -1,0 +1,6 @@
+<?php
+//环境请修改configuration中configuration_key为MODULE_PAYMENT_PAYPALWPP_SERVER的值为sandbox或live
+define('MODULE_PAYMENT_PAYPALWPP_APIUSERNAME', 'bussinesstest_api1.gmail.com');
+define('MODULE_PAYMENT_PAYPALWPP_APIPASSWORD', '72E9NVC62733ZLXP');
+define('MODULE_PAYMENT_PAYPALWPP_APISIGNATURE', 'Abf74MVONTjBlTQvhPK8c6ms2MeBAoc6ScKoAORFmN996CXNazDkux4u');
+?>

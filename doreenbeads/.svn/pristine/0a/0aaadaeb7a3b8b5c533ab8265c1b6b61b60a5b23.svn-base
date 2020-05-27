@@ -1,0 +1,36 @@
+<div class="order_main">
+	<div class="user_message_top" style="float: left;">
+		<div class="user_message_top_left">
+			<a href="index.php?main_page=message_list&action=update&unread={$unread}&type=is_ignore">{$smarty.const.TEXT_ALL_MARKED_AS_READ}</a>&nbsp;&nbsp;
+			<a href="index.php?main_page=message_list&action=update&unread={$unread}&type=is_delete">{$smarty.const.TEXT_DELETE_ALL}</a>
+		</div>
+		<div class="user_message_top_right">
+			<a href="index.php?main_page=message_list{if !$smarty.get.unread}&unread=1{else}{/if}">{$smarty.const.TEXT_UNREAD_MESSAGE} <span><img src="/includes/templates/mobilesite/images/view_only_sale_items_{if $smarty.get.unread}on{else}off{/if}.png" /></span></a>
+	
+		</div>
+			
+	</div>
+
+	<div class="user_message_list">
+		<table cellpadding=0 cellspacing=0 border=0 style="display: table;">
+			<tr>
+				<th width="60%">{$smarty.const.TEXT_TITLE}</th>
+				<th width="20%">{$smarty.const.TEXT_TIME}</th>
+				<th width="20%">{$smarty.const.TEXT_ACTION}</th>
+			</tr>
+			{foreach from=$message_array item=message_value}
+			<tr{if !$message_value['is_read'] && !$message_value['is_ignore']} class="unread jq_unread"{/if}>
+				<td class="message_title{if !$message_value['is_read'] && !$message_value['is_ignore']} unread_title{/if}"><a href="index.php?main_page=message_info&auto_id={$message_value['auto_id']}">[<span class="forange">{$message_value['title_type']}</span>]{$message_value['title_list']}</a></td>
+				<td>{$message_value['date_created']}</td>
+				<td>
+					{if !$message_value['is_read'] && !$message_value['is_ignore']}
+					<a href="index.php?main_page=message_list&action=update&unread={$unread}{if $page}&page={$page}{/if}&type=is_ignore&auto_id={$message_value['auto_id']}">{$smarty.const.TEXT_MARKED_AS_READ}</a><br/>
+					{/if}
+					<a href="index.php?main_page=message_list&action=update&unread={$unread}{if $page}&page={$page}{/if}&type=is_delete&auto_id={$message_value['auto_id']}">{$smarty.const.TEXT_DELETE}</a>
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		<div class="page">{$message_page}</div>
+	</div>
+</div>

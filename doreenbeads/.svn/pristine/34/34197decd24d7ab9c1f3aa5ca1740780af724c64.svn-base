@@ -1,0 +1,104 @@
+<div class="order_main">
+    <!--没有地址下单（下单3-1）开始-->
+    <div class="order_warp">
+      	<div class="order_place">
+      		<form class="addressform" name="addressform" action="{$checkout_default_url}" method="post">
+	      		<input type="hidden" value="{if $smarty.get.pn == ''}new{else}{$smarty.get.pn}{/if}" name="action">
+	       		<input type="hidden" value="{$smarty.get.aId}" name="aId">
+	        	<ul>
+	        		<li>
+	        			<label><b class="price_color">*</b> {$obj_text["text_gender"]}</label>
+						<select name="gender" style="width:100%;">
+							<option{if $ainfo.entry_gender == 'm'} selected="selected"{/if} value="m">{$obj_text["text_male"]}</option>
+							<option{if $ainfo.entry_gender == 'f'} selected="selected"{/if} value="f">{$obj_text["text_female"]}</option>
+						</select>
+	        		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b> {$obj_text["text_firstname"]}</label>
+	            		<input type="text" class="firstname required" value="{$ainfo.entry_firstname}" name="firstname" maxlength="50" />
+						<span class="warning_color"></span>
+	          		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b> {$obj_text["text_lastname"]}</label>	            		
+						<input type="text" class="lastname required" value="{$ainfo.entry_lastname}" name="lastname" maxlength="50" />
+						<span class="warning_color"></span>
+	          		</li>	          		
+	          		<li>
+	            		<label><b class="price_color">*</b>{$obj_text["text_address_line_1"]}</label>
+						<textarea class="addresstext required" name="street_address" maxlength="200">{$ainfo.entry_street_address}</textarea>
+						<span class="warning_color" id="address1"></span><br/>
+						<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.SHIPPING_ADDRESS_NOTE}</span>
+	          		</li>
+	          		<li >
+	            		<label>{$obj_text["text_address_line"]}</label>
+						<textarea name="suburb" class="suburb" maxlength="200">{$ainfo.entry_suburb}</textarea>
+						<span id="suburb_span" class="warning_color"></span>
+	          		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b>{$obj_text["text_country"]}</label>
+	            		{$obj_info["country_select"]}
+	         		</li>
+	          		<li >
+	            		<label><b class="price_color">*</b>{$obj_text["text_state"]}</label>
+	            		{$obj_info["pulldown_states"]}
+						<span id="state_error" class="warning_color"></span><br/>
+						<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.SHIPPING_ADDRESS_DETAIL_STATE_NEW}</span>
+	          		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b>{$obj_text["text_city"]}</label>
+						<input type="text" class="citytext required" value="{$ainfo.entry_city}" name="city" />
+						<span class="warning_color"></span>
+	          		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b>{$obj_text["text_zip"]}</label>
+						<input type="text" class="posttext required" value="{$ainfo.entry_postcode}" name="postcode" />
+						<span class="warning_color"></span>
+	          		</li>
+	          		<li>
+	            		<label><b class="price_color">*</b>{$obj_text["text_telephone"]}</label>
+						<input type="text" class="telephone required" value="{$ainfo.entry_telephone}" name="entry_telephone" />
+						<span id="tell" class="warning_color"></span><br/>
+						<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$obj_text["text_require_telephone"]}</span>
+	          		</li>
+	          		<li>
+	          			<label>{$obj_text["text_company"]}</label>
+	          			<input type="text" class="company required" value="{$ainfo.entry_company}" name="company" />
+	          		</li>
+	          		<li >
+	            		<label>{$obj_text["text_tariff_number"]}</label>
+           	 			<input type="text" class="tariff_number required" value="{$ainfo.tariff_number}" name="tariff_number" />
+           	 			<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$obj_text["text_tariff_required"]}</span>
+	          		</li>
+	          		<li >
+	            		<label>{$obj_text["backup_email_address"]}</label>
+            			<input type="text" class="backup_email required" value="{$ainfo.backup_email_address}" name="backup_email" />
+            			<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$obj_text["backup_email_required"]}</span>
+	          		</li>
+	    		</ul>
+	        	<p class="notice_checkbox">
+	          		<input name="set_default" type="checkbox" {if ($smarty.get.aId == $smarty.session['customer_default_address_id']) || ($smarty.session['customer_default_address_id'] == 0)}disabled checked {/if} value="1" />
+	          		{$smarty.const.SET_AS_DEFAULT_ADDRESS|@ucfirst}
+	          	</p>
+          	</form>
+      	</div>
+      	<div class="cart_btn">
+      		<a href="javascript:void(0);" class="btn_big btn_ltblue addresscheck">{$smarty.const.TEXT_SAVE}</a>
+      		<a href="{$checkout_default_url}" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+      	</div>
+    </div>  
+</div>
+<br class="clearBoth">
+<script>
+function update_zone_c(theForm) {
+    if (!theForm || !theForm.elements["zone_id"]) return;
+    var SelectedCountry = $('#zone_country_id').val();
+    var SelectedZone = theForm.elements["zone_id"].value;
+    var NumState = theForm.zone_id.options.length;
+    while (NumState > 0) {
+        NumState = NumState - 1;
+        theForm.zone_id.options[NumState] = null;
+    }
+    {$obj_info["zone_list"]}	
+    if (SelectedZone != "") theForm.elements["zone_id"].value = SelectedZone;
+}
+</script>

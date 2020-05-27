@@ -1,0 +1,16 @@
+<div class="dlgallery also_purchased_content">
+	<h3 class="titleh3">{$smarty.const.TEXT_ALSO_PURCHASED_PRODUCTS}</h3>
+	<ul class="dlgallery-list">
+		{foreach from = $also_purchased_products_content key = k item = v}
+		<li>
+			{$v.img}
+			{$v.price}
+			{$v.button}
+		</li>
+		{/foreach}
+	</ul>
+	{if $disp_num_also_purchased > 4}
+		<p class="viewmore"><a href="javascript:void(0);">View More</a></p>
+	{/if}
+	<div class="clearfix"></div>    
+</div>

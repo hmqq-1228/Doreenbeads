@@ -1,0 +1,183 @@
+<?php
+/**
+ * Side Box Categories Template
+ *
+ * @version $Id: tpl_categories.php 2013-07-29 lvxiaoyong $
+ *
+ * @version 2.0 2013-09-22 lvxiaoyong 
+ */
+
+	if ($normal_category_list_show) {
+		$content = '<ul class="typetitle">
+	              <li class="cate">' . TEXT_ALL_CATEGORIES . '</li>
+	              <li class="refine hover1">' . TEXT_REFINE_BY_WORDS . '</li>
+	            </ul>
+				<dl class="sidemenu" style="display:none;">';
+	}else{
+		$content = '<dl class="sidemenu">';
+		$content .= '<dd>'.($is_level_2 || $is_level_3 ? TEXT_RELATED_CATEGORIES : '<a href="'.HTTP_SERVER.'/'.$_SESSION['languages_code'].'/site_map.html"><font color="#000">'.TEXT_ALL_CATEGORIES.'</font></a>').'</dd>';
+	}
+
+	//	russian , mix
+	if($_SESSION['languages_id']==3 && !$is_level_2 && !$is_level_3){
+		$content .= '<dt><p><a class="nomore" href="'.zen_href_link(FILENAME_PRODUCTS_COMMON_LIST, 'pn=mix').'">'.HEADER_MENU_MIX.'</a></p></dt>';
+	}
+	if(is_array($box_categories_array) && $box_categories_array){
+		foreach($box_categories_array as $i=>$categories_array){
+			$link = zen_href_link(FILENAME_DEFAULT,$categories_array['cPath']);
+			if($is_level_2 || $is_level_3) $link .= '?referer_level3=1';
+			$name = $categories_array['text'];
+			$nextlevel = isset($box_categories_array[$i+1]['level']) ? $box_categories_array[$i+1]['level'] : 0;
+			$display_category_img = '';
+			if($box_categories_array[$i]['pic']>0){
+				switch($box_categories_array[$i]['pic']){
+					case 1:
+						$display_category_img = ' <img src="includes/templates/cherry_zen/images/hot.gif">';
+						break;
+					case 2:
+						$display_category_img = ' <img src="includes/templates/cherry_zen/images/new.gif">';
+						break;
+				}
+			}
+			if($categories_array['level'] == 0){
+				if($categories_array['id'] == intval($cPath_array[0]) && $current_category_level == 0 || $categories_array['id'] == intval($cPath_array[1]) && $is_level_2 || $categories_array['id'] == intval($cPath_array[2]) && $is_level_3){
+					$pClass = 'menufirstopen';
+					$aClass = 'morehover';
+					$ulStyle = 'style="display:block"';
+				}else{
+					$pClass = 'menufirstclose';
+					$aClass = $ulStyle = '';
+				}
+				if($display_category_img!=''){
+					$max_len = $_SESSION['languages_id']==3 ? 34 : 18;
+				}else{
+					$max_len = $_SESSION['languages_id']==3 ? 42 : 22;
+				}
+				$name_new = '';
+				while(strlen($name) > $max_len){
+					$pos = strrpos(substr($name, 0, $max_len), ' ');
+					if($pos > 0){
+						$name_new .= mb_substr($name, 0, $pos)."<br/>";
+						$name = mb_substr($name, $pos);
+					}else{
+						$name_new .= mb_substr($name, 0, $max_len)."<br/>";
+						$name = mb_substr($name, $max_len);
+					}
+				}
+				$name_new .= $name;
+				$name = $name_new;
+				if($nextlevel == 0)	{	//	0
+					$content .= '<dt><p><a href="'.$link.'" class="nomore '.$aClass.'">'.$name.$display_category_img.'</a></p></dt>';
+				}else{		//	1
+					$content .= '<dt><p class="menufirst '.$pClass.'"><a href="'.$link.'" class="more '.$aClass.'">'.$name.$display_category_img.'</a></p><ul class="navmore" '.$ulStyle.'>';
+				}
+			}else if($categories_array['level'] == 1){
+				if($categories_array['id'] == intval($cPath_array[1]) && $current_category_level == 0 || $categories_array['id'] == intval($cPath_array[3]) && $is_level_3)
+					$liClass = 'selectli';
+				else
+					$liClass = '';
+					if($nextlevel == 0)		//	0
+						$content .= '<li class="'.$liClass.'"><a href="'.$link.'" class="morelink">'.$name.'</a></li></ul></dt>';
+					else if($nextlevel == 1)		//	1
+						$content .= '<li class="'.$liClass.'"><a href="'.$link.'" class="morelink">'.$name.'</a></li>';
+					else		//	2
+						$content .= '<li class="more '.$liClass.'"><a href="'.$link.'" class="morelink">'.$name.'</a><div class="threemore">';
+			}else if($categories_array['level'] == 2){
+				if($box_categories_array[$i-1]['level'] < 2){
+					$level3count = 0;
+				}
+				if($level3count > 0 && $level3count % 3 ==0){
+					$content .= '</ul>';
+				}
+				if($level3count++ % 3 == 0){
+					$content .= '<ul>';
+				}
+				if(isset($cPath_array[2]) && ($categories_array['id'] == intval($cPath_array[2]) && $current_category_level == 0 || $categories_array['id'] == intval($cPath_array[4]) && $is_level_3)){
+					$liClass = 'class="selectli"';
+				}else{
+					$liClass = '';
+				}
+				$content .= '<li '.$liClass.'><a class="fourmorea" href="'.$link.'">'.$name.'</a>';		//	2
+				if($nextlevel == 0){	//	0
+					$content .= '</li></ul></div></li></ul></dt>';
+				}else if($nextlevel == 1){		//	1
+					$content .= '</li></ul></div></li>';
+				}else if($nextlevel == 2){		//	2
+					$content .= '</li>';
+				}else{		//	3
+					$content .= '';
+				}
+			}else if($categories_array['level'] == 3){
+				if(isset($cPath_array[3]) && ($categories_array['id'] == intval($cPath_array[3]) && $current_category_level == 0 || $categories_array['id'] == intval($cPath_array[4]) && $is_level_3))
+					$liClass = 'class="selectp"';
+				else
+					$liClass = '';
+				if($current_category_level == 0) $content .= '<p '.$liClass.'><a href="'.$link.'">'.$name.'</a></p>';
+				if($nextlevel == 0)		//	0
+					$content .= '</li></ul></div></li></ul></dt>';
+				else if($nextlevel == 1)		//	1
+					$content .= '</li></ul></div></li>';
+				else if($nextlevel == 2)		//	2
+					$content .= '</li>';
+				else		//	3/4
+					$content .= '';
+			}else if($categories_array['level'] == 4){
+//				$content .= '<p><a href="'.$link.'">'.$name.'</a></p>';
+				if($nextlevel == 0)		//	0
+					$content .= '</li></ul></div></li></ul></dt>';
+				else if($nextlevel == 1)		//	1
+					$content .= '</li></ul></div></li>';
+				else if($nextlevel == 2)		//	2
+					$content .= '</li>';
+				else		//	3/4
+					$content .= '';
+			}
+		}
+	}else{
+		$content .= '<dt><p>' . TEXT_NO_CATEGORIES . '</p></dt>';
+	}
+
+	if($current_category_level == 0 && (SHOW_CATEGORIES_BOX_SPECIALS == 'true' or SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true' or SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true' or SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true')) {
+		// display a separator between categories and links
+		if(SHOW_CATEGORIES_BOX_SPECIALS == 'true') {
+			$show_this = $db->Execute("select s.products_id from " . TABLE_SPECIALS . " s where s.status= 1 limit 1");
+			if($show_this->RecordCount() > 0) {
+				$content .= '<dt><p><a href="'.zen_href_link(FILENAME_SPECIALS).'" class="nomore">'.CATEGORIES_BOX_HEADING_SPECIALS.'</a></p></dt>';
+			}
+		}
+	
+		include_once(DIR_WS_FUNCTIONS . 'functions_customers.php');
+		if(!$_SESSION['has_valid_order']) $_SESSION['has_valid_order'] = zen_customer_has_valid_order();
+		if($_SESSION['has_valid_order']){
+			$content .= '<dt><p><a class="nomore" href="' . zen_href_link(FILENAME_PRODUCTS_COMMON_LIST, 'pn=best_seller') . '">Bestsellers ...</a></p></dt>';
+		}
+		if(SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') {
+			// display limits
+			$display_limit = zen_get_new_date_range();
+			$show_this = $db->Execute("select p.products_id
+											from " . TABLE_PRODUCTS . " p
+											where p.products_status = 1 " . $display_limit . " limit 1");
+			if($show_this->RecordCount() > 0) {
+				$content .= '<dt><p><a href="'.zen_href_link(FILENAME_PRODUCTS_COMMON_LIST, 'pn=new').'" class="nomore">'.CATEGORIES_BOX_HEADING_WHATS_NEW.'</a></p></dt>';
+			}
+		}
+
+		if(SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
+			$show_this = $db->Execute("select products_id from " . TABLE_FEATURED . " where status= 1 limit 1");
+			if($show_this->RecordCount() > 0) {
+				$content .= '<dt><p><a href="'.zen_href_link(FILENAME_PRODUCTS_COMMON_LIST, 'pn=feature').'" class="nomore">'.CATEGORIES_BOX_HEADING_FEATURED_PRODUCTS.'</a></p></dt>';
+			}
+	 	}
+	 
+		if(SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') {
+				$content .= '<dt><p><a href="'.zen_href_link(FILENAME_PRODUCTS_ALL).'" class="nomore">'.CATEGORIES_BOX_HEADING_PRODUCTS_ALL.'</a></p></dt>';
+		}
+	}
+
+	$content .= "</dl>";
+	
+	echo $content;
+	//$content .= '<div class="sidesafe_icon"><a href="http://www.doreenbeads.com/page.html?id=76"><img src="includes/templates/cherry_zen/images/lead_safe.jpg" alt="dorabead safe guarantee"/></a></div>';
+
+	if($cache_page  && $_GET['main_page']=='index') file_cache_write($time_path,$filename,$content);
+?>

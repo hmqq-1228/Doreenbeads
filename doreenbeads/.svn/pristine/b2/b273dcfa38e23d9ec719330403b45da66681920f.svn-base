@@ -1,0 +1,18 @@
+@charset "utf-8";
+p,h3{margin:0;padding:0;}
+img{border:0;}
+.coupon1125{width:1000px;margin:0 auto;background:#9dce6a url(../images/facebook_coupon/bg.jpg) no-repeat 0 0;font-size:12px;color:#fff;font-family:arial;text-align:center;padding-bottom:11px;}
+.coupon1125 .banner{height:315px;}
+.coupon1125 .banner .banner_inner{padding-top:178px;color:#000;}
+.coupon1125 .banner p{display:inline-block;display:inline;}
+.coupon1125 .banner p.noinline{display:block;font-size:16px;color:#000;margin-top:6px;}
+.coupon1125 .banner p.noinline span{color:#bd1319;font-weight:bold;}
+.coupon1125 .banner input{width:206px;height:17px;;margin-left:5px;outline:none;background:#599444;color:#fff;border:0;}
+.coupon1125 .banner a{width:75px;height:24px;padding:4px 10px 1px 10px;background:#599444;text-decoration:none;margin-left:10px;color:#fff;}
+.coupon1125 .banner a:hover{background:#315823;}
+.coupon1125 .step{background:#fff;width:978px;margin:0 auto;}
+.coupon1125 .step h3{height:48px;line-height:48px;font-size:22px;color:#bc4a1e;font-weight:normal;text-align:left;background:#f4f4f4;padding-left:11px;}
+.coupon1125 .step p{color:#555;font-size:14px;text-align:left;padding-left:11px;line-height:36px;}
+.coupon1125 .step a.register{background:url(../images/facebook_coupon/register.gif) no-repeat  0 center;padding:0 57px;text-indent:-9999px;display:inline-block;margin-left:10px;}
+.coupon1125 .step a.addcoupon{background:url(../images/facebook_coupon/add.gif) no-repeat  0 center;padding:0 56px;text-indent:-9999px;display:inline-block;margin-left:10px;}
+#step1_img{background:url(../images/facebook_coupon/step1.gif) no-repeat  0 center;display:inline-block;width:978px;height:326px;}

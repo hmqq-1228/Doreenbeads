@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+/*******--—-公共样式，原来有的,可删除,包括下面的尾部样式*****/
+.clear,.clearfix{ clear:both; font-size:0px; line-height:0px; height:0px;}
+.mainwrap{width:1000px;height:auto;margin:0 auto;margin-top:15px;}
+.mainwrap_l{width:210px;float:left;height:auto;}
+.mainwrap_r{width:766px;float:right;height:auto;}
+
+#min_hd{ width:1000px; margin:0 auto; height:98px; overflow:hidden;color:#333;padding:10px 0;}
+#min_hd h1{ float:left; width:210px; margin-top:8px;}
+#min_hd .logo{margin-top:10px;height:80px;}
+#min_hd .step{ height:30px; overflow:hidden; float:left; margin:52px 0 0 24px; font-size:14px; color:#999;}
+#min_hd .step li{width:173px;height:30px;line-height:30px;float:left;text-align:center;color:#010101;font-weight:bold;font-size:14px;}
+#min_hd .step li.current{background:url(../images/shopcart_step.png) 0 -47px;color:#fff;}
+#min_hd .step li.current.arrive{background:url(../images/shopcart_step.png) 0 -6px;color:#010101;}
+#min_hd .step li.future_last{background:url(../images/shopcart_step.png) -177px -85px;position:relative;left:-36px;}
+#min_hd .step li.future_last.arrive{background:url(../images/shopcart_step.png) 0px -123px;color:#fff;}
+
+#min_hd .step li.future{background:url(../images/shopcart_step.png) 0 -84px;position:relative;left:-12px;}
+#min_hd .step li.future.current{background:url(../images/shopcart_step.png) -177px -47px;position:relative;left:-12px;}
+#min_hd .step li.future.arrive{background:url(../images/shopcart_step.png) -177px -6px;position:relative;left:-12px;}
+#min_hd .step li.place{background:url(../images/shopcart_step.png) 0 -84px;position:relative;left:-24px;}
+#min_hd .step li.place.arrive{background:url(../images/shopcart_step.png) -177px -47px;position:relative;left:-24px;color:#fff;}
+#min_hd .step li.place.current{background:url(../images/shopcart_step.png) -177px -6px;position:relative;left:-24px;color:#000;}
+#min_hd .step li.old{background:url(../images/shopcart_step.png) 0 -80px;}
+#min_hd .livechat{ float:right; margin-top:23px;}
+.min_yellowline{height:2px;background:#a766ad;border-bottom:1px solid #e8e8e8;width:1000px;margin:0 auto;}
+#min_hd .livechat{ float:right; margin-top:23px;}
+
+
+.removewindow{width:304px;height:auto;padding-bottom:35px;display:none;border: 1px solid #434343;position: absolute;background: #fff;z-index: 100001;box-shadow: #444 4px 4px 10px;border-radius: 10px;}
+.removewindow p{text-align:right;margin:10px 20px 0 0;}
+.removewindow p a{font-weight:bold;font-size:16px;color:#bcbcbc;}
+.removewindow div{margin-top:25px;text-align:center;}
+.removewindow  h3{color:#b03edc;font-size:16px;text-align:center;margin-top:20px;}
+.removewindow .paynow_btn{height:22px;line-height:22px;padding:0 20px;font-weight:normal;font-size:12px;color:#fff;}
+.cancelremove{background:#eee;background-image: -moz-linear-gradient(top, #f6f6f6, #eeeeee); /* Firefox */background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f6f6f6), color-stop(1, #eeeeee)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#eeeeee', GradientType='0'); /* IE*/border-radius:3px; display:inline-block; height:22px; line-height:22px; border:#b8b8b8 1px solid; font-size:12px; color:#000; font-family:Arial, Helvetica, sans-serif;margin-left:10px;cursor:pointer;padding:0 24px;}

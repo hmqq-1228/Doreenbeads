@@ -1,0 +1,93 @@
+
+<div class="detailproduct-btn"><a href="javascript:history.back()" class="back-btn">{$smarty.const.TEXT_BACK}</a></div>
+ <div class="user-menu help">
+ <h2>&nbsp;&nbsp;{$smarty.const.HEAD_HELP_CENTER}</h2>
+ <div class="usermenulist">
+     <p>{$smarty.const.TEXT_CUSTOMER_CARE}<span></span></p>
+     <ul>
+        <li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&pagename=shipping_calculator&ifpc=1">{$smarty.const.TEXT_SHIPPING_CALCULATOR} <span>&gt;</span></a></li>
+        <li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=181&ifpc=1">{$smarty.const.TEXT_SHIPPING_METHODS} <span>&gt;</span></a></li>
+        <li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=15&ifpc=1">{$smarty.const.TEXT_PAYMENT_METHODS} <span>&gt;</span></a></li>
+        <li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=46&ifpc=1">{$smarty.const.TEXT_TRACKING_PARCELS} <span>&gt;</span></a></li>
+		<li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=65&ifpc=1">{$smarty.const.TEXT_DISCOUNT_VIP} <span>&gt;</span></a></li>
+		<li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=138&ifpc=1">{$smarty.const.TEXT_CUSTOMIZE_SERVICE} <span>&gt;</span></a></li>
+		<!-- <li><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=18&ifpc=1">{$smarty.const.TEXT_LEARNING_CENTER}<span>&gt;</span></a></li> -->
+        <!-- <li class="orders5"><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=64&ifpc=1">{$smarty.const.TEXT_LASTEST_NEWS}<span>&gt;</span></a></li> -->
+     </ul>
+ 
+	 <p>{$smarty.const.TEXT_ABOUT_DORABEADS}<span></span></p>
+     <ul>
+        <li><a href="{$arr[0]['link']}">1.{$arr[0]['question']} <span>&gt;</span></a></li>
+        <li><a href="{$arr[1]['link']}">2.{$arr[1]['question']}<span>&gt;</span></a></li>
+        <li><a href="{$arr[2]['link']}">3.{$arr[2]['question']}<span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[3]['link']}">4.{$arr[3]['question']} <span>&gt;</span></a></li>
+     </ul>
+     
+     {if $smarty.session.languages_id == 1}
+	     <p>{$smarty.const.TEXT_SHIPPING_FROM_USA}<span></span></p>
+	     <ul>
+		     <li><a href="{$virtual_shipping_arr[0]['link']}">1.{$virtual_shipping_arr[0]['question']} <span>&gt;</span></a></li>
+		     <li><a href="{$virtual_shipping_arr[1]['link']}">2.{$virtual_shipping_arr[1]['question']} <span>&gt;</span></a></li>
+		     <li><a href="{$virtual_shipping_arr[2]['link']}">3.{$virtual_shipping_arr[2]['question']} <span>&gt;</span></a></li>
+		     <li><a href="{$virtual_shipping_arr[3]['link']}">4.{$virtual_shipping_arr[3]['question']} <span>&gt;</span></a></li>
+             <li><a href="{$virtual_shipping_arr[4]['link']}">5.{$virtual_shipping_arr[4]['question']} <span>&gt;</span></a></li>
+	     </ul>
+     {/if}
+     
+	 <p>{$smarty.const.TEXT_ORDERING_INFO}<span></span></p>
+     <ul>
+        <li><a href="{$arr[4]['link']}">1. {$arr[4]['question']} <span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[5]['link']}">2.{$arr[5]['question']} <span>&gt;</span></a></li>
+     </ul>
+	 <p>{$smarty.const.TEXT_MY_ACCOUNT_INFO}<span></span></p>
+     <ul class="payment">
+        <li><a href="{$arr[6]['link']}">1. {$arr[6]['question']} </a></li>
+        <li><a href="{$arr[7]['link']}">2. {$arr[7]['question']} </a></li>
+        <li class="orders5"><a href="{$arr[8]['link']}">3. {$arr[8]['question']} </a></li>
+     </ul>
+	 <p>{$smarty.const.TEXT_CUSTOMER_SERVICE}<span></span></p>
+     <ul>
+        <li><a href="{$arr[9]['link']}">1. {$arr[9]['question']} <span>&gt;</span></a></li>
+        <li><a href="{$arr[10]['link']}">2. {$arr[10]['question']} <span>&gt;</span></a></li>
+        <li><a href="{$arr[11]['link']}">3. {$arr[11]['question']} <span>&gt;</span></a></li>
+        <li><a href="{$arr[12]['link']}">4. {$arr[12]['question']} <span>&gt;</span></a></li>
+		<li><a href="{$arr[13]['link']}">5. {$arr[13]['question']}<span>&gt;</span></a></li>
+		<li><a href="{$arr[14]['link']}">6. {$arr[14]['question']}<span>&gt;</span></a></li>
+		<li><a href="{$arr[15]['link']}">7. {$arr[15]['question']}<span>&gt;</span></a></li>
+		<li><a href="{$arr[16]['link']}">8. {$arr[16]['question']}<span>&gt;</span></a></li>
+		<li><a href="{$arr[17]['link']}">9. {$arr[17]['question']}<span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[18]['link']}">10. {$arr[18]['question']} <span>&gt;</span></a></li>
+     </ul>
+	 <p>{$smarty.const.TEXT_CUSTOM_DUTY}<span></span></p>
+     <ul>
+        <li><a href="{$arr[19]['link']}">1. {$arr[19]['question']}<span>&gt;</span></a></li>
+        <li><a href="{$arr[20]['link']}">2. {$arr[20]['question']} <span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[21]['link']}">3. {$arr[21]['question']} <span>&gt;</span></a></li>
+     </ul>
+	 <p>{$smarty.const.TEXT_ITEM_PRICE}<span></span></p>
+     <ul>
+     	<li><a href="{$arr[22]['link']}">1. {$arr[22]['question']}<span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[23]['link']}">2. {$arr[23]['question']}<span>&gt;</span></a></li>
+      </ul>
+     <p>{$smarty.const.TEXT_PRODUCTS_QUESTIONS}<span></span></p>
+     <ul>
+        <li><a href="{$arr[24]['link']}">1. {$arr[24]['question']}<span>&gt;</span></a></li>
+        <li><a href="{$arr[25]['link']}">2. {$arr[25]['question']}<span>&gt;</span></a></li>
+        <li><a href="{$arr[26]['link']}">3. {$arr[26]['question']}<span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[27]['link']}">4. {$arr[27]['question']}<span>&gt;</span></a></li>
+     </ul>
+	 <p>{$smarty.const.TEXT_WEBSITE_QUESTIONS}<span></span></p>
+   	 <ul>
+        <li><a href="{$arr[28]['question']}">1. {$arr[28]['question']}<span>&gt;</span></a></li>
+        <li class="orders5"><a href="{$arr[29]['question']}">2. {$arr[28]['question']}<span>&gt;</span></a></li>
+     </ul> 
+	 <!--Tianwen.Wan20170523
+     <p>{$smarty.const.TEXT_CUSTOMER_QUESTIONS}<span></span></p>
+     <ul>
+     	{foreach from=$arr key=key item=value}
+        <li><a href="{$value.link}">{$key+1}. {$value.question}<span>&gt;</span></a></li>
+       {/foreach}
+     </ul>
+	 -->
+   </div>
+</div>

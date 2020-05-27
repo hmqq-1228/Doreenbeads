@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=$CHARSET" />
+<base href="$BASE_HREF" />
+
+<style type="text/css">
+body {background-color:#ffffff; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif; text-align:center;}
+a:link {color:#0066cc;}
+a:hover {background-color:#eeeecc; color:#0066cc;}
+a:visited {color:#0066cc;}
+.holder {background-color:#fff; border:1px solid #b336a6; font-size:12px; text-align:left; width:550px;}
+.header {font-size:12px; padding:0px; width:550px;}
+.content {padding:0px;font-size:14px;height:365px; width:550px;color:#7e3873;}
+.footer {border-top:1px solid #9a9a9a; font-size:12px; margin-top:10px; text-align:center; width:550px;}
+.extra-info {background-color:#cccc99; border:1px solid #9a9a9a; font-size:12px; margin-top:10px; padding:5px; width:550px;}
+.extra-info-bold {font-weight:bold;}
+.disclaimer {background-color:#f9f9f9; border:1px solid #cccccc; font-size:12px; margin-top:10px; padding:5px; width:550px;}
+.disclaimer1 {color:#666666; padding:5px;}
+.disclaimer1 a:link {color:#666666;}
+.disclaimer1 a:visited {color:#666666;}
+.disclaimer2 {color:#666666; padding:5px;}
+.copyright {border-bottom:0px solid #9a9a9a; padding:5px;}
+</style>
+
+</head>
+
+<body>
+<div class="holder">
+
+  <!-- Header Section -->
+  <div class="header">
+  <img src="$CURRENT_EMAIL_LOGO_IMAGE" border="0" usemap="#links_exchange" />
+  <map name="links_exchange" id="links_exchange">  
+  	<area shape="rect" coords="390,100,554,118" href ="mailto:marketing@8seasons.com"  />
+  	<area shape="rect" coords="18,145,108,159" href ="http://www.8seasons.com"  />
+  	<area shape="rect" coords="18,163,111,178" href ="http://www.dorabeads.com"  />
+  	<area shape="rect" coords="18,182,95,197" href ="http://www.8years.com"  />
+  </map>
+  <!--<a href="$CURRENT_EMAIL_LOGO_LINK"><img src="$CURRENT_EMAIL_LOGO_IMAGE" alt="logo" border="0" /></a>
+  <a href="http://www.8season-supplies.com/30-off-special-sale-c-442.html" target="_blank">
+  	<img src="http://www.8season-supplies.com/email/pic/header_pandora_display.jpg" alt="logo" /></a>-->
+  </div>
+
+
+  <!-- Content Section -->
+  <div class="content">
+<!--    <div>$EMAIL_SUBJECT</div>-->
+    <div style="width:650px;padding:5px;">$EMAIL_MESSAGE_HTML</div>
+  </div>
+
+
+  <!-- Footer Section -->
+  <!--
+  <div class="footer">
+    <div class="copyright">$EMAIL_FOOTER_COPYRIGHT</div>
+  </div>
+  -->
+
+</div>
+<div class="disclaimer">
+  <div class="disclaimer1">$EMAIL_DISCLAIMER</div>
+  <div class="disclaimer2">$EMAIL_SPAM_DISCLAIMER</div>
+</div>
+$EXTRA_INFO
+</body>
+</html>

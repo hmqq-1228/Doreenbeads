@@ -1,0 +1,27 @@
+<div class="search" id="headSearchDiv"> 
+	<form action="index.php?main_page=advanced_search_result" name="quick_find" method="get">
+		<input type="hidden" name="main_page" value="{$smarty.const.FILENAME_ADVANCED_SEARCH_RESULT}">
+		<a class="search_icon" href="javascript:void(0);" id="btnSearch" ></a>
+		<input type="text" class="searchinput search_lf" id="inputString" name="keyword" value="{$smarty.get.keyword}" placeholder="{$smarty.const.HEADER_SEARCH_DEFAULT_TEXT}" autocomplete="off" maxlength="100"/>
+		<ul class="searchlist" id="autoSuggestionsList"></ul>
+		<?php 
+		//echo zen_draw_hidden_field('main_page',FILENAME_ADVANCED_SEARCH_RESULT);
+		echo zen_draw_hidden_field('inc_subcat', '1');
+		echo zen_draw_hidden_field('search_in_description', '1') . zen_hide_session_id();
+		echo zen_draw_hidden_field('add_report', '1');
+
+		?> 
+		<input name="inc_subcat" value="1" type="hidden">
+		<input name="search_in_description" value="1" type="hidden">
+		{$hide_session_id}
+		<input name="add_report" value="1" type="hidden"> 
+	</form>
+</div>
+
+<dl class="sitemap">
+<h2>{$smarty.const.TEXT_SITEMAP}</h2>
+	{$category_list}
+	<div class="clearfix"></div>
+</dl>
+
+

@@ -1,0 +1,82 @@
+{literal}
+<style>
+	.photocont{width:1000px;height:auto;margin:0 auto;color:#333;}
+	.photo_des{font-size:14px;font-weight:bold;line-height:30px;color:#585858;border-bottom:1px solid #e8e8e8;margin-bottom:15px;}
+	.photocontimg{float:left;border:1px solid #dddddd;width:310px;height:auto;}
+	.photocontinfo{float:right;height:auto;width:660px;}
+	.phototop{height:auto;overflow:hidden;}
+	.phototop dd{width:390px;height:auto;float:left;margin-right:20px;}
+	.phototop dd table td{line-height:26px;padding-left:20px;}
+	.phototop dd table th{text-align:right;width:105px;}
+	.phototop dd table td a{color:#413d94;}
+	.phototop dt{float:right;width:198px;border:1px solid #ddd;height:auto;}
+	.phototop dt ul{padding:10px 10px 0 10px;}
+	.phototop dt ul li{border-bottom:1px dashed #b9b9b9;line-height:30px;}
+	.phototop dt ul li.bordernone{border:none;}
+	.phototop dd .phototop_top{background:#f7f7f7;border:1px solid #eaeaea;padding:10px 15px;margin-bottom:15px;}
+	.phototop dd .phototop_top p{font-size:14px;font-weight:bold;color:#333;line-height:20px;}
+	.phototop dd .phototop_top p a{color:#0481db;font-weight:bold;font-size:12px;}
+	.phototop dt .phototop_l_tit{background:#f4f4f4;font-size:14px;font-weight:bold;line-height:26px;padding-left:15px;}
+	.photobot{width:480px;margin-top:15px;}
+	.photobot p.tit{font-size:14px;font-weight:bold;color:#333;line-height:26px;}
+	/*
+    .photobot table{cellpadding:0;cellspacing:0;border:2px solid #835615;border-collapse:collapse;width:480px;}
+    .photobot table td,.photobot table th{border:2px solid #835615;padding:7px 15px;font-size:14px;}
+    .photobot table td{text-align:center;font-size:12px;}
+    */
+	.photobot p.photonote{line-height:20px;margin-top:10px;}
+	.photobot p.photonote span{color:#ca0400;font-weight:bold;}
+	.photobot p.photonote a{color:#2d5caa;}
+</style>
+{/literal}
+<div class="photocont">
+	{if $not_fount == 'true'}
+	{$message.products_is_not_fount}
+	{else}
+	<div class="photo_des">{$products_order.products_name}</div>
+	<div class="photocontimg">
+		<img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/310.gif" data-size="310" data-lazyload="{$img_dir}">
+	</div>
+	<div class="photocontinfo">
+		<dl class="phototop">
+			<dd>
+				<div class="phototop_top">
+					<p>{$message.phoycont_this_is_snapshot}
+						{if $products_status > 0}
+						<a href="{$products_link}">{$message.phoycont_view_detail}</a>
+						{/if}
+					</p>
+				</div>
+				<table cellpadding="0" cellspacing="0">
+					<tr><th align="right">{$message.phoycont_number}:</th><td>{$products_order.products_model}</td></tr>
+					<tr><th align="right">{$message.phoycont_your_price}:</th><td>{$products_price}</td></tr>
+					<tr><th align="right">{$message.phoycont_shipping_weight}:</th><td>{$products_order.products_weight_quick} {$message.phoycont_grams}</td></tr>
+					<tr><th align="right">{$message.phoycont_order_qty}:</th><td>{$products_order.products_quantity} {if $products_order.products_quantity>1}{$message.phoycont_packs}{else}{$message.phoycont_pack}{/if}</td></tr>
+					{if $products_order.products_categories_name != ''}
+					<tr><th align="right">{$message.phoycont_product_category}:</th><td><a href="{$cPath_url}">{$products_order.products_categories_name}</a></td></tr>
+					{/if}
+				</table>
+			</dd>
+			<dt>
+				<p class="phototop_l_tit">{$message.phoycont_order_information}</p>
+				<ul>
+					<li>{$message.phoycont_order_number}:{$oid}</li>
+					<li>{$message.phoycont_order_date}:{$phoycont_date_purchased}</li>
+					<li class="bordernone">{$message.phoycont_order_status}:{$order->info.orders_status}</li>
+				</ul>
+			</dt>
+		</dl>
+		<div class="photobot">
+			{if $products_order.products_description != ''}
+			<p class="tit">{$message.phoycont_discription}:</p>
+			{$products_order.products_description}
+			{/if}
+			{if $products_status == 0}
+			<p class="photonote"><span>Note:</span>The product is out of stock now , which will also not be available soon. So it has been removed from our website. If you need it, please contact us via <a href="mailto:sale@doreenbeads.com">sale@doreenbeads.com</a>.</p>
+			{/if}
+		</div>
+	</div>
+	{/if}
+	<div class="clearfix"></div>
+</div>
+</div>

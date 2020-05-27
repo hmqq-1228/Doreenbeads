@@ -1,0 +1,46 @@
+/* m.db v2.0.2 */
+.price_color{ color:#f75100;}
+.warning_color{color: #E12020;}
+.grey_9{ color:#999;}
+.cart_btn{ text-align:center; font-size:16px;}
+.btn_ltblue{background:#5579c3;  color:#FFF;border-radius:5px;height:40px; line-height:40px; display:inline-block;}
+.btn_big{ width:90%;text-align:center;  margin-top:20px;}
+.btn_grey ,.btn_blue ,.btn_orange {cursor:pointer;font-size:16px; border-radius:5px; }
+.btn_grey {background-color:#fafafa;color:#333;border-radius:5px; height:40px; line-height:38px; border:1px solid #ccc; display:inline-block;}
+.btn_blue{background-color:#5579c3;color:#fff; line-height:40px; padding:0 20px; height:40px; display:inline-block;}
+.border_bottom{ border-bottom: 1px solid #ccc;}
+.top_margin{ margin-top:15px;}
+
+.order_main{font-size:13px;}
+.order_main .default_address{ padding:15px 5px 15px 5px; border-bottom:1px dashed #ccc;}
+.order_main .default_address h4{ padding-bottom:15px;}
+.order_main .default_address p{ float:left; width:80%; font-size:12px;}
+.order_main .default_address a{ float:right; display:block; background:url(../images/icon.png)-200px -450px; background-size:400px; width:40px; height:40px;}
+.order_main .other_address{ border:1px solid #ccc; margin:15px 5px 0 5px;font-size:12px;}
+.order_main .other_address h3{ text-align:center; background-color:#f9f9f9; line-height:40px; font-size:15px;}
+.order_main .other_address li{ padding:10px 5px; border-bottom:1px dashed #ccc;}
+.order_main .other_address li:last-child{ border-bottom:none;}
+.order_main .other_address li p{ float:left; width:80%;}
+.order_main .other_address .btnedit_address{display:block; background:url(../images/icon.png)-200px -450px; background-size:400px; width:40px; height:40px;}
+.order_main .other_address .btndelete_address{display:block; background:url(../images/icon.png)-234px -628px; background-size:450px; width:40px; height:40px;}
+.order_main .delete_address { padding:0 5px; font-size:12px; margin-bottom: 30px;}
+.order_main .delete_address p{ padding:15px 10px 0 10px;}
+.order_main .delete_address a{ margin:10px; width:40%; text-align:center;}
+.order_main .delete_address .btn_div { width: 100%;}
+.order_main .delete_address .btn_div .btn_blue{ padding: 0;}
+.order_main .add_address{ display:inline-block; margin:15px 5px;text-decoration:underline; font-size:14px; color:#3b5998}
+.order_main .order_place {padding:0 10px; margin-bottom: 20px;}
+.order_main .order_place .notice_checkbox { padding-top:10px;}
+.order_main .order_place li {padding-top:15px;}
+.order_main .order_place li label{ display:block; padding-bottom:8px;}
+.order_main .order_place li input ,.order_place li select{ height:34px; border:1px solid #ccc; width:96%; padding: 0 2%;color: #333;}
+.order_main .order_place li textarea{border:1px solid #cccccc;height:68px;width:96%;font-size:12px;line-height:20px;padding:5px 2%;}
+.order_main .order_place #zone_country_id, .order_place #stateZone{width: 100%;}
+.order_main .addresscheck{border: none; cursor: pointer;}
+.order_main .change_email{padding:15px 5px;}
+.order_main .change_email input{ width:90%;margin-top:5px; line-height:40px; padding:0 10px;}
+.order_main .newsletter{ padding:15px 5px;}
+.order_main .newsletter input{ margin-right:10px;}
+
+.prompt{ background-color:#fff8e2; font-size:13px; padding:10px;}
+.cart_btn button{ border: none; cursor: pointer;}

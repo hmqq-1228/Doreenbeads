@@ -1,0 +1,4 @@
+<?php
+
+define('EMAIL_CURRENCY_BODY', 'Dear customer,<br/>Congratulations on joining affiliate program successfully.<br/>The following exclusive link is for you:<br/>%s<br/>You can share this exclusive link with your customers or friends. If they place orders with Doreenbeads through your link, we will pay you 6％ commission(commission percent may be adjusted in the future) on the amount of all referral orders. You can check commission in Affiliate Program of your account. We will pay your commission on the 10th of each month, please check it in your paypal account or Balance account. <br/>Any questions, please feel free to contact us: sale@doreenbeads.com.<br/>Welcome to do a long term and successful business with Doreenbeads affiliate program team! We will try our best to help you make more money!<br/>Best Wishes,<br/>Doreenbeads Team');
+?> 		

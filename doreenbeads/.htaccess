@@ -1,0 +1,115 @@
+##### NOTE:  Replace /shop/ with the relative web path of your catalog in the "Rewrite Base" line below:
+Order Allow,Deny
+Allow from all
+Deny from 192.168.3.22
+
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /./
+RewriteRule ^(en|de|ru|fr|es|jp|it)$  [L]
+RewriteRule ^(en|de|ru|fr|es|jp|it)/(.*)   $2 [L] 
+RewriteCond %{http_host} ^doreenbeads.com [NC]
+RewriteRule ^(.*)$ http://www.doreenbeads.com/$1 [L,R=301]
+
+#forbidden
+RewriteRule ^allowed_cn_ips$ index\.php
+# From Ultimate SEO URLs
+RewriteRule ^(.*)-p-(.*).html$ index\.php?main_page=product_info&products_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-c-(\w+).html$ index\.php?main_page=index&cPath=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-c-(\w+)-([0-9]+).html$ index\.php?main_page=index&cPath=$2&page=$3&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-m-([0-9]+).html$ index\.php?main_page=index&manufacturers_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-pi-([0-9]+).html$ index\.php?main_page=popup_image&pID=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-pr-([0-9]+).html$ index\.php?main_page=product_reviews&products_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-pri-([0-9]+).html$ index\.php?main_page=product_reviews_info&products_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-ezp-([0-9]+).html$ index\.php?main_page=page&id=$2&%{QUERY_STRING} [L]
+
+# For Open Operations Info Manager
+RewriteRule ^(.*)-i-([0-9]+).html$ index\.php?main_page=info_manager&pages_id=$2&%{QUERY_STRING} [L]
+
+# From Search SEO URLs
+RewriteRule ^search/(.*)-s-([0-9]+).html$ index\.php?main_page=advanced_search_result&keyword=$1&categories_id=$2&%{QUERY_STRING}[L]
+RewriteRule ^search/(.*)-s.html$ index\.php?main_page=advanced_search_result&keyword=$1&categories_id=&%{QUERY_STRING}
+
+#RewriteCond %{QUERY_STRING} ^keywords=(.+)$
+#RewriteRule ^advanced_search_result.html$ index\.php?main_page=advanced_search_result&cId=&keyword=%1&%{QUERY_STRING} [L]
+RewriteRule ^ProductSearch.html$ index\.php?main_page=advanced_search_result&%{QUERY_STRING} [L]
+
+RewriteCond %{QUERY_STRING} ^keywords=(.+)$
+RewriteRule ^advanced_search_result.html$ index\.php?main_page=advanced_search_result&cId=&keyword=%1&%{QUERY_STRING} [L]
+
+RewriteCond %{QUERY_STRING} ^keywords=(.+)$
+RewriteCond %{QUERY_STRING} ^cId=(.+)$
+#RewriteRule ^advanced_search_result.html$ index\.php?main_page=advanced_search_result&cId=%2&keyword=%1&%{QUERY_STRING} [L]
+RewriteRule ^ProductSearch.html$ index\.php?main_page=advanced_search_result&cId=%2&keyword=%1&%{QUERY_STRING} [L]
+
+RewriteRule ^(.*)-ezpage-([0-9]+).html$ index\.php?main_page=page&id=$2&%{QUERY_STRING} [L]
+
+#new arrival
+RewriteRule ^new-jewelry-wholesale/(\w+).html$ index\.php?main_page=products_new&action=$1&%{QUERY_STRING} [L]
+RewriteRule ^new-jewelry-wholesale/(\w+)-([0-9]+).html$ index\.php?main_page=products_new&action=$1&page=$2&%{QUERY_STRING} [L]
+RewriteRule ^new-jewelry-wholesale/(.*)-ci-(\w+).html$ index\.php?main_page=products_new&cId=$2&%{QUERY_STRING} [L]
+RewriteRule ^new-jewelry-wholesale/(.*)-ci-(\w+)-([0-9]+).html$ index\.php?main_page=products_new&cId=$2&page=$3&%{QUERY_STRING} [L]
+
+#featured products
+RewriteRule ^featured-jewelry/(\w+).html$ index\.php?main_page=featured_products&action=$1&%{QUERY_STRING} [L]
+RewriteRule ^featured-jewelry/(\w+)-([0-9]+).html$ index\.php?main_page=featured_products&action=$1&page=$2&%{QUERY_STRING} [L]
+RewriteRule ^featured-jewelry/(.*)-ci-(\w+).html$ index\.php?main_page=featured_products&cId=$2&%{QUERY_STRING} [L]
+RewriteRule ^featured-jewelry/(.*)-ci-(\w+)-([0-9]+).html$ index\.php?main_page=featured_products&cId=$2&page=$3&%{QUERY_STRING} [L]
+
+#mixed products
+RewriteRule ^mix-jewelry-supplies/(\w+).html$ index\.php?main_page=products_mixed&action=$1&%{QUERY_STRING} [L]
+RewriteRule ^mix-jewelry-supplies/(\w+)-([0-9]+).html$ index\.php?main_page=products_mixed&action=$1&page=$2&%{QUERY_STRING} [L]
+RewriteRule ^mix-jewelry-supplies/(.*)-ci-([0-9]+).html$ index\.php?main_page=products_mixed&cId=$2&%{QUERY_STRING} [L]
+RewriteRule ^mix-jewelry-supplies/(.*)-ci-([0-9]+)-([0-9]+).html$ index\.php?main_page=products_mixed&cId=$2&page=$3&%{QUERY_STRING} [L]
+
+RewriteRule ^(feed-back).html$ index\.php?main_page=feedback&%{QUERY_STRING}
+RewriteRule ^who-we-are/contact-us.html$ index\.php?main_page=who_we_are&id=4&%{QUERY_STRING}
+RewriteRule ^who-we-are/privacy.html$ index\.php?main_page=who_we_are&id=3&%{QUERY_STRING}
+RewriteRule ^who-we-are/terms-and-conditions.html$ index\.php?main_page=who_we_are&id=2&%{QUERY_STRING}
+RewriteRule ^who-we-are/about-us.html$ index\.php?main_page=who_we_are&id=1&%{QUERY_STRING}
+RewriteRule ^beads-shop-owner.html$ index\.php?main_page=beads_shop_owner&%{QUERY_STRING}
+
+#subject area
+RewriteRule ^subject/(.*)-ai-([0-9]+).html$ index\.php?main_page=products_common_list&pn=subject&aId=$2&%{QUERY_STRING} [L]
+RewriteRule ^subject/(.*)-ai-([0-9]+)-([0-9]+).html$ index\.php?main_page=products_common_list&pn=subject&aId=$2&page=$3&%{QUERY_STRING} [L]
+
+RewriteRule ^(.*)/min/(.*)$ min/g=$2?%{QUERY_STRING}
+
+
+#For links exchange
+RewriteRule ^links-exchange-jewelry-directory.html$ index\.php?main_page=links&%{QUERY_STRING} [L]
+RewriteRule ^(.*)-l-([0-9]+).html$ index\.php?main_page=links&lPath=$2&%{QUERY_STRING} [L]
+RewriteRule ^links-exchange-submit-your-site.html$ index\.php?main_page=links_submit&%{QUERY_STRING} [L]
+RewriteRule ^(.*)submit-your-site-ls-([0-9]+).html$ index\.php?main_page=links_submit&lPath=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)submit-your-site-la-(.*).html$ index\.php?main_page=links_submit&action=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)submit-your-site-ls-([0-9]+)-la-(.*).html$ index\.php?main_page=links_submit&lPath=$2&action=$3&%{QUERY_STRING} [L]
+
+# For dreamscape's News & Articles Manager
+RewriteRule ^news/?$ index\.php?main_page=news&%{QUERY_STRING} [L]
+RewriteRule ^news/rss.xml$ index\.php?main_page=news_rss&%{QUERY_STRING} [L]
+RewriteRule ^news/archive/?$ index\.php?main_page=news_archive&%{QUERY_STRING} [L]
+RewriteRule ^news/([0-9]{4})-([0-9]{2})-([0-9]{2}).html$ index\.php?main_page=news&date=$1-$2-$3&%{QUERY_STRING} [L]
+RewriteRule ^news/archive/([0-9]{4})-([0-9]{2}).html$ index\.php?main_page=news_archive&date=$1-$2&%{QUERY_STRING} [L]
+RewriteRule ^news/(.*)-a-([0-9]+)-comments.html$ index\.php?main_page=news_comments&article_id=$2&%{QUERY_STRING} [L]
+RewriteRule ^news/(.*)-a-([0-9]+).html$ index\.php?main_page=news_article&article_id=$2&%{QUERY_STRING} [L]   
+
+#facebook coupon activity
+RewriteRule ^facebookcoupon.php$ index\.php?main_page=facebook_coupon&%{QUERY_STRING} [L]
+
+# All other pages
+# Don't rewrite real files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*).html$ index\.php?main_page=$1&%{QUERY_STRING} [L]
+
+# Drop Bittorrent agent 2015-01-05 before redirect to https
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    # RewriteCond %{HTTP_USER_AGENT} =Bittorrent
+    RewriteRule ^/announce$ - [F]
+    RewriteRule ^/announce\.php$ - [F]
+</IfModule>
+
+<IFModule mod_php5.c>
+php_value upload_max_filesize 10M
+</IFModule>

@@ -1,0 +1,279 @@
+<?php
+define ( 'TEXT_HOME','Accueil');
+define ( 'TEXT_ENTER_NEW_ADDRESS','Ajouter une nouvelle adresse');
+define ( 'TEXT_EDIT_ADDRESS','Modifier l’adresse Infomation');
+define ( 'TITLE_SHOPPING_CART', 'Panier');
+define ( 'TEXT_CONTINUE_SHOPPING','Continuer les achats');
+define ( 'TEXT_KEYWORDS_OR_PART', 'Recherche des articles' );
+define ( 'TEXT_HEADER_MENU', 'Menu' );
+define ( 'TEXT_BACK_TO_TOP', 'Retour à haut' );
+define ( 'TEXT_OR', 'ou' );
+define ( 'TEXT_CONTACT', 'Contacter-nous' );
+define ( 'TEXT_ABOUT','Qui Sommes-Nous');
+define ( 'TEXT_PRIVACY', 'Confidentialité' );
+define ( 'TEXT_TERMS_CONDITIONS','Termes & Conditions');
+define ( 'TEXT_FULL_SITE', 'Site PC' );
+define ( 'TEXT_WISHLIST', 'Mes Favoris' );
+define ( 'TEXT_SHIPPING', 'Expédition' );
+define ( 'TEXT_PAYMENT', 'Paiement' );
+define ( 'TEXT_VIP_DISCOUNT', 'Réduction VIP' );
+define ( 'TEXT_TESTIMONIAL','Avis des Clients');
+define ( 'TEXT_ALL_RIGHTS', '© Doreenbeads.com. Tous droits reserves.' );
+define ( 'TEXT_TOP_SELLER', 'Top Ventes' );
+define ( 'TEXT_SUBSCRIBE_FOR', 'Saisissez l&acute;Adresse Email' );
+define ( 'TEXT_CART_UNIT_PRICE', 'Prix Unitaire' );
+define ( 'TEXT_HI', 'Salut' );
+define ( 'TEXT_SELECT_ALL_CATE', 'Toutes les Categoriés' );
+define ( 'TEXT_SELECT_MATCH_CATE', 'Catégories Assorties' );
+define ( 'TEXT_ORDER_INFO_SUBTOTAL', 'Sous-total' );
+define ( 'TEXT_SIGN_UP_FOR_NEW_ARRIVALS_AND_SALES', 'JOIGNEZ-NOUS À NOTRE NEWSLETTER' );
+define('TEXT_ADD_COUPON_BUTTON','Cliquez ici pour obtenir un coupon');
+define('TABLE_BODY_COMMENTS', "Si vous avez des exigences particulières concernant cette commande, telles que la valeur déclarée ou le délai d'expédition, veuillez l'écrire ici. Si vous n'êtes pas sûr, laissez-le vide, nous le traiterons pour vous.");
+define('TEXT_DISCOUNT_COUPON_NO_USE','Aucun coupon disponible');
+define('TEXT_DISCOUNT_COUPON_NULL','Vous n’avez choisi aucun coupon');
+define('TEXT_DISCOUNT_COUPON_DESC', '%s de remise dès %s d’achats');
+
+define('TEXT_SHOP_CATEGORIES', 'ACHAT PAR CATEGORIES');
+define('TEXT_MY_ACCOUNT', 'Mon Compte');
+define('TEXT_HELP_CENTER', 'Aide');
+define('TEXT_INVITE_FRIENDS', 'Invitez des amis'); 
+
+define('TEXT_REFINE_BY', 'Filtrer');
+define('TEXT_SORT_BY', 'Trier par');
+define('TEXT_MORE_PRO','Plus');
+define('TEXT_VIEW_LESS','Retourner');
+define('TEXT_CLEAR_ALL','Supprimer Tous'); 
+define('TEXT_APPLY','Confirmer'); 
+define('TEXT_RESULTS','Résultat'); 
+define('TEXT_SEARCH_RESULTS','Résultats de Recherche'); 
+
+define ( 'TEXT_PROMOTION', 'Promotion' );
+define ( 'TEXT_DEALS', 'Promotions' );
+/*product_info m.dorabeads 1.01 WSL*/
+define ( 'TEXT_HEADER_DISCOUNT_PRICES_PERCENTAGE', 'Prix de réduction(Unité: Lot)' );
+define ( 'TEXT_HEADER_DISCOUNT_PRICES_ACTUAL_PRICE', 'Nouveau Prix de Réduction(Unité: Lot)' );
+define ( 'TEXT_HEADER_DISCOUNT_PRICES_AMOUNT_OFF', 'Prix de réduction(Unité: Lot)' );
+
+define ( 'TEXT_PAYMENT_BANK_HSBC', 'Notre compte de banque (Citibank)' );
+define ( 'TEXT_PAYMENT_BANK_CHINA', 'Notre compte de banque (Banque de Chine ' );
+define ( 'TEXT_PAYMENT_BANK_WESTERN_UNION', 'Les informations sur le bénéficiaire de Western Union ' );
+define ( 'TEXT_PAYMENT_CREDIT_CARD_VIA_PAYPAL', 'Payer par la carte de crédit via Paypal' );
+define ( 'TEXT_BACK', 'retour' );
+define ( 'TEXT_BACK_TO_HELP_CENTER','Retour au Centre d’Aide');
+define ( 'TEXT_VIP_GROUNP_DISCOUNT', 'Réduction de VIP' );
+define ( 'TEXT_SHIPPING_FEE_ACOUNT', 'SFrais de Livraison' );
+define ( 'TEXT_GRAND_TOTAL', 'Total' );
+define ( 'TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW_CONTENT', '<span class="orange">%d-%d</span> / total: %d' );
+define ( 'TEXT_ADDCART_SUCCESS', 'Article(s) ajouté(s) avec succès à votre panier!<br/><a href="' . zen_href_link ( FILENAME_SHOPPING_CART ) . '">Voir le panier</a>' );
+define ( 'TEXT_WISHLIST_SUCCESS', 'Produits ajoutés à vos favoris avec succès!<br/><a href="' . zen_href_link ( FILENAME_WISHLIST ) . '">Voir vos favoris.</a>' );
+define ( 'TEXT_RESTOCK_SUCCESS', 'Félicitation! Vous êtes inscrit avec succès à la notification du rapprovisionnement de cet article  Un e-mail avec le lien de cet article vous sera envoyé dès que le stock est disponible.' );
+define ( 'TEXT_SELECTED', 'Certains' );
+//define('TEXT_RESTOCK_NOTIFY', 'Restock Notification' );
+define('TEXT_RESTOCK_NOTIFY', '' );
+define('TEXT_KEYWORDS_OR_PART1','Entrez un mot clé ou un numéro de référence' );
+define('TEXT_CART_WRONG_QUANTITY', 'Saisissez la quantité correcte!' );
+
+define ( 'NAVBAR_TITLE_REG', 'S’inscrire ou Se connecter' );
+define ( 'TEXT_HEADER_SIGN_IN', 'S’inscrire ou Se connecter' );
+define ( 'HEADER_TITLE_REGISTER', 'Enregistrer' );
+define ( 'GET_COUPON', '(S’enregister à gagner un coupon de <em style="color:#0066FF">%s</em> et profiter de la réduction jusqu’à <em style="color:#0066FF">10%%</em>)' );
+define ( 'CREATE_NEW_ACCOUNT', 'Créer un nouveau compte' );
+define ( 'ALREADY_HAVE_ACCOUNT', 'avez déjà un compte ?' );
+define ( 'REG_EMAIL_NOTICE', '(Veuillez laisser une adresse email valide.)' ); 
+define ( 'REG_PASSWORD_NOTICE', "(Cela devrait être d’au moins 5 caractères (doit contenir des lettres et des chiffres).)" );
+define('ENTRY_EMAIL_ADDRESS', 'Adresse E-mail' );
+define('EMAIL_SEND_SUCCESS','Merci! Votre email a été envoyé à nous avec succès. Nous vous répondrons d’ici 24 heures dans nos jours de travail.');
+
+define ( 'TEXT_EMAIL_ADDRESS', 'Adresse E-mail :' );
+define ( 'TEXT_FIRST_NAME', 'Prénom' );
+define ( 'TEXT_LAST_NAME', 'Nom' );
+define ( 'TEXT_QUESTION', 'Question' );
+define ( 'TEXT_CHECK_CODE', 'Code valide' );
+
+define ( 'TEXT_INFO_SORT_BY_PRODUCTS_PRICE', 'Prix - moins cher au plus cher' );
+define ( 'TEXT_INFO_SORT_BY_PRODUCTS_PRICE_DESC', 'Prix - du plus cher au moins cher' );
+define ( 'TEXT_INFO_SORT_BY_PRODUCTS_MODEL', 'N° de Réf' );
+define ( 'TEXT_INFO_SORT_BY_PRODUCTS_DATE_DESC', 'Newest' );
+define ( 'TEXT_INFO_SORT_BY_PRODUCTS_DATE', 'Des anciens aux Nouveaux' );
+define ('TEXT_PRICE_AS_LOW_AS', 'A partir de');
+define ('TEXT_PRICE_LOWEST', 'À Partir de');
+define ('TEXT_BUY', 'Acheter');
+define ('TEXT_ADD_TO_CART', 'Ajouter au panier');
+define ('TEXT_PRICE', 'Prix');
+define ('TEXT_PER_PACK', 'paquet');
+define ('TEXT_SUCCESS', 'Parfait');
+define ('TEXT_UPDATE', 'Mettre à jour');
+define ('TEXT_PART_NO', 'N° de Réf');
+define ('TEXT_SHIPPING_WEIGHT', 'Poids d’expédition');
+define ('TEXT_PRODUCT_WEIGHT', 'Poids de Produits');
+define ('TEXT_VOLUMETRIC_WEIGHT', 'Poids de volume');
+define ('TEXT_DATE_ADDED', 'Date ajoutée');
+define ('TEXT_GRAMS', 'grammes');
+define ('TEXT_REVIEWS', 'Avis');
+define ('TEXT_AVERAGE_RATING', 'Classement moyen');
+define ('TEXT_NO_PRODUCT_REVIEWS', 'TIl n’y a aucune avis sur ce produit en ce moment.'); 
+define ('TEXT_BY', 'Par');
+define ('TEXT_REPLY', 'Réponse');
+define ('TEXT_STOCK_REMAINING', 'Stock Disponible');
+define ('TEXT_REMOVED', 'Indisponible');
+define ('TEXT_ITEM_SPECIFICIATON', 'Description Détaillée');
+
+define ('TEXT_QUANTITY', 'Quantité.');
+define ('TEXT_QTY', 'Quantité.');
+define ('TEXT_OFF', 'Réduction');
+define ('TEXT_LOGIN', 'Se Connecter');
+define ('TEXT_LOG_OUT', 'Se Déconnecter');
+define ('TEXT_SHARE_TO', 'Partager à');
+define ('TEXT_PACKAGE_SIZES', 'Formats d’Emballage');
+
+define('TEXT_AVAILABLE_IN715','Temps de préparation: 7~15 jours de travail');
+define('TEXT_AVAILABLE_IN57','Temps de préparation: 3~5 jours de travail');
+
+/*testimonial  mailto */
+define('TESTIMONIAL_EMAILS_TO', 'sale@doreenbeads.com');
+define('TEXT_CART_ONLY_HAVE', '<font style="color:red">%s</font> paquets sont disponibles maintenant, et ils ont été ajoutés à votre panier avec succès.');
+define('TEXT_CART_INVALID_ITEMS', 'Articles Invalides');
+define('TEXT_CART_EMPTY_INVALID_ITEMS', 'Vider les Articles Invalides');
+
+define ('TEXT_CURRENCY', 'MONNAIE');
+define ('TEXT_LANGUAGE', 'LANGUE');
+define ( 'TEXT_MIXED_PRODUCTS', 'Produits Mixtes' );
+
+define('TEXT_PAYMENT_FAILURE', 'Nous sommes désolés que vous n’avez pas payé avec succès. C’est peut-être à cause des informations incorrectes de votre carte de crédit. Veuillez essayer avec une autre carte si c’est possible. Si ?a marche pas, contactez-nous via <a href=mailto:sale_fr@doreenbeads.com>sale_fr@doreenbeads.com</a>. Merci!');
+
+define('ENTRY_PASSWORD','Mot de passe');
+define('ENTRY_CONFIRM_PASSWORD','Confirmer le mot de passe');
+define('TEXT_PASSWORD_FORGOTTEN', 'MOT DE PASSE OUBLÉ');
+define('TEXT_SIGN_IN', 'Identifiez-vous');
+define('TEXT_JOIN_NOW', 'Joindre Vite');
+define('AGREEN_TO_TERMS_AND_CONDITIONS', 'En créant un compte, vous acceptez <a href="'. zen_href_link(FILENAME_TERMS) .'" target="_blank">Les Termes et Les Conditions</a> de Doreenbeads.com.');
+define('TEXT_REGISTER_SUCCESSFULLY', 'Réussir à Enregistrer');
+define('TEXT_WELCOME_TO_JOIN_US', 'Bienvenu de nous Joindre!');
+define('TEXT_REGISTER_SUCCESSFULLY_TEXT', '<font color="#ee1414"><b>US$ 6.01</b></font> coupon a été ajouté à votre compte.</p><br/>
+        <p>En créant un compte sur notre site, vous êtes capable d’acheter les produits avec moins de soucis et plus rapide.</p><br/>
+        <p>Maintenant, vous pouvez cliquer les liens en dessous et commencer vos achats.');
+define ( 'TEXT_DISCOUNT_POLICY', 'Politique de Remise' );
+define ( 'TEXT_FREE_601_COUPON', '<span>$6,01 COUPON</span> OFFERT' );
+define ( 'TEXT_WORLDWIDE_FREE_SHIPPING', 'LIVRAISON GRATUITE MONDIALE' );
+define ( 'TEXT_WORD_HOMEPAGE', 'Accueil' );
+define ( 'TEXT_NO_EMAIL_ADDRESS_FOUND', 'Cette adresse email n’exsite pas, si vous avez besoin de créer un compte, <a href="'.zen_href_link(FILENAME_REGISTER, '', 'SSL').'">cliquez ici</a>.');
+define ( 'TEXT_RESET_PASSWORD', 'Remettre le mot de passe');
+define ( 'TEXT_RETURN_CUSTOMERS', 'Déjà inscrit');
+
+define('TEXT_SHIPPING_ADDRESS','Adresse d’expédition');
+define('TEXT_ADD_NEW_ADDRESS', 'Ajouter une nouvelle adresse');
+define('TEXT_ORDER_SUMMARY', 'Résumé de la Commande');
+define('TEXT_CHOOSE_COUPON_TIPS', 'Choisir le coupon dans la liste déroulante. Pour les règles sur l’utilisation des coupons');
+define('TEXT_CLICK_HERE', 'cliquez ici');
+define('TEXT_WORD_COUPON', 'Coupon'); 
+define('TEXT_OTHER_COUPON_TITLE', 'utilisez le coupon');
+define('TEXT_CHOOSE_OTHER_ADDRESS', 'Choisir Une Autre Adresse');
+
+define('TEXT_PAGE_NOT_FOUND_TIPS', '<h2 style="border-bottom:none;">Désolé, cette page n’est pas disponible.</h2>
+		<label style="display:block; border-bottom:1px solid #ccc; padding:6px 0px 16px 20px; margin-bottom:10px;">La page que vous avez suivie peut-être rompue ou la page a peut-être été déplacée.</label>
+<p><b>Peut-être vous pourriez...</b></p>
+<ol class="searchnone">
+	<li>Vérifier les informations que vous avez entrées pour vous assurer qu’elles sont correctes.</li>
+	<li>Rechercher par le mot clé.</li>
+	<li>Commencer à la page d’accueil.</li>
+</ol>
+<h4>Ou vous préférez à:</h4>
+<div class="contbtn">
+    <a href="./contact_us.html" class="btn_orange">Contactez-Nous</a>
+    <a href="./" class="btn_grey">Continuez le Shopping</a>
+</div>');
+
+define('TEXT_PRODUCT_NOT_FOUND_TIPS', '<h2 style="border-bottom:none;">Désolés, le produit %s n\'est pas disponible maintenant.</h2>
+<p><b>Bonnes Notes:</b></p>
+<ol class="searchnone">
+	<li>Pour certaines raisons, nous l\'avons interrompu et supprimé de notre site.</li>
+	<li>Nous vous suggérons de rechercher d\'autres produits similaires.</li>
+	<li>Si vous en avez grand besoin, veuillez nous contacter svp.</li>
+</ol>
+<h4>Ou vous préférez à:</h4>
+<div class="contbtn">
+    <a href="./contact_us.html" class="btn_orange">Contactez-Nous</a>
+    <a href="./" class="btn_grey">Continuez le Shopping</a>
+</div>');
+
+
+
+define('TEXT_CATEGORIES_NOT_FOUND_TIPS', '<h2 style="border-bottom:none;">Désolé, cette catégorie n\'est pas disponible.</h2>
+		<label style="display:block; border-bottom:1px solid #ccc; padding:6px 0px 16px 20px; margin-bottom:10px;">La catégorie peut être fermée ou la catégorie peut être supprimée.</label>
+<p><b>Peut-être que vous pourriez ...</b></p>
+<ol class="searchnone">
+	<li>-Rechercher les articles avec les mots clés.</li>
+	<li>-Voir d\'autres catégories.</li>
+	<li>-Commencer par la page d\'accueil.</li>
+</ol>
+<h4>Ou vous préférez à:</h4>
+<div class="contbtn">
+    <a href="./contact_us.html" class="btn_orange">Contactez-Nous</a>
+    <a href="./" class="btn_grey">Continuez le Shopping</a>
+</div>');
+
+define('TEXT_BALANCE_TOTAL', 'Total du solde du compte de crédit');
+define('TEXT_BALANCE_USE_FOR_ORDER', 'Utilisez <span class="price_color">%s</span> pour cette commande.');
+define('TEXT_BALANCE_LEFT', 'Solde Restant');
+define('TEXT_SHIPPING_RESTRICTION_IMPORTANT_NOTE', '<b>Note importante: </b><br/>en raison de la restriction d’expédition, certains produits de votre commande peuvent être expédiés séparément par Poste Aérienne, <a href="'.HTTP_SERVER.'/page.html?id=211" style="color:#008fed;" target="_blank">pourquoi >></a>');
+
+define('TEXT_ORDERS', 'Commandes');
+define('TEXT_CART_JS_REMOVE_ITEM', 'Etes-vous sûr de supprimer cet article?');
+define('TEXT_WORD_COUPON', 'Coupon');
+define('TEXT_ADD_COUPON', 'Ajouter le Coupon');
+define('TEXT_ENTER_A_COUPON_CODE', 'Enter un code de coupon');
+define('TEXT_WRONG_COUPON_CODE', 'Désolé, vous avez entré un code incorrect de coupon.');
+define('TEXT_COUPON_NOT_YET_TIME', 'Ce n’est pas encore le temps d’obtenir le coupon.');
+define('TEXT_EXPIRED_COUPON_CODE', 'Désolé, le coupon a déjà expiré.');
+define('TEXT_OWNED_COUPON_CODE', 'Le code de coupon que vous avez entré a déjà été ajouté.');
+define('TEXT_COUPON_HAS_BEEN_BROUGHT', 'Désolé, le coupon a été utilisé.');
+define( 'TEXT_ADD_COUPON_DESCRIPTION', 'Coupon a été ajouté à votre compte avec succès.');
+define('TEXT_ADD_COUPON_TITLE' , 'Coupon à Saisir');
+define('TEXT_COUPON_AVAILABLE', 'disponible');
+define ( 'TEXT_MEMO', 'Note' );
+
+define('TEXT_WORD_CREDIT_BALANCE','Solde de crédit');
+define('TEXT_WORD_CHANGE_PASSWORD', 'Modifier le mot de passe');
+define('TEXT_WORD_SETTINGS', 'Créer');
+define('TEXT_WORD_NEWSLETTER_SUBSCRIPTION', 'Inscription à la Newsletter');
+define('TEXT_WORD_DELETE_ADDRESS', 'Supprimer une Address');
+define('TEXT_CHANG_EMAIL_ADDRESS', 'Modifier l’adresse email');
+define('TEXT_WORD_ITEM_SNAPSHOT', 'Aperçu de l\'Article');
+define('TEXT_NO_RECORD','Sans Record!');
+define('TEXT_TWO_REWARD_COUPONS', 'Deux coupons de récompense seulement pour vous, 12 USD peuvent être économisés');
+define('TEXT_IN_ORDER_TO_THANKS_FOR_YOU', 'Afin de vous remercier pour votre première commande chez nous, nous vous avons envoyé 2 coupons sur votre compte. <a href="' . zen_href_link(FILENAME_MY_COUPON) . '" target="_blank">Voir mon coupon >></a>');
+define('EMAIL_ORDER_TRACK_REMIND_NEW','Veuillez vérifier s\'il y a des informations incorrectes. Si vous voulez corriger l\'adresse d\'expédition, veuillez nous contacter par: <a href="mailto:service_fr@doreenbeads.com">service_fr@doreenbeads.com</a> avant que nous expédions votre paquet.');
+define('TEXT_HOPE_TO_DO_MORE_KIND_BUSINESS','Nous espérions de faire plus d\'affaires aimables avec vous. Bonne journée ~~<br/><br/>
+Cordialement,<br/><br/>
+Équipe Doreenbeads');
+
+define('TEXT_COUPON_CODE','Code de Coupon');
+define('TEXT_COUPON_PAR_VALUE','Par Valeur');
+define('TEXT_COUPON_MIN_ORDER','Montant Minimum d’Articles');
+define('TEXT_COUPON_DEADLINE','Echéance (GMT+8)');
+define('TEXT_DISPATCH_FROM_WAREHOUSE', 'Envoi de l\'Entrepôt');
+define('TEXT_ALL', 'tous');
+define('TEXT_FILTER_BY', 'Filtrer par');
+define('TEXT_REGULAR_PACK','Emballage Normal');
+define('TEXT_SMALL_PACK','Petit Lot');
+define('TEXT_EMAIL_REG_TIP', 'Le format de l’adresse e-mail est incorrect, veuillez remplir l’adresse e-mail correcte.');
+define('TEXT_DELETE', 'Supprimer');
+define('TEXT_NO_UNREAD_MESSAGE', 'Il n\'y a pas de message non lu.');
+define('TEXT_SETTING', 'Paramètres');
+define('TEXT_SEE_ALL_MESSAGES', 'Tous les Messages');
+define('TEXT_TITLE', 'Titre');
+define('TEXT_MESSAGE', 'Message');
+define('TEXT_MY_MESSAGE', 'Mes Messages');
+define('TEXT_MESSAGE_SETTING', 'Paramètre des Messages');
+define('TEXT_ALL_MARKED_AS_READ', 'Tout marquer comme lu');
+define('TEXT_DELETE_ALL', 'Supprimer Tout');
+define('TEXT_UNREAD_MESSAGE', 'Non Lus');
+define('TEXT_MARKED_AS_READ', 'Lus');
+define('TEXT_RECEIVE_ALL_MESSAGES', 'Recevoir tous les messages');
+define('TEXT_RECEIVE_THE_SPECIFIED', 'Recevoir le type de message spécifié');
+define('TEXT_REJECT_ALL_MESSAGES', 'Rejeter tous les messages');
+define('TEXT_CANCEL', 'Cancel');
+define('TEXT_PLEASE_CHOOSE_AT_LEAST_MESSAGE', 'Veuillez choisir au moins un type de message.');
+define('TEXT_YOU_WILL_NO_LONGER_MESSAGE', 'Vous ne recevrez plus tous nos messages, êtes-vous sûr?');
+define('SHIPPING_ADDRESS_NOTE', 'Comme quelques société de transports ne délivrent pas les colis à l’adresse seulement signée de N° de boîte postale (Comme DHL),Veuillez entrer votre adresse de livraison détaillée.' );
+?>

@@ -1,0 +1,8 @@
+<?php
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_TITLE', 'El Correo Aéreo (paquete de gran tamaño)');
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_DESCRIPTION', 'El Correo Aéreo (paquete de gran tamaño)');
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_WAY', 'Paquete del Correo Aéreo');
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_WEIGHT', 'TEXT_WEIGHT_KG');
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_AMOUNT', 'TEXT_SUM');
+define('MODULE_SHIPPING_AIRMAILLP_TEXT_ERROR', 'TEXT_ERROR_TO_CONTACT_US');
+?>

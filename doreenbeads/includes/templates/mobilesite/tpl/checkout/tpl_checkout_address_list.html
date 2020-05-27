@@ -1,0 +1,25 @@
+<div class="order_main"> 
+    <div class="order_warp">
+			{assign var = n value = 1}
+			{foreach from=$address_array key=k item=value}
+			    <table class="addresslist{if $obj_info.sendto == $value.address_id} selected{/if}" width="100%">
+			      <tr>
+			      	<td width="40%" class="current" aId="{$value.address_id}"><label for="address-select{$n}">{$value.address_info}</label></td>
+			      	<td width="10%" align="right"><a href="index.php?main_page=checkout&pn=edit&aId={$value.address_id}" class="editbtn"></a>{if $obj_info.sendto != $value.address_id && $value.address_id != $default_select_address_id}<a href="javascript:void(0);" class="deletebtn" aId="{$value.address_id}"></a>{/if}</td>
+			      </tr>
+			    </table>     
+			    {assign var = n value = $n + 1}
+			{/foreach}
+			{if $address_num < 10}
+				<a href="index.php?main_page=checkout&pn=new" class="button-now enternewbtn" onclick="$(this).addClass('wait-loading');return true;">+ {$obj_text["text_enter_a_address"]}</a>
+			{/if}
+			
+			<div class="addressedittips">
+			    <div> 
+			        <p>{$obj_text["text_sure_to_delete"]}</p>
+			        <p><a class="okbtn" href="javascript:void(0);">{$smarty.const.TEXT_OK}</a><a class="cancelbtn" href="javascript:void(0)">{$smarty.const.TEXT_CANCEL}</a><input type="hidden" id="delete-aid"></p>
+			    </div>
+			</div>
+	</div>
+</div>
+

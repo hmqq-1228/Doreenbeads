@@ -1,0 +1,57 @@
+/*drop shadows section */
+* html #nw, * html #ne, * html #se, * html #sw, * html #n, * html #s, * html #w, * html #e {background:none!important;}
+
+#nw {
+  	background: url("../images/shadow_nw.png") top left no-repeat;
+	}
+	
+#ne {
+  	background: url("../images/shadow_ne.png") top right no-repeat;
+	}
+	
+#se {
+  	background: url("../images/shadow_se.png") bottom right no-repeat;
+	}
+
+#sw {
+  	background: url("../images/shadow_sw.png") bottom left no-repeat;
+  	padding:0 10px ; /* border thickness */
+	}
+
+#n {
+  	background: url("../images/shadow_n.png") top repeat-x;
+	}
+	
+#s {
+  	background: url("../images/shadow_s.png") bottom repeat-x;
+  	padding-bottom: 10px; /* border thickness */
+	padding-top: 10px; /* border thickness */
+	}
+
+#w {
+  	background: url("../images/shadow_w.png") left repeat-y;
+  	margin-left: -10px; /* border thickness */
+  	margin-right: -10px; /* border thickness */
+	}
+
+#e {
+  	background: url("../images/shadow_e.png") right repeat-y;
+	}
+	
+#main {
+    border:1px solid #B67DB0;/*jessa 2009-08-16 add "border:1px solid #B67DB0"*/
+  	margin-right: 10px; /* border thickness */
+  	margin-left: 10px; /* border thickness */
+	}
+
+table#workaround {
+  	margin: 0;
+  	border: 0;
+  	border-collapse: collapse;
+	width:100%
+	}
+
+table#workaround td {
+    padding:0;
+	margin:0;
+	}

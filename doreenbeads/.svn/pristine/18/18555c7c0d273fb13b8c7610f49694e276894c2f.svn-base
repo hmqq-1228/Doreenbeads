@@ -1,0 +1,160 @@
+{literal}
+<style>
+.pop_stw{ width:300px;border-radius: 8px;padding:10px 10px 28px 10px;margin-left: -150px;}
+.pop_stw .close1{ background-image:url(https://img.doreenbeads.com/promotion_photo/en/Facebook/20150714/close_f0801.png); width:16px; height:16px; float:right; display:block;}
+.pop_stw .spinPopupCont{ padding: 25px 25px 0px; /*text-align:center;*/font-size:17px;}
+.spinPopupCont a {color: #00f;}
+a.stw_btn{font-family:Arial, Helvetica, sans-serif;display:inline-block;font-size:14px;background:#c25fde;box-shadow:0 1px 0 0 #cd83e6 inset, 0 0 0 1px #bc75d3 inset;background:-moz-linear-gradient(top,#c26ede,#b260cd);background:-webkit-linear-gradient(top,#c26ede,#b260cd);border-radius:3px;border:1px solid #915a9e;color:#fff;padding:4px 15px !important;margin:18px auto 10px 15px;text-align:center;font-weight:bold;cursor:pointer;} 
+a.stw_btn:focus{background:#c25fde;background:-moz-linear-gradient(top,#c26ede,#b260cd);background:-webkit-linear-gradient(top,#c26ede,#b260cd);}
+a.stw_btn:hover{color:#FFF;text-decoration:none}
+a.stw_btn:link{color:#FFF;text-decoration:none}
+a.stw_btn:visited{color:#FFF;text-decoration:none}
+.pop_stw span{color:#f80000;}
+.center{text-align: center;}
+</style>
+{/literal}
+
+{if $error}
+<div class="content mian_wrap">{$error_msg}</div>
+{else}
+{$facebook_like}
+<input type="hidden" id="spinLotteryTimes" value="{$spinLotteryTimes}" />
+<input type="hidden" id="spinCanTimes" value="{$spinCanTimes}" />
+
+{literal}
+<script type="text/javascript" src="includes/templates/cherry_zen/jscript/jQueryRotate.2.2.js"></script>
+<!--<script type="text/javascript" src="includes/templates/cherry_zen/jscript/jquery.easing.min.js"></script>-->
+<script type="text/javascript">
+{/literal}
+var TEXT_SPIN_OUTOF_CHANCES = '{$smarty.const.TEXT_SPIN_OUTOF_CHANCES}',
+	SPINTOWIN_SHARE_LINK = '{$smarty.const.SPINTOWIN_SHARE_LINK}',
+	TEXT_SPIN_OUTOF_CHANCES2 = '{$smarty.const.TEXT_SPIN_OUTOF_CHANCES2}',
+	FACEBOOK_CONF_APPID = '{$smarty.const.FACEBOOK_CONF_APPID}',
+	authCode = '{$authCode}';
+
+{literal}
+var $spinStartBtn = $("#spinStartBtn"),
+	$spinRotate = $("#spinRotate"),
+	$spinLotteryTimes = $("#spinLotteryTimes"),
+	$spinCanTimes = $("#spinCanTimes"),
+	isLogin = $('#isLogin').val();
+
+$(function(){
+$spinStartBtn.click(function() {
+	if(isLogin != ''){
+		if($spinStartBtn.hasClass("processing")) return false;
+		if($spinLotteryTimes.val() >= $spinCanTimes.val()){
+			if($spinCanTimes.val() < 2){
+				stw_showTips(TEXT_SPIN_OUTOF_CHANCES2);
+			}else{
+				stw_showTips(TEXT_SPIN_OUTOF_CHANCES);
+			}
+		}else{
+			stw_lottery();
+		}
+	}else{
+		window.location.href = "index.php?main_page=login";
+	}
+});
+
+var stw_lottery = function() {
+	$spinStartBtn.addClass("processing");
+	$.ajax({
+		type: 'POST',
+		url: 'spin_to_win.html?action=lottery',
+		data: {authCode:authCode},
+		dataType: 'json',
+		cache: false,
+		error: function() {
+			stw_showTips('System Error!');
+			$spinStartBtn.removeClass("processing");
+			return false;
+		},
+		success: function(json) {
+			if(!json.success){
+				stw_showTips(json.msg);
+				$spinStartBtn.removeClass("processing");
+				return false;
+			}
+			var angle = json.angle,
+				prize = json.prize,
+				times = json.times;
+			//$spinStartBtn.rotate({
+			//$("#spinPointer").rotate({
+			$spinRotate.rotate({
+				duration: 5000,
+				angle: 0,
+				animateTo: 1440 + angle,
+				//easing: $.easing.easeInOutSine,
+				callback: function() {
+					$spinStartBtn.removeClass("processing");
+					$spinLotteryTimes.val(times);
+					stw_showTips(json.msg);
+					/*
+					if(typeof json.cartcount != 'undefined'){
+						$("#count_cart").html(json.cartcount);
+						var $addcart = $(".cartcontent .addcart");
+						if($addcart.hasClass("hasnoitem")){
+							$addcart.removeClass("hasnoitem").addClass("hasitem");
+						}
+					}
+					*/
+				}
+			});
+		}
+	});
+}
+
+});
+
+function stw_showTips(h){
+	$("#spinPopupCont").html(h);
+	$('#spinPopup').modal();
+}
+
+window.fbSharePluginInit = function() {
+	FB.init({
+		appId      : FACEBOOK_CONF_APPID,
+		xfbml      : true,
+		version    : 'v2.4'
+	});
+	FB.ui({
+		method: 'share',
+		href:SPINTOWIN_SHARE_LINK
+	}, function(response){
+		if(typeof response != 'undefined'){
+			//console.log(response);
+			if(typeof response.error_code == 'undefined'){
+				$('#spinPopup').modal('hide');
+				$.ajax({
+					type: 'POST',
+					url: 'spin_to_win.html?action=share',
+					data: {authCode:authCode},
+					dataType: 'json',
+					cache: false,
+					error: function() {
+						stw_showTips('System Error!');
+						return false;
+					},
+					success: function(json) {
+						if(!json.success){
+							stw_showTips(json.msg);
+							return false;
+						}
+						$("#spinCanTimes").val(2);
+					}
+				});
+			}
+		}
+	});
+};
+(function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/es_LA/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+{/literal}
+{/if}

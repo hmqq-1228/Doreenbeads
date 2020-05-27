@@ -1,0 +1,160 @@
+<div class="order_main">
+	<div class="order_place">
+  		<form name="addressform" class="addressform" method="post" action="index.php?main_page=address_book&action=process" onsubmit="return check_addressform(addressform)">
+        	<ul>
+        		<li>
+        			<label><b class="price_color">*</b> {$smarty.const.ENTRY_GENDER}</label>
+					<select name="gender" style="width:100%;">
+						<option value="m">{$smarty.const.TEXT_MALE}</option>
+						<option value="f">{$smarty.const.TEXT_FEMALE}</option>
+					</select>
+        		</li>
+          		<li>
+            		<label><b class="price_color">*</b> {$smarty.const.ENTRY_FIRST_NAME}</label>
+            		<input type="text" class="firstname required" name="firstname" id="firstname" />
+					<span class="warning_color"></span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b> {$smarty.const.ENTRY_LAST_NAME}</label>	            		
+					<input type="text" class="lastname required" name="lastname" />
+					<span class="warning_color"></span>
+          		</li>	          		
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_ADDRESS_LINE_1}</label>
+					<textarea class="addresstext required" name="address1" maxlength="200"></textarea>
+					<span class="warning_color" id="address1"></span><br/>
+					<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.SHIPPING_ADDRESS_NOTE}</span>
+          		</li>
+          		<li >
+            		<label>{$smarty.const.ENTRY_ADDRESS_LINE_2}</label>
+					<textarea name="suburb" ></textarea>
+					<span id="suburb" class="warning_color"></span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_COUNTRY}
+            		{$country_select}
+            		{literal}
+				  	<script type="text/javascript">
+						country_select_choose('zone_country_id','addressform');
+				  	</script>
+				  	{/literal}
+         		</li>
+          		<li >
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_PROVINCE}</label>
+            		{$obj_infomation}
+					<span id="state_error" class="warning_color"></span><br/>
+					<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.SHIPPING_ADDRESS_DETAIL_STATE_NEW}</span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_CITY}</label>
+					<input type="text" class="citytext required" name="city" />
+					<span class="warning_color"></span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_POST}</label>
+					<input type="text" class="posttext required" name="post" />
+					<span class="warning_color"></span>
+          		</li>
+          		<li>
+            		<label><b class="price_color">*</b>{$smarty.const.ENTRY_TEL}</label>
+					<input type="text" class="telephone required" name="tel" />
+					<span id="tell" class="warning_color"></span><br/>
+					<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.TEXT_TEL_REQUIRED}</span>
+          		</li>
+          		<li>
+          			<label>{$smarty.const.ENTRY_COMPANY}</label>
+          			<input type="text" class="company " name="company" />
+          		</li>
+          		<li >
+            		<label>{$smarty.const.TEXT_CUSTOM_NO}</label>
+       	 			<input type="text" class="tariff required" name="tariff" />
+       	 			<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.ENTRY_TARIFF_REQUIRED_TEXT}</span>
+          		</li>
+          		<li >
+            		<label>{$smarty.const.ENTRY_EMAIL_ADDRESS}</label>
+        			<input type="text" class="backup_email required" name="backup_email" />
+        			<span class="grey_9">{$smarty.const.TEXT_NOTE}:{$smarty.const.ENTRY_BACKUP_EMAIL_REQUESTED_TEXT}</span>
+          		</li>
+    		</ul>
+        	<p class="notice_checkbox">
+          		<label><input name="primary" type="checkbox" {if $length lt 1 || ($smarty.session['customer_default_address_id'] == 0)}disabled checked {/if} value="1" />
+          		{$smarty.const.SET_AS_DEFAULT_ADDRESS|@ucfirst}</label>
+          	</p>
+          	<div class="cart_btn">
+		  		<button type="submit" class="btn_big btn_ltblue addresscheck">{$smarty.const.TEXT_SAVE}</button>
+		  		<a href="index.php?main_page=address_book" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+		  	</div>
+      	</form>
+  	</div>  	
+</div>
+
+
+<!-- <div class="address-book">
+<h3>{if $length gte 1}{$smarty.const.TEXT_ADD_NEW_ADDRESS}{else}{$smarty.const.HEAD_YOUR_DEFAULT_ADD}{/if}</h3>
+{if $messageStack->size('addressbook')>0}
+	{$messageStack->output('addressbook')}
+{/if}
+
+	<div class="addresscont">
+	   <form name="addressform" class="addressform" method="post" action="index.php?main_page=address_book&action=process" onsubmit="return check_addressform(addressform)">
+		    <p class="require">*{$smarty.const.TEXT_INDICATES_REQUIRED} </p>
+		    <p><label>*</label>{$smarty.const.ENTRY_GENDER}
+		    	<input type="radio" name="Title" value="m" id="Title_0"/>{$smarty.const.TEXT_MR}
+		    	<input type="radio" name="Title" value="f" id="Title_1" checked/>{$smarty.const.TEXT_MS}
+		    	<select name="Title">
+		    		<option value="m">{$smarty.const.TEXT_MALE}</option>
+		    		<option value="f">{$smarty.const.TEXT_FEMALE} </option>
+		    	</select>
+		    </p>
+		    <p><label>*</label>{$smarty.const.ENTRY_FIRST_NAME}<input type="text" class="firstname required" name="firstname" id="firstname"/><span ></span></p>
+		    <p><label>*</label>{$smarty.const.ENTRY_LAST_NAME}<input type="text" class="lastname required" name="lastname"/><span></span></p>
+		    
+		    <p><label>*</label>{$smarty.const.ENTRY_ADDRESS_LINE_1}<textarea class="addresstext required" name="address1"></textarea>
+		    <p><label>{$smarty.const.TEXT_NOTE}</label>:{$smarty.const.TEXT_FILL_ADDRESS_NOTICE}<span id="address1"></span></p>
+		    <p><label>&nbsp;</label>{$smarty.const.ENTRY_ADDRESS_LINE_2}<textarea name="suburb"></textarea><span id="suburb"></span></p>
+		    
+		    <p><label>*</label>{$smarty.const.ENTRY_COUNTRY}
+		      	{$country_select}	 
+			  	{literal}
+			  	<script type="text/javascript">
+					country_select_choose('zone_country_id','addressform');
+			  	</script>
+			  	{/literal}
+		    </p>
+		    <p><label>*</label>{$smarty.const.ENTRY_PROVINCE}    	
+			    {$obj_infomation}	 	
+			</p>
+		    
+		    <p><label>{$smarty.const.TEXT_NOTE}</label>:<ins>{$smarty.const.TEXT_COMPLETE_PROVINCE}</ins><span id="state"></span></p>
+		    <p><label>*</label>{$smarty.const.ENTRY_CITY}<input type="text" class="citytext required" name="city"/><span></span></p>
+		    <p><label>*</label>{$smarty.const.ENTRY_POST}<input type="text" class="posttext required" name="post"/><span></span></p>
+		    <p><label>*</label>{$smarty.const.ENTRY_TEL}<input type="text" class="telephone required" name="tel"/></p>
+		    <p><ins>{$smarty.const.TEXT_TEL_REQUIRED}</ins><span id="tell"></span></p>
+		    <p>{$smarty.const.ENTRY_COMPANY}<input type="text" class="company " name="company"/><span></span></p>
+		    <p>{$smarty.const.TEXT_CUSTOM_NO}<input type="text" class="tariff required" name="tariff"/></p>
+            <p><ins>{$smarty.const.ENTRY_TARIFF_REQUIRED_TEXT}</ins><span id="tariff_number"></span></p>
+            <p>{$smarty.const.ENTRY_EMAIL_ADDRESS}<input type="text" class="backup_email required" name="backup_email"/></p>
+            <p><ins>{$smarty.const.ENTRY_BACKUP_EMAIL_REQUESTED_TEXT}</ins><span id="backup_email"></span></p>
+		    {if $length gte 1}<p><input type="checkbox" checked="checked" id="chkRemoveStyles" name="primary" value="on"><label for="chkRemoveStyles" style="color:#333;"> {$smarty.const.TEXT_SET_DEFAULT_ADDRESS}</label></p>{/if}
+		    <div class="address_button">
+		      <button class="addresssubmit-btn addresscheck" type="submit">{$smarty.const.TEXT_ADD}</button>
+		      <button class="addresscancel-btn" type="button" onclick="javascript:window.location.href='index.php?main_page=address_book'">{$smarty.const.TEXT_BACK}</button>
+		    </div> 
+	   </form>
+	</div>
+</div> -->
+<script type="text/javascript">
+function update_zone_c(theForm) {
+    if (!theForm || !theForm.elements["zone_id"]) return;
+    var SelectedCountry = $('#zone_country_id').val();
+    var SelectedZone = theForm.elements["zone_id"].value;
+    var NumState = theForm.zone_id.options.length;
+    while (NumState > 0) {
+        NumState = NumState - 1;
+        theForm.zone_id.options[NumState] = null;
+    }	
+    if (SelectedZone != ""){
+    	theForm.elements["zone_id"].value = SelectedZone;
+    }
+}
+</script>

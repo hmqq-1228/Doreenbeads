@@ -1,0 +1,692 @@
+<script type="text/javascript">
+    $j(document).ready(function(){
+        <?php
+        //Tianwen.Wan20160228生成首页才异步
+        if(empty($_GET['cPath']) && ($_GET['generate_index'] == "true" || $_GET['main_page'] == "index")) {
+        ?>
+        $j.post('<?php echo zen_href_link(FILENAME_DEFAULT);?>ajax/ajax_user_status.php',{action:'all_status'},function(data){
+            if(typeof(JSON)=='undefined'){
+                var returnInfo=eval('('+data+')');
+            }else{
+                var returnInfo=JSON.parse(data);
+            }
+            if(returnInfo.error == 0) {
+                if(returnInfo.count_cart >= 0){
+                    $j("#count_cart").text(returnInfo.count_cart);
+                    $j(".header_top_cen span").eq(0).html(returnInfo.customer_info);
+                    $j(".jq_my_message_notice").remove();
+                    $j(".top_right").append(returnInfo.my_message_notice);
+                    $j(".top_right .help").eq(0).html(returnInfo.customer_navigation);
+                    $j(".header_top_cen .currency").html(returnInfo.customers_currency);
+                    $j(".header_top_cen .language").html(returnInfo.customers_language);
+                    $j('.mainwrap_l .sidesafe_icon:last').after(returnInfo.customers_recently_products);
+                    $j('.header_wrap').before(returnInfo.station_letter_content);
+                    $j(".jq_livechat_a").attr("data-href", "<?php echo HTTP_LIVECHAT_URL;?>/request.php?langs=<?php echo $_SESSION['language'];?>&uname="+returnInfo.customers_firstname+"&uemail="+returnInfo.customers_email+"&l=Dorabeads.com&x=1&deptid=1&pagex=http%3A///");
+                }
+                    if(returnInfo.count_cart >999){
+                        $j("#count_cart").text('999+');
+                        $j(".header_top_cen span").eq(0).html(returnInfo.customer_info);
+                        $j(".jq_my_message_notice").remove();
+                        $j(".top_right").append(returnInfo.my_message_notice);
+                        $j(".top_right .help").eq(0).html(returnInfo.customer_navigation);
+                        $j(".header_top_cen .currency").html(returnInfo.customers_currency);
+                        $j(".header_top_cen .language").html(returnInfo.customers_language);
+                        $j('.mainwrap_l .sidesafe_icon:last').after(returnInfo.customers_recently_products);
+                        $j('.header_wrap').before(returnInfo.station_letter_content);
+                        $j(".jq_livechat_a").attr("data-href", "<?php echo HTTP_LIVECHAT_URL;?>/request.php?langs=<?php echo $_SESSION['language'];?>&uname="+returnInfo.customers_firstname+"&uemail="+returnInfo.customers_email+"&l=Dorabeads.com&x=1&deptid=1&pagex=http%3A///");
+                    }
+                
+                
+            }
+        });
+
+        <?php
+        }
+        ?>
+
+        function getCookie_login(c_name)
+        {
+            if (document.cookie.length>0)
+            {
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1)
+                {
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1) c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+        function setCookie_login(c_name,value,expiredays)
+        {
+            var exdate=new Date()
+            exdate.setDate(exdate.getDate()+expiredays)
+            document.cookie=c_name+ "=" +escape(value)+
+                ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())+";path=/";
+        }
+
+        function subSomething() {
+            if(getCookie_login("login_cookie")!="false"){
+                var bodyHeight=$j(document).height();
+                $j("body").append("<div class='DetBgW'></div>");
+                $j(".DetBgW").css({"height":bodyHeight+572,"opacity":0.35});
+                $j(".DetBgW").fadeIn();
+                var sHeight = $j(document).scrollTop();
+                var wHeight=$j(window).height();
+                news_err="<div class='login_window' style='z-index: 100001;top: 47%;border: #8e8e8e 0px solid;position: fixed;'></div>";
+                $j("body").append(news_err);
+                $j.post('<?php echo zen_href_link(FILENAME_DEFAULT);?>ajax_newsletter.php',{action:'show'},function(data){
+                    $j('.login_window').html(data);
+                    rHeight=$j(".login_window").height();
+                    var box_top=sHeight+(wHeight-rHeight)/2;
+                    rWidth=$j(".login_window").width();
+                    var box_left=($j(document).width()-rWidth)/2;
+                    $j(".login_window").css({ "left":box_left});
+                    $j(".login_window").show();
+                    setCookie_login("login_cookie","false",365);
+                });
+            }
+        }
+        subSomething();
+
+        show_auth_code();
+    });
+
+</script>
+<script src="https://adodson.com/hello.js/dist/hello.all.js"></script>
+<script>
+    var log = console.log;
+    hello.init({'twitter':'<?php echo TEXT_TWITTER_LOGIN_API_KEY;?>'});
+
+    function process_json(data){
+//	if(typeof(JSON)=='undefined'){
+        var returnInfo=eval('('+data+')');
+//	}else{
+//		var returnInfo=JSON.parse(data);	
+//	}
+        return returnInfo;
+    }
+
+    function login_twitter(network){  //登录方法，并将twitter 作为参数传入
+        // Twitter instance
+        var twitter = hello(network);
+        // Login
+        twitter.login().then( function(r){
+            return twitter.api('me');
+        }, function(e) {
+
+        } ).then( function(p){
+            log("Connected to "+ network+" as " + p.name);
+
+            var data = JSON.stringify(p);//因为得不到token，但是这步已经得到用户所有信息，所以将用户信息转成JSON字符串给后台
+
+            $j.ajax({
+                type : "post",
+                url : "./ajax/ajax_api_login.php",
+                data : {action:"api_login",data:data,network:'Twitter',origin_url:window.location.href},
+                async : false,
+                success : function(result){
+                    var returnInfo = process_json(result);
+                    self.location = returnInfo.redirct_url;
+                }
+            });
+        }, log );
+    }
+</script>
+<script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+<script type="text/javascript">
+    VK.init({
+        apiId: '<?php echo TEXT_VK_LOGIN_API_KEY;?>'
+    });
+
+    function login_api_vk(){//登录
+        VK.Auth.login(function(response){
+            if(response.session){
+                if(response.status=='connected'){
+                    / *所选用户访问设置，如果他们被请求* /
+                    var data = JSON.stringify(response.session);
+
+                    $j.ajax({
+                        type : 'post',
+                        url : './ajax/ajax_api_login.php',
+                        data : {action:'api_login',data:data,network:'VK',origin_url:window.location.href},
+                        async : false,
+                        success : function(result){
+                            var returnInfo = process_json(result);
+                            self.location = returnInfo.redirct_url;
+                        }
+                    });
+                }
+            } else {
+                / *用户单击授权窗口中的取消按钮* /
+            }
+        });
+    };
+</script>
+<?php
+if(isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != ''){
+    $get_email = $db->Execute('Select customers_email_address, customers_firstname, customers_lastname
+			From ' . TABLE_CUSTOMERS . ' 
+			Where  customers_id = ' . $_SESSION['customer_id']);
+    $url_email = $get_email->fields['customers_email_address'];
+}else{
+    $url_email='';
+}
+$testimonial_query = $db->Execute("Select tm_id From " . TABLE_TESTIMONIAL . " Where tm_status = 1 and language_id = " . $_SESSION['languages_id'] . " and tm_customer_email not like '%panduo.com.cn%' Order By is_stick asc, tm_date_added Desc , tm_id Desc limit 1");
+if ($testimonial_query->RecordCount() == 0 ){
+    $testimonial_query = $db->Execute("Select tm_id From " . TABLE_TESTIMONIAL . " Where tm_status = 1 and language_id = 1 and tm_customer_email not like '%panduo.com.cn%' Order By is_stick asc, tm_date_added Desc , tm_id Desc limit 1");
+}
+$testimonial_info = zen_get_testimonial_info($testimonial_query->fields['tm_id']);
+?>
+<!-- footer   start  -->
+<div class="footer">
+    <div class="footercen">
+        <div class="foot_newsletter">
+            <h5 class="font_verdana lf"><strong><?php echo FOOTER_LINE1_NEWSLETTER_INFO;?></strong></h5>
+            <div class="foot_newsletter_input lf">
+                <!-- 错误提示气泡开始 在div上增加display:block即可显示提示语-->
+                <div class="poptip poptip_w350" id="newsletter_success_message" style="display:none">
+                    <i class="bottom"></i><em class="bottom"></em>
+                    <span></span>
+                </div>
+                <!-- 错误提示气泡结束-->
+
+                <input name="" class="inputw298_error icon_foot_letter input_text_wrap lf subaddress" type="text" placeholder="<?php echo TEXT_FOOTER_ENTER_EMAIL_ADDRESS; ?>" /><input class="btn_orange btn_w110 font13" id="subscribebtn" type="button" value="<?php echo FOOTER_SUBSCRIBE_SUBSCRIBE;?>">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="footercont_one">
+            <li class="friends">
+                <h3><?php echo FOOTER_LINE1_FRIENDS_SAY;?></h3>
+                <div class="friendscont">
+                    <div class="footertips">
+                        <span class="bot"></span>
+                        <span class="top"></span>
+                        <?php echo strlen($testimonial_info['content']) > 115 ? substr($testimonial_info['content'], 0, 115) . '...' : $testimonial_info['content'];?>
+                    </div>
+                    <dl>
+                        <dd><?php echo $testimonial_info['customer_name'];?></dd>
+                        <dt><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_TESTIMONIAL);?>"> <?php echo FOOTER_LINE1_MORE_TESTIMONIALS;?> >></a><br/>
+                            <a rel="nofollow" href="javascript:void(0);" class="footer_write_a_testimonial"><?php echo FOOTER_LINE1_WRITE_TESTIMONIALS;?> >></a></dt>
+                    </dl>
+                    <?php echo TEXT_TRUSTBOX_WIDGET_CONTENT;?>
+                </div>
+            </li>
+            <li class="buyer_pro">
+                <h3><?php echo TEXT_BUYER_PROTECTION; ?></h3>
+                <div>
+                    <a href="<?php echo zen_href_link(FILENAME_DEFAULT) . '/page.html?id=213'; ?>"><img src="<?php echo DIR_WS_LANGUAGE_IMAGES.'buyer_icon.png'?>" /></a>
+                </div>
+            </li>
+            <!-- <li class="newsletter">
+            <h3><?php echo FOOTER_LINE1_NEWSLETTER;?></h3>
+            <div>
+              <p><?php echo FOOTER_LINE1_NEWSLETTER_INFO;?></p>             
+                <input type="text" class="subaddress"/>
+                <span id="newsletter_success_message"></span>
+                <input id="subscribebtn" type="button" value="<?php echo FOOTER_SUBSCRIBE_SUBSCRIBE;?>"> 
+            </div>
+          </li> -->
+            <li class="join">
+                <h3><?php echo FOOTER_LINE2_JOIN_COMMUNITY;?></h3>
+                <ul>
+                    <?php
+                    if ($_SESSION['languages_id'] == 3) {
+                        ?>
+                        <li class="vk"><a rel="nofollow" href="https://vk.com/8seasons " target="_blank"><ins></ins>VK</a></li>
+                        <li class="facebook"><a rel="nofollow" href="https://www.facebook.com/doreenbeads" target="_blank"><ins></ins>Facebook</a></li>
+                        <?php
+                    }else{
+                        if ($_SESSION['languages_id'] == 4) {
+                            ?>
+                            <li class="facebook"><a rel="nofollow" href="https://www.facebook.com/pages/DoreenBeadscomfr/600109833408040?ref=hl" target="_blank"><ins></ins>Facebook</a></li>
+                            <?php
+                        }elseif($_SESSION['languages_id'] == 2){
+                            ?>
+                            <li class="facebook"><a rel="nofollow" href="https://www.facebook.com/DoreenBeadsDE-752553968196557/?ref=bookmarks" target="_blank"><ins></ins>Facebook</a></li>
+                        <?php }else{?>
+                            <li class="facebook"><a rel="nofollow" href="https://www.facebook.com/doreenbeads" target="_blank"><ins></ins>Facebook</a></li>
+                        <?php }?>
+                        <li class="twitter"><a rel="nofollow" href="https://www.instagram.com/doreenbeads/" target="_blank"><ins></ins>Instagram</a></li>
+                        <?php
+                    }
+                    ?>
+                    <li class="pinterest"><a rel="nofollow" href="https://www.pinterest.com/doreenbeads/" target="_blank"><ins></ins>Pinterest</a></li>
+                    <li class="google"><a rel="nofollow" href="https://plus.google.com/+Doreenbeadscom" target="_blank"><ins></ins>Google+</a></li>
+                    <li class="youtube"><a rel="nofollow" href="http://www.youtube.com/c/Doreenbeadscom" target="_blank"><ins></ins>Youtube</a></li>
+                </ul>
+            </li>
+            <li class="familysite">
+                <?php //if($_SESSION['languages_id']==2){?><!-- 需求2016071401，将所有连接改为65 -->
+                <!-- <a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=138')?>" target="_blank"><img src="<?php echo DIR_WS_LANGUAGE_IMAGES.'help_bot.jpg'?>" alt=""/></a> -->
+                <?php //}else{?>
+                <a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=65')?>" target="_blank"><img src="<?php echo DIR_WS_LANGUAGE_IMAGES.'help_bot.jpg'?>" alt="<?php echo TEXT_VIP_ORDER_DISCOUNT ?>"/></a>
+                <?php// }?>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+
+
+        <div class="footertext">
+            <dl class="company">
+                <dd><?php echo FOOTER_LINE2_COMPANY_INFO;?></dd>
+                <dt>
+                    <ul>
+                       <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT) . '/index.php?main_page=who_we_are&id=163';?>">- <?php echo FOOTER_LINE2_ABOUT_US;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_TESTIMONIAL);?>">- <?php echo FOOTER_LINE2_TESTIMONIAL;?></a></li>
+                        <!--  <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=64');?>">- <?php echo FOOTER_LINE2_LATEST_NEWS;?></a></li>-->
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT) . '/index.php?main_page=who_we_are&id=157';?>">- <?php echo FOOTER_LINE2_TERMS_CONDITIONS;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT) . 'page.html?id=205';?>">- <?php echo FOOTER_LINE2_FREE_E_CATALOG;?></a></li>
+                        <!--  <li><a rel="nofollow" href="<?php /* echo zen_href_link(FILENAME_INVITE_FRIENDS); */?>">- <?php /* echo FOOTER_LINE2_SHARE_FRIENDS; */?></a></li>--><!-- 临时需求20180118暂时关闭 -->
+                    </ul>
+                </dt>
+            </dl>
+            <dl class="company">
+                <dd><?php echo FOOTER_LINE2_CUSTOMER_SERVICE;?></dd>
+                <dt>
+                    <ul>
+                        <li><a rel="nofollow" href="<?php echo FOOTER_LINE2_HERF_EMAIL_US;?>" > - <?php echo FOOTER_LINE2_EMAIL_US;?></a></li>
+                        <li><a class="jq_livechat_a" rel="nofollow" href="javascript:void(0);" onclick="countClicks(10);window.open($j('.jq_livechat_a').data('href'),'unique','scrollbars=no,menubar=no,resizable=0,location=no,screenX=50,screenY=0,width=500,height=400')" data-href="<?php echo HTTP_LIVECHAT_URL;?>/request.php?langs=<?php echo $_SESSION['language'];?>&uname=<?php echo $_SESSION['customer_first_name'];?>&uemail=<?php echo $url_email;?>&l=Dorabeads.com&x=1&deptid=1&pagex=http%3A///"> - <?php echo FOOTER_LINE2_LIVE_CHAT;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_CUSTOMER_SERVICE, '');?>"> - <?php echo FOOTER_LINE2_FAQ;?></a></li>
+                        <li><a href="<?php echo zen_href_link(FILENAME_DEFAULT).'page.html?id=215';?>"> - <?php echo FOOTER_LINE2_DROP_SHIPPING_SERVICE;?></a></li>
+                        <!-- <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_NO_WATERMARK_PICTURE);?>"> - <?php echo FOOTER_LINE2_FREE_NON;?></a></li> -->
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT).'/page.html?id=146';?>"> - <?php echo FOOTER_LINE2_PACKING_SERVICE;?></a></li>
+                    </ul>
+                </dt>
+            </dl>
+            <dl class="company">
+                <dd><?php echo FOOTER_LINE2_PAYMENT_SHIPPING;?></dd>
+                <dt>
+                    <ul>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'pagename=shipping_calculator');?>"> - <?php echo FOOTER_LINE2_SHIPPING_CALCULATOR;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=15');?>"> - <?php echo FOOTER_LINE2_PAYMENT_METHODS;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=181');?>"> - <?php echo TEXT_SHIPPING_METHODS;?></a></li>
+                    </ul>
+                </dt>
+            </dl>
+            <dl class="company">
+                <dd><?php echo FOOTER_LINE2_SHOP_WITH;?></dd>
+                <dt>
+                    <ul>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT) . '/index.php?main_page=who_we_are&id=9';?>"> - <?php echo FOOTER_LINE2_PRIVACY_POLICY;?></a></li>
+                        <!--<li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_SHIPPING);?>"> - <?php echo FOOTER_LINE2_SHIPPING_RETURN;?></a></li>-->
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_HELP_CENTER, 'id=65');?>"> - <?php echo FOOTER_LINE2_DISCOUNT_POLICY;?></a></li>
+                        <li><a rel="nofollow" href="<?php echo zen_href_link(FILENAME_DEFAULT).'/page.html?id=220';?>"> - <?php echo FOOTER_LINE2_RETURN_POLICY;?></a></li>
+                    </ul>
+                </dt>
+            </dl>
+            <div class="clearfix"></div>
+        </div>
+
+        <div style="text-align:center;">
+            <a class="paypal" rel="nofollow"  href="#this" onclick="window.open('https://www.sitelock.com/verify.php?site=www.doreenbeads.com','SiteLock','width=600,height=600,left=160,top=170');" >
+                <img alt="website security" title="SiteLock" src="//shield.sitelock.com/shield/www.doreenbeads.com" style="vertical-align:middle;" height="40"/></a>
+            <a rel="nofollow" class="paypal" onclick="javascript:window.open('https://www.paypal.com/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatisPayPal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');" href="#this" title="PayPal">
+                <img src="images/logos/paypal_243x40.png" style="vertical-align:middle;" height="40" /></a>
+            <a href="http://www.westernunion.com/Home?rootRedirect=true">
+                <img src="<?php echo 'images/logos/footer_wu.gif'; ?>" border="0"  height="40" width="120" style="vertical-align:middle;"/></a>
+            <a href="https://www.citibank.com.cn/sim/english/index.htm">
+                <img src="<?php echo 'images/logos/citibank.png'; ?>" border="0"  height="39"  style="vertical-align:middle;"/></a>
+            <a href="http://www.ups.com/ ">
+                <img src="<?php echo 'images/logos/ups.png'; ?>" border="0" height="40" style="vertical-align:middle;"/></a>
+            <a href="https://www.usps.com/">
+                <img src="<?php echo'images/logos/usp.png'; ?>" border="0" height="40" width="80" style="vertical-align:middle;"/></a>
+            <a href="http://www.dhl.com/">
+                <img src="<?php echo 'images/logos/dhl.png'; ?>" border="0" height="30" width="90" style="vertical-align:middle;"/>
+            </a>
+
+        </div>
+        <!--footertext start-->
+        <p class="footertext_bot">
+            <?php echo FOOTER_LINE3_COMPANY_INFO;?>
+        </p>
+        <!--footertext end-->
+
+    </div>
+</div>
+<!-- footer   end    -->
+
+<div class="contactuscenwrap"></div>
+<div class="contactuscen" id="contactuscen">
+    <div class="contactuscen_top">
+        <span class="centopleft"></span>
+        <p></p>
+        <span class="centopright"></span>
+    </div>
+    <div class="contactuscont">
+        <p class="contactuscont_l"></p>
+        <div class="contactcont_main">
+            <span class="contact_close"></span>
+            <ul>
+                <li>
+                    <a class="jq_livechat_a" href="javascript:void(0);" onclick="countClicks(10);window.open($j('.jq_livechat_a').data('href'),'unique','scrollbars=no,menubar=no,resizable=0,location=no,screenX=50,screenY=0,width=500,height=400')" data-href="<?php echo HTTP_LIVECHAT_URL;?>/dblivehelp/request.php?langs=<?php echo $_SESSION['language'];?>&uname=<?php echo $_SESSION['customer_first_name'];?>&uemail=<?php echo $url_email;?>&l=Dorabeads.com&x=1&deptid=1&pagex=http%3A///">
+                        <span class="helpicon"></span>
+                        <div class="helpicon_text"><h1><?php echo HEADER_NEEDHELP_LIVE_CHAT;?></h1> <p><?php echo HEADER_NEEDHELP_LIVE_CHAT_INFO;?></p></div>
+                    </a></li>
+                <li>
+                    <a href="mailto:<?php echo TEXT_SERVICE_EMAIL;?>">
+                        <span class="emailicon"></span>
+                        <div class="helpicon_text"><h1><?php echo HEADER_NEEDHELP_EMAIL;?></h1> <p><span><?php echo TEXT_SERVICE_EMAIL;?></span></p></div>
+                    </a></li>
+                <li class="padding10">
+                    <span class="tellicon"></span>
+                    <div class="helpicon_text"><h1><?php echo HEADER_NEEDHELP_TELEPHONE;?></h1> <p><?= TEXT_TEL_NUMBER ?></p></div>
+                </li>
+                <li class="padding10" style="border:0;">
+                    <span class="skypeicon"></span>
+                    <div class="helpicon_text"><h1><?php echo HEADER_NEEDHELP_SKYPE_ID;?></h1> <p><span><?php echo TEXT_SERVICE_SKYPE;?></span></p></div>
+                </li>
+            </ul>
+        </div>
+        <p class="contactuscont_r"></p>
+    </div>
+    <div class="contactuscen_bot">
+        <span class="cenbotleft"></span>
+        <p></p>
+        <span class="cenbotright"></span>
+    </div>
+</div>
+
+<?php if(!in_array($_GET['main_page'], array('checkout_shipping'))){?>
+    <!-- login -->
+    <div class="windowbody"></div>
+    <div class="loginbody" id="loginbody">
+        <h3><strong><?php echo HEADER_LOGIN_YOU_HAVENOT_LOGIN;?></strong><span id=closebtnlogin>X</span></h3>
+        <ul class="logintit"><li class="in"><?php echo TEXT_RETURN_CUSTOMER;?></li><li><?php echo TEXT_NEW_CUSTOMER;?></li></ul>
+        <input type="hidden" name="login_linkinto" id="login_linkinto" />
+        <input type="hidden" name="login_linkparam" id="login_linkparam" />
+        <div class="logincont sh">
+            <p class="loginconttit"><?php echo HEADER_LOGIN_HAVE_ACCOUNT;?></p>
+            <?php
+            /**
+             * 从数据库中获取注册数
+             * @author yifei.wang
+             */
+            $show_reg_checkcode = false;
+            $ip_address = zen_get_ip_address();
+            $check_ip = $db->Execute('select customers_id from ' . TABLE_CUSTOMERS . ' c, ' . TABLE_CUSTOMERS_INFO . ' ci where c.customers_id = ci.customers_info_id and c.signin_ip = "' . $ip_address . '" and ci.customers_info_date_account_created >= "' . date('Y-m-d 00:00:00') . '" and ci.customers_info_date_account_created <= "' . date('Y-m-d 23:59:59') . '"');
+            if ($check_ip->RecordCount() >= 3){
+                $show_reg_checkcode = true;
+            }
+            ?>
+            <form class="login_window_form">
+                <table class="logintable" width="100%">
+                    <tr>
+                        <td width="100">
+                            <ins>*</ins>
+                            <?php echo HEADER_NEEDHELP_EMAIL;?>:
+                        </td>
+                        <td>
+                            <input type="text" class="emailvalue required" name="email" /><span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_PASSWORD;?>:
+                        </td>
+                        <td>
+                            <input type="password" class="passvalue required" name="password" />
+                            <span></span>
+                        </td>
+                    </tr>
+                    <!-- @author yifei.wang -->
+                    <!-- 此tr为了显示登录时的验证码 -->
+                    <tr id="common-login-verify" style="display: none" data-validate="false">
+                        <td>
+                            <ins>*</ins>
+                            <?= TEXT_VERIFY_NUMBER ?>:
+                        </td>
+                        <!-- 登录时显示验证码 -->
+                        <td>
+                            <input type="hidden" id="verify-validate" name="verify_validate" value="0">
+                            <input type="hidden" name="code_suffix" value="login">
+                            <!-- data-error为了记录当前语种对应的验证码错误的信息 -->
+                            <input type="text" id="verify-code-input" class="verify-code-input required" name="verify_number" data-error="<?= TEXT_INPUT_RIGHT_CODE ?>"/>
+                            <img src="" id="login-verify-image" onclick="this.src='/check_code.php?code_suffix=login#' + Math.random()" style="vertical-align: middle;">
+                            <span>
+                            </span>
+                        </td>
+                    </tr>
+                    <!-- 将登录错误次数本地化 -->
+                    <input type="hidden" id="login-error-times" value="<?= $_SESSION['login_error_times'] ?>">
+                    <!-- 判断当前登录错误次数是否已经达到3次 -->
+                    <?php if ($_SESSION['login_error_times'] >= 3) : ?>
+                        <script>
+                            // 显示验证码
+                            document.getElementById('common-login-verify').style.display = "table-row";
+                            // 设置
+                            document.getElementById('verify-validate').value = '1';
+
+                            document.getElementById('login-verify-image').src = '/check_code.php?code_suffix=login#' + Math.random();
+                        </script>
+                    <?php endif; ?>
+                    <tr>
+                        <td></td>
+                        <td style="padding-top:10px;">
+                            <input type="checkbox" id="remember" name="permLogin"/>
+                            <label for="remember">
+                                <?php echo HEADER_LOGIN_REMEMBER_ME;?>
+                            </label>
+                            <strong>|</strong>
+                            <a href="<?php echo zen_href_link(FILENAME_PASSWORD_FORGOTTEN);?>"><?php echo HEADER_LOGIN_FORGOT_YOUR_PASSWORD;?></a>
+                        </td>
+                    </tr>
+                    <?php
+                    if(!isset($loginUrlFacebook) && isset($facebook)){
+                        $helper = $facebook->getRedirectLoginHelper();
+                        $permissions = ['email', 'public_profile'];
+                        $loginUrlFacebook = $helper->getLoginUrl((isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']=='on'?HTTPS_SERVER:HTTP_SERVER).($_SESSION['languages_code']=='en'?'':'/'.$_SESSION['languages_code']).'/ajax_facebook_login.php', $permissions);
+                    }
+                    ?>
+                    <tr><td></td><td><input type="hidden" name="action" value="login" /><input type="submit" value="<?php echo HEADER_LOGIN_LOG_IN;?>" class="loginbtn" id="loginbtn"><a class="common_login_register" href="javascript:void(0);"><?php echo HEADER_LOGIN_REGISTER;?> >></a></td></tr>
+                    <tr><td></td><td>
+                            <span style="vertical-align:  top;position: relative;top: -13px;display: inline-block;">Login with:</span>
+                            <a id="btn_like" href="<?php echo $loginUrlFacebook;?>" ><div id="facebook_img"></div></a>
+                            <span onclick = "login_twitter('twitter')" id="twitter_img" ></span>
+                            <div id='vk_api_transport' style="display: inline"></div>
+                            <span onclick="login_api_vk();" id="vk_img"></span>
+                        </td></tr>
+                </table>
+            </form>
+
+            <script type="text/javascript">
+                var fb_link = $j('#btn_like').attr("href");
+                var replace_link = document.location.href;
+                //console.log(getPar("redirect_uri", fb_link));
+                var return_link = getPar("redirect_uri", fb_link) + '?test=' + replace_link;
+                var final_fblink = fb_link.replace(getPar("redirect_uri", fb_link), return_link)
+                //console.log(final_fblink);
+                $j('#btn_like').attr("href", final_fblink);
+            </script>
+
+
+        </div>
+        <div class="logincont">
+            <p class="loginconttit"><?php echo HEADER_LOGIN_DONOT_HAVE_ACCOUNT;?></p>
+            <form class="register_window_form">
+                <table class="logintable" width="100%">
+                    <tr>
+                        <td width="120">
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_EMAIL_ADDRESS;?>:
+                        </td>
+                        <td>
+                            <input type="text" class="emailval required" name="email_address" />
+                            <span>
+                                <?php echo TEXT_EMAIL_NOTE; ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_FIRST_NAME;?>:
+                        </td>
+                        <td>
+                            <input type="text" class="firstval required" name="firstname" />
+                            <span>
+                                <?php echo TEXT_ENTER_FIRESTNAME; ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_LAST_NAME;?>:
+                        </td><td><input type="text" class="lastval required" name="lastname" /><span><?php echo TEXT_ENTER_LASTNAME; ?></span></td></tr>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_PASSWORD;?>:
+                        </td>
+                        <td>
+                            <input type="password" class="passval required" name="password" />
+                            <ins class="tips"></ins>
+                            <span>
+                                <?php echo LENGHT_CHARACTERS; ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_CONFIRM_PASSWORD;?>:
+                        </td>
+                        <td>
+                            <input type="password" class="con_passval required" name="confirmation"/>
+                            <span>
+                                <?php echo TEXT_CONFIRM_PASSWORD_PROMPT; ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <?php if ($show_reg_checkcode) : ?>
+                        <!-- 验证码 -->
+                        <!-- @author yifei.wang -->
+                        <tr>
+                            <td>
+                                <ins>*</ins>
+                                <?php echo TEXT_VERIFY_NUMBER;?>:
+                            </td>
+                            <td>
+                                <input type="text" class="verify-code-input required" id="register-verify-input" name="verify_number"/>
+                                <img src="/check_code.php?code_suffix=register" id="register-verify-image" onclick="this.src='/check_code.php?code_suffix=register#' + Math.random()" style="vertical-align: middle;" data-error="<?= TEXT_INPUT_RIGHT_CODE ?>">
+                                <span>
+                            </span>
+                            </td>
+                        </tr>
+                    <?php endif ?>
+                    <tr>
+                        <td>
+                            <ins>*</ins>
+                            <?php echo HEADER_LOGIN_YOUR_COUNTRY;?>:
+                        </td>
+                        <td>
+                            <?php echo zen_get_country_select('zone_country_id');?>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="register_entry" value="3" />
+                    <tr>
+                        <td colspan="2">
+                            <ins></ins>
+                            <input type="checkbox" id="subcheck" name="subscribe" />
+                            <label for="subcheck">
+                                <?php echo HEADER_LOGIN_SUBSCRIBE;?>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!--tr>
+                        <td colspan="2">
+                            <ins>*</ins>
+                            <input type="checkbox" id="agreecheck" checked/>
+                            <label for="agreecheck">
+                                <?php echo HEADER_LOGIN_I_AGREE;?>
+                            </label>
+                            <span></span>
+                        </td>
+                    </tr-->
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" name="action" value="create" />
+                            <input type="submit" value="<?php echo HEADER_LOGIN_REGISTER2;?>" class="loginbtn" id="registerbtn" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2">
+                            <?php echo BY_CREATING_AGREEN_TO_TEAMS_AND_CONDITIONS;?>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+<?php } ?>
+
+
+<div class="subscribebody" id="subscribebody">
+    <h3><span class="subclose">X</span></h3>
+    <div class="info_error">
+        <div class="when_email_wrong">
+            <p><?php echo FOOTER_SUBSCRIBE_CHECK_EMAIL;?></p>
+            <span><?php echo FOOTER_SUBSCRIBE_SHOULD_LIKE;?></span>
+        </div>
+        <div class="when_email_empty">
+            <p><?php echo FOOTER_SUBSCRIBE_ENTER_EMAIL;?></p>
+            <a href="javascript:void(0);"><?php echo FOOTER_SUBSCRIBE_CLOSE;?></a>
+        </div>
+
+    </div>
+    <form class="subform">
+        <table>
+            <tr><td width="110"><ins>*</ins><?php echo FOOTER_SUBSCRIBE_NAME;?>:</td><td><input type="text" class="subname required"/><span></span></td></tr>
+            <tr><td><ins>*</ins><?php echo HEADER_LOGIN_EMAIL_ADDRESS;?>:</td><td><input type="text" class="subemail required"/><span></span></td></tr>
+            <tr><td></td><td><button id="subform_btn"><?php echo FOOTER_SUBSCRIBE_SUBSCRIBE;?></button></td></tr>
+        </table>
+    </form>
+
+    <div class="info_right">
+        <?php echo FOOTER_SUBSCRIBE_THANKS_SUBSCRIBE;?><br>
+        <a href="javascript:void(0);"><?php echo FOOTER_SUBSCRIBE_CLOSE;?></a>
+    </div>
+</div>
+
+<?php
+if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != ''){
+    $customer_info = zen_get_customer_info($_SESSION['customer_id']);
+}
+?>
+<div class="testimonialbody" id="testimonialbody">
+    <h3><strong><?php echo FOOTER_TESTIMONIAL_SUBMIT_YOUR;?></strong><span class="closetest">X</span></h3>
+
+    <div class="testform">
+        <p><?php echo FOOTER_TESTIMONIAL_THANKS_FOR;?></p>
+        <form>
+            <table>
+                <tr><td width="80"><?php echo FOOTER_SUBSCRIBE_NAME;?>:</td><td><input type="text" disabled="disabled" value="<?php echo $customer_info['name'];?>" class="footer_testimonial_name" /></td></tr>
+                <tr><td><?php echo HEADER_NEEDHELP_EMAIL;?>:</td><td><input type="text" disabled="disabled" value="<?php echo $customer_info['email'];?>" class="footer_testimonial_email" /></td></tr>
+                <tr >
+									<td style="position: relative;">
+										<label style="position:absolute;top:10px;">
+											<span style="color:#ff0000;margin:0 5px 0 0;position:static;">*</span>Testimonials:
+										</label>
+								  </td>
+								<td><textarea class="testimonials_cont"></textarea><div class="font_red ts_error" style="display: inline-block"></div></td></tr>
+                <tr id='reserved_auth_code_tr'></tr>
+                <tr><td></td><td><button id="testimonial_btn"><?php echo FOOTER_TESTIMONIAL_SUBMIT;?></button><span <?php if($_SESSION['auto_auth_code_display']['testimonial'] < 3){ echo 'style="top:0px;"';}?>>(<strong id="leftext">1000</strong> <?php echo FOOTER_TESTIMONIAL_CHARACTERS_REMAINING;?>)</span></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <dl class="success_tips">
+        <dd><ins></ins></dd>
+        <dt>
+            <h2><?php echo FOOTER_TESTIMONIAL_COMMONT_SUCCESS;?></h2>
+            <p><?php echo FOOTER_TESTIMONIAL_THANKS;?></p>
+        </dt>
+    </dl>
+
+</div>

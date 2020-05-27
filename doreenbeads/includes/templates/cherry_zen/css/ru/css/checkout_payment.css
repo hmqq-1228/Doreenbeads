@@ -1,0 +1,82 @@
+/* This is the CSS needed for the Order Step Edition 2 contribution */
+
+#order_steps {       /* Is needed for the centering in IE */
+    padding: 0 3px;
+    margin: 10px 10px;
+    text-align: center;
+	 height:70px;
+}
+
+.order_steps_text {
+    margin: 0 auto;
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+	 height: 50px;
+}
+
+
+#active_step_text {       /* These are the styles for the active text */
+    color: #333333;
+    font-weight: 700;
+    font-size: 1.1em;
+	 width:24%;
+	 float:left;
+	 line-height:normal;
+}
+
+.order_steps_text2 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 25px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_text3 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 26px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_text4 {
+    text-align: center;
+    color: #A7A7A7;        /* Determines the non-active color of the text */
+    padding-top: 26px; /* Determines the distance between the text and the line */
+	 width:24%;
+	 float:left;
+}
+
+.order_steps_line_2 {
+    padding: 5px 0 0 0;
+    margin: 0;
+	 width:100%;
+}
+
+.progressbar_active {
+    background: url(../images/orderstep.png) repeat-x;    
+	 background-color: #000000; /* Determines the active color of the completed part of the line */
+	 width:24%;
+	 float:left;
+	 height: 8px;
+	 color: #3DA200;
+}
+
+.progressbar_inactive {
+    background: url(../images/orderstep.png) repeat-x;    
+	 background-color: #9A9A9A; /* Determines the active color of the completed part of the line */
+	 width:24%;
+	 float:left;
+	 height: 8px;
+	 color: #9A9A9A;
+}
+
+#disc-ot_coupon{
+	width:100px;
+}
+#checkoutPayment .inputLabel{
+	width:100%;
+}
+
+/* End Order Steps contribution CSS */

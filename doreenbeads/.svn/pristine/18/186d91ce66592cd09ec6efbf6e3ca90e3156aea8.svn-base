@@ -1,0 +1,27 @@
+<?php
+/**
+ * jscript_main.php
+ * 
+ */
+?>
+<script language="javascript" type="text/javascript">
+<!--
+  $j(document).ready(function(){
+	$j("#main_type").change(function(){
+	   $j("#main_type option").each(function(i,o){
+	       if($j(this).attr("selected"))
+	       {
+	           $j(".detail_type").hide();
+	           $j(".detail_type").eq(i).show();
+	       }
+	 });
+  });
+$j("#main_type").change();
+});
+  
+  function adduploadfile(){
+  	document.getElementById("hiddenattach").style.display = "block";
+  	document.getElementById("more_attach").style.display = "none";
+  }
+// -->
+</script>

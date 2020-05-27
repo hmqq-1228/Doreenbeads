@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>service--8seasons.com</title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Hallo {$firstName},</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Vielen Dank für Ihre Bestellung {$orderNormalAll}.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		{if $traceNumbersCount >0}
+		Hier möchten wir darüber informieren, Ihre Tracking-Nummer jetzt verfügbar ist. Es ist wie folgend:<br /> {$traceNumbers} 
+		{/if}
+		{if $traceNumbersCount > 0 && $webSiteCount > 0}
+		und Sie können auf dieser Webseite verfolgen:<br/>{$webSite}
+		{/if}
+	</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Oder Sie könnten <a href="http://www.doreenbeads.com/index.php?main_page=track_info&order_id={$orderNormalAll}">hier klicken</a>, um die Tracking-Informationen von Paketen online zu sehen.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Bei weiteren Fragen stehen wir Ihnen gerne zur Verfügung.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Wir bedanken uns für Ihre Bestellung und freuen uns auf Ihren nächsten Besuch!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Mit herzlichen Grüßen! </td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+</table>
+</body>
+</html>

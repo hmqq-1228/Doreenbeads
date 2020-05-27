@@ -1,0 +1,16 @@
+{if $price_infos && is_array($price_infos)}
+	{section name=price loop=$price_infos}
+   	<tr>
+   		{if $smarty.section.price.first}
+   		<td rowspan="3">{$smarty.const.TEXT_PRICE} :<br><span>({$smarty.const.TEXT_PER_PACK})</span></td>
+   		{/if}
+   		<td>{$price_infos[price].show_qty}</td>
+   		{if display_specials_price && !$price_infos[price].price_is_same}
+   		<td><b>{$price_infos[price].price_final}</b></td>
+   		<td><del>{$price_infos[price].price_normal}</del></td>
+   		{else} 
+   		<td><b>{$price_infos[price].price_normal}</b></td>
+		{/if} 
+   	</tr>
+	{/section}
+{/if}

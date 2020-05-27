@@ -1,0 +1,7 @@
+<div class="table-back">
+	<ul><li><a href="{$back_href}" class="back-button">{$smarty.const.TEXT_BACK}</a></li></ul>
+	<div class="clear"></div>
+</div>
+<div class="txt-wap">
+	<p style="word-break: break-all;">{$an_mobile_content}</p>
+</div>

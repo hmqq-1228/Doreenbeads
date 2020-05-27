@@ -1,0 +1,5 @@
+<?php
+define('MODULE_SHIPPING_UPSSK_TEXT_TITLE', 'UPS Express Saver');
+define('MODULE_SHIPPING_UPSSK_TEXT_DESCRIPTION', 'UPS Express Saver');
+define('MODULE_SHIPPING_UPSSK_SHIPPING_DAYS', '3-4');
+?>

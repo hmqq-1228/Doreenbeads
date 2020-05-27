@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Newsletters-Doreenbeads_fr</title>
+</head>
+<body>
+<table width="660" align="center" cellpadding="0" cellspacing="0" style="border:1px solid #aaa;">
+    
+    <tr>
+        <td><table style="padding:10px 0 10px 0;width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="26%" valign="bottom"><a href="http://www.doreenbeads.com/fr/" target="_blank"><img  src="http://www.doreenbeads.com/promotion_photo/fr/images/20150203/logofr.jpg"></a></td>
+                <td width="43%" valign="bottom" style=" text-align:left; padding-bottom:8px; border-left:1px dashed #999; padding-left:10px;"><span style="color:#555; font: 12px/29px Georgia;">Fourniture de Perles & Apprêts</span><br /><span style="color:#555; font:12px/18px Georgia;">Livraison Gratuite</span></td>
+                <td  width="31%" valign="bottom" style=" text-align:center; padding-bottom:8px; font:14px/24px Georgia; border-left:1px dashed #999;"><a href="http://img.doreenbeads.com/promotion_photo/fr/edm/20170721/db0721w.html
+" style="color:#CC0099;text-decoration:none;"> Version en Ligne</a><br /><span style="color:#F0F; text-decoration:underline; font-weight:bold"><a href="http://www.doreenbeads.com/fr/index.php?main_page=login">Se Connecter</a></span></td>
+            </tr>
+        </table></td>
+    </tr>
+    <tr>
+        <td style="background:#99CCFF;padding:5px 0;">
+        <table>
+            <tr>
+                <td style="padding:0 12px;"><a href="http://www.doreenbeads.com/fr/" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Accueil</a></td>
+                <td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="http://www.doreenbeads.com/fr/jewelry-supplies-beads-c-1729_1730.html" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Perle</a></td><td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="http://www.doreenbeads.com/fr/jewelry-supplies-findings-c-1729_1791.html" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Apprêt</a></td>
+                <td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="https://www.doreenbeads.com/fr/stainless-steel-jewelry-c-2920.html" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Acier Inoxydable</a></td>              
+                <td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="http://www.doreenbeads.com/fr/jewelry-supplies-pendants-c-1729_1831.html" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Pendentif</a></td>  
+                <td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="https://www.doreenbeads.com/fr/buttons-c-1909_1920.html" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Bouton</a></td>
+                <td style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#fff;">|</td>
+                <td style="padding:0 12px;"><a href="https://www.doreenbeads.com/fr/index.php?main_page=promotion_display_area" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;">Promos</a></td>
+            </tr>
+        </table></td>
+
+    </tr>
+
+	{if $banner1}
+	<tr>
+		<td>{if $banner1.picHref}<a href="{$banner1.picHref}">{/if}<img src="{$banner1.picSrc}" alt="{$banner1.picAlt}">{if $banner1.picHref}</a>{/if}</td>
+	</tr>
+	{/if}
+	{if $bigPic}
+	<tr>
+		<td>{if $bigPic.picHref}<a href="{$bigPic.picHref}">{/if}<img src="{$bigPic.picSrc}" alt="{$bigPic.picAlt}">{if $bigPic.picHref}</a>{/if}</td>
+	</tr>
+	{/if}
+	
+	<tr>
+		<td style="background:#FFFFFF;padding:0 25px;">
+			<p style="font-family:Arial, Helvetica, sans-serif;font-size:13px;color:#333333;line-height:18px;"><strong>Bonjour *|TITLE:FNAME|* *|TITLE:LNAME|*,</strong></p>
+			<p style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#333333;line-height:20px;margin-top:6px;"> Tout d'abord, bon weel-end à vous! Quel est votre projet pour le week-end? Est-ce qu'il est déjà au printemps chez vous? Est-ce que vous avez préparé les bijoux pour ce printemps? 8Seasons a préparé plein de <a href="http://www.8seasons.com/fr/wholesale-gemstone-cabochons-c-1789_1822_1824.html"><b>Cabochons en Gemme</b></a> colorés pour vous offrir un printemps coloré. Avec ces cabochons, créez votre bijou unique pour votre robe de ce printemps! Il semle que c'est pas mal! Comment vous en pensez? </p>
+			<p style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#333333;line-height:20px;margin-top:6px;">A la fin, j'aime bien vous annoncer que maintenant nous offrons un <a href="http://statictab.com/g6ptx5i"><b>Coupon 25USD</a></b> à tout le monde qui mentionne " J'aime " sur notre page de Facebook! Donc, pourquoi pas! </p>
+			<p style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#333333;line-height:20px;margin-top:6px;">Bien Cordialement</p>
+			<p style="font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#333333;line-height:20px;margin-top:6px;text-align:right;"><strong>Equipe DoreenBeads</strong></p>
+		</td>
+	</tr>
+
+	{if $sheetData}{foreach from=$sheetData item=data}
+		{if $data.title}
+	<tr>
+		<td><table width="660" cellpadding="0" cellspacing="0" style="margin-top:1px;">
+			<tr>
+				<td style="background:#99CCFF;padding:5px 20px; text-align:center;height:20px;">{if $data.title.href}<a href="{$data.title.href}" style="text-decoration:none;color:#fff;font-family:Arial, Helvetica, sans-serif;font-weight:bold;float:center;">{/if}{$data.title.title}{if $data.title.href}</a>{/if}</td>
+			</tr>
+		</table></td>
+	</tr>
+		{/if}
+	<tr>
+		<td><table width="100%" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+			{foreach from=$data.content key=k item=cont}
+				<td width="25%" align="center" height="160" style="border:1px solid #ccc;padding-bottom:10px;border-collapse:collapse;border-left:0;">
+					<a href="{$cont.picHref}"><img src="{$cont.picSrc}" alt="{$cont.picAlt}" style="border:1px solid #F4ECDD;"/></a>
+					{if $cont.titleName}<p style="height:36px; line-height:18px; padding:0px; margin:0px;">{if $cont.titleHref}<a href="{$cont.titleHref}" style="color:#3e3737; text-decoration:none;font-family:Arial, Helvetica, sans-serif;font-size:12px;">{/if}{$cont.titleName}{if $cont.titleHref}</a>{/if}</p>{/if}
+					{if $cont.oldPrice}<br/><span style="color:#999;text-decoration:line-through;font-size:12px;font-family:Arial, Helvetica, sans-serif">{$cont.oldPrice}</span>{/if}
+					{if $cont.CurrPrice}<br/><span style="color:#ec042a;font-family: Arial, Helvetica, sans-serif;font-size:12px;">{$cont.CurrPrice}</span>{/if}
+				</td>
+			{if $k%4==3}</tr><tr>{/if} {* 3/7... *}
+			{/foreach}
+			</tr>
+		</table></td>
+	</tr>
+	{/foreach}{/if}
+
+    <!-- banner2 -->
+	{if $banner2}
+	<tr>
+		<td>{if $banner2.picHref}<a href="{$banner2.picHref}">{/if}<img border="0" src="{$banner2.picSrc}" alt="{$banner2.picAlt}" />{if $banner2.picHref}</a>{/if}</td>
+	</tr>
+	{/if}
+	  <!-- banner2 -->
+        <tr>
+        <td style="background:url(http://www.8seasons.com/promotion_photo/fr/edm/20130424/foot_bg.png) repeat-x  #f7f7f7; padding:4px;"><p style="padding:10px; margin:0px; background:#f7f7f7; color:#666; font-size:12px; line-height:20px;font-family:Arial, Helvetica, sans-serif;"> Note:<br>
+            Vous recevez ce message car vous vous avez inscrit sur notre site ou avez abonné notre newsletter. Si vous avez des questions à nous demander, nous enoyez une lettre à notre adresse d'e-mail <a href="mailto:service_fr@doreenbeads.com" target="_blank" style="color:#0481db; text-decoration:none;">service_fr@doreenbeads.com</a>. Si vous ne voulez pas recevoir notre newsletter,
+            <a href="https://doreenbeads.us1.list-manage.com/unsubscribe?u=93b3b08530509a43c973fa2bb&id=a240693acc" target="_blank" style="color:#0481db; text-decoration:none;">désabonnez-vous ici</a>. </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size:12px; color:#666; line-height:18px; padding:10px 0;background:#fff;font-family:Arial, Helvetica, sans-serif;" align="center"><strong>Adresse: </strong>718 South Chengdian Road, Yiwu, Zhejiang P.R.C. Zip Code: 322000 P.R.C. <br>
+            <strong>Code postal:</strong> 310051<br>
+            <strong>Tél:</strong> (+86 )579-85335690&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Fax:</strong> (+86)579-85261619&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Email:</strong> <a href="maito:service_fr@doreenbeads.com" target="_blank" style="color:#0481db; text-decoration:none;">service_fr@doreenbeads.com</a><br>
+            Copyright 2002-2018. Tous droits réservés. 
+        </td>
+    </tr>
+</table>
+    
+
+</body>
+</html>

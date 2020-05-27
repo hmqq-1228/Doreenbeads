@@ -1,0 +1,42 @@
+
+
+{if $messageStack->size('create_account') > 0}
+{$messageStack->output('create_account')}
+{/if}
+
+<div class="maincontent">
+    <h3 class="themetit">{$smarty.const.HEADER_TITLE_REGISTER}</h3>
+    
+    
+    <form class="registerform" name="registerform" method="post" action="index.php?main_page=register&action=process" onsubmit="return check_reg_form(registerform)">
+      <h5 class="reg-notice">{$get_coupon}</h5>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_EMAIL_ADDRESS}</label><input type="text"  class="reg-email-address required" name="reg_email_address" id="reg_email_address"/></div>
+      <div class="reg-notice">{$smarty.const.REG_EMAIL_NOTICE}<span id="reg_email_error">{if $error_facebook_register}This email is taken. Please use Login With Facebook{/if}</span></div>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_FIRST_NAME}</label><input type="text" class="firstname required" id="reg_firstname" name="reg_firstname"/></div>
+      <div class="reg-notice">{$smarty.const.ENTRY_FIRST_NAME_ERROR}<span id="reg_fn_error"></span></div>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_LAST_NAME}</label><input type="text" class="lastname required" id="reg_lastname" name="reg_lastname"/></div>
+      <div class="reg-notice">{$smarty.const.ENTRY_LAST_NAME_ERROR}<span id="reg_ln_error"></span></div>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_PASSWORD}</label><input type="password" class="password required" name="password" id="reg_password"/></div>
+      <div class="reg-notice">{$smarty.const.REG_PASSWORD_NOTICE}<span id="reg_password_error"></span></div>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_PASSWORD_CONFIRMATION}</label><input type="password" class="confirmpass required" name="confirmpass" id="confirmpass"/></div>
+      <div class="reg-notice">({$smarty.const.TEXT_CONFIRM_PASSWORD_PROMPT})<span id="reg_confpwd_error"></span></div>
+      <div><label><ins>*</ins>{$smarty.const.ENTRY_YOU_COUNTRY}</label>
+      		
+	  	{$country_select}	 
+	  	{literal}
+	  	<script type="text/javascript">
+		country_select_choose('customers_country_id');
+	  	</script>
+	  	{/literal}
+	  </div>
+	     
+      <div id="subcribe-email"><span id="subcribe_email_span" class="check select" onclick="Toggle(this.id)"></span>{$smarty.const.SUBCIBBE_TO_RECEIVE_EMAIL}<input type="checkbox" id="newsletter" hidden name="newsletter" checked="checked" value="1" /></div>
+      <div id="agree"><ins>*</ins><span id="agree_span" class="check select" onclick="Toggle(this.id)"></span>{$smarty.const.AGREEN_TO_TERMS_AND_CONDITIONS}<span id="agree_terms_error"></span><input type="checkbox" id="agree_terms" hidden checked="checked" name="agree_terms" value="1" /></div>
+      <div><button class="button-now" type="submit">{$smarty.const.CREATE_NEW_ACCOUNT}</button></div>
+    </form>
+     <div class="newto">  
+      <p>{$smarty.const.ALREADY_HAVE_ACCOUNT}</p>
+      <a href="index.php?main_page=login" class="button-change">{$smarty.const.CATEGORY_LOGIN}</a>
+     </div>
+     <div class="loading hiddenField" ></div>
+</div>

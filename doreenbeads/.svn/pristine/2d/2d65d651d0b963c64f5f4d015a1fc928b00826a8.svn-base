@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>无标题文档</title>
+</head>
+<body>
+
+<!-- 从这里开始 -->
+{literal}
+<style type="text/css">
+.feproductimg .discountbg{position:absolute;width:44px;height:39px;text-align:center;background:url(includes/templates/cherry_zen/images/discountbg.png);left:18px;color:#fff;padding-top:7px;font-weight:bold;}
+.img-scroll { position:relative; margin:0 auto;width:550px;}
+.img-scroll .arrowleft,.img-scroll .arrowright { position:absolute; display:block;top:0;}
+.img-scroll .arrowleft{ left:0;float:left;width:15px;height:22px;margin-top:45px;border:1px solid #f4eed6;display:none;outline:0;}
+.img-scroll .arrowright{ right:0;float:left;width:15px;height:22px;background:url(includes/templates/cherry_zen/images/icon.png) -76px -124px;margin-top:45px;border:1px solid transparent;outline:0;}
+.img-scroll .arrowright:hover{background:#faf7eb url(includes/templates/cherry_zen/images/icon.png) -76px -124px;border:1px solid #dfdbd0;text-decoration:none;}
+.img-scroll .arrowleft:hover{background:#faf7eb url(includes/templates/cherry_zen/images/icon.png) -28px -124px;border:1px solid #dfdbd0;text-decoration:none;}
+.arrowleft.abled{background:url(includes/templates/cherry_zen/images/icon.png) -61px -124px;display:block;border:1px solid transparent;}
+.arrowright.disabled{background:url(includes/templates/cherry_zen/images/icon.png) -42px -124px;display:none;}
+.img-list { position:relative; height:125px;width:510px;overflow:hidden;margin-left:20px;}
+.img-list ul {width:9999px;overflow:hidden;}
+.feproductimg {position: relative;text-align: center;z-index: 1;}
+.feproduct {height: auto;overflow: hidden;}
+.feproduct li {float: left;width: 118px;border:1px solid #cbcaca; background:#fff; margin:0 4px;}
+.feproduct li img{}
+.feproductimg a {display: block;}
+.banner_container{width:764px;height:292px;}
+.container, .container img {height:292px;overflow: hidden;position: relative;width:762px;}
+#idSlider li {position: absolute;}
+.numsolider {bottom: 0;font: 12px/1.5 tahoma,arial;height: 18px;position: relative;}
+#idnumsolider {background: #EFEDEE;border: 1px solid #D7D7D7;height: 20px;line-height: 20px; margin: 2px 0 0;}
+.numsolider li {color: #000000;cursor: pointer;float: left;font-family: Arial;font-size: 12px;height: 20px;line-height: 20px;overflow: hidden;text-align: center;}
+.numsolider li a {border-left: 1px solid #DDDBDC;color: #9A9898;display: block;text-decoration: none;}
+.numsolider li:first-child a {border-left: 0 solid #000000;}
+.numsolider li.on {background-color: #FCFCFC;color: #333333;font-weight: bold;}
+.numsolider li.on a {color: #333333;}
+.newtext{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.popularpro_bottom {
+	height:125px;
+	background:#f4eed6;
+	padding:10px 0
+}
+.feproductimg a span {
+	color:#d20c0c;
+	text-align:center;
+	display:block;
+	height:22px;
+	line-height:22px;
+	background:#faf8ed;
+	border-top:#cbcaca 1px solid;
+}
+.feproductimg a:hover {
+	text-decoration:none;
+}
+</style>
+<script type="text/javascript"> 
+$j(document).ready(function(){ 
+	var t = n = 0, count;
+	var time = 5000;//图片切换时间
+	var time1 = 1000;//图片淡入淡出时间
+	$j('#idnumsolider').html('');
+	count=$j("#idSlider li").length;
+	idSlider_li_width=Math.floor($j('#idContainer').width()/count);
+	$j('#idnumsolider').css('width',(idSlider_li_width*count));
+	$j("#idSlider li").each(function(){
+		ahref=$j(this).find("a").attr('href');
+		words=$j(this).find("img").attr('alt');
+		num=$j("#idSlider li").index(this)+1;
+		if(!words){
+			words='输入第'+num+'张图片的alt文字';
+			}
+		$j("#idnumsolider").append("<li style='width:"+idSlider_li_width+"px'><a href='"+ahref+"'>"+words+"</a></li>");
+	})
+	$j("#idSlider li:not(:first-child)").hide(); 
+	$j("#idnumsolider li:first-child").addClass("on");
+	$j("#idnumsolider li").hover(function() {
+		clearInterval(t);
+		var i = $j("#idnumsolider li").index(this) ;
+		if(n == i) return false;
+		n = i; 
+		if (i >= count) return;
+		$j("#idSlider li").stop(true,true); 
+		$j("#idSlider li").filter(":visible").fadeOut(time1).parent().children().eq(i).fadeIn(time1); 
+		$j(this).stop(true,true).addClass("on").siblings().removeClass("on"); 
+		
+	},function(){
+		t = setInterval(showAuto, time);
+		});
+	t = setInterval(showAuto, time); 
+	$j('#idContainer').hover(function(){clearInterval(t)}, function(){t = setInterval(showAuto, time);}); 
+	
+	function showAuto() {
+		n = n >=(count - 1) ? 0 : ++n;
+		$j("#idSlider li").filter(":visible").fadeOut(time1).parent().children().eq(n).fadeIn(time1); 
+		$j("#idnumsolider li").eq(n).addClass("on").siblings().removeClass("on");
+	} 
+}) 
+</script>
+{/literal}
+
+<!-- banner -->
+{if $banner}
+<div class="banner_container" id="idContainer">
+	<ul id="idSlider">
+	{foreach from=$banner key=k item=v}
+		<li><a href="{$v.picHref}"><img alt="{$v.picAlt}"  height="292" src="{$v.picSrc}" width="764px" /></a></li>
+	{/foreach}   
+	</ul>
+</div>
+<ul class="numsolider" id="idnumsolider" style="width:200px;">&nbsp;</ul>
+{/if}
+
+<div class="product_index">
+	<!-- Hot -->
+	{if $hot}
+	<h3>Популярные Категории</h3>
+	<dl class="popularpro">
+		<dd>
+			<a href="{$hot.left.picHref}"><img alt="{$hot.left.picAlt}" src="{$hot.left.picSrc}" /></a>
+		</dd>
+		<dt>
+			<ul>
+			{foreach from=$hot.right key=k item=v}
+				<li><p class="popularimg"><a href="{$v.picHref}"><img alt="{$v.picAlt}" src="{$v.picSrc}" /></a></p><p class="protext"><a href="{$v.titleHref}" title="{$v.titleName}">{$v.titleName}</a></p></li>
+			{/foreach}
+			</ul>
+		</dt>
+	</dl>
+	{/if}
+
+	<!-- Featured -->
+	{if $featured}
+	<dl class="popularpro_bottom">
+		<dd>
+			<strong>Рекомендуемые товары</strong>
+			<p><span>Фантастические Рекомендации для вас</span><a href="index.php?main_page=products_common_list&amp;pn=feature">Больше &gt;&gt;</a></p>
+		</dd>
+		<dt style="padding-right:20px;">
+			<div class="img-scroll">
+				<a class="arrowleft" href="javascript:void(0);">&nbsp;</a>
+				<div class="img-list">
+					<ul class="feproduct">
+					{foreach from=$featured key=k item=v}
+						<li><div class="feproductimg"><a href="{$v.picHref}"><img alt="{$v.picAlt}" src="{$v.picSrc}"/>{if $v.price}<span>{$v.price}</span>{/if}</a></div></li>
+					{/foreach}
+					</ul>
+				</div>
+				<a class="arrowright" href="javascript:void(0);">&nbsp;</a>
+			</div>
+		</dt>
+	</dl>
+	{/if}
+</div>
+
+<!-- New -->
+{if $new}
+<div class="product_index">
+	<h3><a class="productlink" href="index.php?main_page=products_common_list&amp;pn=new">Новые Поступления</a><a class="productmore" href="index.php?main_page=products_common_list&amp;pn=new">Больше&gt;&gt;</a></h3>
+	<ul class="new_arrivals">
+	{foreach from=$new key=k item=v}
+		<li><p class="newimg"><a href="{$v.picHref}"><img src="{$v.picSrc}" alt="{$v.picAlt}"></a></p><p class="newtext"><a title="{$v.titleName}" href="{$v.titleHref}">{$v.titleName}</a></p></li>
+	{/foreach}
+	</ul>
+</div>
+{/if}
+
+{literal}
+<script type="text/javascript">
+$j(function(){
+  $j('.arrowleft').click(function(){
+	if($j('.arrowright').hasClass('off')){
+		$j('.arrowright').removeClass('off'); 
+		 $j('.arrowright').removeClass('disabled');       
+	}
+	if($j(this).hasClass('on')){
+		var num=4;
+		var w = parseInt($j(".img-scroll li").css("width")) + 10;	
+		var tw = w*$j(".img-scroll li").length;
+		if(!$j("ul.feproduct").is(":animated")){
+			var marLeft = parseInt($j("ul.feproduct").css("margin-left"));		
+				var l = marLeft + w * num;
+				if(l>=0){l=0;$j('.arrowleft').removeClass('on')
+				$j('.arrowleft').removeClass('abled'); 
+				}	
+				$j("ul.feproduct").animate({marginLeft:l+"px"},1000);	
+			}	
+	 }
+  })
+
+   $j('.arrowright').click(function(){
+     if(!$j('.arrowleft').hasClass('on')){
+       $j('.arrowleft').addClass('on');
+	   $j('.arrowleft').addClass('abled'); 
+    }
+   if(!$j(this).hasClass('off')){
+	var num=4;
+    var w = parseInt($j(".img-scroll li").css("width")) + 10;
+	var tw = w*$j(".img-scroll li").length;
+	if(!$j("ul.feproduct").is(":animated")){
+		var marLeft = parseInt($j("ul.feproduct").css("margin-left"));					
+			var l = marLeft-w*num;
+			$j("ul.feproduct").animate({marginLeft:l+"px"},1000);
+			if(-marLeft>=tw-w*num*2){			 
+			 $j('.arrowright').addClass('off');
+			 $j('.arrowright').addClass('disabled');       
+		   }
+	}	
+  }
+  })
+})
+</script>
+{/literal}
+<!-- 到这里结束 -->
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+<dl class="sidemenu"><dd><a href="http://www.doreenbeadslocal.com/fr/site_map.html"><font color="#000">Toutes les Catégories</font></a></dd><dt><p>Sans Catégories</p></dt></dl>

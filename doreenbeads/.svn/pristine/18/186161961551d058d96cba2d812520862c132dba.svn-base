@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Bonjour {$firstName},</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Merci de votre soutien et votre commande {$orderNormalAll}!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Je voudrais vous avertir que le numéro de suivi de votre colis est mis à jour.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		{if $traceNumbersCount >0}
+		Voici le nouveau de suivi:<br /> {$traceNumbers} 
+		{/if}
+		{if $traceNumbersCount > 0 && $webSiteCount > 0}
+		vous pouvez le suivre sur le site ci-dessous:<br/>{$webSite}
+		{/if}
+	</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Ou vous pouvez <a href="http://www.doreenbeads.com/index.php?main_page=track_info&order_id={$orderNormalAll}">cliquer ici</a> pour voir les informations de suivi des colis en ligne.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">S'il y avait d'autres problèmes que je puisse vous aider, n’hésiteriez pas à me contacter, SVP, le meilleur service sera offert.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Merci encore de votre soutien et dans l’attente de votre affaire avec nous tôt.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Salutations sincères</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{literal}
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+	$('.jq_message_setting_button').live('click', function(){
+		var message_receive_type = $("input[name='message_receive_type']:checked").val();
+		if(typeof(message_receive_type) == "undefined" || message_receive_type == "") {
+			$(".jq_message_content").show().text($(this).data("message"));
+			return false;
+		} else if(message_receive_type == "10") {
+			if(confirm($(this).data("confirm"))) {
+				$('.jq_from_message_setting').submit();
+			}
+			return false;
+		}
+		$('.jq_from_message_setting').submit();
+	});
+});
+</script>
+{/literal}
+<div class="order_main">
+	{if $messageStack->size('message_setting') > 0}
+		<div>{$messageStack->output('message_setting')}</div>
+	{/if}
+	<div class="user_message_setting">
+		<form class="jq_from_message_setting" method="post" action="index.php?main_page=message_setting&action=update">
+	    	<p><label><input type="radio" name="message_receive_type" value="30"{if $message_setting_array['customers_info_message_receive_type'] == "30"}checked='checked'{/if} />{$smarty.const.TEXT_RECEIVE_ALL_MESSAGES}</label></p>
+			<p><label><input type="radio" name="message_receive_type" value="20"{if $message_setting_array['customers_info_message_receive_type'] == "20"}checked='checked'{/if} />{$smarty.const.TEXT_RECEIVE_THE_SPECIFIED}</label></p>
+			<p class="message_child">
+				{foreach from=$type_array item=type_info name=type_index}
+				<label><input type="checkbox" name="message_receive_appoint[]" value="{$type_info['auto_id']}"{if $type_info['checked'] == 1}checked='checked'{/if} />{$type_info['title']}</label><br/>
+				{/foreach}
+			</p>
+			<p><label><input type="radio" name="message_receive_type" value="10"{if $message_setting_array['customers_info_message_receive_type'] == "10"}checked='checked'{/if} />{$smarty.const.TEXT_REJECT_ALL_MESSAGES}</label></p>
+	    	<div class="cart_btn">
+		  		<button type="submit" class="jq_message_setting_button btn_big btn_ltblue" data-message="{$smarty.const.TEXT_PLEASE_CHOOSE_AT_LEAST_MESSAGE}" data-confirm="{$smarty.const.TEXT_YOU_WILL_NO_LONGER_MESSAGE}">{$smarty.const.TEXT_SAVE}</button>
+		  		<a href="index.php?main_page=myaccount&tag=message" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+		  	</div>
+			<br/>
+			<div class="jq_message_content" style="color:#cb0000;display:none; text-align:center;"></div>
+	    </form>
+  	</div>
+</div>

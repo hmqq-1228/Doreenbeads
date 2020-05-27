@@ -1,0 +1,7 @@
+<div class="maincontent">
+    <div class="logoff_div">
+	    <div class="log-offtext">
+	      	{$smarty.const.TEXT_MAIN}
+	    </div>
+    </div>
+</div>

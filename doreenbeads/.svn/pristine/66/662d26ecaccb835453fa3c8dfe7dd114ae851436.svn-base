@@ -1,0 +1,39 @@
+        {foreach $track_info_array as $shipping_num => $track_info}
+            {if count($track_info.track_detail) > 0}
+                <div class="package-status">
+                <h3>
+                {$track_info.info_title}
+                </h3>
+                {$smarty.const.TEXT_TRACKING_INFO_DETAIL|sprintf:$track_info.shipping_title:$shipping_num}
+                {if $track_info.track_url}
+                	{$smarty.const.TEXT_TRACKING_INFO_URL|sprintf:$track_info.track_url}
+                {/if}
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <th width="40%">{$smarty.const.TEXT_TIME}</th>
+                            <th width="60%">{$smarty.const.DISCRIPTION}</th>
+                        </tr>
+                {foreach $track_info['track_detail'] as $num => $track_detail}
+                    <tr  {if count($track_info.track_detail) != 1}
+                             {if $num == 0}
+                                class="latest"  
+                             {else}
+                                {if $num == count($track_info.track_detail)-1}
+                                 class="last"
+                                {/if}
+                             {/if}
+                         {else}
+                             class="only-one"
+                            {/if}>
+                        <td class="time">{$track_detail.tracking_get_date}</td>
+                        <td class="description">{$track_detail.tracking_description}</br>{$track_detail.tracking_detail}</td></tr>
+                {/foreach}
+                </table></div>
+            {else}
+                <div class="package-status">
+                <h3 style="margin-bottom:0px;">
+                {$track_info.info_title}
+                </h3>
+                <div style="height:70px;"><span style="display: inline-block;margin: 10px;">{$smarty.const.TEXT_NULL_TRACKING_INFO}</span></div></div>
+            {/if}
+        {/foreach}

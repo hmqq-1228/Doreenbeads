@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root module="password_change_admin" date_generated="2020-05-13 16:14:16">
+  <languages_code>en</languages_code>
+  <from>
+    <from_email_name>DoreenBeads.com</from_email_name>
+    <from_email_address>notification@doreenbeads.com</from_email_address>
+  </from>
+  <to>
+    <to_name>meng.huang</to_name>
+    <to_address>meng.huang@panduo.com.cn</to_address>
+  </to>
+  <reply>
+    <reply_to_name>DoreenBeads.com</reply_to_name>
+    <reply_to_email>notification@doreenbeads.com</reply_to_email>
+  </reply>
+  <email_subject>密码已修改</email_subject>
+  <email_text>修改密码成功。新密码是什么：h000000。请保留该邮件以防忘记密码。
+This email address was given to us by you or by one of our customers. If you feel that you have received this email in error, please send an email to sale@doreenbeads.com
+This e-mail is sent in accordance with the US CAN-SPAM Law in effect 01/01/2004. Removal requests can be sent to this address and will be honored and respected.</email_text>
+  <email_html>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;base href="http://www.doreenbeadslocal.com/" /&gt;
+
+&lt;style type="text/css"&gt;
+body {background-color:#ffffff; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif; text-align:center;}
+a:link {color:#0066cc;}
+a:hover {background-color:#eeeecc; color:#0066cc;}
+a:visited {color:#0066cc;}
+.holder {background-color:#f9f9f9; border:1px solid #9a9a9a; font-size:12px; text-align:left; width:550px;}
+.header {font-size:12px; padding:0px; width:550px;}
+.content {font-size:12px; padding:5px; width:550px;}
+.footer {border-top:1px solid #9a9a9a; font-size:12px; margin-top:10px; text-align:center; width:550px;}
+.extra-info {background-color:#cccc99; border:1px solid #9a9a9a; font-size:12px; margin-top:10px; padding:5px; width:550px;}
+.extra-info-bold {font-weight:bold;}
+.disclaimer {background-color:#f9f9f9; border:1px solid #cccccc; font-size:12px; margin-top:10px; padding:5px; width:550px;}
+.disclaimer1 {color:#666666; padding:5px;}
+.disclaimer1 a:link {color:#666666;}
+.disclaimer1 a:visited {color:#666666;}
+.disclaimer2 {color:#666666; padding:5px;}
+.copyright {border-bottom:0px solid #9a9a9a; padding:5px;}
+&lt;/style&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div class="holder"&gt;
+
+  &lt;!-- Header Section --&gt;
+  &lt;div class="header"&gt;
+  &lt;a href="https://www.doreenbeads.com/crafts-resin-craft-c-1909_3029.html"&gt;&lt;img src="http://www.doreenbeadslocal.com/email/english/640X250en.jpg" alt="logo" border="0" /&gt;&lt;/a&gt;
+  &lt;!--&lt;img src="email/header.jpg" alt="logo" /&gt;--&gt;
+  &lt;/div&gt;
+
+
+  &lt;!-- Content Section --&gt;
+  &lt;div class="content"&gt;
+    &lt;!--&lt;div&gt;密码已修改&lt;/div&gt;--&gt;
+    &lt;div&gt;修改密码成功。&lt;br/&gt;新密码是什么：h000000。&lt;br&gt;请保留该邮件以防忘记密码。&lt;/div&gt;
+  &lt;/div&gt;
+
+
+  &lt;!-- Footer Section --&gt;
+  &lt;div class="footer"&gt;
+    &lt;div class="copyright"&gt;Copyright (c) 2020 &lt;a href="http://www.doreenbeads.com/" target="_blank"&gt;DoreenBeads&lt;/a&gt;. Powered by &lt;a href="http://www.doreenbeads.com/" target="_blank"&gt;DoreenBeads&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class="disclaimer"&gt;
+  &lt;div class="disclaimer1"&gt;This email address was given to us by you or by one of our customers. If you feel that you have received this email in error, please send an email to &lt;a href="mailto:sale@doreenbeads.com"&gt;sale@doreenbeads.com &lt;/a&gt;&lt;/div&gt;
+  &lt;div class="disclaimer2"&gt;This e-mail is sent in accordance with the US CAN-SPAM Law in effect 01/01/2004. Removal requests can be sent to this address and will be honored and respected.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</email_html>
+</root>

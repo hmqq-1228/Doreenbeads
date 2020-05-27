@@ -1,0 +1,9 @@
+customers_id: 97367
+ customers_email_address: www@panduo.com.cn
+ firstname: www
+ lastname: 123123a
+ ip: 127.0.0.1
+ WEBSITE_CODE: 30
+ create_time: 2017-05-02 16:55:08
+ entrance: D:\Documents\doreenbeads\ajax_login.php on line 306
+ json_data: {"customers_firstname":"www","customers_lastname":"123123a","customers_email_address":"www@panduo.com.cn","customers_newsletter":1,"customers_email_format":"HTML","customers_default_address_id":0,"customers_password":"3b8eb09f418fcb8bb0c9a181428bde67:9d","customers_authorization":0,"signin_ip":"127.0.0.1","register_languages_id":"1","lang_preference":"1","register_useragent_language":"en","customers_country_id":"223","currencies_preference":"1","customers_gender":"m","customers_dob":"0001-01-01 00:00:00","customers_nick":"","customers_telephone":"","customers_cell_phone":"","customers_fax":"","customers_group_pricing":0,"customers_referral":"","customers_paypal_payerid":"","customers_paypal_ec":""}===========================================================

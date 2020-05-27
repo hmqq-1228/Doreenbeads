@@ -1,0 +1,195 @@
+@charset "utf-8";
+/* CSS Document */
+a{text-decoration:none;}
+body {margin:0;padding:0;font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#000;}
+ul,li,dl,dd,dt,h1,h2,h3,h4,h5,h6,form,p,button,input{padding:0; margin:0;}
+ul,li {list-style-type:none;}
+img {border:0;}
+a {text-decoration:none;}
+.mainright .clearfix{clear:both;height:0;font-size: 1px;line-height:0px; overflow:hidden;}
+.fleft {float:left;display:inline;}
+.fright {float:right;display:inline;} 
+
+
+.mainwrap{width:984px;height:auto;margin:0 auto;}
+.mainleft{width:168px;height:auto;}
+.account_l{width:166px;height:auto;border:1px solid #b6b6b6;font-family:Tahoma;background:#f7f7f7;}
+.account_l dd{color:#666666;font-weight:bold;font-size:13px;line-height:30px;padding-left:10px;}
+.account_l dt{border-bottom:1px dotted #bdbdbd;padding-left:10px;padding-bottom:20px;}
+.account_l dt ul li{line-height:20px;list-style:disc inside;color:#cccccc;font-size:12px;}
+.account_l dt ul li.current{color:#df57d5;font-weight:bold;}
+.account_l dt ul li.current a{color:#df57d5;}
+.account_l dt ul li a{color:#0000ff;font-size:12px;}
+.mainright{width:800px;margin-right:6px;}
+.mycashaccount{width:798px;height:auto;}
+.mycashaccount p.mycashtit,.mycashaccount p.mycashtit1{border-bottom:1px solid #9aacba;line-height:30px;height:30px;padding-right:24px;}
+.mycashaccount p.mycashtit strong,.mycashaccount p.mycashtit1 strong{float:left;font-size:14px;display:block;width:300px;color:#333;}
+.mycashaccount p.mycashtit span{display:block;width:460px;float:left;color:#f60;font-weight:bold;text-align:left;}
+.mycashaccount p.mycashtit1 a{float:right;text-align:right;color:#0000ff;}
+.accountset{margin-top:10px;height:30px;}
+.accountset li{float:left;background:#f1f1f1;font-size:14px;width:265px;text-align:center;line-height:30px;height:30px;color:#666;cursor:pointer;border-bottom:1px solid #e7e7e7;}
+.accountset li.in{color:#df57d5;font-weight:bold;border:1px solid #e7e7e7;border-bottom:none;background:#fff;}
+.accounttab{border:1px solid #e7e7e7;border-top:none;width:755px;height:auto;padding:0 20px;padding-bottom:20px;display:none;}
+.accounttab.sh{display:block;}
+.accounttab p.tit{height:20px;line-height:20px;padding:15px 0;}
+.accounttab p.tit strong{color:#666;float:left;}
+.accounttab p.tit span{float:right;padding-left:10px;color:#666;}
+.accounttab p.tit span ins{color:#bf0101;text-decoration:none;padding-right:5px;}
+.accounttab table td label,.addresseidtform td label{display:block;width:20px;color:#f20101;float:left;height:20px;}
+.addresseidtform td label.checkselect{float:left;width:auto;color:#333;margin-left:10px;cursor:pointer;color:#666;}
+.accounttab table td {height:34px;color:#333;}
+.accounttab table td span{color:#C00;font-size:10px;-webkit-text-size-adjust: none;}
+.accounttab table td p{color:#999;}
+.accounttab table td ins{display:block;width:120px;text-decoration:none;float:left;}
+.accounttab td #country_choose{margin:0px;width:232px}
+.accounttab td #country_choose span{color:black}
+.accounttab td #country_choose .country_select_drop{width:230px}
+.accounttab td #country_choose .country_select_drop input{width:180px}
+.accounttab td #country_choose .choose_single{border-radius:0px 0px 0px 0px}
+.accounttab table td div.headportrait{border:2px solid #d6a7cd;width:62px;height:62px; border-radius:3px;float:left;}
+.accounttab table td span.edit{color:#0481db;float:left;margin-top:30px;margin-left:30px;cursor:pointer;font-size:12px;}
+.accounttab table td span.edit ins{display:block;float:left;width:16px;height:16px;background:url(../images/icon_shopcart.png) -81px 0;padding-left:4px;}
+.accounttab table td input[type=text],.accounttab table td input[type=password],.addresseidtform td input[type="text"]{background: #fff;border: 1px solid #9aacba;height: 26px;line-height: 26px;padding: 0 5px;width: 220px;color:#333;font-size:14px;font-weight:bold;}
+.addresseidtform table td input[type=button]{margin-right:10px;}
+.accounttab_bot{line-height:30px;color:#999;}
+.accounttab_bot ins{float:left;display:block;width:14px;height:14px;background:url(../images/icon_shopcart.png) -44px 0px;margin-top:8px;}
+.adddressbooktit{line-height:30px;padding-left:15px;margin-top:10px;height:30px;}
+.adddressbooktit.titborder{border-top:1px solid #d7d7d7;padding-top:10px;}
+.adddressbooktit strong{color:#333;font-size:14px;font-family:Arial, Helvetica, sans-serif;float:left;}
+.adddressbooktit span label{color:#C00;}
+.adddressbooktit strong ins{color:#ff6600;font-weight:normal;text-decoration:none;font-size:12px;}
+.adddressbooktit span{float:right;color:#0000FF;padding-right:10px;cursor:pointer;}
+.adddressbooktit span ins{display:block;width:16px;height:16px;background:url(../images/icon_shopcart.png) -62px 0;float:left;margin-top:8px;padding-right:4px;}
+.account_addresslist{width:247px;margin-left:15px;padding-bottom:10px;float:left;padding-top:15px;height:170px;}
+.account_addresslist li{line-height:24px;color:#666;}
+.account_addresslist li ins{display:block;width:14px;height:14px;background:url(../images/icon_shopcart.png) -22px 0px;float:left;margin-top:2px;}
+.account_addresslist li input{margin-right:10px;}
+.editaddress dd{float:left;border-right:1px dotted #e7e7e7;}
+.editaddress dt{float:left;}
+.addresseidtform{padding:0px 30px 20px 30px;}
+.addresseidtform.bot{border-bottom:1px solid #dfdfdf;}
+.addresseidtform td {vertical-align:text-top;padding-top:5px;color:#333;}
+.addresseidtform td input[type="checkbox"]{float:left;}
+.addresseidtform td input[type="text"]{width:288px;}
+.addresseidtform td input.firstname,.addresseidtform td input.lastname{width:132px;margin-right:10px;}
+.addresseidtform td div{color:#666;line-height:18px;width:300px;position:relative;}
+.addresseidtform td div ins{display:inline-block;background:url(../images/icon_shopcart.png);width:15px;height:15px;cursor:pointer;}
+.addresseidtform td div p.tips{width:260px;background:#fffdea;border:1px solid #FC9;font-size:12px;line-height:16px;padding-left:10px;padding-bottom:10px;color:#333;padding-top:5px;position:absolute;top:-60px;left:-86px;display:none;}
+.addresseidtform td dl.firstlast dd{float:left;color:#bf0101;width:20px;}
+.addresseidtform td dl.firstlast dt{float:left;width:132px;}
+.addresseidtform td button{margin-right:10px;padding-top:10px;}
+.addresseidtform td span{font-size:10px;color:#cb0000;-webkit-text-size-adjust: none;}
+
+.dateclick{height:auto;position:relative;width:70px;float:left;margin-right:10px;}
+.addresseidtform td button{margin-right:10px;padding-top:10px;}
+.selectdate{background:#fff;border: 1px solid #9aacba;float:left;height:22px;line-height:22px;width:70px;}
+.accounttab table td  span.date,.addresseidtform td p span.date,.orderstatus span.date{color: #333333;display:block;float:left;overflow:hidden;padding: 0 5px;text-overflow:ellipsis;white-space:nowrap;width: 40px;font-size:12px;}
+.orderstatus .selectdate{width:190px;}
+.orderstatus span.date{width:160px;}
+.orderstatus span.datebeat{width:15px;}
+.addresseidtform td p span.date.province{width:260px;}
+.datebeat {background: url("../images/icon_shopcart.png") -226px 4px;cursor: pointer; display: block;float: left;height: 16px;width: 10px;}
+.datelist {background:#FFFFFF;border:1px solid #9aacba;border-top:none;display: none;position: absolute; margin-top:0px;width:70px; z-index: 100;}
+.datelist li{line-height: 24px;padding: 0 5px;}
+.datelist li:hover{background:#F6F6F6;cursor:pointer;}
+.orderstatus .datelist {background:#FFFFFF;border:1px solid #9aacba;border-top:none;display: none;position:absolute;margin-top:0px;width:190px; z-index: 100;}
+.addresseidtform td p.selectdate{line-height:26px;height:26px;}
+.addresseidtform td div.tips{display:none;width:470px;border:1px solid #d0d1a9;position:absolute;background:#FFC;top:-70px;z-index:100;padding:5px;left:-98px;}
+.addresseidtform td div.tips span{width:0; height:0; font-size:0; overflow:hidden; position:absolute;}
+.addresseidtform td div.tips span.bot{border-width:6px;border-style:solid dashed dashed;border-color:#d0d1a9 transparent transparent;left:140px;bottom:-12px;}
+.addresseidtform td div.tips span.top{border-width:6px;border-style:solid dashed dashed;border-color:#ffc transparent transparent;left:140px;bottom:-10px;}
+.btnsave{background:url(../images/btnsave.png); width:80px;line-height:26px;height:26px;border:none;font-weight:bold;font-size:14px;color:#333;cursor:pointer;font-family:Tahoma, Geneva, sans-serif;}
+.btncancel{background:url(../images/btncancel.png); width:80px;line-height:26px;height:26px;border:none;font-weight:bold;font-size:14px;color:#fff;cursor:pointer;font-family:Tahoma, Geneva, sans-serif;}
+.accountletter{margin-left:20px;}
+.accountletter p{line-height:20px;margin-top:15px;color:#333;}
+.accountletter p a{color:#0000ff;}
+.newslettertit{line-height:30px;height:30px;}
+.newslettertit strong{font-weight:bold;font-family:Arial;font-size:14px;}
+.newsletterscont p{line-height:18px;margin-top:15px;padding-left:15px;}
+.newsletterscont p a{color:#0000ff;}
+.newslettercont{width:800px;height:auto;}
+.newsletterconttit{background:url(../images/accounttit.png);line-height:29px;padding-left:10px;color:#333;}
+.newsletterconttit strong{background:#fff;padding-right:10px;}
+.lettercont{width:798px;border:1px solid #d7d7d7;border-top:0;height:auto;padding-bottom:10px;}
+.lettercont p{line-height:30px;padding: 0 15px;color:#333;}
+.lettercont p input[type="checkbox"]{margin-right:5px;}
+.account_update{text-align:right;height:30px;line-height:30px;margin-top:10px;}
+.newscont{line-height:18px;color:#333;margin:5px 0;}
+.creditbg{text-align:center;}
+
+.credittext{}
+.credittext p{font-size:14px;}
+.credittext dl{width:800px;height:auto;overflow:hidden;}
+.credittext dl dd{color:#519774;width:16px;height:18px;font-size:20px;font-weight:bold;float:left;line-height:18px;}
+.credittext dl dt{float:left;width:780px;line-height:18px;}
+.balancetit{margin-top:20px;}
+.balancenote{font-weight:bold;color:#555;margin-top:20px;font-family:Tahoma;}
+.balancenote ins{text-decoration:none;color:#db5656;}
+
+.filterform{margin-top:10px;height:auto;}
+.filterform input[type="text"],.quickadd td input[type="text"],.shiptab td input[type="text"]{ border: 1px solid #9aacba;height: 24px;line-height: 20px;
+width: 186px;color:#333;padding:0 2px;}
+.filterform label{display:block;float:left;text-align:right;min-width:150px;margin-right:5px;}
+.filterform dl{height:auto;}
+.filterform dl dd{float:left;width:363px;}
+.filterform dl dt{float:left;width:363px;}
+.filterform dl dd p,.filterform dl dt p{line-height:26px;height:26px;margin-top:10px;}
+.filterbtn{padding-left:155px;padding-top:15px;}
+.filterform dl dd div.orderstatus p{margin:0;}
+.orderstatus{line-height:26px;height:26px;margin-top:10px;position:relative;top:0;left:0;}
+
+.select1{width:190px;height:22px;line-height:22px;border:1px solid #9aacba;float:left;}
+.text_left1{display:block;width:160px;float:left;padding:0 5px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#333;}
+.arrow_right1{display:block;background:url(../images/icon_shopcart.png) -226px 4px;width:10px;height:16px;cursor:pointer;float:left;}
+.selectlist1{width:190px;border:1px solid #aaa;border-top:0;position:absolute;left:155px;top:28px;background:#fff;display:none;}
+.selectlist1 li{line-height:24px;padding:0 5px;}
+.selectlist1 li:hover{background:#F8F3F4;cursor:pointer;}
+
+.orderdetail{margin-top:25px;}
+.orderdetailtit{height:26px;}
+.orderdetailtit span{float:left;}
+.orderdetailtit p{float:right;}
+.orderdetailtit p a{color:#0000cc;padding:0 2px;}
+.orderdetailtit p a.current{color:#000;}
+.orderdetail table{border:1px solid #e8e8e8; border-collapse:collapse;}
+.orderdetail table th{background:#f7f7f7;border-bottom:1px solid #e8e8e8;height:27px;color:#333;}
+.orderdetail table td{text-align:center;border-bottom:1px solid #e8e8e8;padding:10px 0;color:#333;}
+.orderdetail table td a{color:#0000ff;}
+.orderdetail table td.txtr,.orderdetail table th.txtr{text-align:left;}
+
+.defaulteditcont1{}
+.defaulteditcont2{display:none;}
+
+.addressbooklist1{}
+.addressbooklist2{display:none;}
+
+
+
+/***register***/
+.registercont{width:890px;height:auto;margin:0 auto;font-family:Arial, Helvetica, sans-serif;}
+.registercont p.registertit{text-align:right;color:#333;line-height:20px;}
+.registercont p.registertit strong{color:#ff6600;}
+.registercont dd{width:400px;border:1px solid #d6a7cd;box-shadow:2px 5px 2px #eaeaea;float:left;}
+.registercont dt{width:426px;border:1px solid #d6a7cd;box-shadow:2px 5px 2px #eaeaea;float:left;margin-left:50px;}
+.registercont dd p.logtit,.registercont dt p.logtit{background:url(../images/registertit.png);height:53px;font-size:20px;line-height:53px;color:#b4459f;padding-left:20px;}
+.registercont dd table,.registercont dt table{margin:0 auto;margin-top:10px;width:390px;padding-bottom:10px;}
+.registercont dd table td,.registercont dt table td{padding-right:10px;height:40px; vertical-align:top;}
+.registercont dd table td input[type="text"],.registercont dd table td input[type="password"],.registercont dt table td input[type="text"],.registercont dt table td input[type="password"]{border:1px solid #abadb3;height:26px;width:266px;}
+.registercont dd table td label,.registercont dt table td label{padding-left:5px;cursor:pointer;}
+.registercont dd table td a{padding:0 10px;margin-left:10px;color:#3737ff;}
+.loginbtn,.registerbtn{border:none;}
+.registercont dt td p{color:#c00;}
+.registercont dt td span{color:#666;}
+.registercont dt p label{padding-left:10px;color:#333;}
+.registercont dt p label a{color:#5f00ff;}
+.registerbtn{margin-top:20px;margin-bottom:20px;background:url(../images/registerbtn.png);width:190px;height:36px;cursor:pointer;}
+.loginbtn{background:url(../images/Login.png);width:140px;height:36px;cursor:pointer;}
+.registercont dd table td p{color:#C00;}
+
+#receivemail{margin-left:30px;margin-bottom:15px;float:none;}
+#agreeterm{margin-left:0px; margin-top:-6px;float:none;}
+.registerbtn{margin-left:30px;}
+.registercont dd table{margin-left:20px;}
+.mainright input[type=button],.mainright input[type=submit]:focus{background:url("../images/btnsave.png") repeat scroll 0 0 transparent;}
+.float-wrap .registercont .loginbtn:focus{background: url("../images/Login.png") repeat scroll 0 0 transparent;}
+.float-wrap .registercont .registerbtn:focus{background: url("../images/registerbtn.png") repeat scroll 0 0 transparent;}

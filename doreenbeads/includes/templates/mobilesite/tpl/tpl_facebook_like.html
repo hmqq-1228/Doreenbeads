@@ -1,0 +1,33 @@
+{if $error}
+<div class="content">{$error_msg}</div>
+{else}
+{$facebook_like}
+{if $isActiveTime}
+<script type="text/javascript">
+{literal}
+$(function(){
+//	$("#pop_fblike").modal("show");
+	$(".fb_page .fb_banner a").click(function(){
+		var $this = $(this);
+		$.post("./addcart.php", {ac: "facebook_like_add"}, function(data){
+//			var $tipObj = $(".fb_page .successtips_add");
+			if(data.length >0) {
+				var datearr = new Array();
+				datearr = data.split("|");
+				if(datearr[2] != ''){
+					alert(datearr[2]);
+				}else{
+//					$tipObj.show();
+					$this.html("Added");
+					$('.shopcart').attr('class', 'shopcart1');
+					setTimeout("$('.fb_page .fb_banner a').html('Add to Cart');", 3000);
+				}
+			}
+		});
+		return false;
+	});
+});
+{/literal}
+</script>
+{/if}
+{/if}

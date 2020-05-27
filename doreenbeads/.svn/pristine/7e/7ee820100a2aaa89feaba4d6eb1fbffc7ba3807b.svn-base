@@ -1,0 +1,47 @@
+<div class="listcontent">
+  
+  {$products_top_part}
+  
+    {$property_cancel}
+       
+    {foreach $tabular as $value}
+    <div class="dlist">
+     {$value.image}
+     {$value.discount}
+      <ul>
+    	<li>{$value.name}</li>
+    	{$value.price}
+    	{$value.cart}   	
+      </ul>
+    </div>
+     {/foreach} 
+     
+    {$products_bottom_part}
+  </div>
+</div>
+
+<div class="addsuccess-content">
+    <div class="addsuccess-tip">
+         {$smarty.const.TEXT_ADDCART_SUCCESS}
+    </div>
+</div>
+
+<div class="error-content">
+    <div class="error-tip">
+         {$smarty.const.TEXT_CART_WRONG_QUANTITY}
+    </div>
+</div>  
+  
+<div class="addwish-content">
+    <div class="addwish-tip">
+         {$smarty.const.TEXT_WISHLIST_SUCCESS}
+    </div>
+</div>
+
+<div class="restock-content">
+    <div class="restock-tip">
+         {$smarty.const.TEXT_RESTOCK_SUCCESS}
+    </div>
+</div>
+  
+{$property_refine}

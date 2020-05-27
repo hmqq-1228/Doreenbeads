@@ -1,0 +1,18 @@
+<div class="order_main">
+	{if $messageStack->size('account_newsletters') > 0}
+		<div>{$messageStack->output('account_newsletters')}</div>
+	{/if}
+	<div class="newsletter">
+		<form method="post" action="index.php?main_page=account_newsletters&action=process">
+	    	<p>{$smarty.const.MY_NEWSLETTERS_GENERAL_NEWSLETTER_DESCRIPTION}</p>
+	    	<p class="top_margin">
+		      	<input id="newsletter" value="1" name="newsletter_general" type="checkbox" {if {$check}=='1'}checked="checked"{else}{/if}  />
+		      	{$smarty.const.TEXT_WANT_TO_RECEIVE}
+	      	</p>
+	    	<div class="cart_btn">
+		  		<button type="submit" class="btn_big btn_ltblue">{$smarty.const.TEXT_SAVE}</button>
+		  		<a href="index.php?main_page=myaccount&tag=settings" class="btn_big btn_grey">{$smarty.const.TEXT_BACK}</a>
+		  	</div>
+	    </form>
+  	</div>
+</div>

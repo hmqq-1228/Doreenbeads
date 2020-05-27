@@ -1,0 +1,184 @@
+<div class="mian_wrap ">
+	{if $product_count < 1}
+		<div class="detail sorry mian_wrap ">
+			<div class="txt_wap">
+			{$text_product_not_found_tips}
+			</div>
+		</div>
+	{else}
+    <div class="pro_detail">
+       <input type="hidden" id="product_id" name="product_id" value="{$p.id}" />
+       <h4>{$p.show_name}[{$p.model}]</h4>
+	   <div id="myCarousel" class="carousel slide pro_img">
+		<ol class="carousel-indicators">
+			{foreach from=$p.image_srcs key=n item=image_src}
+			<li {if $n==0}class="active"{/if} data-target="#myCarousel" data-slide-to="{$n}"></li>
+			{/foreach}
+		</ol>
+		<div class="carousel-inner"> 
+			{foreach from=$p.image_srcs key=n item=image_src}
+			<div class="item {if $n==0}active{/if}">
+				<img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/500.gif" data-size="500" data-lazyload="{$image_src}" title="{$p.show_name}" alt="{$p.show_name}">
+			</div>
+			{/foreach}
+		</div>
+		{if $p.discount_amount && $p.discount_amount >0}
+		{if $smarty.session.languages_id == 1}
+		<div class="floatprice"><span>{$p.discount_amount}% <br /> {$smarty.const.TEXT_OFF}</span></div>
+		{else}
+		<div class="floatprice"><span>-{$p.discount_amount}% </span></div>
+		{/if}{/if}
+	   </div>
+	   <table cellspacing="2" cellpadding="0" class="price">
+		<tbody> 
+       {$p.price_table}
+	   	</tbody>
+	   </table>
+	   {$show_products_group_of_products}
+        <div class="package">
+            <label>{$smarty.const.TEXT_PACKAGE_SIZES}:</label>
+            <span id="pro_detail_otherpackage">
+               <em>{$p.unit_number}{$p.unit_name} / {$smarty.const.TEXT_PER_PACK}</em>
+			   		{if $other_package_products && is_array($other_package_products)}<ins class="icon_arrow_up"></ins>
+	                    <ul> 
+	                    <li class="active">{$p.unit_number}{$p.unit_name} / {$smarty.const.TEXT_PER_PACK}</li>
+	                    {foreach from=$other_package_products item=other_product_info}
+	                    <li><a href="{$other_product_info.link}" title="{$other_product_info.product_name}">{$other_product_info.unit_number}{$other_product_info.unit_name} / {$smarty.const.TEXT_PER_PACK}</a></li>
+	                    {/foreach}
+						</ul>
+					{/if}
+            </span>
+            <div class="clearfix"></div>
+        </div>
+        
+		<div id="proddetailAddtoCart">
+        <div class="pro_detail_input amount-wrapper">
+        	<span>{$smarty.const.TEXT_QTY} :</span> 
+            <div>
+	            <a class="minus grey" id="minusAddtoCart"></a> 
+	            <input type="text" class="addToCart" id="iptAddtoCart" value="{$p.products_quantity_order_min}" id="pid_{$p.id}" maxlength="5" > 
+	            <a class="plus" id="plusAddtoCart" data-max="{$p.addtocart_max}"></a>
+
+                
+	            {if $p.products_limit_stock == 1 && $p.products_quantity gt 0}
+	            <p>{$p.products_quantity} {$smarty.const.TEXT_STOCK_REMAINING}</p>
+	            {/if}
+            </div>
+            <div class="clearfix"></div>
+        </div> 
+       
+       <div class="button"> 
+	       <a class="btn_orange btn_with230" href="javascript:void(0);" id="btnAddtoCart" data-pid="{$p.id}">
+	       		{if $p.qty lte 0 && $p.is_sold_out == 0 && $smarty.const.SHOW_PRODUCTS_SOLD_OUT_IMAGE == '1'}
+	       		{$smarty.const.TEXT_BACKORDER}
+	       		{else}
+	       		{$smarty.const.TEXT_ADD_TO_CART}
+	       		{/if}
+	      </a> <br/>
+	      {if $p.qty lte 0 && $p.is_sold_out == 0 && $smarty.const.SHOW_PRODUCTS_SOLD_OUT_IMAGE == '1'}
+	         {if $p.products_stocking_days > 7}
+                <p class="pro_time">{$smarty.const.TEXT_AVAILABLE_IN715}</p>
+             {else}
+                <p class="pro_time">{$smarty.const.TEXT_AVAILABLE_IN57}</p>
+             {/if}
+          {/if}
+	      <!--<a class="btn_wishlist pro_wishlist btnProductWishlist" href="javascript:void(0);" id="btnProductWishlist_{$p.id}" data-id="{$p.id}">111</a>-->
+          <a class="addToWhishlist btnProductinfoWishlist" href="javascript:void(0);" id="btnProductWishlist_{$p.id}" data-id="{$p.id}"><strong></strong>{$smarty.const.TEXT_CART_MOVE_TO_WISHLIST}</a>
+          <div class="wishlist_num" style="display: inline;margin-left: 5px;color: darkgray;vertical-align: bottom;padding-top: 15px;">
+			{if $wish_add_num gt 0}
+				{$wishlist_num_str}
+			{/if}
+		  </div>
+		  {if $max_num_per_order_tips neq '' }<p style="font-size:12px;color:#666;">{$max_num_per_order_tips}</p>{/if}
+           
+		  <p id="tipsAddtoCart" class="pro_time"></p>
+	      <!--<span class="txtUpdate" style="display:none;">{$smarty.const.TEXT_UPDATE}</span>
+	      <span class="labAddToCartSuccess" style="display:none;"><ins></ins><span>{$smarty.const.TEXT_SUCCESS}</span></span>-->
+	     
+       </div>
+       
+      
+	   </div>
+       
+        <div class="pro_share">
+        	<label>{$smarty.const.TEXT_SHARE_TO}:</label>
+			{literal}
+			<!--<a class="facebook" href="#"></a>
+			<a class="pinterest" href="#"></a>
+			<a class="twitter" href="#"></a>
+			<a class="googleplus" href="#"></a>-->
+			<span class='st_googleplus_large'></span>
+			<span class='st_twitter_large'></span>
+			<span class='st_pinterest_large'></span>
+			<span class="fb-like" data-href="https://www.facebook.com/doreenbeads" data-layout="button" data-action="like" data-show-faces="false" data-share="false" style="top:-6px;"></span>
+			<span class="fb-share-button" data-layout="button" style="top:-6px;"></span>
+			<style>#___ytsubscribe_0{position:relative;top:-4px;}</style>
+			<span class="g-ytsubscribe" data-channelid="UCRvI1TH9x5othhfAMts6jpQ" data-layout="default" data-count="hidden"></span>
+        </div>
+		{/literal}
+        
+      <div class="pro_description">
+        	<h3 class="pagetille"><span>{$smarty.const.TEXT_ITEM_SPECIFICIATON}</span></h3>
+            <table cellspacing="5" cellpadding="0">
+	            <tbody>
+	            	{if $product_related_properties && is_array($product_related_properties)}
+	            	{foreach from=$product_related_properties item = product_property}
+	            	<tr><td class="title">{$product_property.property_group_name}:</td><td>{$product_property.property_name}</td></tr> 
+		            {/foreach}
+		            {/if}
+		            <tr><td class="title">{$smarty.const.TEXT_QUANTITY}:</td><td>{$p.unit_number}{$p.unit_name} / {$smarty.const.TEXT_PER_PACK}</td></tr>
+		            <tr><td class="title">{$smarty.const.TEXT_PART_NO}:</td><td>{$p.model}</td></tr>
+		            <tr><td class="title">{$smarty.const.TEXT_PRODUCT_WEIGHT}:</td><td>{$p.weight} {$smarty.const.TEXT_GRAMS}</td></tr>
+		            {if $p.vweight && $p.vweight gt 0} 
+		            <tr><td class="title">{$smarty.const.TEXT_VOLUMETRIC_WEIGHT}:</td><td>{$p.vweight} {$smarty.const.TEXT_GRAMS}</td></tr>
+		            {/if}
+		             {if $p.date_add} 
+		            <tr><td class="title">{$smarty.const.TEXT_DATE_ADDED}:</td><td>{$p.date_add}</td></tr>
+		             {/if}
+	            </tbody>
+            </table>
+        </div>
+      
+      <div id="product_reviews_box">
+	      {$product_reviews}
+      </div>
+       
+   </div>
+   <script type="text/javascript">
+	$(function(){	
+		$('.products_list li img').each(function(){
+			var imgwidth = $('.products_list li img').width();
+			$(this).css("height", imgwidth)
+		});			
+		$(window).resize(function(){
+			$('.products_list li img').each(function(){
+				var imgwidth = $(this).width();
+				$(this).css("height", imgwidth)
+			});		
+		});	
+	});
+	</script>
+   {$also_like_products}
+   
+   {$matching_products}
+   
+   {$also_purchased_products}
+    
+   {$recently_viewed_products}
+  {/if}
+</div>
+
+{literal}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="others_resource/js/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "8c9fa0f5-056b-4e6c-91ed-b8398b2cbe74"}); </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=461521814022842";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async="async"></script>
+{/literal}

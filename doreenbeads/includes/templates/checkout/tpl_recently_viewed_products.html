@@ -1,0 +1,110 @@
+{if $r_products|@count gt 0}
+<!-- Recently Viewed -->
+<div class="caption_recent">
+	<h3>{$smarty.const.TEXT_RECENTLY_VIEWED}</h3>
+</div>
+<div class="pic_list">
+	<ul>
+		{foreach from = $r_products key = k item = value}
+		<li {if $value.lang eq 3}style="width:151px;"{elseif $value.lang eq 2 || $value.lang eq 4}style="width:145px;"{/if}>
+			<div class="galleryimg">
+				{if $value.discount gt 0}
+            	<div class="discountbg">{if ($smarty.session.languages_id eq '2' || $smarty.session.languages_id eq '3' || $smarty.session.languages_id eq '4')}-{$value.discount}%{else}{$value.discount}%<br>off{/if}<br/></div>
+				{/if}
+                <p class="galleryimgshow"><a href="{$value.product_link}" title="{$value.product_name_all}">{$value.product_image}</a></p>
+            </div>
+
+            <p class="ptext"><a href="{$value.product_link}" title="{$value.product_name_all}">{$value.product_name}</a></p>
+            <p class="partprice">{$value.display_price}</p>
+
+            <div class="detailinput">
+            {if $value.btn_class=='cartbuy rp_btn'}
+            	<input name="rp_qty" min="1" max="99999" type="number" onblur="if(value.length==0||value==0)value=1" oninput="if(value.length>5)value=value.slice(0,5)" class='rp_qty_{$value.product_id}' id='product_listing_{$value.product_id}' value="{if $value.product_cart_qty lte 0}1{else}{$value.product_cart_qty}{/if}" onpaste="return false;" />
+            	<input type="hidden" value="{$value.product_cart_qty}" class='rp_oqty_{$value.product_id}' />
+            	<a href="javascript:void(0);" class="{$value.btn_class}" id="rp_{$value.product_id}"></a>
+            	<a href="javascript:void(0);" class="addcollect" id="wishlist_{$value.product_id}" onclick="beforeAddtowishlist('{$value.product_id}');"></a>
+            {elseif $value.btn_class=='icon_backorder'}
+				<input name="rp_qty" min="1" max="99999" type="number" onblur="if(value.length==0||value==0)value=1" oninput="if(value.length>5)value=value.slice(0,5)" class='rp_qty_{$value.product_id}' id='product_listing_{$value.product_id}' value="{if $value.product_cart_qty lte 0}1{else}{$value.product_cart_qty}{/if}" onpaste="return false;" />
+            	<input type="hidden" value="{$value.product_cart_qty}" class='rp_oqty_{$value.product_id}' />
+            	<a href="javascript:void(0);" class="cartbuy rp_btn" id="rp_{$value.product_id}"></a>
+            	<a href="javascript:void(0);" class="addcollect" id="wishlist_{$value.product_id}" onclick="beforeAddtowishlist('{$value.product_id}');"></a>
+				<div class="clearfix"></div><div style="color:#999">
+		             {if $value.products_stocking_days > 7}
+		                <p class="pro_time">{$smarty.const.TEXT_AVAILABLE_IN715}</p>
+		             {else}
+		                <p class="pro_time">{$smarty.const.TEXT_AVAILABLE_IN57}</p>
+		             {/if}
+                </div>
+			{*
+            	<div class="detailinput protips">
+            		<p>
+            			<input type="hidden" id="MDO_{$value.product_id}" value="0">
+            			<input type="hidden" id="incart_{$value.product_id}" value="0">
+            			<span class="soldout_text">
+            				<a rel="nofollow" href="javascript:void(0);" id="restock_{$value.product_id}" onclick="beforeRestockNotification({$value.product_id}); return false;">
+            					{$smarty.const.TEXT_RESTOCK}&nbsp;{$smarty.const.TEXT_NOTIFICATION}
+           					</a>
+        				</span>
+        				<a rel="nofollow" class="{$value.btn_class}" id="submitp_{$value.product_id}" onclick="makeSureCart({$value.product_id},0,'product_listing','Estimated Restocking Cycle: 5-15 days.')" href="javascript:void(0);">
+        					{$smarty.const.TEXT_BACKORDER}
+       					</a>
+       					<a rel="nofollow" class="text addcollect" title="Add to Wishlist" id="wishlist_{$value.product_id}" onclick="beforeAddtowishlist({$value.product_id},0); return false;" href="javascript:void(0);">
+       					</a>
+       				</p>
+     				<div class="successtips_add successtips_add1">
+      					<span class="bot"></span>
+      					<span class="top"></span>
+      					<ins class="sh">Please enter the right quantity!</ins>
+    				</div>
+    				<div class="successtips_add successtips_add2">
+    					<span class="bot"></span>
+    					<span class="top"></span>
+    					<ins class="sh"></ins>
+   					</div>
+   					<div class="successtips_add successtips_add3">
+   						<span class="bot"></span>
+   						<span class="top"></span>
+   						<ins class="sh"></ins>
+  					</div>
+				</div>*}
+			{else}
+				<div class="detailinput protips">
+            		<p>
+            			<input type="hidden" id="MDO_{$value.product_id}" value="0">
+            			<input type="hidden" id="incart_{$value.product_id}" value="0">
+            			<span class="soldout_text">
+            				<a rel="nofollow" href="javascript:void(0);" id="restock_{$value.product_id}" onclick="beforeRestockNotification({$value.product_id}); return false;">
+            					{$smarty.const.TEXT_RESTOCK}&nbsp;{$smarty.const.TEXT_NOTIFICATION}
+           					</a>
+        				</span>
+        				<a rel="nofollow" class="{$value.btn_class}" id="submitp_{$value.product_id}" style="color:#000;text-deracotion:none;" href="javascript:void(0);">
+        					{$smarty.const.TEXT_SOLD_OUT}
+       					</a>
+       					<a rel="nofollow" class="text addcollect" title="Add to Wishlist" id="wishlist_{$value.product_id}" onclick="beforeAddtowishlist({$value.product_id},0); return false;" href="javascript:void(0);">
+       					</a>
+       				</p>
+     				<div class="successtips_add successtips_add1">
+      					<span class="bot"></span>
+      					<span class="top"></span>
+      					<ins class="sh">Please enter the right quantity!</ins>
+    				</div>
+    				<div class="successtips_add successtips_add2">
+    					<span class="bot"></span>
+    					<span class="top"></span>
+    					<ins class="sh"></ins>
+   					</div>
+   					<div class="successtips_add successtips_add3">
+   						<span class="bot"></span>
+   						<span class="top"></span>
+   						<ins class="sh"></ins>
+  					</div>
+				</div>
+            {/if}
+       	  	</div>
+
+		</li>
+		{/foreach}
+	</ul>
+	<div class="clearBoth"></div>
+</div>
+{/if}

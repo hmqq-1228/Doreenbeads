@@ -1,0 +1,21 @@
+<div class="promotion1111_wrap">
+    <?php echo zen_draw_hidden_field('c_lan', $_SESSION['languages_code'])?>
+    <img src="/includes/templates/cherry_zen/css/<?php echo $_SESSION['languages_code']?>/images/BlackFriday1115banner.jpg" />
+    <?php if($receivable){?>
+        <img class="receive_button" src="/includes/templates/cherry_zen/css/<?php echo $_SESSION['languages_code']?>/images/BlackFriday1115coupon.jpg" border="0" usemap="#Map" />
+    <?php }else{?>
+        <img class="receive_button" src="/includes/templates/cherry_zen/css/<?php echo $_SESSION['languages_code']?>/images/BlackFriday1115coupon_grep.jpg" border="0" />
+    <?php }?>
+    <?php echo TEXT_HOW_TO_USE?>
+    <map name="Map">
+       <area style="cursor: pointer;" shape="rect" coords="271,168,558,219" alt="Get coupons now >" onclick="receive_coupon();"/>
+     </map>
+    <img src="/includes/templates/cherry_zen/css/<?php echo $_SESSION['languages_code']?>/images/BlackFriday1115step.jpg" />
+    <div class="notice_1111">
+        <?php echo TEXT_RECEIVE_COUPON_WARNING?>
+    </div>
+    <div class="Anniversary-2018_error" style="display: none">
+        <span class="Close"></span>
+        <p></p>
+    </div>
+</div>

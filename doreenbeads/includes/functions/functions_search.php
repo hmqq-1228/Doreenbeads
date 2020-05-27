@@ -1,0 +1,314 @@
+<?php
+/**
+ * functions_search.php
+ * General functions used throughout Zen Cart
+ *
+ * @package functions
+ * @copyright Copyright 2003-2006 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: functions_general.php 4683 2006-10-07 06:11:53Z drbyte $
+ */
+
+if (!defined('IS_ADMIN_FLAG')) {
+  die('Illegal Access');
+}
+  
+  	/**
+	 * 添加搜索统计
+	 * @param array 统计信息
+	 * @return bool
+	 */
+	function add_search_keyword_statistic($data = array()) {
+		if(empty($data)) {
+			return false;
+		}
+		$sql_data_array = array(
+			'search_type' => $data['type'],
+			'languages_id' => $_SESSION['languages_id'],
+			'keyword' => $data['keyword'],
+			'customers_id' => $_SESSION['customer_id'],
+			'customers_firstname' => $_SESSION['customer_first_name'],
+			'customers_lastname' => $_SESSION['customer_last_name'],
+			'customers_email_address' => $_SESSION['customer_email'],
+			'ip_address' => $data['ip_address'],
+			'country_code' => $data['country_code'],
+			'country_name' => $data['country_name'],
+			'date_created' => 'now()'
+		);
+		zen_db_perform(TABLE_SEARCH_KEYWORD_STATISTIC, $sql_data_array);
+		return true;
+	}
+	
+	/**
+	 * 得到keywords搜索条件
+	 * @param string $keywords
+	 * @return string $keywords_new
+	 */
+	function get_keywrods_to_solr($keywords, $languages_id) {
+		$search_keywords_synonym = array();
+		//去除左右空格后还有空格说明是多个单词，多个单词我们需要去数据库里找同义词，单个单词用solr的同义词规则conf/synonyms.txt已经很准确了
+		if(strstr($keywords, " ") != "") {
+			$search_keywords_synonym = get_search_synonym_array($keywords, $languages_id);
+		}
+		array_push($search_keywords_synonym, $keywords);
+		//如rabbit beads的同义词是Antique AND Gold AND beads，这样的写法正确：((Antique AND Gold AND beads) OR (rabbit AND beads)) AND package_size:0，这样不正确：(Antique Gold beads OR rabbit beads) AND package_size:0
+		if(count($search_keywords_synonym) > 1) {
+			foreach($search_keywords_synonym as $search_keywords_key => $search_keywords_value) {
+				$search_keywords_synonym[$search_keywords_key] = "(" . str_replace(" ", " AND ", $search_keywords_value) . ")";
+			}
+		}
+		$keywords_new = $keywords;
+		if(count($search_keywords_synonym) > 1) {
+			$keywords_new = "(" . implode(" OR ", $search_keywords_synonym) . ")";//自己组装关键词
+		} else {
+			$keywords_new = $search_keywords_synonym[0];
+		}
+		return $keywords_new;
+	}
+
+	/**
+	 * 搜索solr
+	 * @param object $solr对象
+	 * @param array $condition 搜索参数
+	 * @param string $extra_select_str 基础筛选条件
+	 * @param string $properties_select 属性筛选条件
+	 * @param int $search_offset 每页条数
+	 * @param int $item_per_page 第几页
+	 * @return object $count_res
+	 */
+	function search_by_solr($solr, $condition, $extra_select_str, $properties_select, $search_offset, $item_per_page) {
+        if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] > 0) {
+            $products_display_solr_str = '';
+        } else {
+            $products_display_solr_str = ' AND is_display:1';
+        }
+        $extra_select_str .= $products_display_solr_str;
+		try {
+			$count_res = $solr->search($extra_select_str . $properties_select, $search_offset, $item_per_page, $condition);
+		}
+		catch (Exception $ex) {
+			//记录solr错误日志
+			//write_file('log/solrLog/' . date('Y-m-d') . '/', date('H') . ".txt", "--------------------" . date('H:i:s') . "=>" . $ex->getMessage() . "--------------------\n" . var_export($ex, true) . "\n");
+		}
+		return $count_res;
+	}
+	
+	/**
+	 * 非俄语搜索关键词转换(拷贝以前)
+	 * @param array $words 
+	 * @return array $words 转换后的关键语数组
+	 */
+	function changeKeyWord($words) {
+		$n = sizeof($words);
+		$add_cnt = 0;
+		for ($i = 0, $n; $i < $n; $i++) {
+			$words[$i] = strtolower($words[$i]);
+			if (substr($words[$i], -3) == 'ies') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 3)) . 'y';
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -1) == 'y') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'ies';
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -3) == 'ves') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 3)) . 'f';
+				$addstring1 = substr($words[$i], 0, (strlen($words[$i]) - 3)) . 'fe';
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -1) == 'f') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'ves';
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -2) == 'fe') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 2)) . 'ves';
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -2) == 'es') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 2));
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			if (substr($words[$i], -1) == 's') {
+				$addstring = substr($words[$i], 0, (strlen($words[$i]) - 1));
+				$words[$i] = " $addstring ";
+				continue;
+			}
+	
+			switch ($words[$i]) {
+				Case "foot" :
+					$words[$i] = ' (foot OR feet)';
+					break;
+				Case "feet" :
+					$words[$i] = ' (feet OR foot)';
+					break;
+				Case "china" :
+					$words[$i] = ' (china OR chinese)';
+					break;
+				Case "chinese" :
+					$words[$i] = ' (chinese OR china)';
+					break;
+				Case "woman" :
+					$words[$i] = ' (woman OR women)';
+					break;
+				Case "women" :
+					$words[$i] = ' (women OR woman)';
+					break;
+				Case "mouce" :
+					$words[$i] = ' (mouce OR mice)';
+					break;
+				Case "mice" :
+					$words[$i] = ' (mice OR mouce)';
+					break;
+				Case "child" :
+					$words[$i] = ' (child OR children)';
+					break;
+				Case "children" :
+					$words[$i] = ' (child OR children)';
+					break;
+				default :
+					$words[$i] = ' ' . $words[$i];
+			}
+		}
+		return $words;
+	}
+	
+	/**
+	 * 非俄语搜索关键词转换(拷贝以前)
+	 * @param array $words 
+	 * @return array $words 转换后的关键语数组
+	 */
+	function ru_changeKeyWord($words) {
+		$n = sizeof($words);
+		$add_cnt = 0;
+		for ($i = 0, $n; $i < $n; $i++) {
+			$words[$i] = strtolower($words[$i]);
+			$extra_words = str_replace(array (
+				'с',
+				'в',
+				'х',
+				'м',
+				'е',
+				'к',
+				'н',
+				'а',
+				'о',
+				'С',
+				'В',
+				'Х',
+				'М',
+				'Е',
+				'К',
+				'Н',
+				'А',
+				'О'
+			), array (
+				'c',
+				'b',
+				'x',
+				'm',
+				'e',
+				'k',
+				'h',
+				'a',
+				'o',
+				'c',
+				'b',
+				'x',
+				'm',
+				'e',
+				'k',
+				'h',
+				'a',
+				'o'
+			), $words[$i]);
+			$extra_words = ($extra_words == $words[$i] ? '' : ' ' . $extra_words);
+			if (mb_substr($words[$i], -1, 'utf-8') == 'а') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'ы';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'и';
+				$addstring3 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'у';
+				$addstring4 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'о';
+				$addstring5 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8');
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $addstring3 $addstring4 $addstring5" . $extra_words . ")";
+				continue;
+			}
+			elseif (substr($words[$i], -1) == 'a') {
+				$addstring1 = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'и';
+				$addstring2 = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'е';
+				$addstring3 = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'в';
+				$addstring4 = substr($words[$i], 0, (strlen($words[$i]) - 1)) . 'й';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $addstring3 $addstring4" . $extra_words . ")";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'я') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'и';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'е';
+				$addstring3 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'в';
+				$addstring4 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'й';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $addstring3 $addstring4" . $extra_words . ")";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'ы') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'а';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8');
+				$words[$i] = " ($words[$i] $addstring1 $addstring2" . $extra_words . ")";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'у') {
+				$addstring = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'а';
+				$words[$i] = " ($words[$i] $addstring" . $extra_words . ")";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'о') {
+				$addstring = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'а';
+				$words[$i] = " ($words[$i] $addstring $extra_words)";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'е') {
+				$addstring = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'я';
+				$words[$i] = " ($words[$i] $addstring" . $extra_words . ")";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'в') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'и';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'я';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $extra_words)";
+				continue;
+			}
+			elseif (mb_substr($words[$i], -1, 'utf-8') == 'й') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'и';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'я';
+				$addstring3 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'е';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $addstring3" . $extra_words . ")";
+				continue;
+			}
+			elseif (substr($words[$i], -1, 'utf-8') == 'и') {
+				$addstring1 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'й';
+				$addstring2 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'я';
+				$addstring3 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'в';
+				$addstring4 = mb_substr($words[$i], 0, (mb_strlen($words[$i], 'utf-8') - 1), 'utf-8') . 'а';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2 $addstring3 $addstring4" . $extra_words . ")";
+				continue;
+			} else {
+				$addstring1 = $words[$i] . 'ы';
+				$addstring2 = $words[$i] . 'а';
+				$words[$i] = " ($words[$i] $addstring1 $addstring2" . $extra_words . ")";
+				continue;
+			}
+		}
+		return $words;
+	}
+
+?>

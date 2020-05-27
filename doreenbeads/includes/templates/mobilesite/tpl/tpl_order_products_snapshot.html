@@ -1,0 +1,42 @@
+<div class="order_main border_bottom">
+	{if $not_fount == 'true'}
+		<div class="no_records">{$message.products_is_not_fount}</div>
+	{else}
+	<div class="snapshot">
+		<p class="snapshot_note">{$message.phoycont_this_is_snapshot}</p>
+		{if $products_status == 1}
+    	<a class="btn_grey btn_snapshot" href="{$products_link}">{$message.phoycont_view_detail}</a>
+    	{/if}
+    	<table>
+	      	<tr>
+	        	<th>{$message.phoycont_order_number}:</th>
+	        	<td>{$oid}</td>
+	      	</tr>
+	      	<tr>
+	        	<th>{$message.phoycont_order_date}:</th>
+	        	<td>{$phoycont_date_purchased}</td>
+	      	</tr>
+	     	<tr>
+	        	<th>{$message.phoycont_order_status}:</th>
+	        	<td>{$order->info.orders_status}</td>
+	      	</tr>
+    	</table>
+    	<table>
+	      	<tr>
+		        <th>{$message.phoycont_number}:</th>
+		        <td>{$products_order.products_model}</td>
+	      	</tr>
+	      	<tr>
+		        <th>{$message.phoycont_your_price}:</th>
+		        <td>{$products_price}</td>
+	      	</tr>
+	      	<tr>
+		        <th>{$message.phoycont_order_qty}:</th>
+		        <td>{$products_order.products_quantity} {if $products_order.products_quantity>1}{$message.phoycont_packs}{else}{$message.phoycont_pack}{/if}</td>
+	      	</tr>
+    	</table>
+    	<p class="snapshot_name">{$products_order.products_name}</p>
+    	<img src="{$img_dir}">
+	</div>
+	{/if}
+</div>

@@ -1,0 +1,13 @@
+<div class=" categories mian_wrap">
+	<h3>{$category_info.categories_name}</h3>
+	<ul>
+		{if is_array($subCategories) && $subCategories}
+		{foreach from=$subCategories item=category }
+		<li>
+			<a href="{$category.link}" title="{$category.name}"><img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/178.gif" data-size="178" data-lazyload="{$category.categories_image_link}" title="{$category.name}" alt="{$category.name}" ><p>{$category.name}</p></a>
+		</li>
+		{/foreach}
+		{/if}
+		<div class="clearfix"></div>
+	</ul>
+</div>

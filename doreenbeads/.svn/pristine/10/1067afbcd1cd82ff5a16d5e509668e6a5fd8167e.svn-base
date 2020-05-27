@@ -1,0 +1,43 @@
+.coupon2018{
+	width:766px; overflow:hidden;
+	background:#fbfbf6;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#444;
+}
+.coupon2018 img{ border:none; vertical-align:top;}
+.coupon2018 .icon{ background:url(https://img.doreenbeads.com/promotion_photo/fr/images/20180911/img_03.gif) 20px 10px no-repeat;}
+.coupon2018 .ny_warning{ border:#f9e6e1 2px solid; padding:15px 20px 7px 20px; margin:0 33px 20px 33px;}
+.coupon2018 .ny_warning h3{ font-size:16px; line-height:24px; font-weight:bold; padding:0px; margin:0px;}
+.coupon2018 .icon h3,.coupon2018 .icon h4{ margin-left:45px; display:inline-block; float:left; margin-bottom:15px;}
+.coupon2018 .icon h4{ font-size:14px;line-height:24px; font-weight:bold; padding:0px; margin-top:0px; margin-bottom:10px;}
+.coupon2018 .icon p{ display:inline-block; float:left; color:#999; margin:0px; padding:0 0 0 10px; line-height:24px; margin-bottom:18px; font-size:13px;}
+.coupon2018 .icon img{ margin-left:45px; margin-top:-5px; margin-bottom:15px;}
+.coupon2018 .ny_warning ol{font-size: 14px; list-style: decimal; list-style-position:outside; padding:0 0 0 20px; margin:0px;}
+.coupon2018 .ny_warning li{line-height:18px; padding-bottom:8px;list-style: decimal;list-style-position: outside;}
+.coupon2018 .ny_warning li span{color:#ef3a3b; font-weight:bold;}
+.coupon2018 .clearfix{ clear:both;}
+
+ .Anniversary-2018_error{
+    width: 460px;
+    border: 1px solid #666;
+   position: fixed;
+    top:280px;
+    left:50% ;
+    margin-left: -230px;
+    border-radius: 5px;
+   background-color: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 20px;
+}
+ .Anniversary-2018_error .Close{
+    background-image: url("../images/Close.png");
+     display: inline-block;
+     width: 18px;
+     height: 17px;
+     position: absolute;
+     right:8px;
+     top:8px;
+     cursor: pointer;
+ }

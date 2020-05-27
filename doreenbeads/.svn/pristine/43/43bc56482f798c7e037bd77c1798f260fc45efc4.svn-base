@@ -1,0 +1,16 @@
+<?php
+define('NAVBAR_TITLE', 'Facebook - Spin to win');
+define('TEXT_SPIN_UNAVAILABLE_COUTRY','Sorry, this page is unavailable for your country or area.');
+define('TEXT_SPIN_DATE_ENDED','Oops, this spin to win sweepstake has ended. Please follow our Facebook Page to get the latest news of next sweepstakes and giveaways.');
+define('TEXT_SPIN_OUTOF_CHANCES','Sorry, you have run out of spinning chances. Keep following us and look forward to our next promotion.<br/>Shop around and find amazing items!<br/><div class="center"><a class="stw_btn" href="'.zen_href_link(FILENAME_DEFAULT).'">Continue Shopping</a></div>');
+define('TEXT_SPIN_OUTOF_CHANCES2', 'Share this on Facebook and get your second chance!<br/><div class="center"><a class="stw_btn" href="javascript:void(0)" onclick="fbSharePluginInit()">Share</a><a class="stw_btn" href="'.zen_href_link(FILENAME_DEFAULT).'">Continue Shopping</a></div>');
+define('TEXT_SPIN_DONT_WIN_1ST', 'Oops, sorry you didn’t win anything.<br/>Share this on Facebook and get your second chance!<br/><div class="center"><a class="stw_btn" href="javascript:void(0)" %s>Share</a></div>');
+define('TEXT_SPIN_DONT_WIN_2ND', 'Oops, sorry you didn’t win anything.<br/>Shop around and find amazing items!<br/><div class="center"><a class="stw_btn" href="'.zen_href_link(FILENAME_DEFAULT).'">Continue Shopping</a></div>');
+define('TEXT_SPIN_COUPON_1ST', 'Congratulations! You have won the <span>USD %s</span> Coupon. It has been added to your account. Use it within 20 days and share to your friends!<br/>Share this on Facebook and get your second chance!<br/><div class="center"><a class="stw_btn" href="javascript:void(0)" %s>Share</a><a class="stw_btn" href="'.zen_href_link(FILENAME_MY_COUPON, 'status=1').'">Check your Coupon</a></div>');
+define('TEXT_SPIN_COUPON_2ND', 'Congratulations! You have won the <span>USD %s</span> Coupon. It has been added to your account. Use it within 20 days and share to your friends!<br/><div class="center"><a class="stw_btn" href="'.zen_href_link(FILENAME_MY_COUPON, 'status=1').'">Check your Coupon</a></div>');
+define('TEXT_SPIN_PRODUCT_1ST', 'Congratulations! You have won the <span>%s</span>. It has been added to your shopping cart, please <a href="'.zen_href_link(FILENAME_SHOPPING_CART).'">check out</a> and confirm the order.<br/>Share this on Facebook and get your second chance!<br/><div class="center"><a class="stw_btn" href="javascript:void(0)" %s>Share</a><a class="stw_btn" href="'.zen_href_link(FILENAME_DEFAULT).'">Continue Shopping</a></div>');
+define('TEXT_SPIN_PRODUCT_2ND', 'Congratulations! You have won the <span>%s</span>. It has been added to your shopping cart, please <a href="'.zen_href_link(FILENAME_SHOPPING_CART).'">check out</a> and confirm the order.<br/><div class="center"><a class="stw_btn" href="'.zen_href_link(FILENAME_DEFAULT).'">Continue Shopping</a></div>');
+define('TEXT_SPIN_PRODUCT_DITSAMPLE', 'DIY Sample Kit');
+define('TEXT_SPIN_PRODUCT_SWAROVSKI', 'Swarovski® Rhinestone Set');
+define('TEXT_SPIN_PRODUCT_NECKLACE', 'Statement Necklace DIY Kit');
+?>

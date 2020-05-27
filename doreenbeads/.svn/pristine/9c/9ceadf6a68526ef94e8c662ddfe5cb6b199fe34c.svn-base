@@ -1,0 +1,68 @@
+{if $smarty.get.products_id == ''}
+{$smarty.const.TEXT_INFO_NO_REVIEWS}	
+{else}
+<nav><a href="index.php?main_page=product_info&products_id={$smarty.get.products_id}"><strong>{$smarty.const.TEXT_BACK}</strong></a></nav>
+<div class="commentcontent">	
+	<div class="commentform">
+		<h3>{$smarty.const.TEXT_INFO_CUSTOMER_REVIEWS}</h3>
+		<p>
+			{if $reviews_count}
+			{$smarty.const.TEXT_INFO_AVERAGE_RATING}
+			
+			{section name = loop loop = $product_rating}
+			<span class="goldstar"></span>
+			{/section}
+			{section name = loop loop = {5 - $product_rating}}
+			<span class="greystar"></span>
+			{/section}
+			({$based_on})
+			{/if}
+		</p>
+	    <form name="product_reviews"  method="GET">
+			<table>
+				<input type="hidden" value="product_reviews" name="main_page"/>
+				<input type="hidden" value="process" name="action">
+				<input type="hidden" value="{$smarty.get.products_id}" name="products_id">
+				<tr><td width="25%">{$smarty.const.TEXT_INFO_RATING}</td><td id="review"><input type="hidden" value="" name="rating"/><span class="greystar"></span><span class="greystar"></span><span class="greystar"></span><span class="greystar"></span><span class="greystar"></span><ins></ins><label></label></td></tr>
+				{if $smarty.session.customer_id}
+				<tr><td>{$smarty.const.TEXT_INFO_CUSTOMER_NAME}</td><td><input type="text" id="review-name" value="{$smarty.session.customer_first_name}"/></td></tr>
+				{/if}
+				<tr><td>{$smarty.const.TEXT_INFO_YOUR_REVIEW}</td><td><textarea name="review_text" id="review-text">{$smarty.const.JS_REVIEW_TEXT}</textarea><p class="notice">({$characters_remaining})</p></td></tr>
+	        <tr><td></td><td><input type="Submit" value="{$smarty.const.TEXT_SUBMIT}" id="reviewsubmit"/></td></tr>
+	      </table>
+		</form>
+	</div>
+
+	{if $reviewsArray|@count <= 0}
+		{$smarty.const.TEXT_INFO_NO_REVIEWS}
+	{else}	    
+	    {if $reviews_display_count != ''}
+	    	<p>{$reviews_display_count}</p>
+	    {/if}
+	    {assign var = i value = 0}
+	    {foreach from = $reviewsArray key = k item =v}
+		<div class="comments-list{if $i >= 3} displaynone{/if}" >
+			<div class="comments-list-l">
+				<p>
+					{section name = loop loop = $v.reviewsRating}
+					<span class="goldstar"></span>
+					{/section}
+					{section name = loop loop = (5 - $v.reviewsRating)}
+					<span class="greystar"></span>
+					{/section}
+				</p>
+				<p><strong>{$v.customersName}</strong>{$v.country} <br>{$v.dateAdded}</p>
+			</div>
+		<div class="comments-text">{$v.reviewsText}</div>
+		</div>
+		{/foreach}
+		{if $i > 3}
+		<p class="viewmore"><a href="javascript:void(0)" id="morereview">{$smarty.const.TEXT_MORE}</a></p>
+		<p class="viewmore"><a href="javascript:void(0)" id="lessreview" style="display:none;">{$smarty.const.LESS}</a></p>
+		{/if}
+		<div class="listcontent-head"><div>{$reviews_display_link}</div></div>	
+    {/if}
+    
+	
+</div>
+{/if}

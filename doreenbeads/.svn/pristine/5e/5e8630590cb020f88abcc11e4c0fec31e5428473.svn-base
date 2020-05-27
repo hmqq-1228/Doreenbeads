@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+.maincontent{border-top:1px solid #cccccc;height:auto;color:#333333;font-size:14px;position:relative;padding-top:10px;}
+.maincontent.bordert{border-top:none;}
+.themetit{padding:0 5px;font-weight:bold;}
+/* .loginform,.registerform{padding:5px 28px 15px 28px;border-bottom:1px dotted #cccccc;}
+.loginform span{color:#c00;}
+.loginform label,.registerform label{display:block;font-size:14px;color:#333;line-height:24px;}
+.loginform input,.registerform input{border:1px solid #cccccc;height:28px;border-radius:3px;box-shadow:5px 5px 10px #ececec inset;width:98%;padding:0 1%;font-size:12px;}
+.loginform input[type="password"]{font-size:22px;color:#333;}
+.loginform div,.registerform div{margin-top:10px;}
+.registerform div.reg-notice{margin-top:0;}
+.loginform span.check,.registerform span.check{display:inline-block;width:18px;height:18px;background:url(../images/mainicon.png) -44px -72px;background-size:200px 150px;cursor:pointer;margin-right:10px;text-align:center;position:relative;top:2px;}
+.loginform .check.select,.registerform .check.select{color:#2368d2;font-weight:bold;background:url(../images/mainicon.png) -73px -72px;background-size:200px 150px;}
+.loginform a{float:right;padding-top:6px;} */
+#subcribe-email,#agree{font-size:12px;}
+/* .registerform span{display:block;color:#C00;font-size:12px;} */
+#subcribe-email{padding-left:10px;}
+
+.newto{padding:0 28px 15px 28px;}
+.newto p{text-align:center;line-height:20px;margin:10px 0;}
+
+.useitbtn,.button-now,.find-submit,.checkbtn-cart,.goshop-btn,.viewallbtn,.viewlessbtn,.deletesubmit-btn,.advanced_one{background:#b760d4;border:1px solid #974baf;padding:2px 0;background:-moz-linear-gradient(top,#c971e6,#b260cd);background:-webkit-gradient(linear,0 0,0 100%,from(#c971e6),to(#b260cd));background:-o-linear-gradient(top,#c971e6,#b260cd);}
+.addresssubmit-btn{background:#ec4384;border:1px solid #c33269;}
+.useitbtn{cursor:pointer;display:inline-block;font-size:14px;padding:0 30px;line-height:28px;margin-top:5px;color:#fff;font-weight:bold;}
+.button-now{line-height:26px;}
+.button-now,.find-submit,.checkbtn-cart,.goshop-btn{cursor:pointer;display:inline-block;width:100%;font-size:14px;color:#fff;text-align:center;font-weight:bold;}
+.checkbtn-cart{float:right;width:44%;line-height:26px;}
+.goshop-btn{display:block;width:70%;margin-top:8px;}
+
+.button-change,.find-back,.backbtn,.addresscancel-btn,.advanced_two{cursor:pointer;display:block;background:#ededed;background:-webkit-gradient(linear,0 0,0 100%,from(#f5f5f5),to(#e6e6e6));background:-moz-linear-gradient(top,#f5f5f5,#e6e6e6);background:-o-linear-gradient(top,#f5f5f5,#e6e6e6);border:1px solid #bdbdbd;box-shadow:0px 1px 0px #a8a8a8;color:#333;font-weight:bold;text-align:center;text-decoration:none;}
+.button-change{width:100%;font-size:16px;line-height:30px;}
+.loading{width:40%;height:100px;background:#525252 url(../images/loadbig.gif) center center no-repeat;background-size:80px 80px;margin:0 auto;position:absolute;top:55px;left:28%;}
+/* .registerform ins{color:#F00;padding-right:5px;}
+.reg-notice{font-size:12px;}
+.registerform select{border:1px solid #ccc;height:30px;box-shadow:5px 5px 10px #ececec inset;line-height:30px;width:100%;border-radius:2px;} */
+.log-offtext{padding:0 20px 20px 20px;}
+.log-offtext p{line-height:16px;margin-top:10px;}
+.find-submit,.addresssubmit-btn,.deletesubmit-btn{width:40%;float:left;height:30px;font-size:14px;cursor:pointer;color:#fff;font-weight:bold;}
+.find-back,.addresscancel-btn{width:40%;float:right;font-size:14px;height:30px;}
+.backbtn{float:left;font-size:14px;line-height:26px;padding:0 20px;margin-left:5px;}
+.advanced_two{cursor:pointer;display:inline-block;font-size:14px;border-radius:3px;line-height:24px;margin-top:5px;width:100%;}
+.enternewbtn{height:28px;line-height:28px;width:50%;font-size:14px;margin-bottom:10px;}
+.validate-tips{width:96%;height:100px;background:#525252;background-size:80px 80px;color:#fff;margin:0 auto;position:absolute;top:185px;left:2%;padding:20px 0;}
+.validate-tips p{padding:0 10px;}
+
+.remove_messageStack_css{padding: 0;}
+.messageStackWarning, .messageStackError, .messageStackSuccess, .messageStackCaution {padding: 0;margin: 0;}
+.messageStackWarning, .messageStackError {color: #f00; background-color: #fff;font-size: 14px;}
+
+
+
+
+

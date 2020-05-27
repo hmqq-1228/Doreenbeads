@@ -1,0 +1,5 @@
+<?php
+define ( 'MODULE_SHIPPING_UPSSK_TEXT_TITLE', 'UPS エクスプレスセイバー' );
+define ( 'MODULE_SHIPPING_UPSSK_TEXT_DESCRIPTION', 'UPS エクスプレスセイバー' );
+define ( 'MODULE_SHIPPING_UPSSK_SHIPPING_DAYS', '3-4' );
+?>

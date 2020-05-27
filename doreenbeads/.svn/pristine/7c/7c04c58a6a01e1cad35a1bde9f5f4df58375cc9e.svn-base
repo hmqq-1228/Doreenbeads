@@ -1,0 +1,114 @@
+/* m.doreenbeads v2.0.2 */
+.price_color{ color:#f75100;}
+.btn_grey ,.btn_blue ,.btn_orange {cursor:pointer;font-size:16px; border-radius:5px; }
+.btn_blue{background-color:#5579c3;color:#fff; line-height:40px; padding:0 20px; height:40px; display:inline-block;}
+.btn_grey {background-color:#fafafa;color:#333;border-radius:5px; height:40px; line-height:38px; border:1px solid #ccc; display:inline-block; padding:0 20px; }
+.btn_with150 { text-align:center; font-size:16px; width:30%; min-width: 100px;}
+.btn_with230 { text-align:center; font-size:16px; width:60%;}
+.grey_6{ color:#666;}
+.margin5{ margin: 5px 0;}
+.link_text{ text-decoration:underline; font-size:14px; color:#3b5998}
+.warning_color{color: #E12020!important;}
+.btn_browse{ background:url(../images/icon.png) no-repeat -293px -495px; background-size:400px; display:inline-block; width:20px; height:25px; position:relative; top:3px; margin-right:5px;}
+.btn_orange{ background:#f75100;  color:#FFF;border-radius:5px;height:40px; line-height:40px; display:inline-block;}
+.border_bottom{ border-bottom: 1px solid #ccc;}
+
+.order_main{font-size:13px;}
+.order_main .order_wrap{ padding:15px 5px 0 5px; margin-bottom:15px;}
+.order_main .order_details_top{ width:100%; text-align:left;}
+.order_main .order_details_top th{ width:40%; padding:5px; color:#999;}
+.order_main .bottom_total ,.order_main .bottom_comments ,.order_main .items_review ,.order_main .order_pay {border:1px solid #ccc;margin-top:20px;}
+.order_main .bottom_total tr,.order_main .bottom_comments tr ,.order_main .items_review tr { vertical-align:text-top;}
+.order_main .bottom_total h3 ,.order_main .bottom_comments h3 ,.order_main .items_review h3 ,.order_main .order_pay h3  {line-height:40px; text-align:center; background-color:#f9f9f9; border-bottom:1px solid #ededed; font-size:14px; font-weight:bold;}
+.order_main .bottom_total table{ width:100%; padding:0 10px;}
+.order_main .bottom_total p{ padding:10px;}
+.order_main .bottom_total h4{ font-size:14px; padding: 0 10px 10px 10px;}
+.order_main .bottom_total th{ text-align:left; color:#666; width:70%; font-weight:normal; padding-top:8px;}
+.order_main .bottom_total .total_pice{ width:30%; text-align:right;}
+.order_main .bottom_total .payment_text{ margin: 5px 0; color: #06f; font-size: 14px;}
+.order_main .bottom_comments table{ width:100%;  padding:0 10px;}
+.order_main .bottom_comments table th{ padding:5px 0; color:#999; font-weight:normal; width:30%; text-align:left;}
+.order_main .bottom_comments table td{ padding:5px 0;}
+.order_main .items_review { padding-left:5px; padding-right:5px;}
+.order_main .items_review .quick_reorder_div{ padding:15px 0; border-bottom:1px dashed #ccc;}
+.order_main .items_review .quick_reorder_div a{ margin-bottom:10px; display:inline-block;}
+.order_main .shopcart_ul{ border-bottom:1px solid #ccc;}
+.order_main .shopcart_ul li{ border-bottom:1px dashed #ccc; padding:0 5px 15px 5px;}
+.order_main .shopcart_ul li p{ padding:10px 0;}
+.order_main .shopcart_ul li .Re_add{ text-decoration:underline; font-size:14px; padding-top:5px; display:block;}
+.order_main .shopcart_ul .pro_img{ float:left; width:110px; padding-right:10px; position:relative;}
+.order_main .shopcart_ul .pro_price{ float:right; text-align:right;}
+.order_main .shopcart_ul .pro_price p{font-size:13px; padding:0 0 8px 0}
+.order_main .shopcart_ul .cart_discount{ background-color:#fff0e7; border:1px solid #ffe1d3; height:20px; line-height:20px; color:#ff4400; font-size:14px; padding:0 5px; display:block; position:absolute;top:0;}
+.order_main .shopcart_ul del{ color:#999;text-decoration:line-through; vertical-align: top;}
+.order_main .page {line-height:50px;width:220px; margin:0 auto; padding:15px 0; height:80px;}
+.order_main .page span{ height:50px; display:block;font-size:16px; float:left; width:80px; text-align:center;}
+.order_main .page a{ display:block; width:60px; height:50px; border:1px solid #ccc; float:left;}
+.order_main .page_rt{ background:url(../images/icon.png) no-repeat -292px -219px;background-size:400px; width:30px; height:50px;}
+.order_main .page_lt{background:url(../images/icon.png) no-repeat -295px -183px; background-size:400px; width:30px; height:50px;}
+.order_main .page .page_grey{ background-color:#ededed;}
+.order_main .payment_wrap { border-bottom: 1px solid #ccc; padding-bottom: 15px;}
+.order_main .payment_wrap .payment_title{ height: 35px; line-height: 35px; font-weight: bold; padding-left: 5px; border-bottom: 1px dashed #ccc; font-size: 14px;}
+/* .order_main .payment_wrap ul{ padding:15px 10px 0 10px; } */
+.order_main .payment_wrap li{ border-bottom:1px dashed #ccc; padding:10px 0;}
+.order_main .payment_wrap li:last-child{border-bottom: none;}
+.order_main .payment_wrap ins{ background-image:url(../images/share.png);  background-size:100px; width:100px; height:24px; display:inline-block; margin-right:10px; float:left;background-size: 350px 145px;    margin-left: 5px;}
+.order_main .payment_wrap li h4{ overflow:hidden;font-weight:bold;}
+.order_main .payment_wrap li h4 span{ display:block; float:left; word-break:break-all; width:60%;}
+.order_main .payment_wrap li .payment_show{ padding:15px 0 10px 0; display: none;}
+.order_main .payment_wrap li .payment_show p{ padding-bottom:10px;}
+.order_main .payment_wrap li .payment_show button{ border:none; margin: 10px 0 0 5px;}
+.order_main .payment_wrap li table{ width:98%; background-color:#f7f7f7; padding:1%; font-size:12px; line-height: 22px; margin-bottom: 5px;}
+.order_main .payment_wrap li table tr{ vertical-align:text-top; padding-top:5px;text-align:left; }
+.order_main .payment_wrap li table th{font-weight:normal; width:49%; color:#666;}
+.order_main .payment_wrap li table td{ width:49%;word-break: break-all;}
+.order_main .payment_wrap .paypal{ background-position:-5px -75px;}
+.order_main .payment_wrap .braintree{ background-position:-224px -47px;}
+.order_main .payment_wrap .braintree-google{ background:url(../images/google-pay-mark_800_gray.svg) no-repeat; width:100px; height:29px; display:inline-block; margin-right:10px; float:left;background-size:46px 29px;margin-left: 10px;}
+.order_main .payment_wrap .braintree-apple{ background:url(../images/apple_pay.png) no-repeat; width:100px; height:29px; display:inline-block; margin-right:10px; float:left;background-size:49px 29px;margin-left: 10px;}
+.order_main .payment_wrap .hsbc{ background-position: -116px -75px;}
+.order_main .payment_wrap .china_bank{ background-position:-224px -75px;}
+.order_main .payment_wrap .western{background-position:-5px -110px;}
+.order_main .payment_wrap .money_gram {background-position:-224px -110px;}
+.order_main .payment_wrap .note{ font-size:12px; padding:10px 10px 0 10px ; color:#666;line-height: 1.5em;}
+.order_main .payment_wrap .note b{ color:#333;}
+.order_main .payment_wrap li:active{background-color:#f7f7f7;}
+.addressform .payment_wrap select{height:40px; border:1px solid #ccc; width:100%;}
+.order_main .order_pay_note{ background-color:#fff; margin-right:2%; padding:0 1%; border-top:1px dashed #ccc;}
+.order_main .order_pay_note p{ padding-top:10px; color:#666;}
+.order_main .order_hsbc{padding:0 10px;}
+.order_main .order_hsbc li{ padding:10px 0 0 0; border:none;}
+.order_main .order_hsbc .currency_nav .currency ins{background:url(../images/icon.png) no-repeat -311px -159px; background-size:400px; width:25px;height:24px; display:block; position:absolute; top:4px; right:5px;}
+.order_main .order_hsbc li label{ display:block; padding-bottom:8px;}
+.order_main .order_hsbc li input{ width:92%; line-height:40px; padding:0 10px;}
+.order_main .order_hsbc .other_currency{ display: none;}
+.order_main .order_pay_note .browse{ padding:0 10px 10px 10px;}
+.order_main .order_pay_note .browse span{ color:#333; font-size:14px;}
+.order_main .order_pay_note .browse ul { padding-top:10px;}
+.order_main .order_pay_note .browse li { border:none; float:left; position:relative; margin-right:5px;}
+.order_main .order_pay_note .browse li img{ width:80px; height:80px;}
+.order_main .order_pay_note .browse li ins{background:url(../images/icon.png) no-repeat -88px -460px; background-size:400px; width:30px;height:24px; display:block; position:absolute;top:25px; left:30px;}
+.order_main .order_pay_note .browse li .active{background:url(../images/icon.png) no-repeat -313px -460px; background-size:400px; width:30px;height:24px; display:block; position:absolute;top:5px; left:60px; z-index:2;}
+.order_main .order_pay_note .browse .filebtn{position: relative; top: -39px; padding: 0; opacity: 0; width: 100%;}
+.order_main .order_pay_note .browse .btn_browse{margin-left: 20px;}
+.order_main .order_pay_note .browse .btn_grey{padding: 0; width: 150px;}
+
+.order_history_tips .close_White{ background:url(../images/icon.png) no-repeat -348px -250px; background-size:400px; display:block; width:40px; height:40px; float:right;}
+.order_history_tips .popup_cart_de{overflow:hidden; background:#fff; border:1px solid #ccc; width:300px ;z-index:999; background-color:#333333; margin:0 auto; position:relative;}
+.order_history_tips .popup_cart_de .popup_products_tips{ padding:40px 4% 20px 4%; text-align: center;}
+.order_history_tips .popup_cart_de .popup_products_tips p{ color:#FFF;font-size:14px; padding-bottom:15px; text-align: center;}
+.order_history_tips .popup_cart_de .popup_products_tips p a{ color:#0CF;}
+.order_history_tips .popup_cart_de .popup_products_tips a{ text-align:center;  margin:0 10px; padding:0 30px;}
+
+/* snapshot */
+.order_main .snapshot{ padding:0 5px; max-width:640px; width:1005; margin:0 auto 30px;}
+.order_main .snapshot .snapshot_note { padding:10px 0;}
+.order_main .snapshot .btn_snapshot{ text-align:center; width:90%; display:block; padding: 0; margin: 0 auto;}
+.order_main .snapshot table{ margin-top:15px; width:100%; border-bottom:1px dashed #ccc; padding-bottom:10px;}
+.order_main .snapshot table th{ color:#999; text-align:left; padding:5px 5px; width:45%;}
+.order_main .snapshot .snapshot_name{ padding:10px 0;}
+.order_main .snapshot img{ border:1px solid #ccc;}
+.order_main .snapshot .pro_specificaiton{ padding-top:15px;}
+.order_main .snapshot .pro_specificaiton h4{ font-size:15px;}
+.order_main .snapshot .pro_specificaiton table{ border-bottom: none;}
+.order_main .no_records{ padding: 20px; text-align: center; font-size: 16px; color: #333;}

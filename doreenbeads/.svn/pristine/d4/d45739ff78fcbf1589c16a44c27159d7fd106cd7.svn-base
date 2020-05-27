@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>High on Trend: Midi Rings</title>
+{literal}
+<style >
+.menuNav{background:#a766ad;height:40px;width:auto;margin-top:10px;line-height:40px;}
+.menuNavcen{background:#a766ad;height:40px;width:1000px;margin:0 auto;}
+.menuNavcen li{float:left;height:40px;/*width:130px;*/text-align:center;padding:0 29px;position:relative;z-index:20;list-style-type: none;}
+.menuNavcen li:hover{background:#b374be;}
+.menuNavcen li.current{background:#914ba8;}
+.menuNavcen a{color:#fff;font-weight:bold;font-size:14px;display:block;text-decoration: none;}
+
+</style>
+{/literal}
+</head>
+<body style="margin:0;padding:0;">
+<table width="662" align="center"; cellspacing="0" cellpadding="0" style="margin:0 auto; background:#fff;border:1px solid #A766AD;">
+	<tr>
+		<td style="border-bottom:1px solid #d8d8d8;padding:5px 0;font-size:14px;color:#333;">Если у вас возникли сложности с отображением этого письма, посмотрите?<a href="http://img.doreenbeads.com/promotion_photo/ru/edm/20170714/0714web.html" style="color:#939;padding-left:5px;">онлайн-версию</a></td>
+	</tr>
+	<tr>
+		<td>
+			<table cellspacing="0" cellpadding="0" width="100%" >
+				<tr height="50">
+					<td width="143" rowspan="2" align="center"><a href="https://www.doreenbeads.com/ru/"><img src="http://www.doreenbeads.com/promotion_photo/en/images/20150129/logo.jpg" border="0" alt="DoreenBeads" style="display:block;border:0;color:#B67DB0; margin-left:10px; margin-bottom:0;"></a></td>
+					<td rowspan="2" width="20">&nbsp;</td>
+					<td align="center" height="30" valign="bottom" width="160">&nbsp;</td>
+					<td align="center" height="30" valign="bottom" width="100">&nbsp;</td>
+					<td rowspan="2" width="10">&nbsp;</td>
+					<td align='right' style="padding-right:0px;" rowspan="2"><a href="https://www.doreenbeads.com/ru/page.html?id=159"><img src="http://img1.doreenbeads.com/promotion_photo/ru/images/20170712/free.jpg" border="0" style="padding:6px 0" ></a></td>
+				</tr>
+				
+			</table>
+			<table height="30" width="100%" style="background-color:#A766AD;border-top:1px solid #A766AD;border-bottom:1px solid #A766AD;">
+                <tbody><tr>
+                    <td align="center"><a style="font-family:Arial Unicode MS;color:#FFFFFF;font-weight:bold;font-size:14px;text-decoration:none;" href="https://www.doreenbeads.com/ru/index.php?main_page=products_common_list&pn=new">Новинки</a></td>
+                    <td style="font-size:14px;color:#fff;">•</td>
+                    <td align="center"><a style="font-family:Arial Unicode MS;color:#FFFFFF;font-weight:bold;font-size:14px;text-decoration:none;" href="https://www.doreenbeads.com/ru/beads-c-1729_1730.html">Бусины</a></td>
+                    <td style="font-size:14px;color:#fff;">•</td>
+					
+					<td align="center"><a style="font-family:Arial Unicode MS;color:#FFFFFF;font-weight:bold;font-size:14px;text-decoration:none;" href="https://www.doreenbeads.com/ru/pendants-c-1729_1831.html">Подвески</a></td>
+                    <td style="font-size:14px;color:#fff;">•</td>
+                    <td align="center"><a style="font-family:Arial Unicode MS;color:#FFFFFF;font-weight:bold;font-size:14px;text-decoration:none;" href="https://www.doreenbeads.com/ru/findings-c-1729_1791.html">Фурнитуры</a></td>
+                    <td style="font-size:14px;color:#fff;">•</td>
+                    
+                    <td align="center"><a style="font-family:Arial Unicode MS;color:#FFFFFF;font-weight:bold;font-size:14px;text-decoration:none;" href="https://www.doreenbeads.com/ru/index.php?main_page=promotion">Продвижение</a></td>
+                </tr>
+            </tbody></table>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				{if $banner1}
+				<tr>
+					<td>{if $banner1.picHref}<a href="{$banner1.picHref}">{/if}<img border="0" alt="{$banner1.picAlt}" src="{$banner1.picSrc}" />{if $banner1.picHref}</a>{/if}</td>
+				</tr>
+				{/if}
+				{if $bigPic}
+				<tr>
+					<td>{if $bigPic.picHref}<a href="{$bigPic.picHref}">{/if}<img alt="{$bigPic.picAlt}" src="{$bigPic.picSrc}" border="0" />{if $bigPic.picHref}</a>{/if}</td>
+				</tr>
+				{/if}
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:20px 0 10px 0; text-align:left;">
+				<tr>
+					<td style="font-size:15px;color:#444;font-family:Arial, Helvetica, sans-serif;padding:5px 10px;">Здравствуйте, *|TITLE:FNAME|* *|TITLE:LNAME|*,</td>
+				</tr>
+				<tr>
+					<td style="font-size:15px;color:#444;font-family:Arial, Helvetica, sans-serif;padding:10px 10px;line-height:20px;">Explore the world of weekend deals with more than 150 hot products only at US $0.99 ! Place your order now to enrich your projects of summer jewelry ! Sale ends July 16th at 11:59 p.m., PDT. <a href="https://www.doreenbeads.com/index.php?main_page=promotion_price&g=6">Just pick up></a><br />
+					Sale ends July 16th at 11:59 p.m., PDT. <a href="https://www.doreenbeads.com/index.php?main_page=promotion_price&g=6">Just pick up></a></td> 
+					
+			
+				</tr>
+				<tr>
+					<td style="font-size:15px;color:#444;font-family:Arial;padding:5px 10px;"><img border="0" src="http://www.doreenbeads.com/promotion_photo/en/images/20150202/EN_DB.png"/></td>
+				</tr>
+			</table>
+
+			{if $sheetData}{foreach from=$sheetData item=data}
+				{if $data.title}
+			<table cellspacing="0" cellpadding="0" width="100%" style="background-color:#A766AD;border-bottom: 1px solid #A766AD;border-top: 1px solid #A766AD;height: 30px;text-align: center;">
+				<tr>
+					<td style="font-family:Arial;font-size:20px;">{if $data.title.href}<a href="{$data.title.href}" style="color:#FFFFFF;font-weight:bold;text-decoration: none;">{/if}{$data.title.title}{if $data.title.href}</a>{/if}</td>
+				</tr>
+			</table>
+				{/if}
+			<table cellspacing="0" cellpadding="0" width="98%" align="center" style="border-collapse:collapse;">
+				<tr>
+				{foreach from=$data.content key=k item=cont}
+					<td width="25%" align="center"  height="180" style="border:1px solid #E7E7E7;">
+						<a href="{$cont.picHref}" style="display:block;height:125px;width:140px;"><img border="0" src="{$cont.picSrc}" width="140" height="125" alt="{$cont.picAlt}"/></a>
+						{if $cont.titleName}<p style="padding:0px;margin:0px;line-height:18px;height:30px;padding-top:10px;">{if $cont.titleHref}<a href="{$cont.titleHref}" style="color:#0481db;font-family:Arial, Helvetica, sans-serif;font-size:14px;text-decoration:none;">{/if}{$cont.titleName}{if $cont.titleHref}</a>{/if}</p>{/if}
+						{if $cont.oldPrice}<br/><span style="color:#999;text-decoration:line-through;font-size:12px;font-family:Arial, Helvetica, sans-serif">{$cont.oldPrice}</span>{/if}
+						{if $cont.CurrPrice}<br/><span style="color:#ec042a;font-family: Arial, Helvetica, sans-serif;font-size:12px;">{$cont.CurrPrice}</span>{/if}
+					</td>
+				{if $k%4==3}</tr><tr>{/if} {* 3/7... *}
+				{/foreach}
+				</tr>
+			</table>
+			{/foreach}{/if}
+
+			{if $banner2}
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td>{if $banner2.picHref}<a href="{$banner2.picHref}">{/if}<img border="0" src="{$banner2.picSrc}" alt="{$banner2.picAlt}" />{if $banner2.picHref}</a>{/if}</td>
+				</tr>
+			</table>
+			{/if}
+
+		</td>
+	</tr>
+</table>
+
+<table align="center" width="662" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;font-family: Geneva,Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;text-align:center;color: #505050;border:1px solid #DDDDDD; padding:10px;">
+<tr>
+	<td> Чтобы обеспечить доставку электронной почты, добавьте  <font color="#ff0000">service_ru@doreenbeads.com</font> в свою адресную книгу.<br><a href="https://doreenbeads.us1.list-manage.com/unsubscribe?u=93b3b08530509a43c973fa2bb&id=73ac255537&e=&c=f7839db405" >Отказаться от подписки</a><br>
+		<b>Адрес:</b> 718 South Chengdian Road,Yiwu, Zhejiang P.R.C  <b>Индекс:</b> 322000   <br>
+		<b>Tелефон:</b> (+86 )579-85335690;<b>Факс:</b> (+86)579-85261619 ; <b>Почта:</b> <a href="mailto:service_ru@doreenbeads.com " style="text-decoration:underline; color: #336699;">service_ru@doreenbeads.com </a><br>
+		<a href="https://www.doreenbeads.com/ru/index.php?main_page=who_we_are&id=9" style=" color: #336699;text-decoration: none;">Политика конфиденциальности</a> Авторское право 2002-2018 . Все права защищены. </td>
+</tr>
+</table>
+</body>
+</html>

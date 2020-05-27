@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>service--8seasons.com</title>
+{literal}
+<style>
+	div{line-height: 20px;margin:10px;}
+	body {background-color:#ffffff; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif; text-align:left;width: 600px;}
+	a:link {color:#0066cc;}
+	a:hover {background-color:#eeeecc; color:#0066cc;}
+	a:visited {color:#0066cc;}
+</style>
+{/literal}
+</head>
+
+<body>
+	<div>Hello dear friend {$customers_name}: </div>
+	<div>Hope this letter finds you well!</div>
+	<div>On a regular review, we find that your order #{$orders_id} has been delivered successfully.</div>
+	<div>We hope everything reaches you in good condition.</div>
+	<div>How do you think about those items you received? Are you satisfied with them?</div>
+	<div>If you find any defectives or any items that do not accord with our listing, please do not hesitate to contact us, once we receive your email, your exclusive service manager will respond you in 24 hours.</div>
+	<div>BTW, we welcome your kind suggestions or compliments, if you would like to take time to email us.</div>
+	<div>Anything we can do for you, contact us freely.</div>
+	<div>Enjoy your day there!</div>
+	<div>Best wishes</div>
+	<div>Doreenbeads Team </div>
+</body>
+</html>

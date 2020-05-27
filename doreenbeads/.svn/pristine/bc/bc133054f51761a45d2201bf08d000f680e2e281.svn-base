@@ -1,0 +1,68 @@
+<!-- {include file = $tpl_head} -->
+<!-- <a href="javascript:void(0);" onclick="window.history.back();" class="continue-shopbtn">{$smarty.const.TEXT_CART_CONTINUE_SHOPPING}</a> -->
+{if $cart_products_down_errors != ''}
+<div class="removealltips" style="display:none;">
+{$cart_products_down_errors}
+</div>
+{/if}
+
+<div class="order_main" >
+	{if $products_removed_array|@count neq 0}
+	<br/>
+	<div class="cart_warp">
+		<div class="cart_invalid">
+			<h3>{$smarty.const.TEXT_CART_INVALID_ITEMS}</h3>
+			<a href="javascript:void(0);" class="jq_products_invalid_all empty_invalid link_color" data-title="{$smarty.const.TEXT_SHOPING_CART_CONFIRM_EMPTY_INVALID_ITEMS|addslashes}">{$smarty.const.TEXT_CART_EMPTY_INVALID_ITEMS}</a>
+			
+			<div class="clearfix"></div>
+			<div class="cart_invalid_items">
+				{foreach from = $products_removed_array key = k item = value}
+				<div class="jq_products_list_{$value.customers_basket_id}">
+					<p> <img src="{$value.products_image_80}" /> <span>{$value.products_name},  [{$value.products_model}]</span> </p>
+				
+					<div class="products_invalid_operation">
+						{$value.also_like_str}<a href="javascript:void(0);" class="jq_products_invalid_one" data-id="{$value.customers_basket_id}">Delete</a>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+				
+			<a href="javascript:void(0);" class="jq_products_invalid_all empty_invalid link_color" data-title="{$smarty.const.TEXT_SHOPING_CART_CONFIRM_EMPTY_INVALID_ITEMS|addslashes}">{$smarty.const.TEXT_CART_EMPTY_INVALID_ITEMS}</a>
+			<div class="clearfix"></div>
+			<div class="invalid_items_fen_ye">{$invalid_items_fen_ye}</div>
+		</div>
+	</div>
+
+{/if}
+{if $smarty.session.language.code == 'e'}
+	<div class="shopping_cart_empty">
+		<img src="/includes/templates/mobilesite/css/en/images/cart_empty.jpg" alt="" />
+		<p>{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING}{if not isset($smarty.session.customer_id)}{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING_NO_LOGIN}{/if}</p>
+		<a href="{$index_href}/en/" class="goshop_btn_orange">{$smarty.const.TEXT_CART_GO_SHOPPING}</a>
+	</div>
+{/if}
+{if $smarty.session.language.code == 'g'}
+	<div class="shopping_cart_empty">
+		<img src="/includes/templates/mobilesite/css/en/images/cart_empty.jpg" alt="" />
+		<p>{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING}{if not isset($smarty.session.customer_id)}{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING_NO_LOGIN}{/if}</p>
+		<a href="{$index_href}/de/" class="goshop_btn_orange">{$smarty.const.TEXT_CART_GO_SHOPPING}</a>
+	</div>
+{/if}
+{if $smarty.session.language.code == 'r'}
+	<div class="shopping_cart_empty">
+		<img src="/includes/templates/mobilesite/css/en/images/cart_empty.jpg" alt="" />
+		<p>{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING}{if not isset($smarty.session.customer_id)}{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING_NO_LOGIN}{/if}</p>
+		<a href="{$index_href}/ru/" class="goshop_btn_orange">{$smarty.const.TEXT_CART_GO_SHOPPING}</a>
+	</div>
+{/if}
+{if $smarty.session.language.code == 'f'}
+	<div class="shopping_cart_empty">
+		<img src="/includes/templates/mobilesite/css/en/images/cart_empty.jpg" alt="" />
+		<p>{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING}{if not isset($smarty.session.customer_id)}{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING_NO_LOGIN}{/if}</p>
+		<a href="{$index_href}/fr/" class="goshop_btn_orange">{$smarty.const.TEXT_CART_GO_SHOPPING}</a>
+	</div>
+{/if}
+</div>
+<!-- <div class="shopmain">
+	<div class="shopnone">{$smarty.const.TEXT_CART_IS_EMPTY_DO_SHOPPING}<a href="index.php" class="goshop-btn">{$smarty.const.TEXT_CART_IS_EMPTY_SHOP}</a></div>
+</div> -->

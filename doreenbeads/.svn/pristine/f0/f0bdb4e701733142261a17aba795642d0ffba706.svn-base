@@ -1,0 +1,5 @@
+<div class="detailproduct-btn"><a href="javascript:history.back()" class="back-btn">{$smarty.const.TEXT_BACK}</a></div>
+<div class="txt-wap">
+	<h4>{$smarty.const.TEX_COUPON_TERMS}</h4>
+	{$smarty.const.coupon_terms}
+</div>

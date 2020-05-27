@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Dear {$firstName}!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Thanks for your kind business  {$orderNormalAll}.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Here we want to update you that, your order has been shipped{if $boxCount > 0}(in {$boxCount} {if $boxCount>1}boxes{else}box{/if}){/if} out via {$expressMethods}(without tracking number) on {$deliveryTime}, which will take about {$days} on the delivery, please kindly keep an eye out for it.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Your parcel was shipped to: <br/>{$address}</td></tr>
+	{if $istrstm}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Once the parcel arrives Moscow, a logistics specialist will contact you, inform you parcel arrives and then you can choose the shipping method for your parcel from Moscow to your address at your preference. That person will ship the goods to you according to your instruction. Also you have to pay your domestic shipping fee.</td></tr>
+	{/if}
+	{if $isynkqy}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">When parcel arrives at the city which is near your location, our shipping agent will contact you. Then you could pick up parcel by yourself, in that case, you do not have to pay any additional shipping fee. (Please kindly note that if you live near Moscow, you should pick up parcel in time since storage fee will be charged for keeping parcel in Moscow warehouse.)</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">15 days later, after your parcel arrive at your country, we will update you the tracking number timely,then you can track it at your convenience.<br/>Once the parcel arrives at your local post office, they will inform you to pick up your parcel.</td></tr>
+	{/if}
+	{if $issfhky}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">15 days later, after your parcel arrive at your country, we will update you the tracking number timely,then you can track it at your convenience.<br/>After the parcel arrives at your local post office, postman will deliver it to your door.</td></tr>
+	{/if}
+	{if $isjtau}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">2 days later, we will update you tracking number timely. Please keep an eye on it and wait patiently.</td></tr>
+	{/if}
+	{if $isest}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">7-9 working days later, after your parcel arrive at our post office, we will update you the tracking number timely,then you can track it at your convenience.</td></tr>
+	{/if}
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">We marked your parcel at value of {$reportAmount}.</td></tr>
+	{/if}
+
+	{if $shortProductCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			But here I am really very sorry to remind you that there are several items have sold out unexpectedly, here is the detail:<br />
+			{foreach $shortProduct as $product}
+				{$product.quantity}ea. -{$product.model}--{$product.name}--Order No.{$product.orderId}
+				<p style="padding:0;margin:0;">{$product.image}</p>
+			{/foreach}
+			<p style="padding:0;margin:0;"><br />In order to let you received other items without delay, we shipped your order out in advance. So here I just kindly let you know what is happening.<br /><br />
+			As to the sold out items, here are some suggestions for you:<br />
+			1. Would you mind us send them with your next order when you kindly buy again? You can feel free to remind me about that next time.<br />
+			2. Would you mind us ship them out upon they are available in next few days. (Normally we send them via airmail about 25-30 days to deliver, you do not have to pay shipping fee. But if you need them urgently, please feel free to contact us, we will do our best to offer faster delivery)<br />
+			3. You can also feel free to choose other items as replacement.<br /><br />
+			Which suggestion do you prefer? Please kindly let me know, I will follow your kind instruction to provide our best service to you :)</p>
+		</td>
+	</tr>
+	{/if}
+
+	{if $orderForShortCount > 0}
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+			For following items missing from your previous order, they has been shipped out today:<br />
+			{foreach $orderForShort as $productForShort}
+				{$productForShort.quantity}ea. -{$productForShort.model}--{$productForShort.name}--Order No.{$productForShort.orderId}
+				<p style="padding:0;margin:0;">{$productForShort.image}</p>
+			{/foreach}
+		</td>
+	</tr>
+	{/if}
+
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">If you have any question, please feel free to contact us, we will provide the best service to you.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Again, thanks so much for your kind business and we are looking forward to dealing with you again soon</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Prosperity regards</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">======= Kindly Note =========<br/>*In order to make sure you are receiving the correct item in the correct quantity, we have scanned and recorded each item in your parcel before sealing it. So normally mistakes will not happen.:)</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?php
+define('TEXT_HOW_TO_USE', '<h2>Comment Utiliser Les Coupons</h2>');
+define('TEXT_RECEIVE_COUPON_STEP_1', '<h3>Étape 1.</h3><p>Cliquez sur le bouton ci-dessus «Obtenez Vite les Coupons» pour obtenir tous les coupons. </p>');
+define('TEXT_RECEIVE_COUPON_STEP_2', '<h3>Étape 2.</h3><p>Ajoutez des articles favoris au panier et payez. </p>');
+define('TEXT_RECEIVE_COUPON_STEP_3', '<h3>Étape 3.</h3><p>Choisissez un coupon à utiliser lors de la confirmation de la commande.</p>');
+define('TEXT_RECEIVE_COUPON_STEP_4', '<h4>Réduction appliquée à votre commande avec succès.</h4>');
+define('TEXT_RECEIVE_COUPON_WARNING', '<h3>Bon à Savoir:</h3>
+                    <ol>
+                        <li>Coupons à gagner librement <b><span>jusqu\'au 6 décembre 9h00 ( CET) </span></b> en cliquant simplement sur le bouton <span>"Obtenez Tous les Coupons" </span>ci-dessus.</li>
+                        <li>Vous pouvez les utiliser pendant <b>Les Promos Black Friday & Cyber Monday! </b><span>(du 22 novembre au 6 décembre à 9h00)</span></li>
+                        <li><b>Seulement pour les articles à prix régulier.</b></li>
+                        <li>Vous pouvez obtenir plusieurs coupons. Mais un coupon ne peut être pris qu\'une seule fois.</li>
+                        <li>Lorsque votre achat satisfait aux conditions du montant, vous pourrez utiliser les coupons.</li>
+                        <li>Veuillez nous contacter pour toute question.</li>
+                    </ol>');
+define('TEXT_RECEIVE_COUPON_OLD_CUSOMERS_ERROR', 'Désolé, les coupons ne sont disponibles que pour les nouveaux clients.');
+define('TEXT_RECEIVE_COUPON_HAVE_RECEIVE', 'Félicitations! Vous avez obtenu les Coupons Jusqu’à US $67. Veuillez vérifier dans «<a style="color:#00F" href="' . zen_href_link(FILENAME_MY_COUPON) . '">Mon Coupon</a>».');
+?>

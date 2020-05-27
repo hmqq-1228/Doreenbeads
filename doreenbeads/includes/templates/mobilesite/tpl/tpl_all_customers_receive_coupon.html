@@ -1,0 +1,73 @@
+{literal}
+<script language="javascript" type="text/javascript">
+function receive_coupon(){
+	$('.Close').click(function(){
+		$('.Anniversary-2018_error').hide();
+	});
+	
+	$.ajax({
+		type : 'post',
+		url : 'index.php?main_page=all_customers_receive_coupon',
+		data : {action : 'receive_coupon'},
+		async : false,
+		success : function(result){
+			var returnInfo = process_json(result);
+			var lang = $('input[name=c_lan]').val();
+
+			if(returnInfo.error == true){
+    			switch(returnInfo.error_type){
+    				case 1:
+						window.location.href = returnInfo.redirect_url;
+            			break;
+    				case 2:
+						$('.Anniversary-2018_error p').html(returnInfo.error_info);
+						$('.Anniversary-2018_error').show();
+            			break;
+    			
+    			}
+			}else{
+				$('.receive_button').attr('src', '/includes/templates/mobilesite/css/' + lang + '/images/all_customers_receive_coupon5.gif');
+				$('.Anniversary-2018_error p').html(returnInfo.error_info);
+				$('.Anniversary-2018_error').show();
+				$('.receive_button').removeAttr('onclick');
+			}
+		}
+	});
+
+	return false;
+}
+
+$(document).ready(function(){
+	$('.Close').click(function(){
+		$('.Anniversary-2018_error').hide();
+	});
+});
+</script>
+
+{/literal}
+<div class="wrap-page">
+<input type="hidden" name="c_lan" value="{$smarty.session.languages_code}">
+	<div class="coupon2019">
+		<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/all_customers_receive_coupon1.gif" />
+		<div class="ny_discount">
+			<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/all_customers_receive_coupon2.gif" />
+			<img src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/all_customers_receive_coupon3.gif" />
+		</div>
+		<p>
+			{if $receivable}
+				<img class="receive_button" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/all_customers_receive_coupon4.gif" style="cursor: pointer;"  onclick="receive_coupon();" border="0">
+			{else}
+				<img class="receive_button" src="/includes/templates/mobilesite/css/{$smarty.session.languages_code}/images/all_customers_receive_coupon5.gif" style="cursor: pointer;"  onclick="receive_coupon();" border="0">
+			{/if}
+		</p>
+		<div class="ny_warning">
+			{$smarty.const.TEXT_RECEIVE_COUPON_WARNINGS}
+		</div>
+		
+		
+	</div>
+	<div class="Anniversary-2018_error" style="display: none">
+      	<span class="Close"></span>
+      	<p style="line-hright:26px;"></p>
+    </div>
+</div>

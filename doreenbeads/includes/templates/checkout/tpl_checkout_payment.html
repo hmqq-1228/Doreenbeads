@@ -1,0 +1,467 @@
+{include file = 'includes/templates/checkout/tpl_checkout_head.html'}
+<!-- payment templates start -->
+{$javascript_validation}
+
+<div class="min_main">
+	<div class="result_info">
+		<ins class="icon_ok"></ins>
+		<h2>{$smarty.const.TEXT_PAYMENT_YOUR_ORDER_SUCCESS}</h2>
+		<p>{$smarty.const.TEXT_PAYMENT_ORDER_NUMBER} <span>{$message.order_number_created}</span></p>
+	</div>
+	<div id="errorMessage" style="font-size:14px;line-height:20px;padding-bottom:10px;color:#C00;"></div>
+
+	{if $order_totals_arr.ot_cash_account.value > 0 && $order_totals_arr.ot_total.value == 0}
+	<form name="checkout_payment" action="{$message.payment_submit_succ}" method="post" onsubmit="return check_form();">
+	{else}
+	<form name="checkout_payment" action="{$message.payment_submit}" method="post" onsubmit="return check_form();">
+	{/if}
+		<div class="payment_cont">
+			<div class="left">
+				<ul>
+				{if $order_totals_arr.ot_cash_account.value > 0 && $order_totals_arr.ot_total.value == 0}
+					<li class="chose" type="balance"><label><input style="position: relative;top: 10px;margin-left: 10px;" name="payment" type="radio" value="balance" checked="checked" />{$smarty.const.TEXT_CREDIT_ACCOUNT_BALANCE}</label></li>
+				{else}
+					{foreach $payment_selection as $payment}
+						{if $message.order_total_no_currency_left < $message.order_total_wire_min && ($payment.id == 'wire' || $payment.id == 'wirebc' || $payment.id == '')}
+						{else}
+							{if $payment.id != 'alipay' && $payment.id != 'moneygram'}
+								{if $payment.id != 'paypalmanually'}
+									<li type="{$payment.id}" {if $payment.id == $default_payment}class="chose"{/if}><label><input style="position: relative;top: 10px;margin-left: 10px;" name="payment" type="radio" value="{$payment.id}" id="{$payment.id}" {if $payment.id == $default_payment}checked="checked"{/if} />
+									{if $payment.id == 'paypalwpp'}<ins class="icon_pay_Paypal"></ins><strong>{$smarty.const.TEXT_PAYMENT_PAYPAL}</strong>
+									{elseif $payment.id == 'wire'}<ins class="icon_pay_HSBC"></ins><strong>{$smarty.const.TEXT_PAYMENT_HSBC}</strong>
+									{elseif $payment.id == 'wirebc'}<ins class="icon_pay_China"></ins><strong>{$smarty.const.TEXT_PAYMENT_BC}</strong>
+									{elseif $payment.id == 'westernunion'}<ins class="icon_pay_Union"></ins><strong>{$smarty.const.TEXT_PAYMENT_WESTERN}</strong>
+									{elseif $payment.id == 'gcCreditCard'}<ins class="icon_pay_Card"></ins><strong>{$smarty.const.MODULE_PAYMENT_GCCREDITCARD_TEXT_HEAD}</strong>
+									{elseif $payment.id == 'braintree'}<ins class="icon_pay_braintree"></ins>{$smarty.const.MODULE_PAYMENT_BRAINTREE_TEXT_HEAD}</strong>
+									{elseif $payment.id == 'braintree-google'}<ins class="icon_pay_braintree_google"></ins><strong>Google Pay</strong>
+									{elseif $payment.id == 'braintree-apple'}<ins class="icon_pay_braintree_apple"></ins><strong>Apple Pay</strong>
+									{/if}
+						</label></li>
+								{/if}
+							{/if}
+						{/if}	
+					{/foreach}
+					
+					<li type="moneygram" {if 'moneygram' == $default_payment}class="chose"{/if}><label><input style="position: relative;top: 10px;margin-left: 10px;" name="payment" type="radio" value="moneygram" {if 'moneygram' == $default_payment}checked="checked"{/if} /><ins class="icon_money_gram"></ins>{$smarty.const.TEXT_PAYMENT_MONEY_GRAM}</label></li>
+				{/if}
+				</ul>
+			</div>
+
+			<div class="right">
+			    <div id="paypal_payment_box" {if $message.checkout_payment_size <= 0} style="display:none;"{/if}>
+	        		<ins class="icon_error"></ins>
+	        		<p id="paypal_payment_message">{$message.checkout_payment}</p>
+	        	</div>
+
+			{if $order_totals_arr.ot_cash_account.value > 0 && $order_totals_arr.ot_total.value == 0}
+				<div class="right_cont_chinabank right_cont_balance sh">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$order_total}</span></h4>
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$cash_account_remaining_total}</dt>
+							<dd>{$smarty.const.TEXT_PAY} <span class="font_red">{$order_total}</span> {$smarty.const.TEXT_FOR_THIS_ORDER}</dd>
+						</dl>
+						<div class="clear"></div>						
+					</div>
+					<a href="javascript:void(0);" class="paynow_btn">{$smarty.const.TEXT_PAID}</a>
+				</div>
+			{else}
+				<!--	paypal	-->
+				<div class="right_cont_chinabank right_cont_paypalwpp {if 'paypalwpp' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					{if $order_totals_arr.ot_cash_account.value != 0 && $order_totals_arr.ot_total.value > 0}
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$order_totals_arr.ot_cash_account.text}</dt>
+							<dd>{$message.payment_pay_for_this_order_show}</dd>
+							<dt>{$smarty.const.TEXT_PAYPAL}</dt><dd>{$message.payment_pay_for_this_order_left}</dd>
+						</dl>
+						<div class="clear"></div>
+					</div>
+					{/if}
+					<div class="txt_paypal">
+						<p>
+							<img src="{$smarty.const.HTTP_SERVER}/includes/templates/cherry_zen/images/{$smarty.session.language}/btn_xpressCheckout_243x40.png" />
+							<!-- 添加安全图标@yifei.wang 2018.05.18 14:55 -->
+							<img src="https://www.paypalobjects.com/digitalassets/c/website/marketing/na/us/logo-center/9_bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal">
+						</p>
+						<p>
+							<ins class="arrow"></ins>
+							<span>{$smarty.const.TEXT_PAYMENT_PAY_US_CLICK}</span>
+						</p>
+						<p>
+							<a class="paynow_btn jq_paypalwpp" data-url="{$message.payment_pal_submit_url}" id="paypalwpp" onclick="javascript:openPaypalWindow();" href="javascript:void(0);">{$smarty.const.TEXT_PAYMENT_PAY_NOW}</a>
+						</p>
+						<p>
+							<ins class="arrow"></ins>
+							<span>{$smarty.const.TEXT_PAYMENT_OR_DIRECTLY_LOGIN}</span>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+
+				<!--	braintree	-->
+				<div class="right_cont_chinabank right_cont_braintree {if 'braintree' == $default_payment || 'braintree-credit' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="555" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$message.order_number_created}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=credit" style="height:300px;"></iframe>
+				</div>
+
+				<div class="right_cont_chinabank right_cont_braintree-google {if 'braintree-google' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="555" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$message.order_number_created}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=google" style="height:300px;"></iframe>
+				</div>
+
+				<div class="right_cont_chinabank right_cont_braintree-apple {if 'braintree-apple' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					<iframe id="braintree_iframe" scrolling="auto" width="555" frameborder=0 src="{$smarty.const.HTTP_SERVER}/index.php?main_page=checkout_braintree&order_id={$message.order_number_created}&go={$smarty.const.FILENAME_CHECKOUT_SUCCESS}&action=apple" style="height:300px;"></iframe>
+				</div>
+
+				{if $message.order_total_no_currency_left >= $message.order_total_wire_min }		
+				<!--	HSBC	-->
+				<div class="right_cont_chinabank right_cont_wire {if 'wire' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					{if $order_totals_arr.ot_cash_account.value != 0 && $order_totals_arr.ot_total.value > 0}
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$order_totals_arr.ot_cash_account.text}</dt><dd>{$message.payment_pay_for_this_order_show}</dd>
+							<dt>{$smarty.const.TEXT_PAYMENT_HSBC}</dt><dd>{$message.payment_pay_for_this_order_left}</dd>
+						</dl>
+						<div class="clear"></div>						
+					</div>
+					{/if}
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_BANK_ACCOUNT_HSBC}</span><a href="payment_files/{$smarty.session.languages_code}/Bank_Transfer(Citibank).txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a><a href="payment_files/{$smarty.session.languages_code}/Bank_Transfer(Citibank).doc" target="_blank" class="download" title="{$smarty.const.TEXT_PAYMENT_DOWNLOAD}"></a></h5>
+						{$message.wire.title}
+						<div class="borderbt"></div>
+					</div>
+					<a class="paynow_btn" href="javascript:void(0);">{$smarty.const.TEXT_SUBMIT}</a>
+				</div>
+				
+				<!--	Bank of China	-->
+				<div class="right_cont_chinabank right_cont_wirebc {if 'wirebc' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					{if $order_totals_arr.ot_cash_account.value != 0 && $order_totals_arr.ot_total.value > 0}
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$order_totals_arr.ot_cash_account.text}</dt><dd>{$message.payment_pay_for_this_order_show}</dd>
+							<dt>{$smarty.const.TEXT_BANK_ACCOUNT_BC}</dt><dd>{$message.payment_pay_for_this_order_left}</dd>
+						</dl>
+						<div class="clear"></div>						
+					</div>
+					{/if}
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_BANK_ACCOUNT_BC}</span><a href="payment_files/{$smarty.session.languages_code}/Bank_Transfer(Bank_of_China).txt" class="print" target="_blank" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a><a href="payment_files/{$smarty.session.languages_code}/Bank_Transfer(Bank_of_China).doc"  target="_blank" class="download" title="{$smarty.const.TEXT_PAYMENT_DOWNLOAD}"></a></h5>
+						{$message.wirebc.title}
+						<div class="borderbt"></div>
+					 </div>
+					<a class="paynow_btn" href="javascript:void(0);">{$smarty.const.TEXT_SUBMIT}</a>
+				</div>
+				{/if}
+				<!--	Westerm Union	-->
+				<div class="right_cont_chinabank right_cont_westernunion {if 'westernunion' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					{if $order_totals_arr.ot_cash_account.value != 0 && $order_totals_arr.ot_total.value > 0}
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$order_totals_arr.ot_cash_account.text}</dt><dd>{$message.payment_pay_for_this_order_show}</dd>
+							<dt>{$smarty.const.TEXT_WESTERN_UNION}</dt><dd>{$message.payment_pay_for_this_order_left}</dd>
+						</dl>
+						<div class="clear"></div>						
+					</div>
+					{/if}
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_OUR_WESTERN_UNION_RECEIVER_INFO}</span><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Western_Union.txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a><a href="{$smarty.const.HTTP_SERVER}/payment_files/{$smarty.session.languages_code}/Western_Union.doc" target="_blank" class="download" title="{$smarty.const.TEXT_PAYMENT_DOWNLOAD}"></a></h5>
+						{$message.westernunion.title}
+						<div class="borderbt"></div>
+					</div>
+					<a class="paynow_btn" href="javascript:void(0);">{$smarty.const.TEXT_SUBMIT}</a>
+				</div>
+				<!-- open or close gcCreditCard	-->
+				{if $message.show_gc_payment && 1 == 2}
+				<!--	Credit Card via Paypal	-->
+				<div class="right_cont_chinabank right_cont_gcCreditCard">
+					<div id="paymentInfo">
+						<input type="hidden" id="orderId" value="{$orderId}" />
+						<input type="hidden" id="paymentOrderId" value="{$paymentOrderId}" />
+						<input type="hidden" id="lastName" value="{$lastName}" />
+						<input type="hidden" id="firstName" value="{$firstName}" />
+						<input type="hidden" id="shippingFirstName" value="{$shippingFirstName}" />
+						<input type="hidden" id="shippingLastName" value="{$shippingLastName}" />
+						<input type="hidden" id="shippingStreet" value="{$shippingStreet}" />
+						<input type="hidden" id="shippingState" value="{$shippingState}" />
+						<input type="hidden" id="shippinCountryCode" value="{$shippinCountryCode}" />
+						<input type="hidden" id="shippinZip" value="{$shippinZip}" />
+						<input type="hidden" id="merchantRef" value="{$merchantRef}" />
+						<input type="hidden" id="price" value="{$price*100}" />
+						<input type="hidden" id="countryCode" value="{$countryCode}" />
+						<input type="hidden" id="lanuageCode" value="{$lanuageCode}" />
+						<input type="hidden" id="currencyCode" value="{$currencyCode}" />
+						<input type="hidden" id="shippingCity" value="{$shippingCity}" />
+						<input type="hidden" id="phoneNumber" value="{$phoneNumber}" />
+						<input type="hidden" id="email" value="{$email}" />
+						<input type="hidden" id="city" value="{$city}" />
+						<input type="hidden" id="state" value="{$state}" />
+						<input type="hidden" id="street" value="{$street}" />
+						<input type="hidden" id="type" value="{$type}" />
+						<input type="hidden" id="http_server" value="{$smarty.const.HTTP_SERVER}" />
+						
+					</div>
+					<div class="txt_card">            	
+						<ul style="float: left;padding-left: 7px;width: auto;">
+							<li style="float: left;padding: 0 20px 0 0; height: auto;" >
+								<input class="gcPayment" style="margin: 9px 10px 0 0;float: left;" type="radio" value="1" id="CreditCardType_1" name="CreditCardType" checked="checked">
+								<label for="CreditCardType_1" class="PayType" style="background: url('{$smarty.const.HTTPS_SERVER}/pic/visa.jpg') no-repeat;padding-left: 37px;margin: 5px 0 0 22px;display: block;">Visa</label>
+								
+							</li>
+							<li style="float: left;padding: 0 20px 0 0; height: auto;">
+								<input class="gcPayment" style="margin: 9px 10px 0 0;float: left;" type="radio" value="3" id="CreditCardType_3" name="CreditCardType">
+								<label for="CreditCardType_3" class="PayType" style="background: url('{$smarty.const.HTTPS_SERVER}/pic/icon-master.jpg') no-repeat;padding-left: 37px;margin: 5px 0 0 22px;display: block;">Master Card</label>
+							</li>
+						</ul>
+					</div>
+					<div class="payDetail">
+						<div id="loading">
+							<img style="margin-top: 10px;text-align:center;margin-top:40px;" src="{$smarty.const.HTTPS_SERVER}/pic/loader.gif" alt="">
+						</div>
+						<div id="payIframe">
+							<iframe id="gcFormActionUrl" scrolling="auto" width="445" frameborder=0 height="280" src=""></iframe>
+						</div>
+					</div>
+				</div>
+				{/if}
+
+				<!-- Monry Gram	-->
+				<div class="right_cont_chinabank right_cont_moneygram {if 'moneygram' == $default_payment}sh{/if}">
+					<h4><strong>{$smarty.const.HEADING_TOTAL}:</strong> <span class="font_red">{$message.payment_order_total}</span></h4>
+					{if $order_totals_arr.ot_cash_account.value != 0 && $order_totals_arr.ot_total.value > 0}
+					<div class="balance_info">
+						<dl>
+							<dt>{$smarty.const.TEXT_YOUR_CREDIT_ACCOUNT_BALANCE}: {$order_totals_arr.ot_cash_account.text}</dt><dd>{$message.payment_pay_for_this_order_show}</dd>
+							<dt>{$smarty.const.TEXT_PAYMENT_MONEY_GRAM}</dt><dd>{$message.payment_pay_for_this_order_left}</dd>
+						</dl>
+						<div class="clear"></div>						
+					</div>
+					{/if}
+					<div class="txt_chinabank">						
+						<h5><span>{$smarty.const.TEXT_MONEY_GRAM_INFO}</span><a href="payment_files/{$smarty.session.languages_code}/Money_Gram.txt" target="_blank" class="print" title="{$smarty.const.TEXT_PAYMENT_PRINT}"></a><a href="payment_files/{$smarty.session.languages_code}/Money_Gram.doc" target="_blank" class="download" title="{$smarty.const.TEXT_PAYMENT_DOWNLOAD}"></a></h5>
+						{$message.moneygram.title}				 
+						<div class="borderbt"></div>
+					</div>
+					<a class="paynow_btn" href="javascript:void(0);">{$smarty.const.TEXT_SUBMIT}</a>
+				</div>
+			{/if}
+		
+		  	</div>
+			<div class="clear"></div>
+		</div>
+	
+		<!--	HSBC/bank of china	-->
+		<div class="paynotes paynotes_wirebc paynotes_wire">
+	        <p><strong>{$smarty.const.TEXT_NOTE}:</strong></p>
+	        {$smarty.const.TEXT_PAYMENT_HSBS_CHINA}
+	 	</div>
+	 
+		<!--	westerm union	-->
+	 	<div class="paynotes paynotes_westernunion ">
+        <p><strong>{$smarty.const.TEXT_NOTE}: </strong></p><p>1. {$smarty.const.TEXT_PAYMENT_NOTE_3} </p><p>2. {$smarty.const.TEXT_PAYMENT_NOTE_2} </p>
+		</div>
+		<div class="paynotes  paynotes_moneygram">
+        <p><strong>{$smarty.const.TEXT_NOTE}: </strong></p><p>1. {$smarty.const.TEXT_PAYMENT_NOTE_2} </p><p>2. {$smarty.const.TEXT_PAYMENT_NOTE_3} </p>
+		</div>
+	</form>
+</div>
+<script>
+<!--
+$j(document).ready(function(){
+	$j('.payment_cont .left li').click(function(){
+		if($j(this).hasClass('chose')) return;
+
+		$j('.payment_cont .left li.chose').removeClass('chose');
+		$j(this).addClass('chose');
+		$j('.right_cont_chinabank.sh').removeClass('sh');
+		$j('.right_cont_chinabank.right_cont_'+$j(this).attr('type')).addClass('sh');
+		$j('.paynotes.sh').removeClass('sh');
+		$j('.paynotes.paynotes_'+$j(this).attr('type')).addClass("sh");
+	})
+
+	$j(".right a.paynow_btn").click(function(){
+		if($j(this).attr('id') == 'paypalwpp'){
+//			location.href = "{$message.payment_pal_submit_url}";
+		}else
+			document.checkout_payment.submit();
+	})
+})
+$j(function(){
+    var host = $j("#http_server").val();
+    $j("#paymentInfo").hide();
+        var orderId = $j("#orderId").val();
+        var paymentOrderId = $j("#paymentOrderId").val();
+        var lastName = $j("#lastName").val();
+        var firstName = $j("#firstName").val();
+        var shippingFirstName = $j("#shippingFirstName").val();
+        var shippingLastName = $j("#shippingLastName").val();
+        var shippingStreet = $j("#shippingStreet").val();
+        var shippinCountryCode = $j("#shippinCountryCode").val();
+        var shippinZip = $j("#shippinZip").val();
+        var merchantRef = $j("#merchantRef").val();
+        var countryCode = $j("#countryCode").val();
+        var lanuageCode = $j("#lanuageCode").val();
+        var currencyCode = $j("#currencyCode").val();
+        var price = $j("#price").val();
+        var shippingCity = $j("#shippingCity").val();
+        var shippingState = $j("#shippingState").val();
+        var phoneNumber = $j("#phoneNumber").val();
+        var email = $j("#email").val();
+        var city = $j("#city").val();
+        var state = $j("#state").val();
+        var street = $j("#street").val();
+        var type = $j("#type").val();
+        $j("#loading").show();
+        $j("#payIframe").hide();
+        
+        $j("#gcCreditCard").change(function(){
+        $j("#loading").show();
+        $j("#payIframe").hide();
+        $j.ajax({
+            type:"POST",
+            url:"/payment1.php",
+            data:"payCode=1&orderId="+orderId+"&paymentOrderId="+paymentOrderId+"&lastName="+lastName+"&firstName="+firstName+"&shippingFirstName="+shippingFirstName
+                    +"&shippingLastName="+shippingLastName+"&shippingStreet="+shippingStreet+"&shippinCountryCode="+shippinCountryCode+"&shippinZip="+shippinZip+"&merchantRef="+
+                                    merchantRef+"&price="+price+"&countryCode="+countryCode+"&lanuageCode="+lanuageCode+"&currencyCode="+currencyCode+"&shippingCity="+shippingCity
+                                    +"&shippingState="+shippingState+"&phoneNumber="+phoneNumber+"&email="+email+"&city="+city+"&state="+state+"&street="+street+"&type="+type,
+            success:function(msg){
+                var response = eval('('+msg+')');
+                if(response.status == 1){
+                    $j("#gcFormActionUrl").ready(function(){
+                        $j("#loading").hide();
+                        $j("#payIframe").show();
+                        $j("#gcFormActionUrl").attr("src",response.response);
+                    }
+                );
+                } else if(response.status == 0 && response.response == '410120'){
+                    $j("#loading").hide();
+                    $j("#payIframe").show();
+                        $j("#errorMessage").html(response.message);
+
+                }
+            }
+        });
+});
+        $j(".gcPayment").change(function(){
+            $j("#loading").show();
+            $j("#payIframe").hide();
+            var payCode = $j(this).val();
+            $j.ajax({
+                type:'POST',
+                url:"/payment1.php",
+                data:"payCode="+payCode+"&orderId="+orderId+"&paymentOrderId="+paymentOrderId+"&lastName="+lastName+"&firstName="+firstName+"&shippingFirstName="+shippingFirstName
+                        +"&shippingLastName="+shippingLastName+"&shippingStreet="+shippingStreet+"&shippinCountryCode="+shippinCountryCode+"&shippinZip="+shippinZip+"&merchantRef="+
+                        merchantRef+"&price="+price+"&countryCode="+countryCode+"&lanuageCode="+lanuageCode+"&currencyCode="+currencyCode+"&shippingCity="+
+                        shippingCity+"&shippingState="+shippingState+"&phoneNumber="+phoneNumber+"&email="+email+"&city="+city+"&state="+state+"&street="+street+"&type="+type,
+                success:function(msg){
+                    var response = eval('('+msg+')');
+                    if(response.status == 1) {
+                        $j("#gcFormActionUrl").ready(function(){
+                        $j("#loading").hide();
+                        $j("#payIframe").show();
+                        $j("#gcFormActionUrl").attr("src",response.response);
+//                    alert(eval('(' + msg + ')'));
+//                    alert(JSON.parse(msg));
+                        });
+                    } else if(response.status == 0 && response.response == '410120') {
+                        $j("#loading").hide();
+                        $j("#payIframe").show();
+                        $j("#errorMessage").html(response.message);
+                    }
+                }
+            });
+        });
+		$j("#webMoney_button").click(function(){
+	        $j("#loadingWM").show();
+	        //$j("#payIframeWM").hide();
+	        $j.ajax({
+	            type:"POST",
+	            url:"<?php echo HTTP_SERVER;?>/paymentWM.php",
+	            data:"payCode=841&orderId="+orderId+"&paymentOrderId="+paymentOrderId+"&lastName="+lastName+"&firstName="+firstName+"&shippingFirstName="+shippingFirstName
+	                    +"&shippingLastName="+shippingLastName+"&shippingStreet="+shippingStreet+"&shippinCountryCode="+shippinCountryCode+"&shippinZip="+shippinZip+"&merchantRef="+
+	                                    merchantRef+"&price="+price+"&countryCode="+countryCode+"&lanuageCode="+lanuageCode+"&currencyCode="+currencyCode+"&shippingCity="+shippingCity
+	                                    +"&shippingState="+shippingState+"&phoneNumber="+phoneNumber+"&email="+email+"&city="+city+"&state="+state+"&street="+street+"&type="+type,
+	            success:function(msg){
+	                var response = eval('('+msg+')');
+	                if(response.status == 1){
+		                window.location.href = response.response;
+		                return false;
+	                    $j("#gcFormActionUrlWM").ready(function(){
+	                    $j("#loadingWM").hide();
+	                    $j("#payIframeWM").show();
+	                    $j("#gcFormActionUrlWM").attr("src",response.response);
+	                });
+	                } else if(response.status == 0){
+		                if (response.response == '410120'){
+		                    $j("#loadingWM").hide();
+		                    $j("#payIframeWM").show();
+	                        $j("#errorMessage").html(response.message);
+		                }else{
+		                    $j("#loadingWM").hide();
+		                    $j("#payIframeWM").show();
+	                        $j("#errorMessage").html(response.messageOriginal);
+		                }
+	                }
+	            }
+	        });
+    	});
+        $j("#use_coupon").click(function(){
+            $j("#loading").show();
+            $j("#payIframe").hide();
+    		if($j(".gcPayment").checked = "checked"){
+    			var payCode = $j(".gcPayment").val();
+    		}
+            $j.ajax({
+                type:'POST',
+                url:'/payment1.php',
+                data:"payCode="+payCode+"&orderId="+orderId+"&paymentOrderId="+paymentOrderId+"&lastName="+lastName+"&firstName="+firstName+"&shippingFirstName="+shippingFirstName
+                        +"&shippingLastName="+shippingLastName+"&shippingStreet="+shippingStreet+"&shippinCountryCode="+shippinCountryCode+"&shippinZip="+shippinZip+"&merchantRef="+
+                        merchantRef+"&price="+price+"&countryCode="+countryCode+"&lanuageCode="+lanuageCode+"&currencyCode="+currencyCode+"&shippingCity="+
+                        shippingCity+"&shippingState="+shippingState+"&phoneNumber="+phoneNumber+"&email="+email+"&city="+city+"&state="+state+"&street="+street+"&type="+type,
+                success:function(msg){
+                    var response = eval('('+msg+')');
+                    if(response.status == 1) {
+                        $j("#gcFormActionUrl").ready(function(){
+                        $j("#loading").hide();
+                        $j("#payIframe").show();
+                        $j("#gcFormActionUrl").attr("src",response.response);
+//                    alert(eval('(' + msg + ')'));
+//                    alert(JSON.parse(msg));
+                    });
+                    } else if(response.status == 0 && response.response == '410120') {
+                        $j("#loading").hide();
+                        $j("#payIframe").show();
+                        $j("#errorMessage").html(response.message);
+                    }
+                }
+            });
+        });
+		$j(".redclose").click(function(){
+			   $j(this).next(".successtips2").hide(); 
+			   })
+			   
+		$j(".icon_question").mouseover(function(){
+			$j(this).next(".successtips2").show();
+			})
+	    $j(".icon_question").mouseout (function(){
+			$j(this).next(".successtips2").hide();
+			})
+
+	    $j(".remark_order").mouseover(function(){
+			products_id = $j(this).attr('aid');
+			$j("#show_note_"+products_id).show();
+		})
+	    $j(".remark_order").mouseout(function(){
+			products_id = $j(this).attr('aid');
+			$j("#show_note_"+products_id).hide();
+		})
+})
+-->
+
+</script>
+<!-- payment templates end -->

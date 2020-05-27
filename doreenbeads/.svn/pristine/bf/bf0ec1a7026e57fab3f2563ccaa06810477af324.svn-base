@@ -1,0 +1,67 @@
+<?php require(DIR_WS_MODULES . zen_get_module_directory(FILENAME_MAIN_PRODUCT_IMAGE));?>
+<dd>
+    <div class="bigimgshow">
+        <a href='<?php echo HTTP_IMG_SERVER."bmz_cache/".get_img_size($products_image, 500, 500); ?>' class="jqzoom" style="" title="Hello" onclick="bigImgshowA();return false;">
+            <?php
+            echo $img_310_lazy_text[0];
+            if ($discount_amount > 0/* && $product_info->fields['products_quantity']>0*/) {
+                //echo '<div class="discountoff">' .($_SESSION['languages_id']==4?('-'.($discount_amount).'%'):('-'.$discount_amount . '%<br>' )). '</div>';
+                echo draw_discount_img($discount_amount, 'div','discountoff');
+            }
+            ?>
+        </a>
+    </div>
+    <div class="smallimgshow">
+        <?php if (sizeof($img_80_lazy_text) > 3){ ?>
+            <!-- <span class="arrowleft"></span> -->
+        <?php }?>
+        <div class="detailimglist">
+            <ul class="deimglist">
+                <?php
+                for ($i=0, $n=sizeof($img_80_lazy_text); $i<$n; $i++) {
+                    if($i==0){
+                        $first_li_style = 'class="arrownow"';
+                    }else{
+                        $first_li_style = '';
+                    }
+                    ?>
+                    <li <?php echo $first_li_style;?>>
+                        <!-- <span></span> -->
+                        <div style="cursor:pointer;"><?php echo $img_80_lazy_text[$i];?></div>
+                        <!-- <div style="cursor:pointer;"><?php // echo $img_310_lazy_text[$i];?></div> -->
+
+
+                    </li>
+                <?php } ?> 
+            </ul>
+        </div>
+        <?php if (sizeof($img_80_lazy_text) > 3){ ?>
+            <!-- <span class="arrowright"></span> -->
+        <?php }?>
+    </div>
+    <?php if(isset($products_shipping_restriction[$product_info->fields['products_id']])) {?>
+        <div class="detail_shipinfo">
+            <a href="<?php echo zen_href_link(FILENAME_DEFAULT);?>page.html?id=211" title="<?php echo TEXT_SHIPPING_RESTRICTION_TIP;?>"><span class="ship_r"></span><span><?php echo TEXT_SHIPPING_RESTRICTION;?></span></a>
+        </div>
+    <?php }?>
+</dd>
+
+<div class="imglightbox" id="imglightbox">
+    <p style="height:20px;"><span class="closeimgbtn1">&nbsp;&nbsp;</span></p>
+    <div class="imglightboxcont">
+        <span class="pre" style="left:30px;"><img src="includes/templates/cherry_zen/images/prebtnc.gif" width="60" height="80" /> </span>
+        <span class="next"><img src="includes/templates/cherry_zen/images/nextbtn.gif" width="60" height="80" /> </span>
+        <div class="lightboximg"><?php echo $img_500_text_show;?></div>
+    </div>
+    <div class="detailimglist detailimglistup">
+        <ul class="deimglist">
+            <?php for ($i=0, $n=sizeof($img_80_lazy_text); $i<$n; $i++) {?>
+                <li <?php if($i==0) echo 'class="arrownow"';?>>
+                    <span></span>
+                    <?php echo $img_500_lazy_text[$i];?>
+                    <div><?php echo $img_80_lazy_text[$i];?></div>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>

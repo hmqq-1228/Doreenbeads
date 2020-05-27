@@ -1,0 +1,16 @@
+{if $result_count>0}
+{include file = $tpl}
+{else}
+<div class="detail sorry mian_wrap ">
+    <div class="txt_wap">
+    	<h2 style="border-bottom:none;">{$body_header_title}</h2>
+		<label style="display:block; border-bottom:1px solid #ccc; padding:6px 0px 16px 20px; margin-bottom:10px;">{$smarty.const.TEXT_NO_MATCHED_ITEMS}</label>
+		{if $related_str != ""}
+        <p class="search_related"><b>Related: </b><span class='jq_related_item'>{$related_str}</span></p>
+		{/if}
+		 
+		
+		{$smarty.const.SEARCH_TIPS}
+    </div>
+</div>
+{/if}

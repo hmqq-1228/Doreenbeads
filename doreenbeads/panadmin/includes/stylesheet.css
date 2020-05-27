@@ -1,0 +1,540 @@
+/**
+ * @package admin
+ * @ignore
+ * @access private
+ * @copyright Copyright 2003-2006 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: stylesheet.css 5454 2006-12-29 20:10:17Z drbyte $
+ */
+@import url("menu.css");/* including stylesheet for dhtml menu */
+@import url("index.css");/* including stylesheet for index.php */
+a{
+color:#0000ff;
+text-decoration:none;
+}
+a,body,html,table{
+font:normal normal 11px Verdana,sans-serif;
+}
+a:hover{
+color:#0000ff;
+text-decoration:underline;
+}
+a.headerLink:link{
+color:#ffffff;
+font-weight:bold;
+text-decoration:none;
+}
+a.headerLink:visited{
+color:#ffffff;
+font-weight:bold;
+text-decoration:none;
+}
+a.headerLink:hover{
+color:#ffffff;
+font-weight:bold;
+text-decoration:underline;
+}
+a.headerLink:active{
+color:#ffffff;
+font-weight:bold;
+text-decoration:none;
+}
+a.menuBoxContentLink:link{
+color:#0000ff;
+text-decoration:none;
+}
+a.menuBoxContentLink:visited{
+color:#0000ff;
+text-decoration:none;
+}
+a.menuBoxContentLink:hover{
+color:#0000ff;
+text-decoration:underline;
+}
+a.menuBoxContentLink:active{
+color:#0000ff;
+text-decoration:none;
+}
+a.menuBoxHeadingLink:link{
+color:#0000ff;
+font-weight:bold;
+text-decoration:none;
+}
+a.menuBoxHeadingLink:visited{
+color:#0000ff;
+font-weight:bold;
+text-decoration:none;
+}
+a.menuBoxHeadingLink:hover{
+color:#0000ff;
+font-weight:bold;
+text-decoration:none;
+}
+a.menuBoxHeadingLink:active{
+color:#0000ff;
+font-weight:bold;
+text-decoration:none;
+}
+a.splitPageLink:link{
+color:#0000ff;
+text-decoration:none;
+}
+a.splitPageLink:visited{
+color:#0000ff;
+text-decoration:none;
+}
+a.splitPageLink:hover{
+background-color:#ffff33;
+color:#0000ff;
+text-decoration:underline;
+}
+a.splitPageLink:active{
+color:#0000ff;
+text-decoration:none;
+}
+body{
+background-color:#ffffff;
+color:#333333;
+margin:0;
+}
+.clearBoth {
+	clear: both;
+	}
+#login .logo_top{
+	width: 100%;
+	padding: 20px 15px;
+	text-align: left;
+	box-shadow: 1px 1px 4px #ccc;
+	display: flex;
+	justify-content: flex-start;
+  box-sizing: border-box;
+}
+#login .neme_top{
+	font-size: 18px;
+	margin-left: 10px;
+	line-height: 28px;
+}
+#login .inputSty,#login .selectTyp{
+	display: inline-block;
+	width: 64%;
+	height: 32px;
+	line-height: 1.5;
+	padding: 4px 7px;
+	font-size: 14px;
+	border: 1px solid #dcdee2;
+	border-radius: 4px;
+	color: #515a6e;
+	background-color: #fff;
+	background-image: none;
+	position: relative;
+	cursor: text;
+	box-sizing: border-box;
+	transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+#login .selectTyp{
+	width: 36%;
+}
+#login .selectTyp option{
+	height: 30px;
+}
+body#login .button{
+  cursor: pointer;
+	padding: 8px 40px;
+	margin: 0 auto;
+	background-color: #2b85e4;
+	border: none;
+	color: #fff;
+	font-size: 18px;
+	border-radius: 4px;
+}
+body#login fieldset{
+padding:30px 20px;
+width:420px;
+height: 370px;
+margin: auto;
+margin-top: 90px;
+box-sizing: border-box;
+border: none;
+box-shadow: 1px 1px 4px #ccc;
+border-radius: 8px;
+background-color: #fff;
+}
+.contbgImage{
+	width: 100%;
+	height: 600px;
+	display: flex;
+	margin-top: 2px;
+	justify-content: flex-start;
+	background: #e6f1f7;
+}
+.loginLf{
+	background: url(../images/loginLF.png) no-repeat;
+	background-size: contain;
+}
+.loginLabel {
+	display: inline-block;
+	width: 130px;
+}
+.loginLabel span{
+	color: #F20101;
+}
+.footerLogin{
+	text-align: center;
+	color: #666;
+	margin-top: 140px;
+}
+body#login .title_top{
+background:#e6f1f7;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+color:#666;
+font-size:16px;
+width: 120px;
+text-align: center;
+height: 26px;
+line-height: 22px;
+border-radius: 4px;
+}
+checkbox,input,radio,select,textarea,file{
+font-size:11px;
+}
+textarea {
+width: 80%;
+}
+/* to handle textareas for browsers which don't like % widths */
+textarea.sqlpatchKeyedQuery, TEXTAREA#file_contents {
+width:auto;
+}
+form{
+display:inline;
+margin-left: 90px;
+}
+span.dataTableHeadingContentWhois{
+color:#ff6600;
+font-weight:bold;
+}
+span.normalprice{
+text-decoration:line-through;
+}
+span.productPriceDiscount,.inputRequirement{
+color:#ff0000;
+}
+span.productSpecialPrice,span.productSalePrice,.stockWarning,span.coming{
+color:#ff0000;
+}
+span.productSpecialPriceSale{
+color:#ff0000;
+text-decoration:line-through;
+}
+span.SortOrderHeader{
+color:#ff6600;
+font-weight:bold;
+}
+span.SortOrderHeaderLink{
+color:#0000ff;
+font-weight:bold;
+}
+td.alert,span.alert{
+color:#ff0000;
+font-weight:bold;
+}
+td.attributeBoxContent{
+background-color:#dcdbd1;
+color:#333333;
+}
+td.ot-subtotal-Amount,td.ot-cod-fee-Amount,td.ot-group-pricing-Amount,td.ot-gv-Amount,td.ot-loworderfee-Amount,td.ot-shipping-Amount,td.ot-subtotal-Amount,td.ot-tax-Amount,td.ot-coupon-Amount{
+}
+td.ot-subtotal-Text,td.ot-cod-fee-Text,td.ot-extra-amount-Text,td.ot-total-Text,td.ot-group-pricing-Text,td.ot-gv-Text,td.ot-loworderfee-Text,td.ot-shipping-Text,td.ot-subtotal-Text,td.ot-tax-Text,td.ot-coupon-Text{
+font-weight:bold;
+}
+td.ot-total-Amount{
+border-top:1px solid #9a9a9a;
+font-weight:bold;
+}
+tr.attributeBoxContent{
+background-color:#dcdbd1;
+color:#333333;
+}
+.attributeBoxContent{
+background-color:#dcdbd1;
+color:#333333;
+}
+.attributes-even{
+background-color:#ffffff;
+}
+.attributes-odd{
+background-color:#f7f6ef;
+}
+.columnLeft{
+background-color:#f2f1ee;
+border-color:#999999;
+border-style:solid;
+border-width:1px;
+padding:2px;
+}
+.dataTableContent{
+color:#333333;
+}
+.dataTableContentBot{
+color:#333333;
+}
+.dataTableContentWhois{
+color:#333333;
+}
+.dataTableHeadingContent{
+color:#333333;
+font-weight:bold;
+}
+.dataTableHeadingContentWhois{
+color:#333333;
+font-weight:bold;
+}
+.dataTableHeadingContentWhois a:link,.dataTableHeadingContentWhois a:visited{
+color:#0000ff;
+font-weight:bold;
+}
+.dataTableHeadingContentWhois a:hover{
+color:#ffffff;
+font-weight:bold;
+}
+.dataTableHeadingRow{
+background-color:#d7d6cc;
+height: 30px;
+}
+.dataTableHeadingRowWhois{
+background-color:#d7d6cc;
+}
+.dataTableRow{
+background-color:#f2f1ee;
+height: 30px;
+}
+.dataTableRowBot{
+background-color:#facbfa;
+}
+.dataTableRowOver{
+background-color:#ffffff;
+cursor:pointer;
+cursor:hand;
+height: 30px;
+}
+.dataTableRowOverBot{
+background-color:#ffffff;
+}
+.dataTableRowOverWhois{
+background-color:#ffffff;
+}
+.dataTableRowSelected{
+background-color:#e7e6e0;
+height: 30px;
+}
+.dataTableRowSelectedBot{
+background-color:#ff93ff;
+}
+.dataTableRowSelectedWhois{
+background-color:#dee4e8;
+}
+.dataTableRowSpacer,td.dataTableRowSpacer,TR.dataTableRowSpacer{
+background-color:#d7d6cc;
+color:#ff6600;
+font-size:11px;
+font-weight:bold;
+line-height:1.0;
+}
+.dataTableRowWhois{
+background-color:#f2f1ee;
+}
+.errorText{
+color:#ff0000;
+}
+.fieldRequired{
+color:#ff0000;
+}
+.formArea{
+background-color:#f1f9fe;
+border-color:#7b9ebd;
+border-style:solid;
+border-width:1px;
+}
+.formAreaTitle{
+font-family:Tahoma,Verdana,Arial,sans-serif;
+font-size:12px;
+font-weight:bold;
+}
+.headerBar{
+background-color:#003D00;
+}
+.headerBarContent{
+color:#ffffff;
+font-weight:bold;
+padding:0 10px;
+}
+.headerBarContent select{
+	height: 24px;
+	width: 100px;
+	border: none;
+	border-radius: 4px;
+}
+.infoBoxContent{
+background-color:#e7e6e0;
+color:#333333;
+}
+.infoBoxHeading{
+background-color:#003D00;
+color:#ffffff;
+height: 30px;
+}
+.main{
+}
+.menuBoxContent{
+color:#616060;
+}
+.menuBoxHeading{
+background-color:#ffffff;
+color:#616060;
+}
+.messageBox{
+}
+.messageStackCaution{
+background-color:#ffff00;
+}
+.messageStackError,.messageStackWarning{
+background-color:#ffb3b5;
+}
+.messageStackSuccess{
+background-color:#d4ffbd;
+}
+.oldPrice{
+text-decoration:line-through;
+}
+h1,.pageHeading{
+color:#003D00; /*727272*/
+font-size:16px;
+font-variant:small-caps;
+font-weight:bold;
+}
+.aButton{
+	color: #fff;
+	display: inline-block;
+	padding: 6px 16px;
+	font-size: 14px;
+	border: none;
+	border-radius: 4px;
+	margin-left: 20px;
+	background-color: #008FED;
+}
+.aButton:hover{
+	color: #fff;
+	background-color: #0080CC;
+	text-decoration: none;
+}
+.SaleMakerDisabled{
+background-color:#f0f1f1;
+}
+.SaleMakerOver{
+background-color:#ffffff;
+cursor:pointer;
+cursor:hand;
+}
+.SaleMakerSelected{
+background-color:#dee4e8;
+cursor:pointer;
+cursor:hand;
+}
+.smallText{
+font-size:9px;
+}
+.specialPrice{
+color:#ff6600;
+}
+.lookupAttention {
+  color: #FF0000;
+}
+.clearBoth {
+	clear:both;
+}
+/*jessa 2009-12-24 锟斤拷锟絥ew products setting 锟斤拷锟斤拷式*/
+#download_new_products_page_heading{
+	padding:20px 5px 10px 5px;
+}
+#download_new_products_form{
+	padding:5px 10px;
+}
+#download_new_products_page{
+	padding:20px 10px;
+}
+#download_new_products_code{
+	padding:10px 10px;
+}
+/*jessa 2010-02-26 锟斤拷锟斤拷matching products manager 锟斤拷锟斤拷锟斤拷锟绞�/
+.match_products_description{
+	color:#0033FF;
+	padding:10px 0px;
+}
+.match_products_left{
+	width:15%;
+	padding:10px 0px;
+	text-align:left;
+	vertical-align:top;
+}
+.match_products_right{
+	width:85%;
+	padding:10px 0px;
+	text-align:left;
+	vertical-align:top;
+}
+.match_products_error{
+	color:#990000;
+}
+.match_products_success{
+	color:#55C929;
+}
+/*eof jessa 2010-02-26*/
+.products_description{
+	color:#0033FF;
+	padding:10px 0px;
+}
+.products_left{
+	width:15%;
+	padding:10px 0px;
+	text-align:left;
+	vertical-align:top;
+}
+.products_right{
+	width:85%;
+	padding:10px 0px;
+	text-align:left;
+	vertical-align:top;
+}
+.products_error{
+	color:#990000;
+}
+.products_success{
+	color:#55C929;
+}
+
+.products_model_span {
+	float: left;
+	margin-right: 20px; 
+} 
+
+.products_model_span {
+	float: left; 
+ 	margin-right: 20px; 
+}
+.specialCustomerTable li{float:left;list-style: none;}
+
+.table_country_time input{width:60px;}
+.table_country_time select{width:100px;}
+.shipping_error{color:#ff0000;}
+
+/* bof 1.7, by zale */
+#goTopBtn {display:block;  bottom: 35px;cursor: pointer;height: 36px;line-height: 36px;position: fixed; width: 36px;background:url(../images/footerbg.png) -53px -192px;}
+#goTopBtn:hover{background:url(../images/footerbg.png) -5px -192px;}
+/* eof 1.7 */
+
+
+.delet_eLogo {
+    color: #0000FF;
+    cursor: pointer;
+}

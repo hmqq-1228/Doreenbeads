@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" align="center">
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Добрый день,{$firstName}!</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Спасибо за Вашу добрую покупку {$orderNormalAll}.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Здесь мы хотим сообщить вам, что мы уже отправили вашу посылку {if $boxCount > 0}(B {$boxCount} коробках){/if} доставкой {$expressMethods}(Без трек-кода) в  {$deliveryTime}, срок доставки примерно {$days}, пожалуйста, обращайте внимание на это.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Ваша посылка отправлена до вашего адреса ниже:<br/>{$address}</td></tr>
+	{if $istrstm}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Как только посылка прибыла в Москве, специальный логистик свяжется с Вами и сообщит Вам, что посылка прибыла, и тогда вы можете выбрать способ доставки для вашей посылки из Москвы до себя по вкусу. Этот человек грузит посылку  к вам в соответствии с Вашим поручением. Также вы должны оплатить ваше внутреннее судоходство доставки.</td></tr>
+	{/if}
+	{if $isynkqy}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Когда ваша посылка доставлена до города,близок к вашему городу,наш перевозчик с вами свяжется.Потом вы сможете сами забрать за посылкой и вам не надо платить дополнительную оплату(примечание:если вы живёте близко к Москве,вам надо во время поехать в склад нашего перевозчика за посылкой,иначе вам надо платить деньги за хранение груза).</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Через 15дней, когда ваша посылка доставлена до России, трек-код появится и тогда можно отслежить.<br/>Как только вашу посылку доставляют на вашу местную почту, они будут сообщать вам взять посылку.</td></tr>
+	{/if}
+	{if $issfhky}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Через 15дней, когда ваша посылка доставлена до России, трек-код появится и тогда можно отслежить.<br/>После того,как посылка доставлена до вашей местной почты,курьер будет доставлять её до вашего дома.</td></tr>
+	{/if}
+	{if $isjtau}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Через 2 дня, мы будем сообщать вам  трек-код  вовремя. Пожалуйста,обратите внимание на это  и терпеливо подождайте.</td></tr>
+	{/if}
+	{if $isest}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Через 7-9 дней, когда ваша посылка доставлена до России, трек-код появится и тогда можно отслежить.</td></tr>
+	{/if}
+	{if $reportAmount!=''}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Мы отметили стоимость вашей посылки {$reportAmount}.</td></tr>
+	{/if}
+	
+	{if $shortProductCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">
+		Здесь я действительно прошу вас за то, что у нас несколько товаров, которые распроданы неожиданно, вот подробность:<br />
+		{foreach $shortProduct as $product}
+			{$product.quantity}уп. -{$product.model} [{$product.name}] [Номер заказа. {$product.orderId}]
+			<p style="padding:0;margin:0;">{$product.image}</p>
+		{/foreach}
+		<p style="padding:0;margin:0;"><br />Для того, чтобы вы получите другие предметы без задержки, мы отправили ваш заказ заранее. Вот я любезно сообщаю вам, что происходит.<br /><br />
+		Для распроданных предметов, вот несколько советов для вас:<br />
+		1. Можно вам отправить их со вашим следующим заказом, когда вы любезно делаете покупку снова? Не стесняясь напомните мне об этом в следующий раз.<br />
+		2. Можно отправить их как можно скроее, когда они доступны? (Обычно мы отправляем их воздушной перевозкой, вам не нужно платить доставку. Но если они вам очены нужны , пожалуйста, не стесняйтесь обращайтесь к нам, мы постараемся все возможное предложить более быструю доставку для вас.<br />
+		3. Вы также можете заменить их другими предметами .<br /><br />
+		Какое предложение вы предпочитаете? Любезно сообщите мне, пожалуйста. я предоставлю вам лучший сервис по вашим требованиям:)</p>
+	</td></tr>
+	{/if}
+
+	{if $orderForShortCount > 0}
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Вашие недостающие товары ниже в вашем прошлому заказе, их отправлены сегодня:<br/>
+		{foreach $orderForShort as $productForShort}
+			{$productForShort.quantity}уп. -{$productForShort.model} [$productForShort.name] [Номер заказа. {$productForShort.orderId}]
+			<p style="padding:0;margin:0;">{$productForShort.image}</p>
+		{/foreach}
+	</td></tr>
+	{/if}
+
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">Если у вас любой вопрос, свяжитесь с нами, мы предоставим Вам лучший сервис.<br/>Большое спасибо ещё раз за вашу добрую покупку и надеемся дальнейшее доброе сотрудничество.</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">С уважением</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">{$seller_name}</td></tr>
+	<tr><td style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:20px;padding-top:10px;">=======Доброе примечание=========<br/>* Для того, чтобы вы получаете правильные предметы и правильное количество, мы сканировали и записали каждый предмет в вашей посылке до опечатания. Так обычно ошибку не произойдет. :)</td></tr>
+</table>
+</body>
+</html>

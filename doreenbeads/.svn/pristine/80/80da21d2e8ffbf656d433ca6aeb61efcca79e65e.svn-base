@@ -1,0 +1,71 @@
+<div class="order_main">
+    <div class="order_wrap">
+        {if $package_info_array|count eq 0}
+        <div><p class="no_records">{$smarty.const.TEXT_NO_RECORD}</p></div>
+        {else}
+        <div class="Packing_note">
+            <p>• {$smarty.const.TEXT_PACKAGE_SLIP_TIP_1}</p>
+            <p>• {$smarty.const.TEXT_PACKAGE_SLIP_TIP_2}</p>
+        </div>
+        <div class="order_search">{$message.account_text_result_count}<ins class="packingSearchFormShow"></ins>
+            <form class="packingSearchForm" name="packingfilters" action="index.php?main_page=packing_slip" method="get" {if $check_filter neq 0} style="display:block;" {/if}>
+                <input name="action" type="hidden" value="pack_filter"/>
+                <input name="main_page" type="hidden" value="packing_slip"/>
+                <table>
+                    <tr>
+                        <th>{$smarty.const.TEXT_ORDER_NUMBER}: </th>
+                        <td><input name="ordernumber" type="text" {if $filter.filter_ordernumber != ''} value="{$filter.filter_ordernumber}" {/if}/></td>
+                    </tr>
+                    <tr>
+                        <th>{$smarty.const.TEXT_MODEL}: </th>
+                        <td><input name="pronumber" type="text" {if $filter.pronumber != ''} value="{$filter.pronumber}" {/if} /><p></p></td>
+                    </tr>
+                    <tr>
+                        <th>{$smarty.const.TABLE_HEADING_TACKING_NUMBER}: </th>
+                        <td><input name="trackingnumber" type="text" {if $filter.trackingnumber != ''} value="{$filter.trackingnumber}" {/if} /><p></p></td>
+                    </tr>
+                    <tr>
+                        <th>{$smarty.const.TEXT_ORDER_DATE}: </th>
+                        <td>
+                            <input name="datestart" type="text" id="datestart" runat="server" style="width:45%" value="{$filter.filter_date_start}" />
+                            <span> -</span>
+                            <input name="dateend" type="text" id="dateend" style="width:45%" value="{$filter.filter_date_end}" />
+                        </td>
+                        <script>
+                            var calendar = new lCalendar();
+                            calendar.init({
+                                'trigger': '#datestart',
+                                'type': 'date'
+                            });
+                            var calendardatetime = new lCalendar();
+                            calendardatetime.init({
+                                'trigger': '#dateend',
+                                'type': 'date'
+                            });
+                        </script>
+                    </tr>
+                </table>
+                <button class="btn_filter btn_blue">{$smarty.const.TEXT_SUBMIT}</button>
+            </form>            
+            <div class="clearfix"></div>
+        </div>
+        <ul class="Packing_list">
+            {section name=i loop=$package_info_array}
+            <li>
+                <a href="{$package_info_array[i].products_link}">{$package_info_array[i].products_images}</a>                
+                <table>
+                    <tr><td>{$smarty.const.TEXT_BOUNGHT_QUANTITY}:</td><td>{$package_info_array[i].total_quantity}</td> </tr>
+                    <tr><td>{$smarty.const.TEXT_SENT_QUANTITY}:</td><td>{$package_info_array[i].sent_quantity}</td></tr>
+                    <tr><td>{$smarty.const.TEXT_UNSENT_QUANTITY}:</td><td>{$package_info_array[i].unsent_quantity}</td></tr>
+                    <tr><td>{$smarty.const.TEXT_ORDER_PRODUCTS_PHOTCONT_ORDER_NUMBER}:</td><td><a href="index.php?main_page=packing_slip&action=pack_filter&ordernumber={$package_info_array[i].orders_id}" class="link_color ">{$package_info_array[i].orders_id}</a></td></tr>
+                    <tr><td>{$smarty.const.TABLE_HEADING_TACKING_NUMBER}:</td><td>{$package_info_array[i].trance_number_str}</td></tr>  
+                </table>
+                <div class="clearfix"></div>
+                <p><a href="index.php?main_page=packing_slip&action=pack_filter&pronumber={$package_info_array[i].products_model}" class="link_color">{$package_info_array[i].products_model}</a></p>
+            </li>
+            {/section}
+        </ul>
+        <div class="page">{$message.account_text_result_page}</a></div>
+        {/if}
+    </div>
+</div>

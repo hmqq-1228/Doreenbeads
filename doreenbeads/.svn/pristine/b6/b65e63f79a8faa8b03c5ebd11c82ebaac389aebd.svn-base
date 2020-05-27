@@ -1,0 +1,457 @@
+<!-- {include file = $tpl_head} -->
+<div class="order_main">
+	{if $messageStack->size('addwishlist') > 0}
+	<div class="removealltips">
+		{$messageStack->output('addwishlist')}
+	</div>
+	{/if}
+	{if $cart_products_out_stoct_errors != ''}
+	<div class="removealltips">
+		{$cart_products_out_stoct_errors}
+	</div>
+	{/if}
+	<!-- {if $cart_products_down_errors != ''}
+    <div class="removealltips">
+    {$cart_products_down_errors}
+    </div>
+    {/if} -->
+	{if $cart_has_buy_facebook_like_product_errors != ''}
+	<div class="removealltips">
+		{$cart_has_buy_facebook_like_product_errors}
+	</div>
+	{/if}
+	{if $prom_discount_note != ''}
+	<div class="prompt">{$prom_discount_note}</div>
+	{else}
+	<div class="prompt" style="display:none;"></div>
+	{/if}
+	<div>
+		<a href="{$smarty.session.prev_url}" class="continue link_color">&lt;&lt; {$smarty.const.TEXT_CONTINUE_SHOPPING}</a>
+		<div class="clearfix"></div>
+	</div>
+
+	<input type="hidden" class="split_current_page" value="{$page}">
+
+	<div class="shopmain">
+		<p class="top_total">{$smarty.const.TEXT_CART_WORD_TOTAL}: <b class="jq_total_items price_color">{$total_items}</b> / {$smarty.const.TEXT_CART_WORD_SELECTED}: <b class="jq_is_checked_count price_color">{$is_checked_count}</b> / {$smarty.const.TEXT_CART_AMOUNT}: <b class="subtotal_amount price_color">{$total_amount_convert}</b>
+			<span>{$smarty.const.TEXT_PRODUCT_WEIGHT}: <b class="jq_total_weight">{$total_weight}</b> {$smarty.const.TEXT_CART_WEIGHT_UNIT} (<a href="{$shoppingcart_default_url}&pn=vw">{$smarty.const.TEXT_VIEW_SHIPPING_WEIGHT}</a>)</span>
+		</p>
+		<div>
+			<div style="float:left; width:30%; height:37px; vertical-align:text-bottom; margin-top:8px;"><label><input type="checkbox" class="jq_products_checked jq_products_checked_all" data-type="all" value="0" style="width:18px; height:18px; margin-left:5px;" {if $is_checked_all==1} checked="checked"{/if} />&nbsp;&nbsp;{$smarty.const.TEXT_ALL}</label></div>
+			<div style="float:right; width:70%;">
+				<a href='javascript:void(0);' class="add_all_wishlist link_color" data-confirm="{$smarty.const.TEXT_CART_JS_MOVE_ALL}">{$smarty.const.TEXT_CART_MOVE_WISHLIST}</a>
+				<a href="javascript:void(0)" class="empty-btn empty link_color" data-confirm="{$smarty.const.TEXT_CART_JS_EMPTY_CART}">{$smarty.const.TEXT_CART_EMPTY_CART}</a>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+		<!-- <h3 class="totalmoney">{$smarty.const.TEXT_CART_WORD_TOTAL}: <strong>{$total_items}</strong> {$smarty.const.TEXT_CART_ITEMS}, <span>{$currency_symbol_left}<strong class="subtotal_amount">{$total_amount_convert}</strong></span></h3>
+        <h3 class="totalmoney1">{$smarty.const.TEXT_CART_TOTAL_WEIGHT}: <strong class="total_weight">{$total_weight}</strong> {$smarty.const.TEXT_CART_WEIGHT_UNIT} (<a href="{$shoppingcart_default_url}&pn=vw">{$smarty.const.TEXT_VIEW_SHIPPING_WEIGHT}</a>)</h3>
+
+        <h5 class="totalweight"><a href="javascript:void(0);" onclick="move_all_to_wishlist();" class="moveall-btn">{$smarty.const.TEXT_CART_MOVE_WISHLIST}</a><a href="javascript:void(0)" class="empty-btn">{$smarty.const.TEXT_CART_EMPTY_CART}</a></h5> -->
+
+		<!-- 去除sort by category 这个功能 m V2.0.2 -->
+		<!-- {if $cart_sort_by == 'cate'}
+              <h5 class="totalweight"><a href="{$shoppingcart_default_url}&sortby=time">{$smarty.const.TEXT_SORT_BY_MODIFY_TIME}</a></h5>
+              {else}
+              <h5 class="totalweight"><a href="{$shoppingcart_default_url}&sortby=cate">{$smarty.const.TEXT_SORT_BY_CATEGORY}</a></h5>
+              {/if} -->
+
+		<!-- <div class="confirmtips-move">
+            <div>
+                <p>{$smarty.const.TEXT_CART_JS_MOVE_ALL}</p>
+                <p><a href="javascript:void(0)" class="okbtn" title="1">{$smarty.const.TEXT_OK}</a><a href="javascript:void(0)" class="cancelbtn" title="2">{$smarty.const.TEXT_CANCEL}</a></p>
+            </div>
+        </div> -->
+		<!-- <div class="emptytips-move" style="z-index:100">
+            <div>
+                <p>{$smarty.const.TEXT_CART_JS_MOVE_ALL}</p>
+                <p><a href="javascript:void(0)" class="okbtn" title="1">{$smarty.const.TEXT_OK}</a><a href="javascript:void(0)" class="cancelbtn" title="2">{$smarty.const.TEXT_CANCEL}</a></p>
+            </div>
+        </div> -->
+
+		<div class="shopcart-cont" id="shopcart-cont">
+			<ul>
+				{foreach from = $product_array key = k item = value}
+				{if $smarty.session.delete_products|@count neq 0 && $smarty.session.delete_products['index_num'] eq $k}
+				<li>
+					<p class="cartpro_name">
+						<a href="{$smarty.session.delete_products['pro_href']}">{$smarty.session.delete_products['pro_name_all']|substr:'0':'60'} ... [{$smarty.session.delete_products['pro_model']}]</a><span class="grey_6">{$smarty.const.HAS_BEEN_REMOVED}</span>
+					</p>
+					<a href="javascript:void(0);" class="link_color Re_add readd_product" data-id={$smarty.session.delete_products['products_id']} data-qty={$smarty.session.delete_products['del_qty']}>{$smarty.const.RE_ADD}</a>
+				</li>
+				{/if}
+
+				<!-- {if $value.cate && $cart_sort_by == 'cate'}
+                {assign var = "cate_id" value = $value.cate_id}
+                <div class="shopcarttype">{$value.cate_name}<span>{$smarty.const.TEXT_CART_P_SUBTOTAL}: <em>{$currency_symbol_left}<font id="cate_total_{$cate_id}" class="subtotal">{$cate_total_arr.$cate_id}</font></em></span></div>
+                {/if}	 -->
+				<div class="shopcart-list">
+
+					<li>
+						<p class="cartpro_name"><label><input type="checkbox" class="jq_products_checked" data-type="single" value="{$value.customers_basket_id}" style="width:18px; height:18px; margin-top:-6px;" {if $value.is_checked==1} checked="checked"{/if} /> &nbsp;</label><a href="{$value.product_link}">{if $value.is_small_pack}<font style="color:#f00" title="Ready Time:7~15 workdays">&lt;{$smarty.const.TEXT_SMALL_PACK}&gt;</font>{/if}{$value.product_name} [{$value.model}]</a></p>
+						<div class="pro_img">
+							<a href="{$value.product_link}">{$value.product_image}</a>
+							{if $value.discount>0}
+							<span class="cart_discount">{$value.discount}%&nbsp;{$smarty.const.TEXT_OFF}</span>
+							{/if}
+						</div>
+						<div class="pro_price">
+							<p>
+								{$smarty.const.TEXT_PRICE}:
+								{if $value.original_price neq $value.price}
+								<span><del class="oprice_{$value.id}">{$value.original_price}</del><br /></span>
+								{else}
+								<span style="display:none;"><del class="oprice_{$value.id}">{$value.original_price}</del><br /></span>
+								{/if}
+								<span class="price_color"><span class="price_color price_{$value.id}">{$value.price}</span></span>
+							</p>
+							<p class="pro_number">
+								{if $value.id == 28675}
+								<input class="qty_content" maxlength="5" name="product_qty" type="text" value="{$value.qty}" onpaste="return false" readonly="true"/>
+								<input name="product_qty_old" id="qty_old_{$value.id}" type="hidden" value="{$value.qty}" />
+								{else if $value.id == 39729}
+								<input class="qty_content" maxlength="5" name="product_qty" type="text" value="1" onpaste="return false" readonly="true"/>
+								{else}
+								<span class="pro_number_icon_span">
+								<span class="cart_decrease_icon {if $value.qty <= 1}gray{/if}"></span>
+								<input class="qty_content" maxlength="5" name="product_qty" type="text" id="qty_{$value.id}" value="{$value.qty}" onpaste="return false" />
+								<span class="cart_plus_icon {if $value.qty >= 99999}gray{/if}"></span>
+								<input name="product_qty_old" id="qty_old_{$value.id}" type="hidden" value="{$value.qty}" />
+								<input name="product_id" id="id_{$value.id}" type="hidden" value="{$value.id}" />
+							</span>
+								{/if}
+							</p>
+							<div class="clearfix"></div>
+							<p>{$smarty.const.TEXT_CART_P_SUBTOTAL}: <span class="price_color"><span class="total_{$value.id}">{$value.total}</span></span></p>
+						</div>
+						<div class="clearfix"></div>
+						<p class="jq_is_preorder_{$value.id} avalaible">
+							{if $value.is_s_level_product == 1}	
+								{$smarty.const.TEXT_AVAILABLE_IN715}
+							{else}
+								{if $value.is_preorder || $value.qty >= $smarty.const.PRODUCTS_DAYS_FOR_PREPARATION}
+									{if $value.products_stocking_days > 7}
+										{$smarty.const.TEXT_AVAILABLE_IN715}
+									{else}
+										{$smarty.const.TEXT_AVAILABLE_IN57}
+									{/if}
+								{/if}
+							{/if}
+						</p>
+						<span style="{if $value.qty <= $value.pp_max_num_per_order}display:none;{/if}" class="show_promotion_num_tips grey_6 jq_show_promotiom_tips_{$value.id}">{$value.max_num_per_order_tips}</span>
+						<div>
+							<span class="with49 float_left"><a href="javascript:void(0);" class="link_text delete-btn" data-confirm="{$smarty.const.TEXT_CART_JS_REMOVE_ITEM}" index_num= {$k}>{$smarty.const.TEXT_CART_DELETE}</a></span>
+							<span class="with49 float_lt"><a href="javascript:void(0);" class="link_text jq_addtowishlist float_lt" data-confirm="{$smarty.const.TEXT_CART_JS_MOVE_TO_WISHLIST}">{$smarty.const.TEXT_CART_MOVE_TO_WISHLIST}</a></span>
+						</div>
+						<div class="clearfix"></div>
+						<span class="shopping_cart_products_tips jq_qty_update_tips_{$value.id}">{$value.products_qty_update_auto_note}</span>
+					</li>
+
+				</div>
+				{if $smarty.session.delete_products|@count neq 0 && $smarty.session.delete_products['index_num'] eq $k+1 && $smarty.session.delete_products['index_num'] eq $product_array|@count}
+				<li>
+					<p class="cartpro_name">
+						<a href="{$smarty.session.delete_products['pro_href']}">{$smarty.session.delete_products['pro_name_all']|substr:'0':'60'} ... [{$smarty.session.delete_products['pro_model']}]</a><span class="grey_6">{$smarty.const.HAS_BEEN_REMOVED}</span>
+					</p>
+					<a href="javascript:void(0);" class="link_color Re_add readd_product" data-id={$smarty.session.delete_products['products_id']} data-qty={$smarty.session.delete_products['del_qty']}>{$smarty.const.RE_ADD}</a>
+				</li>
+				{/if}
+				{/foreach}
+			</ul>
+			<br/>
+			{$cart_fen_ye}
+		</div>
+		<div style="border-bottom:1px solid #ccc;">
+			<div style="float:left; width:30%; height:37px; vertical-align:text-bottom; margin-top:8px;"><label><input type="checkbox" class="jq_products_checked jq_products_checked_all" data-type="all" value="0" style="width:18px; height:18px; margin-left:5px;" {if $is_checked_all==1} checked="checked"{/if} />&nbsp;&nbsp;{$smarty.const.TEXT_ALL}</label></div>
+			<div style="float:right; width:70%;">
+				<a href='javascript:void(0);' class="add_all_wishlist link_color">{$smarty.const.TEXT_CART_MOVE_WISHLIST}</a>
+				<a href="javascript:void(0)" class="empty-btn empty link_color" data-confirm="{$smarty.const.TEXT_CART_JS_EMPTY_CART}">{$smarty.const.TEXT_CART_EMPTY_CART}</a>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+		<div>
+			<a href="{$smarty.session.prev_url}" class="continue link_color">&lt;&lt; {$smarty.const.TEXT_CONTINUE_SHOPPING}</a>
+			<div class="clearfix"></div>
+		</div>
+		{if $products_removed_array|@count neq 0}
+		<div class="cart_warp">
+			<div class="cart_invalid">
+				<h3>{$smarty.const.TEXT_CART_INVALID_ITEMS}<a href="javascript:void(0);" class="jq_cart_invalid_notebook cart_invalid_notebook" data-toggle="10"></a></h3>
+				<div class="jq_cart_invalid_tip_msg_10 cart_invalid_tip_msg" style="display:none;"><i></i>{$smarty.const.TEXT_SHOPPING_CART_DOWN_NOTE}</div>
+				<a href="javascript:void(0);" class="jq_products_invalid_all empty_invalid link_color" data-title="{$smarty.const.TEXT_SHOPING_CART_CONFIRM_EMPTY_INVALID_ITEMS|addslashes}">{$smarty.const.TEXT_CART_EMPTY_INVALID_ITEMS}</a>
+
+				<div class="clearfix"></div>
+				<div class="cart_invalid_items">
+					{foreach from = $products_removed_array key = k item = value}
+					<div class="jq_products_list_{$value.customers_basket_id}">
+						<p>
+							<img class="lazy-img" src="/includes/templates/cherry_zen/images/loading/80.gif" data-size="80" data-lazyload="{$value.products_image_80}" /> <span>{$value.products_name},  [{$value.products_model}]</span>
+						</p>
+
+						<div class="products_invalid_operation">
+							{$value.also_like_str}<a href="javascript:void(0);" class="jq_products_invalid_one" data-id="{$value.customers_basket_id}">{$smarty.const.TEXT_DELETE}</a>
+						</div>
+					</div>
+					{/foreach}
+				</div>
+
+				<a href="javascript:void(0);" class="jq_products_invalid_all empty_invalid link_color" data-title="{$smarty.const.TEXT_SHOPING_CART_CONFIRM_EMPTY_INVALID_ITEMS|addslashes}">{$smarty.const.TEXT_CART_EMPTY_INVALID_ITEMS}</a>
+				<div class="clearfix"></div>
+				<div class="invalid_items_fen_ye">{$invalid_items_fen_ye}</div>
+			</div>
+		</div>
+		{/if}
+		<div class="bottom_total">
+			<h3>{$smarty.const.TEXT_ORDER_SUMMARY}</h3>
+			<table>
+				<tr>
+					<th>{$smarty.const.TEXT_CART_ORIGINAL_PRICES}: </th>
+					<td class="total_pice price_color">  <span class="total_amount_original">{$original_prices}</span></td>
+				</tr>
+				{if $discounts > 0}
+				<tr>
+					<th class="discount_title">{$smarty.const.TEXT_CART_DISCOUNT}: </th>
+					<td class="total_pice price_color"><span class="discount_content"> -{$discounts_format}</span>
+						<span class="image_down_arrow"></span>
+				        <span class="image_up_arrow" style="display:none;"></span>
+					</td>
+				</tr>
+				{/if}
+				<tr>
+					<td colspan="2">
+						<table cellpadding="0" cellspacing="0" border="0" class="price_sub" style="display:none;">
+							<tr>
+								<th class="promotion_discount_full_set_minus_title">{$promotion_discount_full_set_minus_title}</th>
+								<td class="promotion_discount_full_set_minus_content total_pice price_color">{$promotion_discount_full_set_minus_content}</td>
+							</tr>
+							{if $promotion_discount_usd > 0}
+							<tr>
+								<th>{$smarty.const.TEXT_PROMOTION_SAVE}: </th>
+								<td class="promotion_discount_content total_pice price_color">- {$promotion_discount}</td>
+							</tr>
+							{/if}
+							{if $smarty.session.customer_id neq '' and $cVipInfo.amount > 0}
+							<tr>
+								<th class="vip_title">{$smarty.const.TEXT_CART_VIP_DISCOUNT}: </th>
+								<td class="total_pice price_color vip_content">{$vip_content}</td>
+							</tr>
+							{else}
+							<tr>
+								<th class="vip_title" style="display:none;">{$smarty.const.TEXT_CART_VIP_DISCOUNT}: </th>
+								<td class="total_pice price_color vip_content" style="display:none;">{$vip_content}</td>
+							</tr>
+							{/if}
+							{if $smarty.session.customer_id neq '' and $rcd_discount > 0}
+							<tr>
+								<th class="rcd_title">RCD(<span class="vipoff">3% {$smarty.const.TEXT_DISCOUNT_OFF_SHOW}</span>): </th>
+								<td class="total_pice price_color rcd_contents">- {$show_current_discount}</td>
+							</tr>
+							{else}
+							<tr>
+								<th class="rcd_title" style="display:none;">RCD(<span class="vipoff">3%</span>): </th>
+								<td class="total_pice price_color rcd_content" style="display:none;">- {$show_current_discount}</td>
+							</tr>
+							{/if}
+							{if $smarty.session.customer_id neq '' and $prom_discount > 0}
+							<tr>
+								<th class="promotion_title">{$prom_discount_title}: </th>
+								<td class="promotion_discount total_pice price_color">-
+									<span>{$prom_discount_format}</span></td>
+							</tr>
+							{else}
+							<tr>
+								<th class="promotion_title" style="display:none;">{$prom_discount_title}:</th>
+								<td class="promotion_discount total_pice price_color" style="display:none;">-
+									<span>{$prom_discount_format}</span></td>
+							</tr>
+							{/if}
+						</table>
+				    </td>
+			    </tr>
+				{if $promotion_discount_usd > 0}
+				<tr>
+					<td colspan="2" class="grey_9 cal_total_amount_convert">({$cart_save_price_note})</td>
+				</tr>
+				{/if}
+                                {if $special_discount_content >0 }
+				<tr>
+					<th class="special_discount_title">{$special_discount_title}</th>
+					<td class="special_discount_content total_pice price_color">{$special_discount_content}</td>
+				</tr>
+                                {/if}    
+				<!-- {if $smarty.session.customer_id neq '' and $cVipInfo.amount > 0}
+				<tr>
+					<th class="vip_title">{$smarty.const.TEXT_CART_VIP_DISCOUNT}: </th>
+					<td class="total_pice price_color vip_content">{$vip_content}</td>
+				</tr>
+				{else}
+				<tr>
+					<th class="vip_title" style="display:none;">{$smarty.const.TEXT_CART_VIP_DISCOUNT}: </th>
+					<td class="total_pice price_color vip_content" style="display:none;">{$vip_content}</td>
+				</tr>
+				{/if} -->
+				<!-- {if $smarty.session.customer_id neq '' and $rcd_discount > 0}
+				<tr>
+					<th class="rcd_title">RCD(<span class="vipoff">3% {$smarty.const.TEXT_DISCOUNT_OFF_SHOW}</span>): </th>
+					<td class="total_pice price_color rcd_content">(-) {$show_current_discount}</td>
+				</tr>
+				{else}
+				<tr>
+					<th class="rcd_title" style="display:none;">RCD(<span class="vipoff">3%</span>): </th>
+					<td class="total_pice price_color rcd_content" style="display:none;">(-) {$show_current_discount}</td>
+				</tr>
+				{/if} -->
+				{if $is_handing_fee < 0}
+				    <th class="handing_fee_titles">{$smarty.const.TEXT_HANDING_FEE_WORDS}:</th>
+				    <td class="handing_fee_contents total_pice price_color">{$handing_fee}</td>
+				{/if}
+				<tr>
+					<th class="shipping_title">{$smarty.const.TEXT_SHIPPING_FEE_WORDS}:</th>
+					<td class="shipping_content total_pice price_color">{$shipping_content}</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="grey_9">({$smarty.const.TEXT_SHIPPING_FEE_CHANGE_METHOD_TIPS})</td>
+				</tr>
+				<tr>
+					<th>{$smarty.const.TEXT_CART_WORD_TOTAL1}:</th>
+					<td class=" total_pice price_color"> <span class="total_amount">{$total_all}</span></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- {if $cart_products_down_errors != ''}
+        <div class="removealltips">
+        {$cart_products_down_errors}
+        </div>
+        {/if} -->
+
+		<!-- <div class="checkdiscount">
+            <dl><dt>{$smarty.const.TEXT_CART_TOTAL_PRODUCT_PRICE}: </dt><dd>(+) {$currency_symbol_left} <span class="total_amount_original">{$total_amount_convert}</span><ins class="pricetipsicon opentips"></ins></dd></dl>
+            <div class="pricetipscont "><span class="bot"></span><span class="top"></span>{$smarty.const.TEXT_CART_TOTAL_PRODUCT_PRICE} = {$smarty.const.TEXT_CART_ORIGINAL_PRICE}-{$smarty.const.TEXT_CART_PRODUCT_DISCOUNT}<br><b class="cal_total_amount_convert">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$currency_symbol_left} {$total_amount_convert} = {$currency_symbol_left} {$total_amount_original} - {$currency_symbol_left} {$promotion_discount}</b></div>
+
+            <dt class="special_discount_title">{$special_discount_title}</dt>
+            <dd class="special_discount_content">{$special_discount_content}</dd>
+            <dt class="promotion_discount_full_set_minus_title"></dt>
+                <dd class="promotion_discount_full_set_minus_content"></dd>
+            {if $smarty.session.customer_id neq '' and $cVipInfo.amount > 0}
+            <dl>
+                <dt class="vip_title"><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=65" class="vip">{$smarty.const.TEXT_CART_VIP_DISCOUNT}: </a></dt>
+                <dd class="vip_content">{$vip_content}</dd>
+            </dl>
+            {else}
+            <dl>
+                <dt class="vip_title" style="display:none;"><a href="http://www.doreenbeads.com/index.php?main_page=help_center&id=65"  class="vip">{$smarty.const.TEXT_CART_VIP_DISCOUNT}:</a></dt>
+                <dd class="vip_content" style="display:none;">{$vip_content}</dd>
+            </dl>
+            {/if}
+
+            {if $smarty.session.customer_id neq '' and $prom_discount > 0}
+            <dl>
+                <dt class="promotion_title"><a class="vip">{$prom_discount_title}: </a></dt>
+                <dd class="promotion_discount">(-) {$currency_symbol_left}
+                        <span>{$prom_discount}</span></dd>
+            </dl>
+            {else}
+            <dl>
+                <dt class="promotion_title" style="display:none;"><a class="vip">{$prom_discount_title}: </a></dt>
+                <dd class="promotion_discount" style="display:none;">(-) {$currency_symbol_left}
+                        <span>{$prom_discount}</span></dd>
+            </dl>
+            {/if}
+
+            Tianwen.Wan->closed20151116_17
+            <dl>
+                <dt><a href="{$shoppingcart_default_url}&pn=sc{if $page > 1}&page={$page}{/if}" class="estShippingCost">{$smarty.const.TEXT_CART_SHIPPING_COST}: </a></dt>
+                <dd class="shipping_content">{$shipping_content}</dd>
+            </dl>
+            <p class="shippingMethodDd">{if $smarty.cookies.shipping_method_selected neq ''}{$smarty.cookies.shipping_method_selected}{else}{$shipping_method_by}{/if}</p>
+            <br/>
+            <br/>
+            <br/>
+        </div> -->
+
+		<!-- <div class="checktotal">
+            <p><strong>{$smarty.const.TEXT_CART_WORD_TOTAL1}: <span>{$currency_symbol_left}</span> <span class="total_amount">{$total_all}</span></strong>
+            <a href="{$checkout_default_url}" class="checkbtn-cart">{$smarty.const.TEXT_CART_CHECKOUT}</a></p>
+        </div> -->
+		<table class="mobileDrawer" cellpadding="0" cellspacing="0">
+			<tr>
+				<th>{$smarty.const.TEXT_CART_WORD_TOTAL1}:  <span class="total_amount">{$total_all}</span></th>
+				<td><a href="javascript:void(0);" class="jq_checkbtn" data-url="{$checkout_default_url}">{$smarty.const.TEXT_CART_CHECKOUT}</a></td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="addsuccess-tip float-show" style="display:none;"></div>
+	<!-- <div class="deletetips float-show">
+        <div>
+            <p>{$smarty.const.TEXT_CART_JS_REMOVE_ITEM}</p>
+            <p><a href="javascript:void(0)" class="okbtn">{$smarty.const.TEXT_OK}</a><a href="javascript:void(0)" class="cancelbtn">{$smarty.const.TEXT_CANCEL}</a><input type="hidden" id="delete-pid"></p>
+        </div>
+    </div> -->
+	<!--购物车删除弹框开始-->
+	<div class="shopping_cart_bomb jq_shopping_cart_delete" >
+		<div class="popup_cart_de">
+			<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+			<div class="popup_cart_remove">
+				<p>{$smarty.const.TEXT_CART_JS_REMOVE_ITEM}</p>
+				<a class="btn_orange jq_del_one_okbtn">{$smarty.const.TEXT_YES}</a>
+				<a class="btn_grey jq_cancelbtn">{$smarty.const.TEXT_NO}</a>
+			</div>
+			<input type="hidden" id="delete-pid">
+		</div>
+	</div>
+	<!--购物车删除弹框结束-->
+	<!--购物车删除弹框开始-->
+	<div class="shopping_cart_bomb jq_shopping_cart_delete_all" >
+		<div class="popup_cart_de">
+			<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+			<div class="popup_cart_remove">
+				<p>{$smarty.const.TEXT_CART_JS_MOVE_ALL}</p>
+				<a class="btn_orange jq_del_all_okbtn">{$smarty.const.TEXT_YES}</a>
+				<a class="btn_grey jq_cancelbtn">{$smarty.const.TEXT_NO}</a>
+			</div>
+			<input type="hidden" id="delete-pid">
+		</div>
+	</div>
+	<!--购物车删除弹框结束-->
+	<!--购物车add to wishlist弹框开始-->
+	<div class="shopping_cart_bomb jq_shopping_cart_addwishlist" >
+		<div class="popup_cart_de">
+			<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+			<div class="popup_cart_addwishlist">
+				<p>{$smarty.const.TEXT_CART_ADD_WISHLIST_SUCCESS}</p>
+				<a href="index.php?main_page=wishlist" class="btn_orange a_ru">{$smarty.const.TEXT_CART_VIEW_WISHLIST}</a>
+			</div>
+		</div>
+	</div>
+	<!--购物车add to wishlist弹框结束-->
+	<!--购物车add all to wishlist弹框开始-->
+	<div class="shopping_cart_bomb jq_shopping_cart_add_all_wishlist" >
+		<div class="popup_cart_de">
+			<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+			<div class="popup_cart_remove">
+				<p>{$smarty.const.TEXT_CART_JS_MOVE_ALL}</p>
+				<a class="btn_orange jq_add_wishlist_okbtn">{$smarty.const.TEXT_YES}</a>
+				<a class="btn_grey jq_cancelbtn">{$smarty.const.TEXT_NO}</a>
+			</div>
+		</div>
+	</div>
+	<!--购物车add all to wishlist弹框结束-->
+	<!--购物车移除无效商品弹框开始-->
+	<div class="shopping_cart_bomb jq_shopping_cart_invaild_all" >
+		<div class="popup_cart_de">
+			<a class="close_White jq_cancelbtn" href="javascript:void(0)"></a>
+			<div class="popup_cart_remove">
+				<p>{$smarty.const.TEXT_CART_JS_MOVE_ALL}</p>
+				<a class="btn_orange jq_invaild_all_okbtn">{$smarty.const.TEXT_YES}</a>
+				<a class="btn_grey jq_cancelbtn">{$smarty.const.TEXT_NO}</a>
+			</div>
+			<input type="hidden" id="delete-pid">
+		</div>
+	</div>
+	<!--购物车移除无效商品弹框结束-->
+</div>

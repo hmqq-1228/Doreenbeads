@@ -1,0 +1,34 @@
+<div class="order_main">
+    <div class="coupon_add">
+        <div class="coupon_note">
+            <p>{$smarty.const.TEXT_HEADER}<b>{$credit_account_code}{$credit_account_total}</b>.</p>
+            <p>-{$smarty.const.TEXT_YOUR_BALANCE_WILL}</p>
+            <p>-{$smarty.const.TEXT_BALANCE_ONLY_BE_USED}</p>
+        </div>
+        {if $credit_detail_array|count eq 0}
+        <div><p class="no_records">{$smarty.const.TEXT_NO_RECORD}</p></div>
+        {else}
+            {foreach from=$credit_detail_array  key=key  item=value}
+            <table>
+                <tr>
+                    <th>{$smarty.const.TEXT_CREDIT_DATE}</th>
+                    <td>{$value.cac_create_date}</td>
+                </tr>
+                <tr>
+                    <th>{$smarty.const.TEXT_INCOME_AMOUNT}</th>
+                    <td>{if $value.cac_amount>=0} +{$value.cac_currency_code} {$value.cac_amount_abs}{else}/{/if}</td>
+                </tr>
+                <tr>
+                    <th>{$smarty.const.TEXT_CONSUMPTION_AMOUNT}</th>
+                    <td>{if $value.cac_amount>=0}/{else}-{$value.cac_currency_code} {$value.cac_amount_abs}{/if}</td>
+                </tr>
+                <tr>
+                    <th>{$smarty.const.TEXT_MEMO}</th>
+                    <td>{$value.cac_memo}</td>
+                </tr>
+            </table>
+            {/foreach}
+            <div class="page">{$fenye}</a></div>
+        {/if}
+    </div>
+</div>

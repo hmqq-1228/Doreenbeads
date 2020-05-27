@@ -1,0 +1,6 @@
+{if $show_index}
+	{$area_index}
+{/if}
+{if $show_list}
+	{include file = $tpl}
+{/if}

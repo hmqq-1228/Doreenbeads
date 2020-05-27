@@ -1,0 +1,263 @@
+<?php
+/**
+ * application_top.php Common actions carried out at the start of each page invocation.
+ *
+ * Initializes common classes & methods. Controlled by an array which describes
+ * the elements to be initialised and the order in which that happens.
+ * see {@link  http://www.zen-cart.com/wiki/index.php/Developers_API_Tutorials#InitSystem wikitutorials} for more details.
+ *
+ * @package initSystem
+ * @copyright Copyright 2003-2009 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: application_top.php 14753 2009-11-07 19:58:13Z drbyte $
+ */
+/**
+ * boolean used to see if we are in the admin script, obviously set to false here.
+ */
+define('IS_ADMIN_FLAG', false);
+/**
+ * integer saves the time at which the script started.
+ */
+define('PAGE_PARSE_START_TIME', microtime());
+//  define('DISPLAY_PAGE_PARSE_TIME', 'true');
+@ini_set("arg_separator.output","&");
+/**
+ * Set the local configuration parameters - mainly for developers
+ */
+if (file_exists('includes/local/configure.php')) {
+  /**
+   * load any local(user created) configure file.
+   */
+  include('includes/local/configure.php');
+}
+/**
+ * boolean if true the autoloader scripts will be parsed and their output shown. For debugging purposes only.
+ */
+define('DEBUG_AUTOLOAD', false);
+/**
+ * set the level of error reporting
+ *
+ * Note STRICT_ERROR_REPORTING should never be set to true on a production site. <br />
+ * It is mainly there to show php warnings during testing/bug fixing phases.<br />
+ * note for strict error reporting we also turn on show_errors as this may be disabled<br />
+ * in php.ini. Otherwise we respect the php.ini setting
+ *
+ */
+if (defined('STRICT_ERROR_REPORTING') && STRICT_ERROR_REPORTING == true) {
+  @ini_set('display_errors', TRUE);
+  error_reporting(version_compare(PHP_VERSION, 5.3, '>=') ? E_ALL & ~E_DEPRECATED & ~E_NOTICE : E_ALL & ~E_NOTICE);
+} else {
+  error_reporting(0);
+}
+//@ini_set('display_errors', TRUE);
+//error_reporting(E_ALL);
+
+/*$user_current_agent = $_SERVER['HTTP_USER_AGENT'];
+$ls_host_ip = @gethostbyaddr($_SERVER['REMOTE_ADDR']);
+if (stristr($user_current_agent, 'CIBA') || stristr($user_current_agent, 'Baiduspider') ||stristr($user_current_agent, 'Sogou')|| stristr($user_current_agent, 'Sosospider+') || stristr($ls_host_ip, 'reliablehosting.com')
+	|| stristr($ls_host_ip, '114.80.93.50') || stristr($ls_host_ip, '112.201.224.0')|| stristr($ls_host_ip, '114.80.93.56')|| stristr($ls_host_ip, '114.80.93.53')){
+	die();
+}
+ */
+/*
+ * turn off magic-quotes support, for both runtime and sybase, as both will cause problems if enabled
+ */
+if (function_exists('set_magic_quotes_runtime')) set_magic_quotes_runtime(0);
+if (@ini_get('magic_quotes_sybase') != 0) @ini_set('magic_quotes_sybase', 0);
+/**
+ * check for and include load application parameters
+ */
+
+include ('includes/browser_agent.php');
+
+$www_or_m = "www";
+$www_or_m = strtolower(str_replace(strstr($_SERVER['HTTP_HOST'], '.'), '', $_SERVER['HTTP_HOST']));
+if($www_or_m == 'm'){
+	$is_mobilesite = true;
+	include ('includes/configure_mobilesite.php');
+}else{
+	$is_mobilesite = false;
+	include ('includes/configure.php');
+}
+
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+if($user_agent != "Site24x7") {
+	include('includes/classes/check_ip_address.php');
+	$checkIpAddress = new checkIpAddress;
+//	$check_result = $checkIpAddress->check_ip();
+    $checkIpAddress->get_country_code();
+}
+//else {
+	$check_result = true;
+//}
+	
+if($check_result==true){
+	
+	if($user_agent != "Site24x7") {//从www.site24x7.com过来的访问不进行如下判断
+		if($is_mobilesite == false && (intval($_GET['ifpc']) <= 0 && intval($_COOKIE['zen_ifpc']) <= 0)) {
+			
+			$user_agent_char = "/(blackberry|configuration\/cldc|hp |hp-|htc |htc_|htc-|iemobile|kindle|midp|mmp|motorola|mobile|nokia|opera mini|opera |Googlebot-Mobile|YahooSeeker\/M1A1-R2D2|android|iphone|ipod|mobi|palm|palmos|pocket|portalmmm|ppc;|smartphone|sonyericsson|sqh|spv|symbian|treo|up.browser|up.link|vodafone|windows ce|xda |xda_)/i";
+			//Android Tablet:Mozilla/5.0 (Linux; Android 4.4.4; Lenovo TAB 2 A10-70L Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.132 Safari/537.36
+			$user_agent_char_pad = "/(ipad;|php-soap| tab )/i";
+			if(preg_match($user_agent_char, $user_agent) && !preg_match($user_agent_char_pad, $user_agent)){
+				$relate_url = $_SERVER['REQUEST_URI']; //like :/index.php?main_page=promotion_deals&aId=3
+				$main_page_info = preg_replace('/.*main_page=([^&\W]+).*/i','${1}',$relate_url);//get main_page params like : promotion_deals
+				if ($main_page_info && in_array($main_page_info, array('mixed'))) {
+					$relate_url = preg_replace('/main_page=([^&\W]+)/i','main_page=products_common_list&pn=${1}',$relate_url);//replace to right page url not same url as pc
+				}
+				header("Location: " . HTTP_MOBILESITE_SERVER . $relate_url);
+				exit;
+			}
+		}
+		
+		include(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'configure_forbidden_request.php');
+	
+		//Tianwen.Wan20160525->cloudflare.com ps:paypal等支付方式或kount回调post信息过来时或使用服务器上的lynx浏览器或wget去调用定时任务时不进行跳转
+		if(empty($_POST) && empty($HTTP_RAW_POST_DATA) && strstr(strtolower($user_agent), "lynx") == "" && strstr(strtolower($user_agent), "wget/") == "") {
+			if (ENABLE_SSL && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'http') {
+				header("HTTP/1.1 302 Object Moved");
+				header('Location:https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+				exit;
+			}
+			if (!ENABLE_SSL && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+				header("HTTP/1.1 302 Object Moved");
+				header('Location:http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+				exit;
+			}
+		}
+		
+		//Tianwen.Wan20160617->静态首页
+		$str_url = substr (HTTP_SERVER . $_SERVER ['REQUEST_URI'], strlen ( HTTP_SERVER ) );//参考init_languages.php里的写法
+		$language_array = explode ( "/", $str_url );
+		$domain_language = $language_array[1];
+		
+		if(empty($domain_language)) {
+			$domain_language = "www";
+		}
+		
+		if($_SERVER['PHP_SELF'] == "/index.php" && $_GET['generate_index'] != "true" && empty($_POST) && empty($_GET['currency']) && ($_GET['main_page'] == "index" || empty($_GET['main_page'])) && empty($_GET['cPath']) && !empty($domain_language) && is_file("index_" . $www_or_m . "_" . $domain_language . ".html")) {
+		    $index_content = file_get_contents("index_" . $www_or_m . "_" . $domain_language . ".html");
+			if(!empty($index_content)) {
+				echo $index_content;
+				exit;
+			}
+		}
+	} else {
+		$index_content = file_get_contents("index_" . $www_or_m . "_www.html");
+		if(!empty($index_content)) {
+			echo $index_content;
+			exit;
+		}
+	}
+	
+}else{
+	//	header to 404
+	header("Location: http://" . $_SERVER['HTTP_HOST'] . "/404.html");exit;
+}
+/*
+if(ENABLE_SSL=='true' && (in_array($_GET ['main_page'],$ssl_array) || in_array(substr($_SERVER["PHP_SELF"],1),$php_self_array))){
+        if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']!='on'){
+                header("HTTP/1.1 302 Object Moved");
+                header('Location:https://'.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"])  ;
+        }
+}else{
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on'){
+				if(!in_array(substr($_SERVER["PHP_SELF"],1),$php_multi_array)){
+                header("HTTP/1.1 302 Object Moved");
+                header('Location:http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+				}
+        }
+}
+*/
+
+include(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'smarty_config.php');
+include(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'solrconfig.php');
+require(DIR_FS_CATALOG . 'solrclient/Apache/Solr/Service.php');
+$memcache = new Memcache();
+$memcache->addServer(MEMCACHE_HOST, MEMCACHE_PORT);
+/**
+ * if main configure file doesn't contain valid info (ie: is dummy or doesn't match filestructure, display assistance page to suggest running the installer)
+ */
+if (!defined('DIR_FS_CATALOG') || !is_dir(DIR_FS_CATALOG.'/includes/classes')) {
+  require('includes/templates/template_default/templates/tpl_zc_install_suggested_default.php');
+  exit;
+}
+/**
+ * include the list of extra configure files
+ */
+if ($za_dir = @dir(DIR_WS_INCLUDES . 'extra_configures')) {
+  while ($zv_file = $za_dir->read()) {
+    if (preg_match('/\.php$/', $zv_file) > 0) {
+      /**
+       * load any user/contribution specific configuration files.
+       */
+      include(DIR_WS_INCLUDES . 'extra_configures/' . $zv_file);
+    }
+  }
+  $za_dir->close();
+}
+$autoLoadConfig = array();
+if (isset($loaderPrefix)) {
+ $loaderPrefix = preg_replace('/[a-z_]^/', '', $loaderPrefix);
+} else {
+  $loaderPrefix = 'config';
+}
+$loader_file = $loaderPrefix . '.core.php';
+require('includes/initsystem.php');
+/**
+ * determine install status
+ */
+if (( (!file_exists('includes/configure.php') && !file_exists('includes/local/configure.php')) ) || (DB_TYPE == '') || (!file_exists('includes/classes/db/' .DB_TYPE . '/query_factory.php')) || !file_exists('includes/autoload_func.php')) {
+  require('includes/templates/template_default/templates/tpl_zc_install_suggested_default.php');
+  header('location: zc_install/index.php');
+  exit;
+}
+/**
+ * load the autoloader interpreter code.
+*/
+require('includes/ppwpp_config.php');
+require('includes/autoload_func.php');
+
+//if (! empty ( $agent ['device_type'] ) && !$_SESSION['VIEW_IN_PC'] && $_SERVER['HTTP_HOST'] != 'm.' . BASE_SITE) {
+//   //if not pc then redirect to the mobile page
+//   $relate_url = $_SERVER['REQUEST_URI']; //like :/index.php?main_page=promotion_deals&aId=3
+//   $main_page_info = preg_replace('/.*main_page=([^&\W]+).*/i','${1}',$relate_url);//get main_page params like : promotion_deals
+//   if ($main_page_info && in_array($main_page_info, array('promotion','promotion_deals','promotion_price','mixed'))) {
+//      $relate_url = preg_replace('/main_page=([^&\W]+)/i','main_page=products_common_list&pn=${1}',$relate_url);//replace to right page url not same url as pc
+//   }
+//
+//   header('Location: http://m.' . BASE_SITE . $relate_url );
+//   exit;
+//}
+
+/**
+ * load the counter code
+**/
+// counter and counter history
+// require(DIR_WS_INCLUDES . 'counter.php');
+
+// get customers unique IP that paypal does not touch
+$customers_ip_address = $_SERVER['REMOTE_ADDR'];
+if (!isset($_SESSION['customers_ip_address'])) {
+  $_SESSION['customers_ip_address'] = $customers_ip_address;
+}
+$customers_ip_address = $_SERVER['REMOTE_ADDR'];
+if (!isset($_SESSION['customers_ip_address'])) {
+  $_SESSION['customers_ip_address'] = $customers_ip_address;
+}
+
+$customers_id = $_SESSION['customer_id'];
+$customers_name = $_SESSION['customer_first_name'];
+$current_page = "http:// ".$_SERVER[ 'HTTP_HOST'].$_SERVER[ 'REQUEST_URI'];
+if ($is_mobilesite) {
+	$language_page_directory = DIR_WS_LANGUAGES . $template_dir . '/' . $_SESSION['language'] . '/';
+}else{
+	$language_page_directory = DIR_WS_LANGUAGES . $_SESSION['language'] . '/';
+}
+
+$facebook = new Facebook\Facebook([
+	'app_id' => FACEBOOK_CONF_APPID,
+	'app_secret' => FACEBOOK_CONF_SECRET,
+	'default_graph_version' => 'v2.2'
+]);

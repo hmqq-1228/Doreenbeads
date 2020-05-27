@@ -1,0 +1,1 @@
+<div id="mid_promotion_div"><a href="https://www.facebook.com/8season/app_305927716147259" target="_blank"><img width="660px" border="1px" alt="" style="border:#ffcac4 1px solid;" src="http://www.8seasons.com/images/blog/facebook0105.jpg" /></a></div>

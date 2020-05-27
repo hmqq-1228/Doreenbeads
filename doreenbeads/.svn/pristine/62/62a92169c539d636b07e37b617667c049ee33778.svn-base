@@ -1,0 +1,26 @@
+<div class="detailproduct-btn">
+	<a href="javascript:history.back();" class="back-btn">{$smarty.const.TEXT_BACK}</a>
+</div>
+<div class="txt-wap">
+	<h4>{$smarty.const.TEXT_ABOUT_US}</h4>
+		<p>{$smarty.const.TEXT_PANDUO_HISTORY}</p>
+		<p>{$smarty.const.TEXT_TIME_FILES}</p>
+</div>
+<!-- <div class="txt-wap-bdnone">
+	<p>
+		<strong>{$smarty.const.TEXT_HEADQUATER}</strong><br>{$smarty.const.TEXT_ADDRESS}
+	</p>
+	<p>
+		<strong>{$smarty.const.TEXT_NORTH_AMERICA}</strong><br>{$smarty.const.THE_AMERICAN_ADDRESS}
+	</p>
+	<p>
+		<strong>{$smarty.const.TEXT_EUROPE}</strong><br>{$smarty.const.THE_EUROPE_ADDRESS}
+	</p>
+</div> -->
+<a href="http://www.doreenbeads.com/index.php?main_page=who_we_are&id=163&ifpc=1" class="img_team"></a>
+<a href="http://www.doreenbeads.com/index.php?main_page=who_we_are&id=164&ifpc=1" class="img_quality"></a>
+<a href="{$link_testimonial}" class="img_feedback"></a>
+<a href="{$link_help_center}" class="img_help"></a>
+<a href="http://www.doreenbeads.com/index.php?main_page=who_we_are&id=165&ifpc=1" class="img_shipping"></a>
+<a href="{$link_contact_us}" class="img_contact"></a>
+<div class="clearfix"></div>

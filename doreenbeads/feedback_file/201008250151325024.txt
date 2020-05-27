@@ -1,0 +1,33 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.8.1
+-- http://www.phpmyadmin.net
+--
+-- 主机: localhost
+-- 生成日期: 2010 年 08 月 25 日 05:39
+-- 服务器版本: 5.0.77
+-- PHP 版本: 5.2.9-2
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- 数据库: `pandora`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_customer_feedback`
+--
+
+CREATE TABLE IF NOT EXISTS `t_customer_feedback` (
+  `feedback_id` int(11) NOT NULL auto_increment,
+  `feedback_main_type` varchar(50) character set latin1 NOT NULL,
+  `feedback_detail_type` varchar(100) character set latin1 NOT NULL,
+  `feedback_comment` text NOT NULL,
+  `feedback_attach` varchar(512) default NULL,
+  `customer_id` int(11) default '0',
+  `customer_name` varchar(50) character set latin1 default NULL,
+  `customer_email` varchar(50) character set latin1 default NULL,
+  `feedback_date_added` datetime NOT NULL,
+  PRIMARY KEY  (`feedback_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=62 ;

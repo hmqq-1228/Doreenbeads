@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+.current_nav{ height:22px; font-size:13px; color:#444;}
+.current_nav span{ color:#a766ad}
+.current_nav a{ color:#444;}
+
+.couponwrap{width:766px;background:#fafafa url(../images/couponbg.jpg);}
+.couponwrap p{font-size:14px;font-family:Book Antiqua;text-align:center;font-weight:bold;font-style:italic;}
+.couponwrap p span{font-style:normal;color:#ec4383;font-family:Arial, Helvetica, sans-serif;font-size:12px;font-weight:normal;}
+.couponwrap .redbtn-one{display:inline-block;background:url(../images/couponred-one.png);width:203px;height:68px;margin-right:20px;}
+.couponwrap .redbtn-one.grey{background:url(../images/couponbtn-one.png);}
+.couponwrap .redbtn-two{display:inline-block;background:url(../images/couponred-two.png);width:203px;height:68px;margin-right:20px;}
+.couponwrap .redbtn-two.grey{background:url(../images/couponbtn-two.png);}
+.couponwrap .redbtn-three.grey{background:url(../images/couponbtn-three.png);}
+.couponwrap .redbtn-three{display:inline-block;background:url(../images/couponred-three.png);width:203px;height:68px;}
+.couponwrap .redbtn{width:766px;margin:0 auto;text-align:center;margin-top:20px;}
+.coupon-noticetext{font-family:"Times New Roman", Times, serif;font-size:16px;margin-top:20px;}
+.coupon-noticetext p{line-height:18px;text-align:left;font-style:normal;font-weight:normal;}
+.coupon-noticetext dl{height:auto;overflow:hidden;padding-bottom:40px;}
+.coupon-noticetext dl dd{float:left;width:80px;}
+.coupon-noticetext dl dt{float:left;width:680px;}
+.coupon-noticetext dl dt ul li{list-style-type:decimal;margin-top:2px;}

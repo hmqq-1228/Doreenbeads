@@ -1,0 +1,75 @@
+<style>
+.affiliate-program {
+	margin-top: 20px;
+}
+.affiliate-program table{
+ border: 1px solid #e8e8e8;
+ border-collapse: collapse;
+ margin-bottom: 15px;
+	width: 100%;
+	max-width: 640px;
+
+}
+
+.affiliate-program th{
+background: #f7f7f7;
+border-bottom: 1px solid #e8e8e8;
+height: 27px;
+font-size: 13px;
+color: #010101;	
+}
+.affiliate-program td{
+text-align: center;
+border-bottom: 1px solid #e8e8e8;
+padding: 20px 0;
+vertical-align: top;
+font-size: 13px;
+color: #444;	
+}
+.affiliate-bt{
+	width: 100%;
+max-width: 640px;
+position: fixed;
+z-index: 999;
+bottom: 0;
+color: #FFF;
+}
+.affiliate-bt a{
+	display: inline-block;
+	background-color: #f7f7f7;
+	width:50%;
+	line-height: 40px;
+	float: left;
+	color: #333;
+	text-align: center;
+	font-size: 17px;
+}
+.affiliate-bt .affiliate-bt-on{
+	background-color: #bc66d8;
+	color: #fff;
+}
+</style>
+<script src="includes/templates/mobilesite/jscript/my_commission.js">
+</script>
+
+	<div class="affiliate-program"><table>
+			<tr>
+				<th width="20%">{$smarty.const.TEXT_NAME}</th>
+				<th width="30%">{$smarty.const.IN_ORDER_TOTAL}</th>
+				<th width="30%">{$smarty.const.RETURN_COMMISSION}</th>
+				<th width="20%">{$smarty.const.STATUS}</th>
+		
+			</tr>
+			{foreach $commission_method as $method => $val}	
+			<tr>
+				<td>{$val.name|mb_substr:0:7}...</td>
+				<td>{$val.in_orders_total}</td>
+				<td>{$val.return_commission_total}</td>
+				<td>{$val.commission_status}</td>
+			</tr>
+			{/foreach}
+
+		</table>
+	<div class="page">{$message.account_text_result_page}</div>
+</div>
+			

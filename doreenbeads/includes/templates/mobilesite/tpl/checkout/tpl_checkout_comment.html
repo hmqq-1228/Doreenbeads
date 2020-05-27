@@ -1,0 +1,36 @@
+<div class="order-review">
+	<div class="coupon_no_use" coupon_id="0">
+		<span class="nocouponContent">
+			<span class="nocouponDesc">{$smarty.const.TEXT_DONT_USE_COUPON}</span>
+		</span>
+	</div>
+	{if $coupon_select|count > 0}
+		{foreach from=$coupon_select key="mykey" item="coupon_info"}
+			{if $smarty.session.coupon_id != $coupon_info.coupon_id}
+				<div class="couponAva couponOption" coupon_id="{$coupon_info.coupon_to_customer_id}">
+					<span class="couponContent">
+						<span class="couponDesc">{$coupon_info.coupon_description}</span>
+						<span class="couponDate" align="center">{$coupon_info.coupon_start_time_format} - {$coupon_info.deadlineformat}</span>
+					</span>
+				</div>
+			{else}
+				<div class="couponSel couponOption" coupon_id="{$coupon_info.coupon_to_customer_id}">
+					<span class="couponContent">
+						<span class="couponDesc">{$coupon_info.coupon_description}</span>
+						<span class="couponDate" align="center">{$coupon_info.coupon_start_time_format} - {$coupon_info.deadlineformat}</span>
+					</span>
+				</div>
+			{/if}
+		{/foreach}
+	{/if}
+	{if $coupon_unselect|count > 0}
+		{foreach from=$coupon_unselect key="mykey" item="coupon_info"}
+			<div class="couponUnava" coupon_id="{$coupon_info.coupon_to_customer_id}">
+				<span class="couponContent">
+					<span class="couponDesc">{$coupon_info.coupon_description}</span>
+					<span class="couponDate" align="center">{$coupon_info.coupon_start_time_format} - {$coupon_info.deadlineformat}</span>
+				</span>
+			</div>
+		{/foreach}
+	{/if}
+</div>

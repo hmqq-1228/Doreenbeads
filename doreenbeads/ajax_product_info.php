@@ -1,0 +1,129 @@
+<?php
+require ('includes/application_top.php');
+$action = isset ( $_POST ['action'] ) && $_POST ['action'] != '' ? $_POST ['action'] : '';
+switch ($action) {
+	case 'pq' :
+		$product_id = zen_db_prepare_input ( $_POST ['pid'] );
+        $customers_firstname = zen_db_prepare_input ( $_POST ['fname'] );
+        $customers_lastname = zen_db_prepare_input ( $_POST ['lname'] );
+        $customers_email = zen_db_prepare_input ( $_POST ['email'] );
+        $customers_question = zen_db_prepare_input ( $_POST ['question'] );
+        $question_topic = zen_db_prepare_input ( $_POST ['topic'] );
+        $customer_name = $customers_firstname . ' ' . $customers_lastname;
+        $return_arr = array('error' => false, 'error_info' => '', 'add_auth_code' => false , 'add_content' => '');
+		$wrong_str = "parameter wrong or missing!";
+        if (! zen_not_null ( $product_id ) || ! is_numeric ( $product_id )) {
+            $return_arr['error'] = true;
+            $return_arr['error_info'] = $wrong_str;
+        }
+        if(!$return_arr['error']) {
+            if(!$return_arr['error']) {
+                $product_sql = "select p.products_model,p.products_image,pd.products_name from t_products p,t_products_description pd
+                    where p.products_id = " . $product_id . "
+                    and pd.language_id = " . $_SESSION ['languages_id'] . "
+                    and p.products_id = pd.products_id";
+                $products_info = $db->Execute($product_sql);
+                if ($products_info->RecordCount() == 0) {
+                    $return_arr['error'] = true;
+                    $return_arr['error_info'] = $wrong_str;
+                }
+                if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] != '') {
+                    $customer_info = zen_get_customer_info($_SESSION['customer_id']);
+                    $customers_loginname = $customer_info['name'];
+                }
+                $products_image = $products_info->fields ['products_image'];
+                $products_model = $products_info->fields ['products_model'];
+                $products_name = $products_info->fields ['products_name'];
+                $str_product = '<div style="font-weight:bold;">
+                        <div style="float:left;margin:0 25px 25px 0;"><a href="' . zen_href_link('product_info', 'products_id=' . $product_id) . '"><img src="' . HTTP_IMG_SERVER . 'bmz_cache/' . get_img_size($products_image, 130, 130) . '"/></a></div>
+                        <div ><a href="' . zen_href_link('product_info', 'products_id=' . $product_id) . '">' . $products_name . '</a></div><br /><br />
+                        <div> ' . TEXT_PART_NO . '<a href="' . zen_href_link('product_info', 'products_id=' . $product_id) . '">' . $products_model . '</a></div>
+    	        </div>';
+
+                $email_subject = EMAIL_QUESTION_SUBJECT;
+                $email_top_description = sprintf(EMAIL_QUESTION_TOP_DESCRIPTION, $products_model);
+                // mail send to customer
+                $html_msg ['EMAIL_MESSAGE_HTML'] = sprintf(EMAIL_QUESTION_MESSAGE_HTML . '<span style="color: grey;">###Ask a question###</span>', $email_top_description, $customer_name, $customers_question, '');
+
+                if ($_SESSION['auto_auth_code_display']['ask_questions'] > 0) {
+                    $_SESSION['auto_auth_code_display']['ask_questions'] += 1;
+                } else {
+                    $_SESSION['auto_auth_code_display']['ask_questions'] = 1;
+                }
+
+                zen_mail($customer_name, $customers_email, $email_subject, '', STORE_NAME, EMAIL_FROM, $html_msg, 'product_question');
+                // mail send to supplies
+                $html_msg ['CONTACT_US_OFFICE_FROM'] = "\n<span style='font-weight:bold;'>Email:</span><a href='mailto:" . $customers_email . "'>" . $customers_email . "</a>";
+                $extra_info = email_collect_extra_info($customer_name, $customers_email, $customers_loginname, $customers_email_address);
+                $html_msg ['EXTRA_INFO'] = $extra_info ['HTML'];
+                $html_msg ['EMAIL_MESSAGE_HTML'] = $str_product . "<br /><br />" . $customers_question . "<br />"  . '<span style="color: grey;">###Ask a question###</span>';
+                zen_mail('dorabeads-supplises', SALES_EMAIL_ADDRESS, $email_subject, '', $customer_name, $customers_email, $html_msg, 'contact_us', '', 'false');
+
+                if ($_SESSION['auto_auth_code_display']['ask_questions'] >= 3) {
+                    $return_arr['add_auth_code'] = true;
+                    $return_arr['add_content'] = '<tr id="auth_code_tr"><td style="vertical-align: middle;"><label>*</label>' . TEXT_VERIFY_NUMBER . ':</td><td class="textinput"><input type="text" class="pq_input_checkcode" style="width:80px;margin-right:20px;" /><img id="pq_check_code" src=""  onClick="this.src=\'./check_code.php?\'+Math.random();" style="top: 8px;position: relative;" /><p class="pq_error"></p></td></tr>';
+                }
+            }
+        }
+		
+		echo json_encode($return_arr);
+		exit;
+		break;
+	case 'splitpage' :
+		$page = $_POST['page'];
+		$pid = $_POST['pid'];
+		$_GET['page'] = $page;
+		
+		$reviews_query1 = "select r.customers_id, r.reviews_rating, r.customers_name, r.date_added, rd.reviews_text, rd.reviews_reply_text from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+                       where r.products_id = '" . (int)$pid . "'
+                       and r.reviews_id = rd.reviews_id
+		           	   and  rd.languages_id=" . (int)$_SESSION["languages_id"] ." ".
+				           	   $review_status .' order by r.reviews_id desc';
+		
+		$reviews_split = new splitPageResults($reviews_query1, 5, 'r.reviews_id');
+		$count = $reviews_split->number_of_rows;
+		$review_rate = round(zen_get_product_rating($pid));
+		$reviews_array = $db->Execute($reviews_split->sql_query);
+		while (!$reviews_array->EOF){			
+			$customer_reviews[]=array("reviews_rating"=> $reviews_array->fields['reviews_rating'],
+					'custormer_name'=>$reviews_array->fields['customers_name'],
+					'custormer_country' => zen_get_customer_country_name($reviews_array->fields['customers_id']),
+					'date_added'=>$reviews_array->fields['date_added'],
+					'reviews_text'=>$reviews_array->fields['reviews_text'],
+					'reviews_reply_text'=>$reviews_array->fields['reviews_reply_text']		
+			);
+		
+			$reviews_array->MoveNext();
+		}
+		
+		$review_list_html = '';
+		for($i = 0; $i < sizeof ( $customer_reviews ); $i ++) {
+			$str_gold_star = '';
+			$str_grey_star = '';
+			for($j = 0; $j < $customer_reviews [$i] ['reviews_rating']; $j ++) {
+				$str_gold_star .= '<ins class="gold"></ins>';
+			}
+			for($j = 0; $j < 5 - $customer_reviews [$i] ['reviews_rating']; $j ++) {
+				$str_grey_star .= '<ins class="grey"></ins>';
+			}
+			$str_replay = $customer_reviews [$i] ['reviews_reply_text'] != '' ? '<div class="reply"><strong>Reply : </strong>' . $customer_reviews [$i] ['reviews_reply_text'] . '</div>' : '';
+			$review_list_html .= '<dl class="reviewlist">
+								<dd>
+									<p class="reviewlevel" title="' . $customer_reviews [$i] ['reviews_rating'] . ' out of 5 stars">
+										' . $str_gold_star . $str_grey_star . '
+									</p>
+									<p><strong>' . $customer_reviews [$i] ['custormer_name'] . ', </strong>' . $customer_reviews [$i] ['custormer_country'] . '</p>
+									<p>' . date('M d, Y',strtotime($customer_reviews [$i] ['date_added'])) . '</p>
+								</dd>
+								<dt>
+									<div><span></span><p>' . $customer_reviews [$i] ['reviews_text'] . '</p></div>
+									' . $str_replay . '
+								</dt> 
+							</dl>';
+		}
+		$return_array['review_list_html'] = $review_list_html;
+		$return_array['review_split_html'] = $reviews_split->display_links_for_review(5, zen_get_all_get_params(array('page', 'info','x', 'y', 'main_page')));;
+		echo json_encode($return_array);
+		break;
+}
+?>

@@ -1,0 +1,78 @@
+@charset "utf-8";
+body,ul,li,dl,dd,dt,h1,h2,h3,h4,h5,h6,form,p,button,input,table,tr,td,h3{ padding:0; margin:0; font-size:13px;  color:#333;}
+h1,h2,h3,h4,h5{ font-size:1em; font-weight:normal; line-height:18px;}
+ins{ text-decoration:none;}
+em,i{ font-style:normal;}
+a{ color:#333; text-decoration:none;}
+ul,ol{ list-style-type:none;}
+input{ font-size:14px; outline:none; font-family:Arial, Helvetica, sans-serif;}
+img {border:0;}
+a { text-decoration:none;}
+
+.clearfix { clear:both;}
+.learn_wrap li{line-height:18px;}
+.learn_wrap .current{ color:#9a12a7; font-weight: bold;}
+.learn_wrap .learn_share{ display:block; height:30px;}
+.learn_wrap a:hover{ color:#9a12a7;}
+.learn_wrap{ padding-top:10px; width:1000px; margin:0 auto; font-family:Arial, Helvetica, sans-serif;}
+.learn_wrap .sidebar{ width:210px; float:left;}
+.learn_wrap .sidebar .menu{ border:1px solid #ccc;}
+.learn_wrap .sidebar .menu h3{ text-align:center; font-size:15px; padding:10px 0; font-weight:bold; border-bottom:1px solid #ccc;}
+.learn_wrap .sidebar .menu_cont h4{font-weight:bold; padding:10px;border-top:1px solid #ededed;}
+.learn_wrap .sidebar .menu_cont h4:fist-child{border-top: none;}
+.learn_wrap .sidebar .menu_cont ul{position:relative;}
+.learn_wrap .sidebar .menu_cont ul li a{ padding:6px 5px 6px 15px; display:block; width:180px;background:url(../images/small_bg.png) no-repeat -206px -40px;}
+.learn_wrap .sidebar .menu_cont ul li.more{ background: url(../images/small_bg.png) no-repeat scroll -206px -3px;padding:1px 0;display:inline-block; position:relative; }
+.learn_wrap .sidebar .menu_cont ul li.more.morehover { border-bottom:1px solid #ccc; border-top:1px solid #ccc;z-index:12; background-color:#FFF; color:#F0F;}
+.learn_wrap .sidebar .menu_cont ul li.more.morehover a{ z-index:200; background-color:#FFF; position:relative; color:#9a12a7;}
+.learn_wrap .sidebar .menu_cont .threemore { background-color:#FFF; width:400px; border:1px solid #ccc; padding:10px 15px;box-shadow:5px 5px  12px #cdcccc;
+ position:absolute;left:198px; top:-4px; z-index:1;}
+.learn_wrap .sidebar .menu_cont .threemore li{ float:left;}
+.learn_wrap .sidebar .menu_cont ul li.more.morehover .threemore a{ color:#333}
+.learn_wrap .sidebar .articles{border:1px solid #ccc; margin-top:20px;}
+.learn_wrap .sidebar .articles h3{ text-align:center; font-size:15px; padding:10px 0; font-weight:bold; border-bottom:1px solid #ccc; background-color:#f4f4f4;}
+.learn_wrap .sidebar .articles p{ padding:10px; border-top:1px  dotted #ededed;}
+.learn_wrap .sidebar .articles p:fist-child{border-top: none;}
+.learn_wrap .main_wrap{ width:760px; margin-left:20px; float:left;}
+.learn_wrap .main_wrap h3 ,.learn_wrap .project h3{font-size:15px; font-weight: bold; padding:5px 0 10px 0;}
+.learn_wrap .main_wrap p ,.learn_wrap .project p { padding:8px 0;}
+.learn_wrap .main_wrap .projects { padding-top:10px; overflow:hidden;}
+.learn_wrap .main_wrap .projects ul{ padding-top:10px;}
+.learn_wrap .main_wrap .projects li{ float:left; margin-left:10px;}
+.learn_wrap .main_wrap .projects li:first-child{ margin-left:0;}
+.learn_wrap .main_wrap .projects li p{ width:170px; padding:0 5px; text-align:center; height:36px;}
+.learn_wrap .main_wrap .projects li p:hover {color:#9a12a7;}
+.learn_wrap .main_wrap .projects img{ border:1px solid #ccc;}
+.learn_wrap .banner { width:758px; border:1px solid #ccc; height:280px;} 
+.learn_wrap .banner .lt_banner{ float:left; width:580px; height:280px;}
+.learn_wrap .banner .lt_banner img{width:580px; height:280px;}
+.learn_wrap .banner .rt_banner{float:right; height:300px; padding:0 14px}
+.learn_wrap .banner .rt_banner li:last-child{ padding-bottom:0px;}
+/* .learn_wrap .banner .rt_banner ul{ height:240px; overflow-y:hidden;} */
+.learn_wrap .banner .rt_banner li { padding-bottom:7px; width:147px; height:72px;}
+.learn_wrap .banner .rt_banner img {width:145px; height:70px;}
+.learn_wrap .banner .rt_banner li a { border:1px solid #ccc; margin:3px 0; display:block;}
+.learn_wrap .banner .rt_banner .current{ border:1px solid #9a12a7;}
+.learn_wrap .banner .rt_banner .arrowup{ display:block;  height:20px; background:url(../images/learn_icon.png) no-repeat 56px -49px;}
+.learn_wrap .banner .rt_banner .arrowdown{ display:block;  height:20px; background:url(../images/learn_icon.png) no-repeat 56px -78px;}
+.learn_wrap .project { width:660px;}
+.learn_wrap .project img{ max-width:660px;}
+.learn_wrap .course_wrap { padding-top:10px;}
+.learn_wrap .course_wrap_img  img:first-child{ border-top:none;}
+.learn_wrap .course_wrap_img  img{ border-top:1px dashed #ededed;}
+.learn_wrap .components {margin-top:10px;}
+.learn_wrap .components .title { float:left;}
+.learn_wrap .components .btn_violet { float:right; display:block;
+background:#c26ede;
+	font-size:13px; font-weight:bold;
+	background-image: -moz-linear-gradient(top, #c26ede, #b260cd); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c26ede), color-stop(1, #b260cd)); /* Saf4+, Chrome */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c26ede', endColorstr='#b260cd', GradientType='0'); /* IE*/	
+	background-image: -o-linear-gradient(top, #c26ede, #b260cd); /* Opera 11.10+ */
+	background-image:-ms-linear-gradient(top, #c26ede, #b260cd);/* IE10 */
+	background-repeat:repeat-x;
+border:1px solid #974baf; cursor:pointer; padding:0 20px; line-height:30px; font-size:14px; color:#FFF; font-weight:bold; border-radius:2px;}
+.learn_wrap .project2{}
+.learn_wrap .project2_lt{ float:left;}
+.learn_wrap .project2_rt{ float:left; margin-left:10px;}
+

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root module="welcome" date_generated="2020-04-16 12:37:04">
+  <languages_code>en</languages_code>
+  <from>
+    <from_email_name>DoreenBeads.com</from_email_name>
+    <from_email_address>notification@doreenbeads.com</from_email_address>
+  </from>
+  <to>
+    <to_name>1994</to_name>
+    <to_address>1994@qq.com</to_address>
+  </to>
+  <reply>
+    <reply_to_name>DoreenBeads.com</reply_to_name>
+    <reply_to_email>notification@doreenbeads.com</reply_to_email>
+  </reply>
+  <email_subject>Welcome to DoreenBeads.com</email_subject>
+  <email_text>Dear 1994
+
+,
+
+Thanks for registering in Doreenbeads.com. Your account on our website has been successfully created.the following is your account information:Registered email address:1994@qq.comPassword:h123456Kindly Note: please keep this email for your records. If you forgot your password in future, you can check and refer to this email then.You could enjoy the following benefits now.
+
+1. A special registration coupon with par value of USD 6.01 has been sent to your account. When the total product price reaches USD 30, you could Use it in the process of CHECKOUT.2. Get Single Order Discount Just place your orders freely; the discount will be taken at checkout automatically.Total Product Price(Only for regular-priced items)DiscountMore than US$ 493%More than US$ 1995%More than US$ 4998%More than US$ 99910%3. When the total amount of your previous orders is up to USD 200, our system will automatically add you to our VIP group. VIP discount will be applied according our VIP policy.4. Learn more about Payment Methods or Shipping.For help with any of our online service, please contact us by:1. Click "Live Chat" on our website main page;2. or Email us at sale@doreenbeads.comBest regards,
+Doreenbeads Team
+
+This email address was given to us by you or by one of our customers. If you did not signup for an account, or feel that you have received this email in error, please send an email to sale@doreenbeads.com 
+
+
+This email is sent in accordance with the US CAN-SPAM Law in effect 01/01/2004. Removal requests can be sent to this address and will be honored and respected.</email_text>
+  <email_html>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt; 
+&lt;base href="http://www.doreenbeadslocal.com/" /&gt;
+
+&lt;style type="text/css"&gt;
+.body {background-color:#ffffff; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif;}
+a:link {color:#0066cc;}
+a:hover {background-color:#eeeecc; color:#0066cc;}
+a:visited {color:#0066cc;}
+.holder { background-color: #f9f9f9; border: 1px #9a9a9a solid; font-size: 12px; text-align: left; width:550px;}
+.header {font-size:12px; padding:0px; width:550px;}
+.content {font-size:12px; padding:5px; width:550px;}
+.content-line {padding:5px;}
+.coupon-block { padding: 5px; border: 1px #cccccc solid; background-color: #FFFF99; }
+.coupon-code {font-weight:bold;}
+.gv-block { padding: 5px; border: 1px #cccccc solid; background-color: #99FF99; }
+.gv-code {font-weight:bold;}
+.footer { border-top: 1px #9a9a9a solid; font-size: 12px; margin-top: 10px; text-align: center; width: 550px; }
+.extra-info { background-color: #cccc99; border: 1px #9a9a9a solid; font-size: 12px; margin-top: 10px; padding: 5px; width: 550px; }
+.extra-info-bold {font-weight:bold;}
+.disclaimer { background-color: #f9f9f9; border: 1px #cccccc solid; font-size: 12px; margin-top: 10px; padding: 5px; width: 550px; }
+.disclaimer1 {color:#666666; padding:5px;}
+.disclaimer1 a:link {color:#666666;}
+.disclaimer1 a:visited {color:#666666;}
+.disclaimer2 { color: #666666; padding: 5px; }
+.copyright { border-bottom: 0px #9a9a9a solid; padding: 5px; }
+&lt;/style&gt;
+
+&lt;/head&gt;
+
+&lt;body class="body"&gt;
+&lt;div class="holder"&gt;
+
+  &lt;!-- Header Section --&gt;
+  &lt;div class="header"&gt;
+  &lt;a href="https://www.doreenbeads.com/crafts-resin-craft-c-1909_3029.html"&gt;&lt;img src="http://www.doreenbeadslocal.com/email/english/640X250en.jpg" alt="logo" border="0" /&gt;&lt;/a&gt;
+  &lt;!--&lt;img src="http://www.dorabeads.com/email/header.jpg" alt="logo" /&gt;--&gt;
+  &lt;/div&gt;
+
+
+  &lt;!-- Content Section --&gt;
+  &lt;div class="content"&gt;
+    &lt;div class="content-line"&gt;Dear 1994
+
+,
+
+&lt;/div&gt;
+    &lt;div class="content-line"&gt;Thanks for registering in Doreenbeads.com. Your account on our website has been successfully created.&lt;br/&gt;the following is your account information:&lt;/div&gt;
+&lt;!--The following only get populated if they're enabled! --&gt;
+
+
+&lt;!-- end gv/coupon section --&gt;
+&lt;!--jessa 2009-11-29 add the customer's email address--&gt;
+ &lt;div class="content-line"&gt;--------------------&lt;br /&gt;&lt;strong&gt;Registered email address:&lt;/strong&gt;1994@qq.com&lt;/div&gt;
+ &lt;!--&lt;div class="content-line"&gt;&lt;strong&gt;Password:&lt;/strong&gt;h123456&lt;br /&gt;--------------------&lt;/div&gt;
+ &lt;div class="content-line"&gt;&lt;span style="color:red;"&gt;&lt;b&gt;Kindly Note: &lt;/b&gt;&lt;/span&gt;please keep this email for your records. If you forgot your password in future, you can check and refer to this email then.&lt;/div&gt;&lt;br/&gt;--&gt;
+ &lt;div class="content-line"&gt;You could enjoy the following benefits now.&lt;/div&gt;
+&lt;!--eof jessa 2009-11-29--&gt;
+    &lt;div class="content-line"&gt;1. A special registration coupon with par value of &lt;span style="color:red"&gt;USD 6.01&lt;/span&gt; has been sent to your account. When the total product price reaches USD 30, you could Use it in the process of CHECKOUT.&lt;br/&gt;2. Get Single Order Discount &lt;br/&gt;Just place your orders freely; the discount will be taken at checkout automatically.&lt;br/&gt;&lt;br/&gt;&lt;table cellspacing="2" border="1px" cellpadding="2" style="BORDER-COLLAPSE: collapse;"&gt;&lt;tr style="background: #8CCDCF;"&gt;&lt;td style="width: 300px; height: 80px;"&gt;&lt;p style="font-weight: bold;"&gt;Total Product Price&lt;/p&gt;&lt;p&gt;(Only for regular-priced items)&lt;/p&gt;&lt;/td&gt;&lt;td style=" width: 100;font-weight: bold;"&gt;Discount&lt;/td&gt;&lt;/tr&gt;&lt;tr style=" height: 50px;"&gt;&lt;td&gt;More than US$ 49&lt;/td&gt;&lt;td&gt;3%&lt;/td&gt;&lt;/tr&gt;&lt;tr style=" height: 50px;"&gt;&lt;td&gt;More than US$ 199&lt;/td&gt;&lt;td&gt;5%&lt;/td&gt;&lt;/tr&gt;&lt;tr style=" height: 50px;"&gt;&lt;td&gt;More than US$ 499&lt;/td&gt;&lt;td&gt;8%&lt;/td&gt;&lt;/tr&gt;&lt;tr style=" height: 50px;"&gt;&lt;td&gt;More than US$ 999&lt;/td&gt;&lt;td&gt;10%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;3. When the total amount of your previous orders is up to USD 200, our system will automatically add you to our VIP group. VIP discount will be applied according our &lt;a href="https://www.doreenbeads.com/index.php?main_page=help_center&amp;id=65"&gt;VIP policy&lt;/a&gt;.&lt;br/&gt;4. Learn more about &lt;a href="http://www.doreenbeadslocal.com/index.php?main_page=help_center&amp;amp;id=15"&gt;Payment Methods&lt;/a&gt; or &lt;a href="http://www.doreenbeadslocal.com/index.php?main_page=help_center&amp;amp;id=181"&gt;Shipping.&lt;/a&gt;&lt;/div&gt;&lt;br/&gt;
+    &lt;div class="content-line"&gt;For help with any of our online service, please contact us by:&lt;br /&gt;1. Click "Live Chat" on our website &lt;a href="https://www.doreenbeads.com"&gt;main page&lt;/a&gt;;&lt;br /&gt;2. or Email us at &lt;a href="mailto:sale@doreenbeads.com"&gt;sale@doreenbeads.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&lt;br /&gt;&lt;br /&gt;Best regards,&lt;br /&gt;
+Doreenbeads Team&lt;/div&gt;
+  &lt;/div&gt; 
+&lt;/div&gt;
+ &lt;table border="0" cellpadding="0" cellspacing="0" height="1" style="margin-left: 0;margin-top: 10px;"&gt;&#13;
+					&lt;tr&gt;&#13;
+						&lt;td&gt;&lt;a href="http://eepurl.com/graJfv"&gt;&lt;img src="https://img.doreenbeads.com/promotion_photo/en/images/20190812/550X100en.jpg" alt="Subscribe to Our Newsletter Now"/&gt;&lt;/a&gt;&lt;/td&gt;&#13;
+					&lt;/tr&gt;&#13;
+				&#13;
+				&lt;/table&gt;
+  &lt;!-- Footer Section --&gt;
+  &lt;div class="footer"&gt;
+    &lt;div class="copyright"&gt;Copyright (c) 2020 &lt;a href="http://www.doreenbeadslocal.com/" target="_blank"&gt;DoreenBeads.com&lt;/a&gt;. Powered by &lt;a href="https://www.doreenbeads.com/" target="_blank"&gt;DoreenBeads&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;div class="disclaimer"&gt;
+  &lt;div class="disclaimer1"&gt;This email address was given to us by you or by one of our customers. If you did not signup for an account, or feel that you have received this email in error, please send an email to &lt;a href="mailto:sale@doreenbeads.com"&gt;sale@doreenbeads.com &lt;/a&gt; &lt;/div&gt;
+  &lt;div class="disclaimer2"&gt;This email is sent in accordance with the US CAN-SPAM Law in effect 01/01/2004. Removal requests can be sent to this address and will be honored and respected.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</email_html>
+</root>
